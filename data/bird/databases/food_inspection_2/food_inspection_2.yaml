@@ -1,0 +1,67 @@
+'[employee]':
+  '[address]': text
+  '[city]': text
+  '[employee_id]':
+    primary_key: true
+    type: integer
+  '[first_name]': text
+  '[last_name]': text
+  '[phone]': text
+  '[salary]': integer
+  '[state]': text
+  '[supervisor]':
+    foreign_key: '[employee].[employee_id]'
+    type: integer
+  '[title]': text
+  '[zip]': integer
+'[establishment]':
+  '[address]': text
+  '[aka_name]': text
+  '[city]': text
+  '[dba_name]': text
+  '[facility_type]': text
+  '[latitude]': real
+  '[license_no]':
+    primary_key: true
+    type: integer
+  '[longitude]': real
+  '[risk_level]': integer
+  '[state]': text
+  '[ward]': integer
+  '[zip]': integer
+'[inspection]':
+  '[employee_id]':
+    foreign_key: '[employee].[employee_id]'
+    type: integer
+  '[followup_to]':
+    foreign_key: '[inspection].[inspection_id]'
+    type: integer
+  '[inspection_date]': date
+  '[inspection_id]':
+    primary_key: true
+    type: integer
+  '[inspection_type]': text
+  '[license_no]':
+    foreign_key: '[establishment].[license_no]'
+    type: integer
+  '[results]': text
+'[inspection_point]':
+  '[category]': text
+  '[code]': text
+  '[description]': text
+  '[fine]': integer
+  '[point_id]':
+    primary_key: true
+    type: integer
+  '[point_level]': text
+'[violation]':
+  '[fine]': integer
+  '[inspection_id]':
+    foreign_key: '[inspection].[inspection_id]'
+    primary_key: true
+    type: integer
+  '[inspector_comment]': text
+  '[point_id]':
+    foreign_key: '[inspection_point].[point_id]'
+    primary_key: true
+    type: integer

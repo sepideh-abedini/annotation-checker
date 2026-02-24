@@ -1,0 +1,85 @@
+'[community_area]':
+  '[community_area_name]': text
+  '[community_area_no]':
+    primary_key: true
+    type: integer
+  '[population]': text
+  '[side]': text
+'[crime]':
+  '[arrest]': text
+  '[beat]': integer
+  '[block]': text
+  '[case_number]': text
+  '[community_area_no]':
+    foreign_key: '[community_area].[community_area_no]'
+    type: integer
+  '[date]': text
+  '[district_no]':
+    foreign_key: '[district].[district_no]'
+    type: integer
+  '[domestic]': text
+  '[fbi_code_no]':
+    foreign_key: '[fbi_code].[fbi_code_no]'
+    type: text
+  '[iucr_no]':
+    foreign_key: '[iucr].[iucr_no]'
+    type: text
+  '[latitude]': text
+  '[location_description]': text
+  '[longitude]': text
+  '[report_no]':
+    primary_key: true
+    type: integer
+  '[ward_no]':
+    foreign_key: '[ward].[ward_no]'
+    type: integer
+'[district]':
+  '[address]': text
+  '[commander]': text
+  '[district_name]': text
+  '[district_no]':
+    primary_key: true
+    type: integer
+  '[email]': text
+  '[fax]': text
+  '[phone]': text
+  '[tty]': text
+  '[twitter]': text
+  '[zip_code]': integer
+'[fbi_code]':
+  '[crime_against]': text
+  '[description]': text
+  '[fbi_code_no]':
+    primary_key: true
+    type: text
+  '[title]': text
+'[iucr]':
+  '[index_code]': text
+  '[iucr_no]':
+    primary_key: true
+    type: text
+  '[primary_description]': text
+  '[secondary_description]': text
+'[neighborhood]':
+  '[community_area_no]':
+    foreign_key: '[community_area].[community_area_no]'
+    type: integer
+  '[neighborhood_name]':
+    primary_key: true
+    type: text
+'[ward]':
+  '[alderman_first_name]': text
+  '[alderman_last_name]': text
+  '[alderman_name_suffix]': text
+  '[city_hall_office_fax]': text
+  '[city_hall_office_phone]': text
+  '[city_hall_office_room]': integer
+  '[population]': integer
+  '[ward_email]': text
+  '[ward_no]':
+    primary_key: true
+    type: integer
+  '[ward_office_address]': text
+  '[ward_office_fax]': text
+  '[ward_office_phone]': text
+  '[ward_office_zip]': text

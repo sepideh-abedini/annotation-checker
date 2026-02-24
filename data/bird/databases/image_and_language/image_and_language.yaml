@@ -1,0 +1,59 @@
+'[att_classes]':
+  '[att_class]': text
+  '[att_class_id]':
+    primary_key: true
+    type: integer
+'[img_obj]':
+  '[h]': integer
+  '[img_id]':
+    primary_key: true
+    type: integer
+  '[obj_class_id]':
+    foreign_key: '[obj_classes].[obj_class_id]'
+    type: integer
+  '[obj_sample_id]':
+    primary_key: true
+    type: integer
+  '[w]': integer
+  '[x]': integer
+  '[y]': integer
+'[img_obj_att]':
+  '[att_class_id]':
+    foreign_key: '[att_classes].[att_class_id]'
+    primary_key: true
+    type: integer
+  '[img_id]':
+    foreign_key: '[img_obj].[img_id]'
+    primary_key: true
+    type: integer
+  '[obj_sample_id]':
+    foreign_key: '[img_obj].[obj_sample_id]'
+    primary_key: true
+    type: integer
+'[img_rel]':
+  '[img_id]':
+    foreign_key: '[img_obj].[img_id]'
+    primary_key: true
+    type: integer
+  '[obj1_sample_id]':
+    foreign_key: '[img_obj].[obj_sample_id]'
+    primary_key: true
+    type: integer
+  '[obj2_sample_id]':
+    foreign_key: '[img_obj].[obj_sample_id]'
+    primary_key: true
+    type: integer
+  '[pred_class_id]':
+    foreign_key: '[pred_classes].[pred_class_id]'
+    primary_key: true
+    type: integer
+'[obj_classes]':
+  '[obj_class]': text
+  '[obj_class_id]':
+    primary_key: true
+    type: integer
+'[pred_classes]':
+  '[pred_class]': text
+  '[pred_class_id]':
+    primary_key: true
+    type: integer

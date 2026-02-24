@@ -1,0 +1,307 @@
+[
+    {
+        "idx": "bird_717",
+        "db_id": "airline",
+        "orig_db_id": "superhero",
+        "question": "Please list all the destinations of 1587. 1587 refers to op_carrier_fl_num = '1587'; destinations refers to dest",
+        "orig_question": "Please list all the superpowers of 3-D Man. 3-D Man refers to superhero_name = '3-D Man'; superpowers refers to power_name",
+        "orig_masked": "Please list all the [C31] of [V1]. [V1] refers to [C28] = '[V1]'; [C31] refers to [C31]; [V1] is a value of the column [C28]",
+        "evidence": "1587 refers to op_carrier_fl_num = '1587'; destinations refers to dest",
+        "orig_evidence": "3-D Man refers to superhero_name = '3-D Man'; superpowers refers to power_name",
+        "gold_schema_links": {
+            "op_carrier_fl_num": "COLUMN:[airlines].[op_carrier_fl_num]",
+            "destinations": "COLUMN:[airlines].[dest]",
+            "dest": "COLUMN:[airlines].[dest]"
+        },
+        "orig_gold_schema_links": {
+            "superhero_name": "COLUMN:[superhero].[superhero_name]",
+            "superpowers": "COLUMN:[superpower].[power_name]",
+            "power_name": "COLUMN:[superpower].[power_name]"
+        },
+        "gold_value_links": {
+            "1587": "[airlines].[op_carrier_fl_num]"
+        },
+        "orig_gold_value_links": {
+            "3-D Man": "[superhero].[superhero_name]"
+        },
+        "gold_sql": "SELECT DISTINCT dest FROM airlines WHERE op_carrier_fl_num = 1587",
+        "orig_gold_sql": "SELECT T3.power_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T2.power_id = T3.id WHERE T1.superhero_name = '3-D Man'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_725",
+        "db_id": "books",
+        "orig_db_id": "superhero",
+        "question": "How many books are published by Vintage?  published by Vintage refers to publisher_name = 'Vintage'",
+        "orig_question": "How many superheroes are published by Marvel Comics?  published by Marvel Comics refers to publisher_name = 'Marvel Comics'",
+        "orig_masked": "How many [T9] are [T7] by [V1]?  [T7] by [V1] refers to [C15] = '[V1]'; [V1] is a value of the column [C15]",
+        "evidence": "published by Vintage refers to publisher_name = 'Vintage'",
+        "orig_evidence": "published by Marvel Comics refers to publisher_name = 'Marvel Comics'",
+        "gold_schema_links": {
+            "books": "TABLE:[book]",
+            "published": "TABLE:[publisher]",
+            "publisher_name": "COLUMN:[publisher].[publisher_name]"
+        },
+        "orig_gold_schema_links": {
+            "superheroes": "TABLE:[superhero]",
+            "published": "TABLE:[publisher]",
+            "publisher_name": "COLUMN:[publisher].[publisher_name]"
+        },
+        "gold_value_links": {
+            "Vintage": "[publisher].[publisher_name]"
+        },
+        "orig_gold_value_links": {
+            "Marvel Comics": "[publisher].[publisher_name]"
+        },
+        "gold_sql": "SELECT COUNT(T1.book_id) FROM book AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.publisher_id WHERE T2.publisher_name = 'Vintage'",
+        "orig_gold_sql": "SELECT COUNT(T1.id) FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id WHERE T2.publisher_name = 'Marvel Comics'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_187",
+        "db_id": "sales",
+        "orig_db_id": "financial",
+        "question": "How many customers who choose statement of first name are 500?  Firstname = 'Aaron' refers to first name",
+        "orig_question": "How many clients who choose statement of weekly issuance are Owner?  Frequency = 'POPLATEK TYDNE' refers to weekly issuance",
+        "orig_masked": "How many [T1] who choose [C4] are [V2]?  [C4] = '[V1]' refers to [C4]; [V1] is a value of the column [C4]; [V2] is a value of the column [C16]",
+        "evidence": "Firstname = 'Aaron' refers to first name",
+        "orig_evidence": "Frequency = 'POPLATEK TYDNE' refers to weekly issuance",
+        "gold_schema_links": {
+            "first name": "COLUMN:[customers].[firstname]",
+            "customers": "TABLE:[customers]",
+            "Firstname": "COLUMN:[customers].[firstname]"
+        },
+        "orig_gold_schema_links": {
+            "weekly issuance": "COLUMN:[account].[frequency]",
+            "clients": "TABLE:[account]",
+            "Frequency": "COLUMN:[account].[frequency]",
+            "statement of weekly issuance": "COLUMN:[account].[frequency]"
+        },
+        "gold_value_links": {
+            "Aaron": "[customers].[firstname]",
+            "500": "[sales].[quantity]"
+        },
+        "orig_gold_value_links": {
+            "POPLATEK TYDNE": "[account].[frequency]",
+            "Owner": "[disp].[type]"
+        },
+        "gold_sql": "SELECT COUNT(T2.salesid) FROM customers AS T1 INNER JOIN sales AS T2 ON T2.customerid = T1.customerid WHERE T1.firstname = 'Aaron' AND T2.quantity = 500",
+        "orig_gold_sql": "SELECT COUNT(T2.account_id) FROM account AS T1 INNER JOIN disp AS T2 ON T2.account_id = T1.account_id WHERE T1.frequency = 'POPLATEK TYDNE' AND T2.type = 'OWNER'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_751",
+        "db_id": "movie_3",
+        "orig_db_id": "superhero",
+        "question": "List down at least five first names of English actors.  English refers to language.name = 'English'; first names refers to first_name;",
+        "orig_question": "List down at least five superpowers of male superheroes.  male refers to gender = 'Male'; superpowers refers to power_name;",
+        "orig_masked": "List down at least five [C31] of [V1] [T9].  [V1] refers to [C7] = '[V1]'; [C31] refers to [C31];; [V1] is a value of the column [C7]",
+        "evidence": "English-language refers to name = 'English'; first names refers to first_name;",
+        "orig_evidence": "male refers to gender = 'Male'; superpowers refers to power_name;",
+        "gold_schema_links": {
+            "first names": "COLUMN:[actor].[first_name]",
+            "actors": "TABLE:[actor]",
+            "language.name": "COLUMN:[language].[name]",
+            "first_name": "COLUMN:[actor].[first_name]"
+        },
+        "orig_gold_schema_links": {
+            "superpowers": "COLUMN:[superpower].[power_name]",
+            "superheroes": "TABLE:[superhero]",
+            "gender": "COLUMN:[gender].[gender]",
+            "power_name": "COLUMN:[superpower].[power_name]"
+        },
+        "gold_value_links": {
+            "English": "[language].[name]"
+        },
+        "orig_gold_value_links": {
+            "Male": "[gender].[gender]"
+        },
+        "gold_sql": "SELECT T3.first_name FROM film AS T1 INNER JOIN film_actor AS T2 ON T1.film_id = T2.film_id INNER JOIN actor AS T3 ON T3.actor_id = T2.actor_id INNER JOIN language AS T4 ON T4.language_id = T1.language_id WHERE T4.name = 'English' LIMIT 5",
+        "orig_gold_sql": "SELECT T3.power_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T3.id = T2.power_id INNER JOIN gender AS T4 ON T4.id = T1.gender_id WHERE T4.gender = 'Male' LIMIT 5",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_720",
+        "db_id": "olympics",
+        "orig_db_id": "superhero",
+        "question": "Please list the competitor ids of all the competitor events with over 5 medals.  5 medals refers to COUNT(competitor_id) > 5",
+        "orig_question": "Please list the full names of all the superheroes with over 15 super powers.  15 super powers refers to COUNT(full_name) > 15",
+        "orig_masked": "Please list the [C20] of all the [T9] with over [V1] [C13].  [V1] [C13] refers to COUNT([C20]) > [V1]; [V1] is a value of the column [C13]",
+        "evidence": "5 medals refers to COUNT(competitor_id) > 5",
+        "orig_evidence": "15 super powers refers to COUNT(full_name) > 15",
+        "gold_schema_links": {
+            "competitor ids": "COLUMN:[competitor_event].[competitor_id]",
+            "competitor events": "TABLE:[competitor_event]",
+            "medals": "COLUMN:[competitor_event].[medal_id]",
+            "competitor_id": "COLUMN:[competitor_event].[competitor_id]"
+        },
+        "orig_gold_schema_links": {
+            "full names": "COLUMN:[superhero].[full_name]",
+            "superheroes": "TABLE:[superhero]",
+            "super powers": "COLUMN:[hero_power].[power_id]",
+            "full_name": "COLUMN:[superhero].[full_name]"
+        },
+        "gold_value_links": {
+            "5": "[competitor_event].[medal_id]"
+        },
+        "orig_gold_value_links": {
+            "15": "[hero_power].[power_id]"
+        },
+        "gold_sql": "SELECT DISTINCT competitor_id FROM competitor_event GROUP BY competitor_id HAVING COUNT(medal_id) > 5",
+        "orig_gold_sql": "SELECT DISTINCT T1.full_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id GROUP BY T1.full_name HAVING COUNT(T2.power_id) > 15",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1147",
+        "db_id": "cookbook",
+        "orig_db_id": "european_football_2",
+        "question": "Please name one recipe whose total calories is the greatest. total calories is the greatest refers to MAX(calories)",
+        "orig_question": "Please name one player whose overall strength is the greatest. overall strength is the greatest refers to MAX(overall_rating)",
+        "orig_masked": "Please name one [T4] whose [C153] is the greatest. [C153] is the greatest refers to MAX([C153])",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "overall strength is the greatest refers to MAX(overall_rating)",
+        "gold_schema_links": {
+            "total calories": "COLUMN:[nutrition].[calories]",
+            "calories": "COLUMN:[nutrition].[calories]",
+            "recipe": "TABLE:[recipe]"
+        },
+        "orig_gold_schema_links": {
+            "overall strength": "COLUMN:[player_attributes].[overall_rating]",
+            "overall_rating": "COLUMN:[player_attributes].[overall_rating]",
+            "player": "TABLE:[player]"
+        },
+        "gold_value_links": {},
+        "orig_gold_value_links": {},
+        "gold_sql": "SELECT DISTINCT t1.title FROM recipe AS t1 INNER JOIN nutrition AS t2 ON t1.recipe_id = t2.recipe_id WHERE t2.calories = ( SELECT MAX(calories) FROM nutrition)",
+        "orig_gold_sql": "SELECT DISTINCT t1.player_name FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t2.overall_rating = ( SELECT MAX(overall_rating) FROM Player_Attributes)",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1155",
+        "db_id": "food_inspection",
+        "orig_db_id": "thrombosis_prediction",
+        "question": "List the address, city and name of businesses with score beyond normal range. score beyond normal range refers to score > '80';",
+        "orig_question": "List the patient ID, sex and birthday of patient with LDH beyond normal range. LDH beyond normal range refers to LDH > '500';",
+        "orig_masked": "List the [C63], [C64] and [C59] of [T3] with [C36] beyond [C36]. [C36] beyond [C36] refers to [C36] > '[V1]';; [V1] is a value of the column [C36]",
+        "evidence": "score beyond normal range refers to score > '80';",
+        "orig_evidence": "LDH beyond normal range refers to LDH > '500';",
+        "gold_schema_links": {
+            "address": "COLUMN:[businesses].[address]",
+            "city": "COLUMN:[businesses].[city]",
+            "name": "COLUMN:[businesses].[name]",
+            "score": "COLUMN:[inspections].[score]",
+            "businesses": "TABLE:[businesses]",
+            "normal range": "COLUMN:[inspections].[score]"
+        },
+        "orig_gold_schema_links": {
+            "patient ID": "COLUMN:[patient].[id]",
+            "birthday": "COLUMN:[patient].[birthday]",
+            "LDH": "COLUMN:[laboratory].[ldh]",
+            "normal range": "COLUMN:[laboratory].[ldh]",
+            "sex": "COLUMN:[patient].[sex]",
+            "patient": "TABLE:[patient]"
+        },
+        "gold_value_links": {
+            "80": "[inspections].[score]"
+        },
+        "orig_gold_value_links": {
+            "500": "[laboratory].[ldh]"
+        },
+        "gold_sql": "SELECT DISTINCT T1.address, T1.city, T1.name FROM businesses AS T1 INNER JOIN inspections AS T2 ON T1.business_id = T2.business_id WHERE T2.score > 80",
+        "orig_gold_sql": "SELECT DISTINCT T1.ID, T1.SEX, T1.Birthday FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.LDH > 500",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_190",
+        "db_id": "computer_student",
+        "orig_db_id": "financial",
+        "question": "How many students who were enrolled in course 10 stay in year 2? year 2 appears in the column yearsinprogram, which refers to the yearsinprogram.",
+        "orig_question": "How many clients who were born in 1920 stay in east Bohemia? East Bohemia appears in the column A3, which refers to the region.",
+        "orig_masked": "How many [T3] who were [C9] in [V2] [C25] in [V1]? [V1] appears in the column [C25], which refers to the [C25].; [V1] is a value of the column [C25]; [V2] is a value of the column [C9]",
+        "evidence": "year 2 appears in the column yearsinprogram, which refers to the yearsinprogram.",
+        "orig_evidence": "East Bohemia appears in the column A3, which refers to the region.",
+        "gold_schema_links": {
+            "enrolled": "COLUMN:[taughtby].[p_id]",
+            "students": "TABLE:[person]",
+            "yearsinprogram": "COLUMN:[person].[yearsinprogram]",
+            "stay": "COLUMN:[person].[yearsinprogram]"
+        },
+        "orig_gold_schema_links": {
+            "born": "COLUMN:[client].[birth_date]",
+            "A3": "COLUMN:[district].[a3]",
+            "clients": "TABLE:[client]",
+            "region": "COLUMN:[district].[a3]",
+            "stay": "COLUMN:[district].[a3]"
+        },
+        "gold_value_links": {
+            "course 10": "[taughtby].[course_id]",
+            "year 2": "[person].[yearsinprogram]"
+        },
+        "orig_gold_value_links": {
+            "1920": "[client].[birth_date]",
+            "east Bohemia": "[district].[a3]"
+        },
+        "gold_sql": "SELECT COUNT(T1.p_id) FROM person AS T1 INNER JOIN taughtby AS T2 ON T1.p_id = T2.p_id WHERE T2.course_id = 10 AND T1.yearsinprogram = 'Year_2'",
+        "orig_gold_sql": "SELECT COUNT(T1.client_id) FROM client AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id WHERE STRFTIME('%Y', T1.birth_date) = '1920' AND T2.A3 = 'east Bohemia'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1020",
+        "db_id": "music_tracker",
+        "orig_db_id": "european_football_2",
+        "question": "Which torrents has the highest totalsnatched? Indicate the id. highest totalsnatched refers to MAX(totalsnatched);",
+        "orig_question": "Which player has the highest overall rating? Indicate the player's api id. highest overall rating refers to MAX(overall_rating);",
+        "orig_masked": "Which [T5] has the highest [C153]? Indicate the [C155]. highest [C153] refers to MAX([C153]);",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "highest overall rating refers to MAX(overall_rating);",
+        "gold_schema_links": {
+            "totalsnatched": "COLUMN:[torrents].[totalsnatched]",
+            "id": "COLUMN:[torrents].[id]",
+            "torrents": "TABLE:[torrents]"
+        },
+        "orig_gold_schema_links": {
+            "overall rating": "COLUMN:[player_attributes].[overall_rating]",
+            "player's api id": "COLUMN:[player_attributes].[player_api_id]",
+            "player": "TABLE:[player_attributes]",
+            "overall_rating": "COLUMN:[player_attributes].[overall_rating]"
+        },
+        "gold_value_links": {},
+        "orig_gold_value_links": {},
+        "gold_sql": "SELECT id FROM torrents ORDER BY totalsnatched DESC LIMIT 1",
+        "orig_gold_sql": "SELECT player_api_id FROM Player_Attributes ORDER BY overall_rating DESC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_752",
+        "db_id": "video_games",
+        "orig_db_id": "superhero",
+        "question": "Give the name of the Action games.  Action games refers to genre_name = 'Action'; name of game refers to game_name;",
+        "orig_question": "Give the name of the alien superheroes.  alien superheroes refers to race = 'Alien'; name of superhero refers to superhero_name;",
+        "orig_masked": "Give the [C28] of the [V1] [T9].  [V1] [T9] refers to [C17] = '[V1]'; [C28] of [T9] refers to [C28];; [V1] is a value of the column [C17]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "alien superheroes refers to race = 'Alien'; name of superhero refers to superhero_name;",
+        "gold_schema_links": {
+            "name": "COLUMN:[game].[game_name]",
+            "game_name": "COLUMN:[game].[game_name]",
+            "games": "TABLE:[game]",
+            "genre_name": "COLUMN:[genre].[genre_name]",
+            "game": "TABLE:[game]"
+        },
+        "orig_gold_schema_links": {
+            "name": "COLUMN:[superhero].[superhero_name]",
+            "superheroes": "TABLE:[superhero]",
+            "race": "COLUMN:[race].[race]",
+            "superhero": "TABLE:[superhero]",
+            "superhero_name": "COLUMN:[superhero].[superhero_name]"
+        },
+        "gold_value_links": {
+            "Action": "[genre].[genre_name]"
+        },
+        "orig_gold_value_links": {
+            "Alien": "[race].[race]"
+        },
+        "gold_sql": "SELECT T1.game_name FROM game AS T1 INNER JOIN genre AS T2 ON T1.genre_id = T2.id WHERE T2.genre_name = 'Action'",
+        "orig_gold_sql": "SELECT T1.superhero_name FROM superhero AS T1 INNER JOIN race AS T2 ON T1.race_id = T2.id WHERE T2.race = 'Alien'",
+        "evidence_added": true
+    }
+]

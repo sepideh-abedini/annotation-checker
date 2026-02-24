@@ -1,0 +1,31 @@
+'[chapters]':
+  '[act]': integer
+  '[description]': text
+  '[id]':
+    primary_key: true
+    type: integer
+  '[scene]': integer
+  '[work_id]': integer
+'[characters]':
+  '[abbrev]': text
+  '[charname]': text
+  '[description]': text
+  '[id]':
+    primary_key: true
+    type: integer
+'[paragraphs]':
+  '[chapter_id]': integer
+  '[character_id]': integer
+  '[id]':
+    primary_key: true
+    type: integer
+  '[paragraphnum]': integer
+  '[plaintext]': text
+'[works]':
+  '[date]': integer
+  '[genretype]': text
+  '[id]':
+    primary_key: true
+    type: integer
+  '[longtitle]': text
+  '[title]': text

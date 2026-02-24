@@ -1,0 +1,69 @@
+'[customers]':
+  '[customer names]': text
+  '[customerid]':
+    primary_key: true
+    type: integer
+'[products]':
+  '[product name]': text
+  '[productid]':
+    primary_key: true
+    type: integer
+'[regions]':
+  '[region]': text
+  '[state]': text
+  '[statecode]':
+    primary_key: true
+    type: text
+'[sales orders]':
+  '[_customerid]':
+    foreign_key: '[customers].[customerid]'
+    type: integer
+  '[_productid]':
+    foreign_key: '[products].[productid]'
+    type: integer
+  '[_salesteamid]':
+    foreign_key: '[sales team].[salesteamid]'
+    type: integer
+  '[_storeid]':
+    foreign_key: '[store locations].[storeid]'
+    type: integer
+  '[currencycode]': text
+  '[deliverydate]': text
+  '[discount applied]': real
+  '[order quantity]': integer
+  '[orderdate]': text
+  '[ordernumber]':
+    primary_key: true
+    type: text
+  '[procureddate]': text
+  '[sales channel]': text
+  '[shipdate]': text
+  '[unit cost]': text
+  '[unit price]': text
+  '[warehousecode]': text
+'[sales team]':
+  '[region]': text
+  '[sales team]': text
+  '[salesteamid]':
+    primary_key: true
+    type: integer
+'[store locations]':
+  '[areacode]': integer
+  '[city name]': text
+  '[county]': text
+  '[household income]': integer
+  '[land area]': integer
+  '[latitude]': real
+  '[longitude]': real
+  '[median income]': integer
+  '[population]': integer
+  '[state]': text
+  '[statecode]':
+    foreign_key: '[regions].[statecode]'
+    type: text
+  '[storeid]':
+    primary_key: true
+    type: integer
+  '[time zone]': text
+  '[type]': text
+  '[water area]': integer

@@ -1,0 +1,95 @@
+[
+    {
+        "idx": "bird_1044",
+        "db_id": "european_football_2",
+        "question": "List the football players with a birthyear of 1970 and a birthmonth of October. players with a birthyear of 1970 and a birthmonth of October refers to substr(birthday,1,7) AS 'year-month',WHERE year = '1970' AND month = '10';",
+        "evidence": "players with a birthyear of 1970 and a birthmonth of October refers to substr(birthday,1,7) AS 'year-month',WHERE year = '1970' AND month = '10';",
+        "evidence_added": true,
+        "query": "SELECT player_name FROM Player WHERE SUBSTR(birthday, 1, 7) = '1970-10'",
+        "gold_value_links": {
+            "1970": "[player].[birthday]",
+            "10": "[player].[birthday]"
+        },
+        "gold_schema_links": {
+            "football players": "TABLE:[player]",
+            "birthyear": "COLUMN:[player].[birthday]",
+            "birthmonth": "COLUMN:[player].[birthday]",
+            "year": "COLUMN:[player].[birthday]",
+            "month": "COLUMN:[player].[birthday]",
+            "players": "TABLE:[player]",
+            "birthday": "COLUMN:[player].[birthday]",
+            "October": "COLUMN:[player].[birthday]"
+        }
+    },
+    {
+        "idx": "bird_1045",
+        "db_id": "european_football_2",
+        "question": "What is the attacking work rate of the football playerr Franco Zennaro? ",
+        "evidence": "",
+        "evidence_added": true,
+        "query": "SELECT DISTINCT t2.attacking_work_rate FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t1.player_name = 'Franco Zennaro'",
+        "gold_value_links": {
+            "Franco Zennaro": "[player].[player_name]"
+        },
+        "gold_schema_links": {
+            "attacking work rate": "COLUMN:[player_attributes].[attacking_work_rate]",
+            "football playerr": "TABLE:[player]"
+        }
+    },
+    {
+        "idx": "bird_744",
+        "db_id": "superhero",
+        "question": "Between DC and Marvel Comics, which publisher has published more superheroes? Find the difference in the number of superheroes they have published.  DC refers to publisher_name = 'DC Comics'; Marvel Comics refers to publisher_name = 'Marvel Comics'; calculation = SUBTRACT(SUM(publisher_name = 'Marvel Comics'), SUM(publisher_name = 'DC Comics'))",
+        "evidence": "DC refers to publisher_name = 'DC Comics'; Marvel Comics refers to publisher_name = 'Marvel Comics'; calculation = SUBTRACT(SUM(publisher_name = 'Marvel Comics'), SUM(publisher_name = 'DC Comics'))",
+        "evidence_added": true,
+        "query": "SELECT SUM(CASE WHEN T2.publisher_name = 'Marvel Comics' THEN 1 ELSE 0 END) - SUM(CASE WHEN T2.publisher_name = 'DC Comics' THEN 1 ELSE 0 END) FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id",
+        "gold_value_links": {
+            "Marvel Comics": "[publisher].[publisher_name]",
+            "DC Comics": "[publisher].[publisher_name]",
+            "DC": "[publisher].[publisher_name]"
+        },
+        "gold_schema_links": {
+            "publisher": "TABLE:[publisher]",
+            "published": "TABLE:[publisher]",
+            "superheroes": "TABLE:[superhero]",
+            "publisher_name": "COLUMN:[publisher].[publisher_name]"
+        }
+    },
+    {
+        "idx": "bird_743",
+        "db_id": "superhero",
+        "question": "What is the percentage of superheroes who act in their own self-interest or make decisions based on their own moral code? Indicate how many of the said superheroes were published by Marvel Comics. published by Marvel Comics refers to publisher_name = 'Marvel Comics'; superheroes who act in their own self-interest or make decisions based on their own moral code refers to alignment = 'Bad'; calculation = MULTIPLY(DIVIDE(SUM(alignment = 'Bad'); count(id)), 100)",
+        "evidence": "published by Marvel Comics refers to publisher_name = 'Marvel Comics'; superheroes who act in their own self-interest or make decisions based on their own moral code refers to alignment = 'Bad'; calculation = MULTIPLY(DIVIDE(SUM(alignment = 'Bad); count(id)), 100)",
+        "evidence_added": true,
+        "query": "SELECT (CAST(COUNT(*) AS REAL) * 100 / (SELECT COUNT(*) FROM superhero)), CAST(SUM(CASE WHEN T2.publisher_name = 'Marvel Comics' THEN 1 ELSE 0 END) AS REAL) FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id INNER JOIN alignment AS T3 ON T3.id = T1.alignment_id WHERE T3.alignment = 'Bad'",
+        "gold_value_links": {
+            "Bad": "[alignment].[alignment]",
+            "Marvel Comics": "[publisher].[publisher_name]",
+            "act in their own self-interest or make decisions based on their own moral code": "[alignment].[alignment]"
+        },
+        "gold_schema_links": {
+            "publisher_name": "COLUMN:[publisher].[publisher_name]",
+            "published": "TABLE:[publisher]",
+            "superheroes": "TABLE:[superhero]",
+            "alignment": "COLUMN:[alignment].[alignment]",
+            "id": "COLUMN:[alignment].[id]"
+        }
+    },
+    {
+        "idx": "bird_785",
+        "db_id": "superhero",
+        "question": "Describe the names of neutral alignment superheroes.  names of superheroes refers to superhero_name; neutral alignment refers to alignment = 'Neutral';",
+        "evidence": "names of superheroes refers to superhero_name; neutral alignment refers to alignment = 'Neutral';",
+        "evidence_added": true,
+        "query": "SELECT T1.superhero_name FROM superhero AS T1 INNER JOIN alignment AS T2 ON T1.alignment_id = T2.id WHERE T2.alignment = 'Neutral'",
+        "gold_value_links": {
+            "Neutral": "[alignment].[alignment]"
+        },
+        "gold_schema_links": {
+            "names": "COLUMN:[superhero].[superhero_name]",
+            "alignment": "COLUMN:[alignment].[alignment]",
+            "superheroes": "TABLE:[superhero]",
+            "superhero_name": "COLUMN:[superhero].[superhero_name]"
+        }
+    }
+]

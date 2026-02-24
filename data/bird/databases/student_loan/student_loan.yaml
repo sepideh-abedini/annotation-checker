@@ -1,0 +1,56 @@
+'[bool]':
+  '[name]':
+    primary_key: true
+    type: text
+'[disabled]':
+  '[name]':
+    foreign_key: '[person].[name]'
+    primary_key: true
+    type: text
+'[enlist]':
+  '[name]':
+    foreign_key: '[person].[name]'
+    type: text
+  '[organ]': text
+'[enrolled]':
+  '[month]': integer
+  '[name]':
+    foreign_key: '[person].[name]'
+    primary_key: true
+    type: text
+  '[school]':
+    primary_key: true
+    type: text
+'[filed_for_bankrupcy]':
+  '[name]':
+    foreign_key: '[person].[name]'
+    primary_key: true
+    type: text
+'[longest_absense_from_school]':
+  '[month]': integer
+  '[name]':
+    foreign_key: '[person].[name]'
+    primary_key: true
+    type: text
+'[male]':
+  '[name]':
+    foreign_key: '[person].[name]'
+    primary_key: true
+    type: text
+'[no_payment_due]':
+  '[bool]':
+    foreign_key: '[bool].[name]'
+    type: text
+  '[name]':
+    foreign_key: '[person].[name]'
+    primary_key: true
+    type: text
+'[person]':
+  '[name]':
+    primary_key: true
+    type: text
+'[unemployed]':
+  '[name]':
+    foreign_key: '[person].[name]'
+    primary_key: true
+    type: text

@@ -1,0 +1,109 @@
+'[address]':
+  '[address_id]':
+    primary_key: true
+    type: integer
+  '[city]': text
+  '[country_id]':
+    foreign_key: '[country].[country_id]'
+    type: integer
+  '[street_name]': text
+  '[street_number]': text
+'[address_status]':
+  '[address_status]': text
+  '[status_id]':
+    primary_key: true
+    type: integer
+'[author]':
+  '[author_id]':
+    primary_key: true
+    type: integer
+  '[author_name]': text
+'[book]':
+  '[book_id]':
+    primary_key: true
+    type: integer
+  '[isbn13]': text
+  '[language_id]':
+    foreign_key: '[book_language].[language_id]'
+    type: integer
+  '[num_pages]': integer
+  '[publication_date]': date
+  '[publisher_id]':
+    foreign_key: '[publisher].[publisher_id]'
+    type: integer
+  '[title]': text
+'[book_author]':
+  '[author_id]':
+    foreign_key: '[author].[author_id]'
+    primary_key: true
+    type: integer
+  '[book_id]':
+    foreign_key: '[book].[book_id]'
+    primary_key: true
+    type: integer
+'[book_language]':
+  '[language_code]': text
+  '[language_id]':
+    primary_key: true
+    type: integer
+  '[language_name]': text
+'[country]':
+  '[country_id]':
+    primary_key: true
+    type: integer
+  '[country_name]': text
+'[cust_order]':
+  '[customer_id]': integer
+  '[dest_address_id]': integer
+  '[order_date]': datetime
+  '[order_id]':
+    primary_key: true
+    type: integer
+  '[shipping_method_id]': integer
+'[customer]':
+  '[customer_id]':
+    primary_key: true
+    type: integer
+  '[email]': text
+  '[first_name]': text
+  '[last_name]': text
+'[customer_address]':
+  '[address_id]':
+    foreign_key: '[address].[address_id]'
+    primary_key: true
+    type: integer
+  '[customer_id]':
+    foreign_key: '[customer].[customer_id]'
+    primary_key: true
+    type: integer
+  '[status_id]': integer
+'[order_history]':
+  '[history_id]':
+    primary_key: true
+    type: integer
+  '[order_id]': integer
+  '[status_date]': datetime
+  '[status_id]': integer
+'[order_line]':
+  '[book_id]': integer
+  '[line_id]':
+    primary_key: true
+    type: integer
+  '[order_id]': integer
+  '[price]': real
+'[order_status]':
+  '[status_id]':
+    primary_key: true
+    type: integer
+  '[status_value]': text
+'[publisher]':
+  '[publisher_id]':
+    primary_key: true
+    type: integer
+  '[publisher_name]': text
+'[shipping_method]':
+  '[cost]': real
+  '[method_id]':
+    primary_key: true
+    type: integer
+  '[method_name]': text

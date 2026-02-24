@@ -1,0 +1,34 @@
+'[country]':
+  '[country]': text
+  '[origin]':
+    primary_key: true
+    type: integer
+'[data]':
+  '[acceleration]': real
+  '[car_name]': text
+  '[cylinders]': integer
+  '[displacement]': real
+  '[horsepower]': integer
+  '[id]':
+    foreign_key: '[price].[id]'
+    primary_key: true
+    type: integer
+  '[model]': integer
+  '[mpg]': real
+  '[weight]': integer
+'[price]':
+  '[id]':
+    primary_key: true
+    type: integer
+  '[price]': real
+'[production]':
+  '[country]':
+    foreign_key: '[country].[origin]'
+    type: integer
+  '[id]':
+    foreign_key: '[data].[id]'
+    primary_key: true
+    type: integer
+  '[model_year]':
+    primary_key: true
+    type: integer

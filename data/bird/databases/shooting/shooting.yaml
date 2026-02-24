@@ -1,0 +1,29 @@
+'[incidents]':
+  '[case_number]':
+    primary_key: true
+    type: text
+  '[date]': date
+  '[location]': text
+  '[officers]': text
+  '[subject_count]': integer
+  '[subject_statuses]': text
+  '[subject_weapon]': text
+  '[subjects]': text
+'[officers]':
+  '[case_number]':
+    foreign_key: '[incidents].[case_number]'
+    type: text
+  '[first_name]': text
+  '[full_name]': text
+  '[gender]': text
+  '[last_name]': text
+  '[race]': text
+'[subjects]':
+  '[case_number]':
+    foreign_key: '[incidents].[case_number]'
+    type: text
+  '[first_name]': text
+  '[full_name]': text
+  '[gender]': text
+  '[last_name]': text
+  '[race]': text

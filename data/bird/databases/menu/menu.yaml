@@ -1,0 +1,63 @@
+'[dish]':
+  '[description]': text
+  '[first_appeared]': integer
+  '[highest_price]': real
+  '[id]':
+    primary_key: true
+    type: integer
+  '[last_appeared]': integer
+  '[lowest_price]': real
+  '[menus_appeared]': integer
+  '[name]': text
+  '[times_appeared]': integer
+'[menu]':
+  '[call_number]': text
+  '[currency]': text
+  '[currency_symbol]': text
+  '[date]': date
+  '[dish_count]': integer
+  '[event]': text
+  '[id]':
+    primary_key: true
+    type: integer
+  '[keywords]': text
+  '[language]': text
+  '[location]': text
+  '[location_type]': text
+  '[name]': text
+  '[notes]': text
+  '[occasion]': text
+  '[page_count]': integer
+  '[physical_description]': text
+  '[place]': text
+  '[sponsor]': text
+  '[status]': text
+  '[venue]': text
+'[menuitem]':
+  '[created_at]': text
+  '[dish_id]':
+    foreign_key: '[dish].[id]'
+    type: integer
+  '[high_price]': real
+  '[id]':
+    primary_key: true
+    type: integer
+  '[menu_page_id]':
+    foreign_key: '[menupage].[id]'
+    type: integer
+  '[price]': real
+  '[updated_at]': text
+  '[xpos]': real
+  '[ypos]': real
+'[menupage]':
+  '[full_height]': integer
+  '[full_width]': integer
+  '[id]':
+    primary_key: true
+    type: integer
+  '[image_id]': real
+  '[menu_id]':
+    foreign_key: '[menu].[id]'
+    type: integer
+  '[page_number]': integer
+  '[uuid]': text

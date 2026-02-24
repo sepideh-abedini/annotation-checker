@@ -1,0 +1,33 @@
+'[employee]':
+  '[firstname]': text
+  '[gender]': text
+  '[hiredate]': text
+  '[lastname]': text
+  '[locationid]':
+    foreign_key: '[location].[locationid]'
+    type: integer
+  '[performance]': text
+  '[positionid]':
+    foreign_key: '[position].[positionid]'
+    type: integer
+  '[salary]': text
+  '[ssn]':
+    primary_key: true
+    type: text
+'[location]':
+  '[address]': text
+  '[locationcity]': text
+  '[locationid]':
+    primary_key: true
+    type: integer
+  '[officephone]': text
+  '[state]': text
+  '[zipcode]': integer
+'[position]':
+  '[educationrequired]': text
+  '[maxsalary]': text
+  '[minsalary]': text
+  '[positionid]':
+    primary_key: true
+    type: integer
+  '[positiontitle]': text

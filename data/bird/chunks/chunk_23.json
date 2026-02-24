@@ -1,0 +1,266 @@
+[
+    {
+        "idx": "bird_1230",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "thrombosis_prediction",
+        "question": "<QUESTION>",
+        "orig_question": "List all outpatient within normal range of creatinine phosphokinase. Give me the distinct ids. outpatient refers to Admission = '-'; normal range of creatinine phosphokinase refers to CPK < 250;",
+        "orig_masked": "List all [C58] [C20] of [C20]. Give me the distinct [C63]. [C58] refers to [C58] = '[V2]'; [C20] of [C20] refers to [C20] < [V1];; [V1] is a value of the column [C20]; [V2] is a value of the column [C58]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "outpatient refers to Admission = '-'; normal range of creatinine phosphokinase refers to CPK < 250;",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "creatinine phosphokinase": "COLUMN:[laboratory].[cpk]",
+            "Admission": "COLUMN:[patient].[admission]",
+            "outpatient": "COLUMN:[patient].[admission]",
+            "CPK": "COLUMN:[laboratory].[cpk]",
+            "normal range": "COLUMN:[laboratory].[cpk]",
+            "within normal range": "COLUMN:[laboratory].[cpk]",
+            "ids": "COLUMN:[patient].[id]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "250": "[laboratory].[cpk]",
+            "-": "[patient].[admission]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT DISTINCT T1.ID FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.CPK < 250 AND T1.Admission = '-'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_781",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "Provide the heights of the heroes whose eye colours are amber.  heights of the heroes refers to height_cm; eye colours are amber refers to colour.colour = 'Amber' WHERE eye_colour_id = colour.id;",
+        "orig_masked": "Provide the [C23] of the [T9] whose [C19] are [V1].  [C23] of the [T9] refers to [C23]; [C19] are [V1] refers to [C5] = '[V1]' WHERE [C19] = [C6];; [V1] is a value of the column [C5]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "heights of the heroes refers to height_cm; eye colours are amber refers to colour.colour = 'Amber' WHERE eye_colour_id = colour.id;",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "heights": "COLUMN:[superhero].[height_cm]",
+            "heroes": "TABLE:[superhero]",
+            "eye colours": "COLUMN:[superhero].[eye_colour_id]",
+            "height_cm": "COLUMN:[superhero].[height_cm]",
+            "eye_colour_id": "COLUMN:[superhero].[eye_colour_id]",
+            "colour.colour": "COLUMN:[colour].[colour]",
+            "colour.id": "COLUMN:[colour].[id]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Amber": "[colour].[colour]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T1.height_cm FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id WHERE T2.colour = 'Amber'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1052",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "Among all the players whose weight is under 130, how many of them preferred foot in attacking is left? weight < 130; preferred foot in attacking refers to preferred_foot; preferred_foot = 'left';",
+        "orig_masked": "Among all the [T4] whose [C127] is under [V2], how many of them [C159] is [V1]? [C127] < [V2]; [C159] refers to [C159]; [C159] = '[V1]';; [V1] is a value of the column [C159]; [V2] is a value of the column [C127]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "weight < 130; preferred foot in attacking refers to preferred_foot; preferred_foot = 'left';",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "players": "TABLE:[player]",
+            "weight": "COLUMN:[player].[weight]",
+            "preferred foot in attacking": "COLUMN:[player_attributes].[preferred_foot]",
+            "preferred_foot": "COLUMN:[player_attributes].[preferred_foot]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "130": "[player].[weight]",
+            "left": "[player_attributes].[preferred_foot]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(DISTINCT t1.id) FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t1.weight < 130 AND t2.preferred_foot = 'left'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_816",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "Provide the names of superheroes with attribute value between 75 to 80.  names of superheroes refers to superhero_name; attribute value between 75 to 80 refers to attribute_value BETWEEN 75 AND 80;",
+        "orig_masked": "Provide the [C28] of [T9] with [C10] between [V1] to [V2].  [C28] of [T9] refers to [C28]; [C10] between [V1] to [V2] refers to [C10] BETWEEN [V1] AND [V2];; [V1] is a value of the column [C10]; [V2] is a value of the column [C10]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "names of superheroes refers to superhero_name; attribute value between 75 to 80 refers to attribute_value BETWEEN 75 AND 80;",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "names": "COLUMN:[superhero].[superhero_name]",
+            "superheroes": "TABLE:[superhero]",
+            "attribute value": "COLUMN:[hero_attribute].[attribute_value]",
+            "superhero_name": "COLUMN:[superhero].[superhero_name]",
+            "attribute_value": "COLUMN:[hero_attribute].[attribute_value]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "75": "[hero_attribute].[attribute_value]",
+            "80": "[hero_attribute].[attribute_value]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T1.superhero_name FROM superhero AS T1 INNER JOIN hero_attribute AS T2 ON T1.id = T2.hero_id WHERE T2.attribute_value BETWEEN 75 AND 80",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1074",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "List all the short name of the football team that had a home team goal of 10? short name of the football team refers to team_short_name; home team goal refers to home_team_goal; home_team_goal = 10;",
+        "orig_masked": "List all the [C174] of the [T6] that had a [C94] of [V1]? [C174] of the [T6] refers to [C174]; [C94] refers to [C94]; [C94] = [V1];; [V1] is a value of the column [C94]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "short name of the football team refers to team_short_name; home team goal refers to home_team_goal; home_team_goal = 10;",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "short name": "COLUMN:[team].[team_short_name]",
+            "football team": "TABLE:[team]",
+            "home team goal": "COLUMN:[match].[home_team_goal]",
+            "team_short_name": "COLUMN:[team].[team_short_name]",
+            "home_team_goal": "COLUMN:[match].[home_team_goal]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "10": "[match].[home_team_goal]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT t1.team_short_name FROM Team AS t1 INNER JOIN Match AS t2 ON t1.team_api_id = t2.home_team_api_id WHERE t2.home_team_goal = 10",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_100",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "Among the account opened, how many female customers who were born before 1950 and stayed in Sokolov? Customers refer to clients; Female refers to gender = 'F'; Names of districts appear in column A2",
+        "orig_masked": "Among the [T1], how many [C12] [T3] who were [C9] before [V2] and stayed in [V1]? [T3] refer to [T3]; [C12] refers to [C12] = '[V3]'; [C24] appear in column [C24]; [V1] is a value of the column [C24]; [V2] is a value of the column [C9]; [V3] is a value of the column [C12]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Customers refer to clients; Female refers to gender = 'F'; Names of districts appear in column A2",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "born": "COLUMN:[client].[birth_date]",
+            "customers": "TABLE:[client]",
+            "A2": "COLUMN:[district].[a2]",
+            "clients": "TABLE:[client]",
+            "account opened": "TABLE:[account]",
+            "gender": "COLUMN:[client].[gender]",
+            "female": "COLUMN:[client].[gender]",
+            "Names of districts": "COLUMN:[district].[a2]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Sokolov": "[district].[a2]",
+            "F": "[client].[gender]",
+            "1950": "[client].[birth_date]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(T2.client_id) FROM district AS T1 INNER JOIN client AS T2 ON T1.district_id = T2.district_id WHERE T2.gender = 'F' AND STRFTIME('%Y', T2.birth_date) < '1950' AND T1.A2 = 'Sokolov'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1146",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "Please provide the full name of the away team that scored the most goals. full name refers to team_long_name; away team refers to away_team_api_id; scored the most goals refers to MAX(away_team_goal)",
+        "orig_masked": "Please provide the [C173] of the [C39] that [C40]. [C173] refers to [C173]; [C39] refers to [C39]; [C40] refers to MAX([C40])",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "full name refers to team_long_name; away team refers to away_team_api_id; scored the most goals refers to MAX(away_team_goal)",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "away_team_api_id": "COLUMN:[match].[away_team_api_id]",
+            "team_long_name": "COLUMN:[team].[team_long_name]",
+            "away_team_goal": "COLUMN:[match].[away_team_goal]",
+            "scored the most goals": "COLUMN:[match].[away_team_goal]",
+            "full name": "COLUMN:[team].[team_long_name]",
+            "away team": "COLUMN:[match].[away_team_api_id]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {},
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT t2.team_long_name FROM Match AS t1 INNER JOIN Team AS t2 ON t1.away_team_api_id = t2.team_api_id ORDER BY t1.away_team_goal DESC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1067",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "Which teams have build up play passing more than 70? Please list their short names. build up play passing refers to buildUpPlayPassing; buildUpPlayPassing > 70; short names refers to team_short_name;",
+        "orig_masked": "Which [T6] have [C177] more than [V1]? Please list their [C174]. [C177] refers to [C177]; [C177] > [V1]; [C174] refers to [C174];; [V1] is a value of the column [C177]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "build up play passing refers to buildUpPlayPassing; buildUpPlayPassing > 70; short names refers to team_short_name;",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "teams": "TABLE:[team]",
+            "build up play passing": "COLUMN:[team_attributes].[buildupplaypassing]",
+            "short names": "COLUMN:[team].[team_short_name]",
+            "buildUpPlayPassing": "COLUMN:[team_attributes].[buildupplaypassing]",
+            "team_short_name": "COLUMN:[team].[team_short_name]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "70": "[team_attributes].[buildupplaypassing]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT DISTINCT t1.team_short_name FROM Team AS t1 INNER JOIN Team_Attributes AS t2 ON t1.team_api_id = t2.team_api_id WHERE t2.buildUpPlayPassing > 70",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_729",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "What is the average height of the superheroes from Marvel Comics?  superheroes from Marvel Comics refers to publisher_name = 'Marvel Comics'; average height of the superheroes refers to AVG(height_cm)",
+        "orig_masked": "What is the average [C23] of the [T9] from [V1]?  [T9] from [V1] refers to [C15] = '[V1]'; average [C23] of the [T9] refers to AVG([C23]); [V1] is a value of the column [C15]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "superheroes from Marvel Comics refers to publisher_name = 'Marvel Comics'; average height of the superheroes refers to AVG(height_cm)",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "height": "COLUMN:[superhero].[height_cm]",
+            "superheroes": "TABLE:[superhero]",
+            "publisher_name": "COLUMN:[publisher].[publisher_name]",
+            "height_cm": "COLUMN:[superhero].[height_cm]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Marvel Comics": "[publisher].[publisher_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT AVG(T1.height_cm) FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id WHERE T2.publisher_name = 'Marvel Comics'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1030",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "Give the name of the league had the most matches end as draw in the 2016 season? most matches end as draw refers to MAX(SUM(home_team_goal = away_team_goal)); 2016 season refers to season = '2015/2016';",
+        "orig_masked": "Give the [C5] of the [T2] had the most [C94],[C40] in the [C108] [C108]? most [C94],[C40] refers to MAX(SUM([C94] = [C40])); [C108] [C108] refers to [C108] = '[V1]';; [V1] is a value of the column [C108]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "most matches end as draw refers to MAX(SUM(home_team_goal = away_team_goal)); 2016 season refers to season = '2015/2016';",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "name": "COLUMN:[league].[name]",
+            "league": "TABLE:[league]",
+            "matches end as draw": [
+                "COLUMN:[match].[home_team_goal]",
+                "COLUMN:[match].[away_team_goal]"
+            ],
+            "season": "COLUMN:[match].[season]",
+            "home_team_goal": "COLUMN:[match].[home_team_goal]",
+            "away_team_goal": "COLUMN:[match].[away_team_goal]",
+            "2016": "COLUMN:[match].[season]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "2015/2016": "[match].[season]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT t2.name FROM Match AS t1 INNER JOIN League AS t2 ON t1.league_id = t2.id WHERE t1.season = '2015/2016' AND t1.home_team_goal = t1.away_team_goal GROUP BY t2.name ORDER BY COUNT(t1.id) DESC LIMIT 1",
+        "evidence_added": true
+    }
+]

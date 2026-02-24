@@ -1,0 +1,114 @@
+'[authors]':
+  '[address]': text
+  '[au_fname]': text
+  '[au_id]':
+    primary_key: true
+    type: text
+  '[au_lname]': text
+  '[city]': text
+  '[contract]': text
+  '[phone]': text
+  '[state]': text
+  '[zip]': text
+'[discounts]':
+  '[discount]': real
+  '[discounttype]': text
+  '[highqty]': integer
+  '[lowqty]': integer
+  '[stor_id]':
+    foreign_key: '[stores].[stor_id]'
+    type: text
+'[employee]':
+  '[emp_id]':
+    primary_key: true
+    type: text
+  '[fname]': text
+  '[hire_date]': datetime
+  '[job_id]':
+    foreign_key: '[jobs].[job_id]'
+    type: integer
+  '[job_lvl]': integer
+  '[lname]': text
+  '[minit]': text
+  '[pub_id]':
+    foreign_key: '[publishers].[pub_id]'
+    type: text
+'[jobs]':
+  '[job_desc]': text
+  '[job_id]':
+    primary_key: true
+    type: integer
+  '[max_lvl]': integer
+  '[min_lvl]': integer
+'[pub_info]':
+  '[logo]': blob
+  '[pr_info]': text
+  '[pub_id]':
+    foreign_key: '[publishers].[pub_id]'
+    primary_key: true
+    type: text
+'[publishers]':
+  '[city]': text
+  '[country]': text
+  '[pub_id]':
+    primary_key: true
+    type: text
+  '[pub_name]': text
+  '[state]': text
+'[roysched]':
+  '[hirange]': integer
+  '[lorange]': integer
+  '[royalty]': integer
+  '[title_id]':
+    foreign_key: '[titles].[title_id]'
+    type: text
+'[sales]':
+  '[ord_date]': datetime
+  '[ord_num]':
+    primary_key: true
+    type: text
+  '[payterms]': text
+  '[qty]': integer
+  '[stor_id]':
+    foreign_key: '[stores].[stor_id]'
+    primary_key: true
+    type: text
+  '[title_id]':
+    foreign_key: '[titles].[title_id]'
+    primary_key: true
+    type: text
+'[stores]':
+  '[city]': text
+  '[state]': text
+  '[stor_address]': text
+  '[stor_id]':
+    primary_key: true
+    type: text
+  '[stor_name]': text
+  '[zip]': text
+'[titleauthor]':
+  '[au_id]':
+    foreign_key: '[authors].[au_id]'
+    primary_key: true
+    type: text
+  '[au_ord]': integer
+  '[royaltyper]': integer
+  '[title_id]':
+    foreign_key: '[titles].[title_id]'
+    primary_key: true
+    type: text
+'[titles]':
+  '[advance]': real
+  '[notes]': text
+  '[price]': real
+  '[pub_id]':
+    foreign_key: '[publishers].[pub_id]'
+    type: text
+  '[pubdate]': datetime
+  '[royalty]': integer
+  '[title]': text
+  '[title_id]':
+    primary_key: true
+    type: text
+  '[type]': text
+  '[ytd_sales]': integer

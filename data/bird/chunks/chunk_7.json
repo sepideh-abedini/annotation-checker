@@ -1,0 +1,249 @@
+[
+    {
+        "idx": "bird_154",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "How many male clients in 'Hl.m. Praha' district?  District data appears in the A2; Male means that gender = 'M'",
+        "orig_masked": "How many [C12] [T3] in '[V1]' [T5]?  [T5] data appears in the [C24]; [C12] means that [C12] = '[V2]'; [V1] is a value of the column [C24]; [V2] is a value of the column [C12]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "District data appears in the A2; Male means that gender = 'M'",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "male": "COLUMN:[client].[gender]",
+            "clients": "TABLE:[client]",
+            "A2": "COLUMN:[district].[a2]",
+            "gender": "COLUMN:[client].[gender]",
+            "district": "TABLE:[district]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "M": "[client].[gender]",
+            "Hl.m. Praha": "[district].[a2]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(T1.client_id) FROM client AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id WHERE T1.gender = 'M' AND T2.A2 = 'Hl.m. Praha'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1077",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "What's the long name for the team GEN? long name for the team refers to team_long_name; team_short_name = 'GEN';",
+        "orig_masked": "What's the [C173] for the [T6] [V1]? [C173] for the [T6] refers to [C173]; [C174] = '[V1]';; [V1] is a value of the column [C174]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "long name for the team refers to team_long_name; team_short_name = 'GEN';",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "long name": "COLUMN:[team].[team_long_name]",
+            "team": "TABLE:[team]",
+            "team_long_name": "COLUMN:[team].[team_long_name]",
+            "team_short_name": "COLUMN:[team].[team_short_name]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "GEN": "[team].[team_short_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT team_long_name FROM Team WHERE team_short_name = 'GEN'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1184",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "thrombosis_prediction",
+        "question": "<QUESTION>",
+        "orig_question": "For the patient whose birthday was 1959/3/1, what symptoms did he/she have during the examination on 1993/9/27? ",
+        "orig_masked": "For the [T3] whose [C59] was [V2], what [C12] did he/she have during the [T1] on [V1]? ; [V1] is a value of the column [C7]; [V2] is a value of the column [C59]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "examination": "TABLE:[examination]",
+            "symptoms": "COLUMN:[examination].[symptoms]",
+            "birthday": "COLUMN:[patient].[birthday]",
+            "patient": "TABLE:[patient]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "1959/3/1": "[patient].[birthday]",
+            "1993/9/27": "[examination].[examination date]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T2.Symptoms FROM Patient AS T1 INNER JOIN Examination AS T2 ON T1.ID = T2.ID WHERE T1.Birthday = '1959-03-01' AND T2.`Examination Date` = '1993-09-27'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_167",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "List all the clients' IDs whose junior credit cards were issued after 1996. After 1996 means date > = '1997-01-01",
+        "orig_masked": "List all the [C14] whose [V2] [T2] were [C7] [C7]. [C7] means [C7] > = '[V1]; [V1] is a value of the column [C7]; [V2] is a value of the column [C8]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "After 1996 means date > = '1997-01-01",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "credit cards": "TABLE:[card]",
+            "clients' IDs": "COLUMN:[disp].[client_id]",
+            "issued": "COLUMN:[card].[issued]",
+            "date": "COLUMN:[card].[issued]",
+            "after 1996": "COLUMN:[card].[issued]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "junior": "[card].[type]",
+            "1997-01-01": "[card].[issued]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T2.client_id FROM card AS T1 INNER JOIN disp AS T2 ON T1.disp_id = T2.disp_id WHERE T1.type = 'junior' AND T1.issued >= '1997-01-01'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_789",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "Find the average weight of the heroes who are aliens.  average = AVG(weight_kg); aliens refers to race = 'Alien';",
+        "orig_masked": "Find the average [C29] of the [T9] who are [C17].  average = AVG([C29]); [C17] refers to [C17] = '[V1]';; [V1] is a value of the column [C17]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "average = AVG(weight_kg); aliens refers to race = 'Alien';",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "weight": "COLUMN:[superhero].[weight_kg]",
+            "heroes": "TABLE:[superhero]",
+            "aliens": "COLUMN:[race].[race]",
+            "weight_kg": "COLUMN:[superhero].[weight_kg]",
+            "race": "COLUMN:[race].[race]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Alien": "[race].[race]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT CAST(SUM(T1.weight_kg) AS REAL) / COUNT(T1.id) FROM superhero AS T1 INNER JOIN race AS T2 ON T1.race_id = T2.id WHERE T2.race = 'Alien'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_114",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "For the first client who opened his/her account in Prague, what is his/her account ID? A3 stands for region names",
+        "orig_masked": "For the first [T1] who [T1] his/her [T1] in [V1], what is his/her [C1]? [C25] stands for [C25]; [V1] is a value of the column [C25]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "A3 stands for region names",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "region names": "COLUMN:[district].[a3]",
+            "account ID": "COLUMN:[account].[account_id]",
+            "account": "TABLE:[account]",
+            "opened": "TABLE:[account]",
+            "client": "TABLE:[account]",
+            "A3": "COLUMN:[district].[a3]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Prague": "[district].[a3]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T1.account_id FROM account AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id WHERE T2.A3 = 'Prague' ORDER BY T1.date ASC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_96",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "How many customers who choose statement of weekly issuance are Owner?  'POPLATEK TYDNE' stands for weekly issuance",
+        "orig_masked": "How many [T1] who choose [C4] are [V2]?  '[V1]' stands for [C4]; [V1] is a value of the column [C4]; [V2] is a value of the column [C16]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "'POPLATEK TYDNE' stands for weekly issuance",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "customers": "TABLE:[account]",
+            "weekly issuance": "COLUMN:[account].[frequency]",
+            "statement of weekly issuance": "COLUMN:[account].[frequency]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Owner": "[disp].[type]",
+            "POPLATEK TYDNE": "[account].[frequency]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(T1.account_id) FROM account AS T1 INNER JOIN disp AS T2 ON T1.account_id = T2.account_id WHERE T2.type = 'OWNER' AND T1.frequency = 'POPLATEK TYDNE'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1126",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "State the name of players who came from Belgium. name of players refers to player_name; Belgium is name of country",
+        "orig_masked": "State the [C126] who came from [V1]. [C126] refers to [C126]; [V1] is [C2]; [V1] is a value of the column [C2]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "name of players refers to player_name; Belgium is name of country",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "name of players": "COLUMN:[player].[player_name]",
+            "name of country": "COLUMN:[country].[name]",
+            "come from": "TABLE:[country]",
+            "player_name": "COLUMN:[player].[player_name]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Belgium": "[country].[name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT t3.player_name FROM Country AS t1 INNER JOIN Match AS t2 ON t1.id = t2.country_id INNER JOIN Player AS t3 ON t2.home_player_1 = t3.player_api_id WHERE t1.name = 'Belgium'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_170",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "How many credit card withdrawals were recorded after 1995? Operation = 'VYBER KARTOU' means credit card withdrawals",
+        "orig_masked": "How many [C53] were recorded after [V2]? [C53] = '[V1]' means [C53]; [V1] is a value of the column [C53]; [V2] is a value of the column [C51]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Operation = 'VYBER KARTOU' means credit card withdrawals",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "credit card withdrawals": "COLUMN:[trans].[operation]",
+            "Operation": "COLUMN:[trans].[operation]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "1995": "[trans].[date]",
+            "VYBER KARTOU": "[trans].[operation]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(account_id) FROM trans WHERE STRFTIME('%Y', date) > '1995' AND operation = 'VYBER KARTOU'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_805",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "List the full names of superheroes with missing weight. missing weight refers to weight_kg = 0 OR weight_kg = NULL;",
+        "orig_masked": "List the [C20] of [T9] with missing [C29]. missing [C29] refers to [C29] = [V1] OR [C29] = NULL;; [V1] is a value of the column [C29]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "missing weight refers to weight_kg = 0 OR weight_kg = NULL;",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "weight": "COLUMN:[superhero].[weight_kg]",
+            "superheroes": "TABLE:[superhero]",
+            "full names": "COLUMN:[superhero].[full_name]",
+            "weight_kg": "COLUMN:[superhero].[weight_kg]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "0": "[superhero].[weight_kg]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT DISTINCT full_name FROM superhero WHERE full_name IS NOT NULL AND (weight_kg IS NULL OR weight_kg = 0)",
+        "evidence_added": true
+    }
+]

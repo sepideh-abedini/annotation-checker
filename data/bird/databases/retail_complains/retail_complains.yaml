@@ -1,0 +1,88 @@
+'[callcenterlogs]':
+  '[call_id]': integer
+  '[complaint id]':
+    primary_key: true
+    type: text
+  '[date received]': date
+  '[outcome]': text
+  '[phonefinal]': text
+  '[priority]': integer
+  '[rand client]':
+    foreign_key: '[client].[client_id]'
+    type: text
+  '[ser_exit]': text
+  '[ser_start]': text
+  '[ser_time]': text
+  '[server]': text
+  '[type]': text
+  '[vru+line]': text
+'[client]':
+  '[address_1]': text
+  '[address_2]': text
+  '[age]': integer
+  '[city]': text
+  '[client_id]':
+    primary_key: true
+    type: text
+  '[day]': integer
+  '[district_id]':
+    foreign_key: '[district].[district_id]'
+    type: integer
+  '[email]': text
+  '[first]': text
+  '[last]': text
+  '[middle]': text
+  '[month]': integer
+  '[phone]': text
+  '[sex]': text
+  '[social]': text
+  '[state]': text
+  '[year]': integer
+  '[zipcode]': integer
+'[district]':
+  '[city]': text
+  '[district_id]':
+    primary_key: true
+    type: integer
+  '[division]': text
+  '[state_abbrev]':
+    foreign_key: '[state].[statecode]'
+    type: text
+'[events]':
+  '[client_id]':
+    foreign_key: '[client].[client_id]'
+    primary_key: true
+    type: text
+  '[company response to consumer]': text
+  '[complaint id]':
+    foreign_key: '[callcenterlogs].[complaint id]'
+    primary_key: true
+    type: text
+  '[consumer complaint narrative]': text
+  '[consumer consent provided?]': text
+  '[consumer disputed?]': text
+  '[date received]': date
+  '[date sent to company]': text
+  '[issue]': text
+  '[product]': text
+  '[sub-issue]': text
+  '[sub-product]': text
+  '[submitted via]': text
+  '[tags]': text
+  '[timely response?]': text
+'[reviews]':
+  '[date]':
+    primary_key: true
+    type: date
+  '[district_id]':
+    foreign_key: '[district].[district_id]'
+    type: integer
+  '[product]': text
+  '[reviews]': text
+  '[stars]': integer
+'[state]':
+  '[region]': text
+  '[state]': text
+  '[statecode]':
+    primary_key: true
+    type: text

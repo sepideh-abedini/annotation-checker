@@ -1,0 +1,231 @@
+[
+    {
+        "idx": "bird_842",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "Calculate the average height of all neutral superheroes. ",
+        "orig_masked": "Calculate the average [C23] of all [V1] [T9]. ; [V1] is a value of the column [C1]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "superheroes": "TABLE:[superhero]",
+            "height": "COLUMN:[superhero].[height_cm]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "neutral": "[alignment].[alignment]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT AVG(T1.height_cm) FROM superhero AS T1 INNER JOIN alignment AS T2 ON T1.alignment_id = T2.id WHERE T2.alignment = 'Neutral'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_840",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "List the attribute value of the superhero named Aquababy. ",
+        "orig_masked": "List the [C10] of the [T9] [C28] [V1]. ; [V1] is a value of the column [C28]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "attribute value": "COLUMN:[hero_attribute].[attribute_value]",
+            "superhero": "TABLE:[superhero]",
+            "named": "COLUMN:[superhero].[superhero_name]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Aquababy": "[superhero].[superhero_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T2.attribute_value FROM superhero AS T1 INNER JOIN hero_attribute AS T2 ON T1.id = T2.hero_id WHERE T1.superhero_name = 'Aquababy'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1059",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "Please list player names which are higher than 180. height>180;",
+        "orig_masked": "Please list [T4] [C126] which are higher than [V1]. [C122]>[V1];; [V1] is a value of the column [C122]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "height>180;",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "names": "COLUMN:[player].[player_name]",
+            "player": "TABLE:[player]",
+            "height": "COLUMN:[player].[height]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "180": "[player].[height]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT player_name FROM Player WHERE height > 180",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_156",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "Who is the owner of the account with the largest loan amount?  ",
+        "orig_masked": "Who is the [V1] of the [T1] with the largest [C34]?  ; [V1] is a value of the column [C16]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "account": "TABLE:[account]",
+            "loan amount": "COLUMN:[loan].[amount]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "owner": "[disp].[type]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T1.client_id FROM disp AS T1 INNER JOIN account AS T3 ON T1.account_id = T3.account_id INNER JOIN loan AS T2 ON T3.account_id = T2.account_id WHERE T1.type = 'OWNER' ORDER BY T2.amount DESC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_161",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "What type of credit card does the client with the id 13539 own?  ",
+        "orig_masked": "What [C8] of [T2] does the [T3] with the [C10] [V1] [T2]?  ; [V1] is a value of the column [C10]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "type": "COLUMN:[card].[type]",
+            "client": "TABLE:[client]",
+            "credit card": "TABLE:[card]",
+            "own": "TABLE:[card]",
+            "id": "COLUMN:[client].[client_id]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "13539": "[client].[client_id]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T3.type FROM disp AS T1 INNER JOIN client AS T2 ON T1.client_id = T2.client_id INNER JOIN card AS T3 ON T1.disp_id = T3.disp_id WHERE T2.client_id = 13539",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1079",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "Which player is the tallest? tallest player refers to MAX(height);",
+        "orig_masked": "Which [T4] is the [C122]? [C122] [T4] refers to MAX([C122]);",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "tallest player refers to MAX(height);",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "player": "TABLE:[player]",
+            "tallest": "COLUMN:[player].[height]",
+            "height": "COLUMN:[player].[height]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {},
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT player_name FROM Player ORDER BY height DESC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_101",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "List out the accounts who have the earliest trading date in 1995 ? ",
+        "orig_masked": "List out the [C47] who have the [C51] [C51] in [V1] ? ; [V1] is a value of the column [C51]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "trading date": "COLUMN:[trans].[date]",
+            "earliest": "COLUMN:[trans].[date]",
+            "accounts": "COLUMN:[trans].[account_id]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "1995": "[trans].[date]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT account_id FROM trans WHERE STRFTIME('%Y', date) = '1995' ORDER BY date ASC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_165",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "Please list all the transactions made by accounts from district 5. ",
+        "orig_masked": "Please list all the [T8] [T8] by [T1] from [T5] [V1]. ; [V1] is a value of the column [C32]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "transactions": "TABLE:[trans]",
+            "made": "TABLE:[trans]",
+            "accounts": "TABLE:[account]",
+            "district": "TABLE:[district]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "5": "[district].[district_id]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T3.trans_id FROM district AS T1 INNER JOIN account AS T2 ON T1.district_id = T2.district_id INNER JOIN trans AS T3 ON T2.account_id = T3.account_id WHERE T1.district_id = 5",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_141",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "Which districts have transactions greater than USS$10,000 in 1997? ",
+        "orig_masked": "Which [T5] have [T8] greater than [V1] in [V2]? ; [V1] is a value of the column [C48]; [V2] is a value of the column [C51]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "transactions": "TABLE:[trans]",
+            "districts": "TABLE:[district]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "1997": "[trans].[date]",
+            "USS$10,000": "[trans].[amount]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T1.district_id FROM account AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id INNER JOIN trans AS T3 ON T1.account_id = T3.account_id WHERE STRFTIME('%Y', T3.date) = '1997' GROUP BY T1.district_id HAVING SUM(T3.amount) > 10000",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_745",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "Give the publisher ID of Star Trek.  Star Trek is the publisher_name;",
+        "orig_masked": "Give the [T7] [C14] of [V1].  [V1] is the [C15];; [V1] is a value of the column [C15]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Star Trek is the publisher_name;",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "ID": "COLUMN:[publisher].[id]",
+            "publisher": "TABLE:[publisher]",
+            "publisher_name": "COLUMN:[publisher].[publisher_name]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Star Trek": "[publisher].[publisher_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT id FROM publisher WHERE publisher_name = 'Star Trek'",
+        "evidence_added": true
+    }
+]

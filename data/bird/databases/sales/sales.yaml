@@ -1,0 +1,34 @@
+'[customers]':
+  '[customerid]':
+    primary_key: true
+    type: integer
+  '[firstname]': text
+  '[lastname]': text
+  '[middleinitial]': text
+'[employees]':
+  '[employeeid]':
+    primary_key: true
+    type: integer
+  '[firstname]': text
+  '[lastname]': text
+  '[middleinitial]': text
+'[products]':
+  '[name]': text
+  '[price]': real
+  '[productid]':
+    primary_key: true
+    type: integer
+'[sales]':
+  '[customerid]':
+    foreign_key: '[customers].[customerid]'
+    type: integer
+  '[productid]':
+    foreign_key: '[products].[productid]'
+    type: integer
+  '[quantity]': integer
+  '[salesid]':
+    primary_key: true
+    type: integer
+  '[salespersonid]':
+    foreign_key: '[employees].[employeeid]'
+    type: integer

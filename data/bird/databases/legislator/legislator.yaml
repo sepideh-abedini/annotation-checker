@@ -1,0 +1,129 @@
+'[current-terms]':
+  '[address]': text
+  '[bioguide]':
+    foreign_key: '[current].[bioguide_id]'
+    primary_key: true
+    type: text
+  '[caucus]': text
+  '[chamber]': text
+  '[class]': real
+  '[contact_form]': text
+  '[district]': real
+  '[end]':
+    primary_key: true
+    type: text
+  '[fax]': text
+  '[last]': text
+  '[name]': text
+  '[office]': text
+  '[party]': text
+  '[party_affiliations]': text
+  '[phone]': text
+  '[relation]': text
+  '[rss_url]': text
+  '[start]': text
+  '[state]': text
+  '[state_rank]': text
+  '[title]': text
+  '[type]': text
+  '[url]': text
+'[current]':
+  '[ballotpedia_id]': text
+  '[bioguide_id]':
+    primary_key: true
+    type: text
+  '[birthday_bio]': date
+  '[cspan_id]':
+    primary_key: true
+    type: real
+  '[fec_id]': text
+  '[first_name]': text
+  '[gender_bio]': text
+  '[google_entity_id_id]': text
+  '[govtrack_id]': integer
+  '[house_history_id]': real
+  '[icpsr_id]': real
+  '[last_name]': text
+  '[lis_id]': text
+  '[maplight_id]': real
+  '[middle_name]': text
+  '[nickname_name]': text
+  '[official_full_name]': text
+  '[opensecrets_id]': text
+  '[religion_bio]': text
+  '[suffix_name]': text
+  '[thomas_id]': integer
+  '[votesmart_id]': real
+  '[wikidata_id]': text
+  '[wikipedia_id]': text
+'[historical-terms]':
+  '[address]': text
+  '[bioguide]':
+    foreign_key: '[historical].[bioguide_id]'
+    primary_key: true
+    type: text
+  '[chamber]': text
+  '[class]': real
+  '[contact_form]': text
+  '[district]': real
+  '[end]': text
+  '[fax]': text
+  '[last]': text
+  '[middle]': text
+  '[name]': text
+  '[office]': text
+  '[party]': text
+  '[party_affiliations]': text
+  '[phone]': text
+  '[relation]': text
+  '[rss_url]': text
+  '[start]': text
+  '[state]': text
+  '[state_rank]': text
+  '[title]': text
+  '[type]': text
+  '[url]': text
+'[historical]':
+  '[ballotpedia_id]': text
+  '[bioguide_id]':
+    primary_key: true
+    type: text
+  '[bioguide_previous_id]': text
+  '[birthday_bio]': text
+  '[cspan_id]': text
+  '[fec_id]': text
+  '[first_name]': text
+  '[gender_bio]': text
+  '[google_entity_id_id]': text
+  '[govtrack_id]': integer
+  '[house_history_alternate_id]': text
+  '[house_history_id]': real
+  '[icpsr_id]': real
+  '[last_name]': text
+  '[lis_id]': text
+  '[maplight_id]': text
+  '[middle_name]': text
+  '[nickname_name]': text
+  '[official_full_name]': text
+  '[opensecrets_id]': text
+  '[religion_bio]': text
+  '[suffix_name]': text
+  '[thomas_id]': text
+  '[votesmart_id]': text
+  '[wikidata_id]': text
+  '[wikipedia_id]': text
+'[social-media]':
+  '[bioguide]':
+    foreign_key: '[current].[bioguide_id]'
+    primary_key: true
+    type: text
+  '[facebook]': text
+  '[facebook_id]': real
+  '[govtrack]': real
+  '[instagram]': text
+  '[instagram_id]': real
+  '[thomas]': integer
+  '[twitter]': text
+  '[twitter_id]': real
+  '[youtube]': text
+  '[youtube_id]': text

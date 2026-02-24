@@ -1,0 +1,250 @@
+[
+    {
+        "idx": "bird_749",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "Provide the superpowers of the superhero called Deathlok.  superpowers refers to power_name; Deathlok refers to superhero_name = 'Deathlok'",
+        "orig_masked": "Provide the [C31] of the [T9] called [V1].  [C31] refers to [C31]; [V1] refers to [C28] = '[V1]'; [V1] is a value of the column [C28]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "superpowers refers to power_name; Deathlok refers to superhero_name = 'Deathlok'",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "superpowers": "COLUMN:[superpower].[power_name]",
+            "superhero": "TABLE:[superhero]",
+            "power_name": "COLUMN:[superpower].[power_name]",
+            "superhero_name": "COLUMN:[superhero].[superhero_name]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Deathlok": "[superhero].[superhero_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T3.power_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T2.power_id = T3.id WHERE T1.superhero_name = 'Deathlok'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_836",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "What is the total number of superheroes that have John as their first name?  have John as their first name refers to full_name LIKE 'John%';",
+        "orig_masked": "What is the total number of [T9] that have [V1] as their [C20]?  have [V1] as their [C20] refers to [C20] LIKE '[V1]%';; [V1] is a value of the column [C20]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "have John as their first name refers to full_name LIKE 'John%';",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "superheroes": "TABLE:[superhero]",
+            "first name": "COLUMN:[superhero].[full_name]",
+            "full_name": "COLUMN:[superhero].[full_name]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "John": "[superhero].[full_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(id) FROM superhero WHERE full_name LIKE 'John%'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_841",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "Provide the weight and race of the superhero with superhero ID 40.  weight refers to weight_kg; superhero ID 40 refers to superhero.id = 40;",
+        "orig_masked": "Provide the [C29] and [C17] of the [T9] with [C24] [V1].  [C29] refers to [C29]; [C24] [V1] refers to [C24] = [V1];; [V1] is a value of the column [C24]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "weight refers to weight_kg; superhero ID 40 refers to superhero.id = 40;",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "weight": "COLUMN:[superhero].[weight_kg]",
+            "race": "COLUMN:[race].[race]",
+            "superhero ID": "COLUMN:[superhero].[id]",
+            "superhero": "TABLE:[superhero]",
+            "weight_kg": "COLUMN:[superhero].[weight_kg]",
+            "superhero.id": "COLUMN:[superhero].[id]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "40": "[superhero].[id]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T1.weight_kg, T2.race FROM superhero AS T1 INNER JOIN race AS T2 ON T1.race_id = T2.id WHERE T1.id = 40",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1177",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "thrombosis_prediction",
+        "question": "<QUESTION>",
+        "orig_question": "Was the total cholesterol status for the patient id 2927464 on 1995-9-4 at the normal level? total cholesterol normal level refers to N < 250",
+        "orig_masked": "Was the [C49] status for the [C32] [V2] on [V1] at the [C49]? [C49] [C49] refers to N < [V3]; [V1] is a value of the column [C23]; [V2] is a value of the column [C32]; [V3] is a value of the column [C49]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "total cholesterol normal level refers to N < 250",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "total cholesterol": "COLUMN:[laboratory].[t-cho]",
+            "normal level": "COLUMN:[laboratory].[t-cho]",
+            "patient id": "COLUMN:[laboratory].[id]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "2927464": "[laboratory].[id]",
+            "250": "[laboratory].[t-cho]",
+            "1995-9-4": "[laboratory].[date]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT CASE WHEN `T-CHO` < 250 THEN 'Normal' ELSE 'Abnormal' END FROM Laboratory WHERE ID = 2927464 AND Date = '1995-09-04'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1116",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "List down most tallest players' name. tallest refers to rank based on the height in descending order; Most tallest players refers to rank = 1 ",
+        "orig_masked": "List down most [C122] [T4]' [C126]. [C122] refers to [C122] based on the [C122] in descending order; Most [C122] [T4] refers to [C122] = 1 ",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "tallest refers to rank based on the height in descending order; Most tallest players refers to rank = 1 ",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "players": "TABLE:[player]",
+            "height": "COLUMN:[player].[height]",
+            "tallest": "COLUMN:[player].[height]",
+            "rank": "COLUMN:[player].[height]",
+            "name": "COLUMN:[player].[player_name]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {},
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT player_name FROM (SELECT player_name, height, DENSE_RANK() OVER (ORDER BY height DESC) as rank FROM Player) WHERE rank = 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1143",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "What was the highest score of the home team in the Netherlands Eredivisie league? highest score of the home team refers to MAX(home_team_goal)",
+        "orig_masked": "What was the highest [C94] of the [C94] in the [V1] [T2]? highest [C94] of the [C94] refers to MAX([C94]); [V1] is a value of the column [C5]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "highest score of the home team refers to MAX(home_team_goal)",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "league": "TABLE:[league]",
+            "home_team_goal": "COLUMN:[match].[home_team_goal]",
+            "score": "COLUMN:[match].[home_team_goal]",
+            "home team": "COLUMN:[match].[home_team_goal]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Netherlands Eredivisie": "[league].[name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT MAX(t2.home_team_goal) FROM League AS t1 INNER JOIN Match AS t2 ON t1.id = t2.league_id WHERE t1.name = 'Netherlands Eredivisie'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_123",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "Provide the account ID, district and region for loan amount greater than USD300,000.  A2 contains district names and A3 contains region names.",
+        "orig_masked": "Provide the [C1], [T5] and [C25] for [C34] greater than [V1].  [C24] contains [C24] and [C25] contains [C25].; [V1] is a value of the column [C34]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "A2 contains district names and A3 contains region names.",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "account ID": "COLUMN:[account].[account_id]",
+            "district": "TABLE:[district]",
+            "region": "COLUMN:[district].[a3]",
+            "loan amount": "COLUMN:[loan].[amount]",
+            "district names": "COLUMN:[district].[a2]",
+            "region names": "COLUMN:[district].[a3]",
+            "A2": "COLUMN:[district].[a2]",
+            "A3": "COLUMN:[district].[a3]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "USD300,000": "[loan].[amount]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T1.account_id, T2.A2, T2.A3 FROM account AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id INNER JOIN loan AS T3 ON T1.account_id = T3.account_id WHERE T3.amount > 300000",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_839",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "In superheroes with weight less than 100, list the full name of the superheroes with brown eyes. weight less than 100 refers to weight_kg < 100",
+        "orig_masked": "In [T9] with [C29] less than [V2], list the [C20] of the [T9] with [V1] [C19]. [C29] less than [V2] refers to [C29] < [V2]; [V1] is a value of the column [C5]; [V2] is a value of the column [C29]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "weight less than 100 refers to weight_kg < 100",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "superheroes": "TABLE:[superhero]",
+            "full name": "COLUMN:[superhero].[full_name]",
+            "weight_kg": "COLUMN:[superhero].[weight_kg]",
+            "weight": "COLUMN:[superhero].[weight_kg]",
+            "eyes": "COLUMN:[superhero].[eye_colour_id]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "100": "[superhero].[weight_kg]",
+            "brown": "[colour].[colour]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T1.full_name FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id WHERE T1.weight_kg < 100 AND T2.colour = 'Brown'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1163",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "thrombosis_prediction",
+        "question": "<QUESTION>",
+        "orig_question": "What was the age of the youngest patient when they initially arrived at the hospital? age refers to SUBTRACT(YEAR(`First Date`),YEAR(Birthday))",
+        "orig_masked": "What was the [C59] of the [C59] [T3] when they initially [C62] at the [T3]? [C59] refers to SUBTRACT(YEAR(`[C62]`),YEAR([C59]))",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "age refers to SUBTRACT(YEAR(`First Date`),YEAR(Birthday))",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "hospital": "TABLE:[patient]",
+            "patient": "TABLE:[patient]",
+            "arrived": "COLUMN:[patient].[first date]",
+            "age": "COLUMN:[patient].[birthday]",
+            "First Date": "COLUMN:[patient].[first date]",
+            "Birthday": "COLUMN:[patient].[birthday]",
+            "youngest": "COLUMN:[patient].[birthday]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {},
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT MIN(STRFTIME('%Y', `First Date`) - STRFTIME('%Y', Birthday)) FROM Patient",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1251",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "thrombosis_prediction",
+        "question": "<QUESTION>",
+        "orig_question": "How many patients with an Ig G higher than normal? Ig G higher than normal refers to IGG >= 2000; Should consider DISTINCT in the final result;",
+        "orig_masked": "How many [T3] with an [C34] higher than [C34]? [C34] higher than [C34] refers to [C34] >= [V1]; Should consider DISTINCT in the final result;; [V1] is a value of the column [C34]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Ig G higher than normal refers to IGG >= 2000; Should consider DISTINCT in the final result;",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "patients": "TABLE:[patient]",
+            "Ig G": "COLUMN:[laboratory].[igg]",
+            "IGG": "COLUMN:[laboratory].[igg]",
+            "normal": "COLUMN:[laboratory].[igg]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "2000": "[laboratory].[igg]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(DISTINCT T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID INNER JOIN Examination AS T3 ON T3.ID = T2.ID WHERE T2.IGG >= 2000",
+        "evidence_added": true
+    }
+]

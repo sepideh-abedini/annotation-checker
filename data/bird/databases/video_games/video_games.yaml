@@ -1,0 +1,57 @@
+'[game]':
+  '[game_name]': text
+  '[genre_id]':
+    foreign_key: '[genre].[id]'
+    type: integer
+  '[id]':
+    primary_key: true
+    type: integer
+'[game_platform]':
+  '[game_publisher_id]':
+    foreign_key: '[game_publisher].[id]'
+    type: integer
+  '[id]':
+    primary_key: true
+    type: integer
+  '[platform_id]':
+    foreign_key: '[platform].[id]'
+    type: integer
+  '[release_year]': integer
+'[game_publisher]':
+  '[game_id]':
+    foreign_key: '[game].[id]'
+    type: integer
+  '[id]':
+    primary_key: true
+    type: integer
+  '[publisher_id]':
+    foreign_key: '[publisher].[id]'
+    type: integer
+'[genre]':
+  '[genre_name]': text
+  '[id]':
+    primary_key: true
+    type: integer
+'[platform]':
+  '[id]':
+    primary_key: true
+    type: integer
+  '[platform_name]': text
+'[publisher]':
+  '[id]':
+    primary_key: true
+    type: integer
+  '[publisher_name]': text
+'[region]':
+  '[id]':
+    primary_key: true
+    type: integer
+  '[region_name]': text
+'[region_sales]':
+  '[game_platform_id]':
+    foreign_key: '[game_platform].[id]'
+    type: integer
+  '[num_sales]': real
+  '[region_id]':
+    foreign_key: '[region].[id]'
+    type: integer

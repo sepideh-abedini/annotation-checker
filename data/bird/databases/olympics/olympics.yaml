@@ -1,0 +1,79 @@
+'[city]':
+  '[city_name]': text
+  '[id]':
+    primary_key: true
+    type: integer
+'[competitor_event]':
+  '[competitor_id]':
+    foreign_key: '[games_competitor].[id]'
+    type: integer
+  '[event_id]':
+    foreign_key: '[event].[id]'
+    type: integer
+  '[medal_id]':
+    foreign_key: '[medal].[id]'
+    type: integer
+'[event]':
+  '[event_name]': text
+  '[id]':
+    primary_key: true
+    type: integer
+  '[sport_id]':
+    foreign_key: '[sport].[id]'
+    type: integer
+'[games]':
+  '[games_name]': text
+  '[games_year]': integer
+  '[id]':
+    primary_key: true
+    type: integer
+  '[season]': text
+'[games_city]':
+  '[city_id]':
+    foreign_key: '[city].[id]'
+    type: integer
+  '[games_id]':
+    foreign_key: '[games].[id]'
+    type: integer
+'[games_competitor]':
+  '[age]': integer
+  '[games_id]':
+    foreign_key: '[games].[id]'
+    type: integer
+  '[id]':
+    primary_key: true
+    type: integer
+  '[person_id]':
+    foreign_key: '[person].[id]'
+    type: integer
+'[medal]':
+  '[id]':
+    primary_key: true
+    type: integer
+  '[medal_name]': text
+'[noc_region]':
+  '[id]':
+    primary_key: true
+    type: integer
+  '[noc]': text
+  '[region_name]': text
+'[person]':
+  '[full_name]': text
+  '[gender]': text
+  '[height]': integer
+  '[id]':
+    primary_key: true
+    type: integer
+  '[weight]': integer
+'[person_region]':
+  '[person_id]':
+    foreign_key: '[person].[id]'
+    type: integer
+  '[region_id]':
+    foreign_key: '[noc_region].[id]'
+    type: integer
+'[sport]':
+  '[id]':
+    primary_key: true
+    type: integer
+  '[sport_name]': text

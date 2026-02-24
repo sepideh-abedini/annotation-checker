@@ -1,0 +1,244 @@
+[
+    {
+        "idx": "bird_804",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "Provide the name of superhero with superhero ID 294.  name of superhero refers to superhero_name; superhero ID 294 refers to superhero.id = 294;",
+        "orig_masked": "Provide the [C28] of [T9] with [T9] [C24] [V1].  [C28] of [T9] refers to [C28]; [T9] [C24] [V1] refers to [T9].[C24] = [V1];; [V1] is a value of the column [C24]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "name of superhero refers to superhero_name; superhero ID 294 refers to superhero.id = 294;",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "name": "COLUMN:[superhero].[superhero_name]",
+            "superhero": "TABLE:[superhero]",
+            "superhero_name": "COLUMN:[superhero].[superhero_name]",
+            "id": "COLUMN:[superhero].[id]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "294": "[superhero].[id]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT superhero_name FROM superhero WHERE id = 294",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_808",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "Find the race of the superhero who weighs 108kg and is 188cm tall. weighs 108kg refers to weight_kg = 108; 188cm tall refers to height_cm = 188;",
+        "orig_masked": "Find the [C17] of the [T9] who [C29] [V1] and is [V2] [C23]. [C29] [V1] refers to [C29] = [V3]; [V2] [C23] refers to [C23] = [V4];; [V1] is a value of the column [C29]; [V2] is a value of the column [C23]; [V3] is a value of the column [C29]; [V4] is a value of the column [C23]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "weighs 108kg refers to weight_kg = 108; 188cm tall refers to height_cm = 188;",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "superhero": "TABLE:[superhero]",
+            "weight_kg": "COLUMN:[superhero].[weight_kg]",
+            "height_cm": "COLUMN:[superhero].[height_cm]",
+            "weighs": "COLUMN:[superhero].[weight_kg]",
+            "tall": "COLUMN:[superhero].[height_cm]",
+            "race": "COLUMN:[race].[race]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "108": "[superhero].[weight_kg]",
+            "188": "[superhero].[height_cm]",
+            "108kg": "[superhero].[weight_kg]",
+            "188cm": "[superhero].[height_cm]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT DISTINCT T2.race FROM superhero AS T1 INNER JOIN race AS T2 ON T1.race_id = T2.id WHERE T1.weight_kg = 108 AND T1.height_cm = 188",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_823",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "How many female superheroes are in Marvel Comics?  female refers to gender = 'Female'; Marvel Comics refers to publisher_name = 'Marvel Comics';",
+        "orig_masked": "How many [V2] [T9] are in [V1]?  [V2] refers to [C7] = '[V2]'; [V1] refers to [C15] = '[V1]';; [V1] is a value of the column [C15]; [V2] is a value of the column [C7]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "female refers to gender = 'Female'; Marvel Comics refers to publisher_name = 'Marvel Comics';",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "superheroes": "TABLE:[superhero]",
+            "gender": "COLUMN:[gender].[gender]",
+            "publisher_name": "COLUMN:[publisher].[publisher_name]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Marvel Comics": "[publisher].[publisher_name]",
+            "Female": "[gender].[gender]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(T1.id) FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id INNER JOIN gender AS T3 ON T1.gender_id = T3.id WHERE T2.publisher_name = 'Marvel Comics' AND T3.gender = 'Female'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1039",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "Find the average number of long-shot done by Ahmed Samir Farag. average number of long shot = DIVIDE(SUM(long_shots), COUNT(player_fifa_api_id));",
+        "orig_masked": "Find the average number of [C151] done by [V1]. average number of [C151] = DIVIDE(SUM([C151]), COUNT([C155]));; [V1] is a value of the column [C126]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "average number of long shot = DIVIDE(SUM(long_shots), COUNT(player_fifa_api_id));",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "long-shot": "COLUMN:[player_attributes].[long_shots]",
+            "long shot": "COLUMN:[player_attributes].[long_shots]",
+            "long_shots": "COLUMN:[player_attributes].[long_shots]",
+            "player_fifa_api_id": "COLUMN:[player_attributes].[player_api_id]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Ahmed Samir Farag": "[player].[player_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT CAST(SUM(t2.long_shots) AS REAL) / COUNT(t2.`date`) FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t1.player_name = 'Ahmed Samir Farag'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_134",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "In the branch where the largest number of crimes were committed in 1996, how many accounts were opened? A16 stands for no. of committed crimes 1996",
+        "orig_masked": "In the [C23] where the largest [C23], how many [T1] were [C1]? [C23] stands for [C23]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "A16 stands for no. of committed crimes 1996",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "number of crimes were committed in 1996": "COLUMN:[district].[a16]",
+            "no. of committed crimes 1996": "COLUMN:[district].[a16]",
+            "accounts": "TABLE:[account]",
+            "branch": "COLUMN:[district].[a16]",
+            "opened": "COLUMN:[account].[account_id]",
+            "A16": "COLUMN:[district].[a16]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {},
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(T2.account_id) FROM district AS T1 INNER JOIN account AS T2 ON T1.district_id = T2.district_id GROUP BY T1.A16 ORDER BY T1.A16 DESC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1097",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "What is Aaron Lennox's total crossing score? Aaron Lennox's refers to T2.player_name = 'Aaron Lennox'; total crossing score refers to SUM(crossing)",
+        "orig_masked": "What is [V1]'s total [C134]? [V1]'s refers to T2.[C126] = '[V1]'; total [C134] refers to SUM([C134]); [V1] is a value of the column [C126]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Aaron Lennox's refers to T2.player_name = 'Aaron Lennox'; total crossing score refers to SUM(crossing)",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "crossing score": "COLUMN:[player_attributes].[crossing]",
+            "player_name": "COLUMN:[player].[player_name]",
+            "crossing": "COLUMN:[player_attributes].[crossing]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Aaron Lennox": "[player].[player_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT SUM(t2.crossing) FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t1.player_name = 'Aaron Lennox'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_150",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "How many accounts in North Bohemia has made a transaction with the partner's bank being AB? A3 contains the region names; North Bohemia is a region.",
+        "orig_masked": "How many [T1] in [V1] has made a [T8] with the [C50] being [V2]? [C25] contains the [C25]; [V1] is a [T5].; [V1] is a value of the column [C25]; [V2] is a value of the column [C50]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "A3 contains the region names; North Bohemia is a region.",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "partner's bank": "COLUMN:[trans].[bank]",
+            "region names": "COLUMN:[district].[a3]",
+            "transaction": "TABLE:[trans]",
+            "accounts": "TABLE:[account]",
+            "region": "TABLE:[district]",
+            "A3": "COLUMN:[district].[a3]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "AB": "[trans].[bank]",
+            "North Bohemia": "[district].[a3]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(T2.account_id) FROM district AS T1 INNER JOIN account AS T2 ON T1.district_id = T2.district_id INNER JOIN trans AS T3 ON T2.account_id = T3.account_id WHERE T3.bank = 'AB' AND T1.A3 = 'north Bohemia'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1083",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "Which player has the strongest overall strength? overall strength refers to overall_rating; strongest overall strength refers to MAX(overall_rating);",
+        "orig_masked": "Which [T4] has the [C153] [C153]? [C153] refers to [C153]; [C153] [C153] refers to MAX([C153]);",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "overall strength refers to overall_rating; strongest overall strength refers to MAX(overall_rating);",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "player": "TABLE:[player]",
+            "overall strength": "COLUMN:[player_attributes].[overall_rating]",
+            "strongest": "COLUMN:[player_attributes].[overall_rating]",
+            "overall_rating": "COLUMN:[player_attributes].[overall_rating]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {},
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT t1.player_name FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id ORDER BY t2.overall_rating DESC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1051",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "List all the football player with the highest potential score. potential score refers to potential; highest potential score refers to MAX(potential);",
+        "orig_masked": "List all the [T4] with the highest [C158]. [C158] refers to [C158]; highest [C158] refers to MAX([C158]);",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "potential score refers to potential; highest potential score refers to MAX(potential);",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "football player": "TABLE:[player]",
+            "potential": "COLUMN:[player_attributes].[potential]",
+            "potential score": "COLUMN:[player_attributes].[potential]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {},
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT DISTINCT(t1.player_name) FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t2.potential = (SELECT MAX(potential) FROM Player_Attributes) ",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_833",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "Name the superhero, otherwise known as Charles Chandler.  name the superhero refers to superhero_name; Charles Chandler is the full name of superhero;",
+        "orig_masked": "[C28] the [T9], otherwise known as [V1].  [C28] the [T9] refers to [C28]; [V1] is the [C20] of [T9];; [V1] is a value of the column [C20]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "name the superhero refers to superhero_name; Charles Chandler is the full name of superhero;",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "Name": "COLUMN:[superhero].[superhero_name]",
+            "superhero": "TABLE:[superhero]",
+            "superhero_name": "COLUMN:[superhero].[superhero_name]",
+            "full name": "COLUMN:[superhero].[full_name]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Charles Chandler": "[superhero].[full_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT superhero_name FROM superhero WHERE full_name = 'Charles Chandler'",
+        "evidence_added": true
+    }
+]

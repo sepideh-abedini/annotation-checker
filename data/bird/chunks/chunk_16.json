@@ -1,0 +1,262 @@
+[
+    {
+        "idx": "bird_97",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "List out the id number of client who choose statement of issuance after transaction are Disponent?  'POPLATEK PO OBRATU' stands for issuance after transaction",
+        "orig_masked": "List out the [C14] of [C14] who choose [C4] after [C4] are [V2]?  '[V1]' stands for [C16] after [C4]; [V1] is a value of the column [C4]; [V2] is a value of the column [C16]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "'POPLATEK PO OBRATU' stands for issuance after transaction",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "id number": "COLUMN:[disp].[client_id]",
+            "client": "COLUMN:[disp].[client_id]",
+            "statement of issuance": "COLUMN:[account].[frequency]",
+            "transaction": "COLUMN:[account].[frequency]",
+            "issuance": "COLUMN:[disp].[type]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "POPLATEK PO OBRATU": "[account].[frequency]",
+            "Disponent": "[disp].[type]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T2.client_id FROM account AS T1 INNER JOIN disp AS T2 ON T1.account_id = T2.account_id WHERE T1.frequency = 'POPLATEK PO OBRATU' AND T2.type = 'DISPONENT'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1109",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "How was the build up play dribbling class for \"LEI\" on 2015/9/10? \"LEI\" refers to team_short_name = 'LEI'; on 2015/9/10 refers to\u00a0 date = '2015-09-10 00:00:00'",
+        "orig_masked": "How was the [C176] for \"[V3]\" on [V2]? \"[V3]\" refers to [C174] = '[V3]'; on [V2] refers to\u00a0 [C189] = '[V1] 00:00:00'; [V1] is a value of the column [C189]; [V2] is a value of the column [C189]; [V3] is a value of the column [C174]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "\"LEI\" refers to team_short_name = 'LEI'; on 2015/9/10 refers to\u00a0 date = '2015-09-10 00:00:00'",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "build up play dribbling class": "COLUMN:[team_attributes].[buildupplaydribblingclass]",
+            "team_short_name": "COLUMN:[team].[team_short_name]",
+            "date": "COLUMN:[team_attributes].[date]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "LEI": "[team].[team_short_name]",
+            "2015/9/10": "[team_attributes].[date]",
+            "2015-09-10": "[team_attributes].[date]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT t2.buildUpPlayDribblingClass FROM Team AS t1 INNER JOIN Team_Attributes AS t2 ON t1.team_api_id = t2.team_api_id WHERE t1.team_short_name = 'LEI' AND SUBSTR(t2.`date`, 1, 10) = '2015-09-10'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1118",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "List down the name of players who are 35 years old and above. 35 years old and above refers to datetime(CURRENT_TIMESTAMP,'localtime') - datetime(birthday) > 34",
+        "orig_masked": "List down the [C126] of [T4] who are [V1] [C121] and above. [V1] [C121] and above refers to datetime(CURRENT_TIMESTAMP,'localtime') - datetime([C121]) > [V2]; [V1] is a value of the column [C121]; [V2] is a value of the column [C121]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "35 years old and above refers to datetime(CURRENT_TIMESTAMP,'localtime') - datetime(birthday) > 34",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "years old": "COLUMN:[player].[birthday]",
+            "birthday": "COLUMN:[player].[birthday]",
+            "name": "COLUMN:[player].[player_name]",
+            "players": "TABLE:[player]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "35": "[player].[birthday]",
+            "34": "[player].[birthday]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT player_name FROM Player WHERE CAST((JULIANDAY('now') - JULIANDAY(birthday)) AS REAL) / 365 >= 35",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_109",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "How many clients opened their accounts in Jesenik branch were women? A2 has region names; Woman and female share the same meaning; female refers to gender = 'F'",
+        "orig_masked": "How many [T3] [T3] their [C10] in [V1] [C24] were [C12]? [C24] has [C24]; [C12] and [C12] share the same meaning; [C12] refers to [C12] = '[V2]'; [V1] is a value of the column [C24]; [V2] is a value of the column [C12]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "A2 has region names; Woman and female share the same meaning; female refers to gender = 'F'",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "Woman": "COLUMN:[client].[gender]",
+            "female": "COLUMN:[client].[gender]",
+            "branch": "COLUMN:[district].[a2]",
+            "region names": "COLUMN:[district].[a2]",
+            "accounts": "COLUMN:[client].[client_id]",
+            "clients": "TABLE:[client]",
+            "gender": "COLUMN:[client].[gender]",
+            "opened": "TABLE:[client]",
+            "women": "COLUMN:[client].[gender]",
+            "A2": "COLUMN:[district].[a2]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "F": "[client].[gender]",
+            "Jesenik": "[district].[a2]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(T1.client_id) FROM client AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id WHERE T1.gender = 'F' AND T2.A2 = 'Jesenik'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_191",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "How many loan accounts are for pre-payment of duration of 24 months with weekly issuance of statement.  Frequency = 'POPLATEK TYDNE' referes to weekly statement",
+        "orig_masked": "How many [T6] [T1] are for [C36] of [V2] with [C4].  [C4] = '[V1]' referes to [C4]; [V1] is a value of the column [C4]; [V2] is a value of the column [C36]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Frequency = 'POPLATEK TYDNE' referes to weekly statement",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "loan": "TABLE:[loan]",
+            "months": "COLUMN:[loan].[duration]",
+            "accounts": "TABLE:[account]",
+            "pre-payment of duration": "COLUMN:[loan].[duration]",
+            "weekly issuance of statement": "COLUMN:[account].[frequency]",
+            "weekly statement": "COLUMN:[account].[frequency]",
+            "Frequency": "COLUMN:[account].[frequency]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "24 months": "[loan].[duration]",
+            "POPLATEK TYDNE": "[account].[frequency]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(T2.account_id) FROM account AS T1 INNER JOIN loan AS T2 ON T1.account_id = T2.account_id WHERE T2.duration = 24 AND T1.frequency = 'POPLATEK TYDNE'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_92",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "List out the no. of districts that have female average salary is more than 6000 but less than 10000?  A11 refers to average salary; Female mapps to gender = 'F'",
+        "orig_masked": "List out the [C32] of [T5] that have [C12] [C18] is more than [V2] but less than [V1]?  [C18] refers to [C18]; [C12] mapps to [C12] = '[V3]'; [V1] is a value of the column [C18]; [V2] is a value of the column [C18]; [V3] is a value of the column [C12]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "A11 refers to average salary; Female mapps to gender = 'F'",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "districts": "TABLE:[district]",
+            "female": "COLUMN:[client].[gender]",
+            "average salary": "COLUMN:[district].[a11]",
+            "no.": "COLUMN:[district].[district_id]",
+            "A11": "COLUMN:[district].[a11]",
+            "gender": "COLUMN:[client].[gender]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "F": "[client].[gender]",
+            "6000": "[district].[a11]",
+            "10000": "[district].[a11]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(DISTINCT T2.district_id)  FROM client AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id WHERE T1.gender = 'F' AND T2.A11 BETWEEN 6000 AND 10000",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_157",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "What is the number of committed crimes in 1995 in the district of the account with the id 532?  A15 contains information about number of committed crimes in 1995",
+        "orig_masked": "What is the [C22] in the [T5] of the [T1] with the [C1] [V1]?  [C22] contains information about [C22]; [V1] is a value of the column [C1]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "A15 contains information about number of committed crimes in 1995",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "number of committed crimes in 1995": "COLUMN:[district].[a15]",
+            "id": "COLUMN:[account].[account_id]",
+            "district": "TABLE:[district]",
+            "account": "TABLE:[account]",
+            "A15": "COLUMN:[district].[a15]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "532": "[account].[account_id]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T1.A15 FROM district AS T1 INNER JOIN `account` AS T2 ON T1.district_id = T2.district_id WHERE T2.account_id = 532",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_759",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "What is the eye clolour of the heaviest superhero?  the heaviest superhero refers to MAX(weight_kg); eye colour refers to colour where eye_colour_id = colour.id;",
+        "orig_masked": "What is the [C19] of the [C29] [T9]?  the [C29] [T9] refers to MAX([C29]); [C19] refers to [C5] where [C19] = [C6];",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "the heaviest superhero refers to MAX(weight_kg); eye colour refers to colour where eye_colour_id = colour.id;",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "eye clolour": "COLUMN:[superhero].[eye_colour_id]",
+            "eye colour": "COLUMN:[superhero].[eye_colour_id]",
+            "heaviest": "COLUMN:[superhero].[weight_kg]",
+            "superhero": "TABLE:[superhero]",
+            "weight_kg": "COLUMN:[superhero].[weight_kg]",
+            "eye_colour_id": "COLUMN:[superhero].[eye_colour_id]",
+            "colour.id": "COLUMN:[colour].[id]",
+            "colour": "COLUMN:[colour].[colour]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {},
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T2.colour FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id ORDER BY T1.weight_kg DESC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1137",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "What percentage of players have a strength and stamina score of more than 80? strength and stamina score of more than 80 refers to stamina > 80 and strength > 80",
+        "orig_masked": "What percentage of [T5] have a [C167] and [C165] [C147] of more than [V1]? [C167] and [C165] [C147] of more than [V1] refers to [C165] > [V1] and [C167] > [V1]; [V1] is a value of the column [C165]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "strength and stamina score of more than 80 refers to stamina > 80 and strength > 80",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "strength": "COLUMN:[player_attributes].[strength]",
+            "stamina": "COLUMN:[player_attributes].[stamina]",
+            "players": "TABLE:[player_attributes]",
+            "score": "COLUMN:[player_attributes].[id]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "80": "[player_attributes].[stamina]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT CAST(COUNT(CASE WHEN strength > 80 AND stamina > 80 THEN id ELSE NULL END) AS REAL) * 100 / COUNT(id) FROM Player_Attributes t",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1055",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "When is the birthday of the football player who has the highest overall rating? football player who has the highest overall rating refers to MAX(overall_rating);",
+        "orig_masked": "When is the [C121] of the [T4] who has the highest [C153]? [T4] who has the highest [C153] refers to MAX([C153]);",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "football player who has the highest overall rating refers to MAX(overall_rating);",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "birthday": "COLUMN:[player].[birthday]",
+            "overall rating": "COLUMN:[player_attributes].[overall_rating]",
+            "football player": "TABLE:[player]",
+            "overall_rating": "COLUMN:[player_attributes].[overall_rating]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {},
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT t1.birthday FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id ORDER BY t2.overall_rating DESC LIMIT 1",
+        "evidence_added": true
+    }
+]

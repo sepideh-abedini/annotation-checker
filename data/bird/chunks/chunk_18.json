@@ -1,0 +1,262 @@
+[
+    {
+        "idx": "bird_1110",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "Tell the build Up play passing class for \"FC Lorient\" on 2010/2/22. \"FC Lorient\" refers to team_long_name = 'FC Lorient'; on 2010/2/22 refers to date LIKE '2010-02-22%';",
+        "orig_masked": "Tell the [C178] for \"[V2]\" on [V3]. \"[V2]\" refers to [C173] = '[V2]'; on [V3] refers to [C189] LIKE '[V1]';; [V1] is a value of the column [C189]; [V2] is a value of the column [C173]; [V3] is a value of the column [C189]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "\"FC Lorient\" refers to team_long_name = 'FC Lorient'; on 2010/2/22 refers to date LIKE '2010-02-22%';",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "build Up play passing class": "COLUMN:[team_attributes].[buildupplaypassingclass]",
+            "team_long_name": "COLUMN:[team].[team_long_name]",
+            "date": "COLUMN:[team_attributes].[date]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "FC Lorient": "[team].[team_long_name]",
+            "2010/2/22": "[team_attributes].[date]",
+            "2010-02-22%": "[team_attributes].[date]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT t2.buildUpPlayPassingClass FROM Team AS t1 INNER JOIN Team_Attributes AS t2 ON t1.team_api_id = t2.team_api_id WHERE t1.team_long_name = 'FC Lorient' AND t2.`date` LIKE '2010-02-22%'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1085",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "Which of these players performs the best in crossing actions, Alexis, Ariel Borysiuk or Arouna Kone? player who perform best in crossing actions refers to MAX(crossing);",
+        "orig_masked": "Which of these [T4] [C134], [V3], [V1] or [V2]? [T4] who perform best in [C134] actions refers to MAX([C134]);; [V1] is a value of the column [C126]; [V2] is a value of the column [C126]; [V3] is a value of the column [C126]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "player who perform best in crossing actions refers to MAX(crossing);",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "players": "TABLE:[player]",
+            "performs the best in crossing actions": "COLUMN:[player_attributes].[crossing]",
+            "crossing": "COLUMN:[player_attributes].[crossing]",
+            "player": "TABLE:[player]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Alexis": "[player].[player_name]",
+            "Ariel Borysiuk": "[player].[player_name]",
+            "Arouna Kone": "[player].[player_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT t1.player_name, t2.crossing FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t1.player_name IN ('Alexis', 'Ariel Borysiuk', 'Arouna Kone') ORDER BY t2.crossing DESC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1065",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "Please list all team names which the speed class is fast. team names refers to team_long_name; speed class refers to buildUpPlaySpeedClass; buildUpPlaySpeedClass = 'Fast';",
+        "orig_masked": "Please list all [C173] which the [C181] is [V1]. [C173] refers to [C173]; [C181] refers to [C181]; [C181] = '[V1]';; [V1] is a value of the column [C181]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "team names refers to team_long_name; speed class refers to buildUpPlaySpeedClass; buildUpPlaySpeedClass = 'Fast';",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "team names": "COLUMN:[team].[team_long_name]",
+            "speed class": "COLUMN:[team_attributes].[buildupplayspeedclass]",
+            "team_long_name": "COLUMN:[team].[team_long_name]",
+            "buildUpPlaySpeedClass": "COLUMN:[team_attributes].[buildupplayspeedclass]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Fast": "[team_attributes].[buildupplayspeedclass]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT DISTINCT t1.team_long_name FROM Team AS t1 INNER JOIN Team_Attributes AS t2 ON t1.team_api_id = t2.team_api_id WHERE t2.buildUpPlaySpeedClass = 'Fast'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1253",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "thrombosis_prediction",
+        "question": "<QUESTION>",
+        "orig_question": "For the patient who has the highest Ig A within the normal range, what is his or her diagnosis? highest Ig A within the normal range refers to MAX(IGA BETWEEN 80 AND 500);",
+        "orig_masked": "For the [T3] who has the [C33] [C33] [C33], what is his or her [C61]? [C33] [C33] [C33] refers to MAX([C33] BETWEEN [V2] AND [V1]);; [V1] is a value of the column [C33]; [V2] is a value of the column [C33]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "highest Ig A within the normal range refers to MAX(IGA BETWEEN 80 AND 500);",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "diagnosis": "COLUMN:[patient].[diagnosis]",
+            "highest": "COLUMN:[laboratory].[iga]",
+            "patient": "TABLE:[patient]",
+            "Ig A": "COLUMN:[laboratory].[iga]",
+            "within the normal range": "COLUMN:[laboratory].[iga]",
+            "IGA": "COLUMN:[laboratory].[iga]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "80": "[laboratory].[iga]",
+            "500": "[laboratory].[iga]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT patientData.Diagnosis FROM Patient AS patientData INNER JOIN Laboratory AS labData ON patientData.ID = labData.ID WHERE labData.IGA BETWEEN 80 AND 500 ORDER BY labData.IGA DESC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_107",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "What is the gender of the oldest client who opened his/her account in the highest average salary branch? Earlier birthdate refers to older age; A11 refers to average salary",
+        "orig_masked": "What is the [C12] of the [C9] [T3] who [T3] his/her [T3] in the highest average [C18] [T5]? Earlier [C9] refers to [C9] [C9]; [C18] refers to average [C18]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Earlier birthdate refers to older age; A11 refers to average salary",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "salary": "COLUMN:[district].[a11]",
+            "client": "TABLE:[client]",
+            "birthdate": "COLUMN:[client].[birth_date]",
+            "oldest": "COLUMN:[client].[birth_date]",
+            "older": "COLUMN:[client].[birth_date]",
+            "account": "TABLE:[client]",
+            "opened": "TABLE:[client]",
+            "gender": "COLUMN:[client].[gender]",
+            "branch": "TABLE:[district]",
+            "age": "COLUMN:[client].[birth_date]",
+            "A11": "COLUMN:[district].[a11]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {},
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T2.gender FROM district AS T1 INNER JOIN client AS T2 ON T1.district_id = T2.district_id ORDER BY T1.A11 DESC, T2.birth_date ASC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_189",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "Name the account numbers of female clients who are oldest and have lowest average salary?  Female refers to 'F' in the gender; A11 contains information about average salary",
+        "orig_masked": "Name the [C1] of [C12] [T3] who are [C9] and have lowest [C18]?  [C12] refers to '[V1]' in the [C12]; [C18] contains information about [C18]; [V1] is a value of the column [C12]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Female refers to 'F' in the gender; A11 contains information about average salary",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "account numbers": "COLUMN:[account].[account_id]",
+            "female": "COLUMN:[client].[gender]",
+            "clients": "TABLE:[client]",
+            "oldest": "COLUMN:[client].[birth_date]",
+            "average salary": "COLUMN:[district].[a11]",
+            "gender": "COLUMN:[client].[gender]",
+            "A11": "COLUMN:[district].[a11]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "F": "[client].[gender]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T3.account_id FROM client AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id INNER JOIN account AS T3 ON T2.district_id = T3.district_id INNER JOIN disp AS T4 ON T1.client_id = T4.client_id AND T4.account_id = T3.account_id  WHERE T1.gender = 'F' ORDER BY T1.birth_date ASC, T2.A11 ASC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1224",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "thrombosis_prediction",
+        "question": "<QUESTION>",
+        "orig_question": "What is the highest total bilirubin level recorded? List out the patient details with ID, sex and birthday with that index. the highest total bilirubin refers to MAX(T-BIL)",
+        "orig_masked": "What is the highest [C48] recorded? List out the [T3] details with [C63], [C64] and [C59] with that index. the highest [C48] refers to MAX([C48])",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "the highest total bilirubin refers to MAX(T-BIL)",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "total bilirubin level": "COLUMN:[laboratory].[t-bil]",
+            "total bilirubin": "COLUMN:[laboratory].[t-bil]",
+            "patient": "TABLE:[patient]",
+            "birthday": "COLUMN:[patient].[birthday]",
+            "sex": "COLUMN:[patient].[sex]",
+            "ID": "COLUMN:[patient].[id]",
+            "T-BIL": "COLUMN:[laboratory].[t-bil]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {},
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T2.`T-BIL`, T1.ID, T1.SEX, T1.Birthday FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID ORDER BY T2.`T-BIL` DESC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1105",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "How was Francesco Migliore's attacking work rate on 2015/5/1? Francesco Migliore refers to player_name = 'Francesco Migliore'; on 2015/5/1 refers to date LIKE '2015-05-01%';",
+        "orig_masked": "How was [V1]'s [C131] on [V3]? [V1] refers to [C126] = '[V1]'; on [V3] refers to [C136] LIKE '[V2]';; [V1] is a value of the column [C126]; [V2] is a value of the column [C136]; [V3] is a value of the column [C136]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Francesco Migliore refers to player_name = 'Francesco Migliore'; on 2015/5/1 refers to date LIKE '2015-05-01%';",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "attacking work rate": "COLUMN:[player_attributes].[attacking_work_rate]",
+            "player_name": "COLUMN:[player].[player_name]",
+            "date": "COLUMN:[player_attributes].[date]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Francesco Migliore": "[player].[player_name]",
+            "2015/5/1": "[player_attributes].[date]",
+            "2015-05-01%": "[player_attributes].[date]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT t2.attacking_work_rate FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t2.`date` LIKE '2015-05-01%' AND t1.player_name = 'Francesco Migliore'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_128",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "List the top nine districts, by descending order, from the highest to the lowest, the number of female account holders.  A2 refers to districts; Female refers to gender = 'F'",
+        "orig_masked": "List the top nine [T5], by descending order, from the highest to the lowest, the number of [C12] [T3].  [C24] refers to [T5]; [C12] refers to [C12] = '[V1]'; [V1] is a value of the column [C12]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "A2 refers to districts; Female refers to gender = 'F'",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "districts": "TABLE:[district]",
+            "female": "COLUMN:[client].[gender]",
+            "account holders": "TABLE:[client]",
+            "A2": "COLUMN:[district].[a2]",
+            "gender": "COLUMN:[client].[gender]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "F": "[client].[gender]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T2.A2, COUNT(T1.client_id) FROM client AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id WHERE T1.gender = 'F' GROUP BY T2.district_id, T2.A2 ORDER BY COUNT(T1.client_id) DESC LIMIT 9",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_133",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "In 1996, which districts have the highest unemployment rate? List their branch location and district name.  A2 refers to district names; A13 refers to unemploymant rate in 1996",
+        "orig_masked": "In [C20], which [T5] have the highest [C20]? List their [C24] and [C32].  [C24] refers to [T5] names; [C20] refers to [C20]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "A2 refers to district names; A13 refers to unemploymant rate in 1996",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "districts": "TABLE:[district]",
+            "district name": "COLUMN:[district].[district_id]",
+            "branch location": "COLUMN:[district].[a2]",
+            "unemployment rate": "COLUMN:[district].[a13]",
+            "unemploymant rate in 1996": "COLUMN:[district].[a13]",
+            "A2": "COLUMN:[district].[a2]",
+            "A13": "COLUMN:[district].[a13]",
+            "1996": "COLUMN:[district].[a13]",
+            "district": "TABLE:[district]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {},
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT district_id, A2 FROM district ORDER BY A13 DESC LIMIT 1",
+        "evidence_added": true
+    }
+]

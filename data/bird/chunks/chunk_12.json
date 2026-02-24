@@ -1,0 +1,256 @@
+[
+    {
+        "idx": "bird_794",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "Which hero was the fastest? which hero refers to superhero_name; fastest refers to MAX(attribute_value) WHERE attribute_name = 'Speed';",
+        "orig_masked": "Which [T9] was the [C10]? which [T9] refers to [C28]; [C10] refers to MAX([C10]) WHERE [C3] = '[V1]';; [V1] is a value of the column [C3]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "which hero refers to superhero_name; fastest refers to MAX(attribute_value) WHERE attribute_name = 'Speed';",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "attribute_value": "COLUMN:[hero_attribute].[attribute_value]",
+            "fastest": "COLUMN:[hero_attribute].[attribute_value]",
+            "superhero_name": "COLUMN:[superhero].[superhero_name]",
+            "attribute_name": "COLUMN:[attribute].[attribute_name]",
+            "hero": "TABLE:[superhero]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Speed": "[attribute].[attribute_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T1.superhero_name FROM superhero AS T1 INNER JOIN hero_attribute AS T2 ON T1.id = T2.hero_id INNER JOIN attribute AS T3 ON T2.attribute_id = T3.id WHERE T3.attribute_name = 'Speed' ORDER BY T2.attribute_value DESC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1090",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "What is the long passing score of the oldest player? long passing score refers to long_passing; oldest player refers to oldest birthday;",
+        "orig_masked": "What is the [C150] of the [C121] [T4]? [C150] refers to [C150]; [C121] [T4] refers to [C121] [C121];",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "long passing score refers to long_passing; oldest player refers to oldest birthday;",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "long passing score": "COLUMN:[player_attributes].[long_passing]",
+            "oldest": "COLUMN:[player].[birthday]",
+            "player": "TABLE:[player]",
+            "birthday": "COLUMN:[player].[birthday]",
+            "long_passing": "COLUMN:[player_attributes].[long_passing]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {},
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT t2.long_passing FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id ORDER BY t1.birthday ASC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1099",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "Which foot is preferred by Abdou Diallo? Abdou Diallo refers to player_name = 'Abdou Diallo'; foot is preferred refers to preferred_foot",
+        "orig_masked": "Which [C159] is [C159] by [V1]? [V1] refers to [C126] = '[V1]'; [C159] is [C159] refers to [C159]; [V1] is a value of the column [C126]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Abdou Diallo refers to player_name = 'Abdou Diallo'; foot is preferred refers to preferred_foot",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "foot": "COLUMN:[player_attributes].[preferred_foot]",
+            "preferred": "COLUMN:[player_attributes].[preferred_foot]",
+            "preferred_foot": "COLUMN:[player_attributes].[preferred_foot]",
+            "player_name": "COLUMN:[player].[player_name]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Abdou Diallo": "[player].[player_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT DISTINCT t2.preferred_foot FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t1.player_name = 'Abdou Diallo'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_180",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "Please provide a list of clients who were born between 1983 and 1987 and whose account branch is in East Bohemia, along with their IDs. ",
+        "orig_masked": "Please provide a list of [T3] who were [C9] between [V2] and [V3] and whose [T1] [C25] is in [V1], along with their [C10]. ; [V1] is a value of the column [C25]; [V2] is a value of the column [C9]; [V3] is a value of the column [C9]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "branch": "COLUMN:[district].[a3]",
+            "clients": "TABLE:[client]",
+            "account": "TABLE:[account]",
+            "born": "COLUMN:[client].[birth_date]",
+            "IDs": "COLUMN:[client].[client_id]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "1983": "[client].[birth_date]",
+            "1987": "[client].[birth_date]",
+            "East Bohemia": "[district].[a3]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T1.client_id, T3.account_id FROM client AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id INNER JOIN disp AS T4 ON T1.client_id = T4.client_id INNER JOIN account AS T3 ON T2.district_id = T3.district_id and T4.account_id = T3.account_id WHERE T2.A3 = 'east Bohemia' AND STRFTIME('%Y', T1.birth_date) BETWEEN '1983' AND '1987'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1261",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "thrombosis_prediction",
+        "question": "<QUESTION>",
+        "orig_question": "How many patients with a normal RF don't have thrombosis? normal RF refers to RF < 20; don't have thrombosis refers to Thrombosis = '0';",
+        "orig_masked": "How many [T1] with a [C42] [C42] don't have [C13]? [C42] [C42] refers to [C42] < [V1]; don't have [C13] refers to [C13] = '[V2]';; [V1] is a value of the column [C42]; [V2] is a value of the column [C13]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "normal RF refers to RF < 20; don't have thrombosis refers to Thrombosis = '0';",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "thrombosis": "COLUMN:[examination].[thrombosis]",
+            "patients": "TABLE:[examination]",
+            "RF": "COLUMN:[laboratory].[rf]",
+            "normal": "COLUMN:[laboratory].[rf]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "20": "[laboratory].[rf]",
+            "0": "[examination].[thrombosis]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(DISTINCT T1.ID) FROM Examination AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.RF < 20 AND T1.Thrombosis = 0",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1142",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "In the 2015\u20132016 season, how many games were played in the Italian Serie A league? In the 2015\u20132016 season refers to season = '2015/2016'",
+        "orig_masked": "In the [V3] [C108], how many [T3] were [T3] in the [V1] [T2]? In the [V3] [C108] refers to [C108] = '[V2]'; [V1] is a value of the column [C5]; [V2] is a value of the column [C108]; [V3] is a value of the column [C108]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "In the 2015\u20132016 season refers to season = '2015/2016'",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "league": "TABLE:[league]",
+            "season": "COLUMN:[match].[season]",
+            "games": "TABLE:[match]",
+            "played": "TABLE:[match]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "2015/2016": "[match].[season]",
+            "2015\u20132016": "[match].[season]",
+            "Italian Serie A": "[league].[name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(t2.id) FROM League AS t1 INNER JOIN Match AS t2 ON t1.id = t2.league_id WHERE t1.name = 'Italy Serie A' AND t2.season = '2015/2016'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_735",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "How many superheroes with blonde hair are there?  superheroes with blonde hair refers to colour = 'Blond' where hair_colour_id = colour.id",
+        "orig_masked": "How many [T9] with [V1] [C22] are there?  [T9] with [V1] [C22] refers to [C5] = '[V2]' where [C22] = [C6]; [V1] is a value of the column [C5]; [V2] is a value of the column [C5]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "superheroes with blonde hair refers to colour = 'Blond' where hair_colour_id = colour.id",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "superheroes": "TABLE:[superhero]",
+            "hair": "COLUMN:[superhero].[hair_colour_id]",
+            "hair_colour_id": "COLUMN:[superhero].[hair_colour_id]",
+            "colour": "COLUMN:[colour].[colour]",
+            "colour.id": "COLUMN:[colour].[id]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Blond": "[colour].[colour]",
+            "blonde": "[colour].[colour]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(T1.id) FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.hair_colour_id = T2.id WHERE T2.colour = 'Blond'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_126",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "Calculate the percentage of account from 'Decin' district for all accounts are opened in 1993. A2 contains the information about district.",
+        "orig_masked": "Calculate the percentage of [T1] from '[V1]' [T5] for all [T1] are [T1] in [V2]. [C24] contains the information about [T5].; [V1] is a value of the column [C24]; [V2] is a value of the column [C2]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "A2 contains the information about district.",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "district": "TABLE:[district]",
+            "accounts": "TABLE:[account]",
+            "account": "TABLE:[account]",
+            "opened": "TABLE:[account]",
+            "A2": "COLUMN:[district].[a2]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Decin": "[district].[a2]",
+            "1993": "[account].[date]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT CAST(SUM(T1.A2 = 'Decin') AS REAL) * 100 / COUNT(account_id) FROM district AS T1 INNER JOIN account AS T2 ON T1.district_id = T2.district_id WHERE STRFTIME('%Y', T2.date) = '1993'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1288",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "thrombosis_prediction",
+        "question": "<QUESTION>",
+        "orig_question": "Please list the diagnosis of the patients whose total protein is lower than normal. total protein is lower than normal refers to TP < 6.0;",
+        "orig_masked": "Please list the [C61] of the [T3] whose [C53] is [C53]. [C53] is [C53] refers to [C53] < [V1];; [V1] is a value of the column [C53]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "total protein is lower than normal refers to TP < 6.0;",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "total protein": "COLUMN:[laboratory].[tp]",
+            "lower than normal": "COLUMN:[laboratory].[tp]",
+            "diagnosis": "COLUMN:[patient].[diagnosis]",
+            "patients": "TABLE:[patient]",
+            "TP": "COLUMN:[laboratory].[tp]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "6.0": "[laboratory].[tp]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T1.Diagnosis FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.TP < 6.0",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_147",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "How many female clients' accounts are in the region of South Bohemia? Female refers to gender = 'F'; A3 contains the region 'south Bohemia'",
+        "orig_masked": "How many [C12] [T3]' [T1] are in the [C25] of [V1]? [C12] refers to [C12] = '[V2]'; [C25] contains the [C25] '[V1]'; [V1] is a value of the column [C25]; [V2] is a value of the column [C12]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Female refers to gender = 'F'; A3 contains the region 'south Bohemia'",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "accounts": "TABLE:[account]",
+            "clients": "TABLE:[client]",
+            "gender": "COLUMN:[client].[gender]",
+            "female": "COLUMN:[client].[gender]",
+            "region": "COLUMN:[district].[a3]",
+            "A3": "COLUMN:[district].[a3]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "F": "[client].[gender]",
+            "south Bohemia": "[district].[a3]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(T1.client_id) FROM client AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id WHERE T1.gender = 'F' AND T2.A3 = 'south Bohemia'",
+        "evidence_added": true
+    }
+]

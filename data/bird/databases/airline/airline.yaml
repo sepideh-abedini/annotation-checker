@@ -1,0 +1,45 @@
+'[air carriers]':
+  '[code]':
+    primary_key: true
+    type: integer
+  '[description]': text
+'[airlines]':
+  '[actual_elapsed_time]': integer
+  '[arr_delay]': integer
+  '[arr_delay_new]': integer
+  '[arr_time]': integer
+  '[cancellation_code]': text
+  '[cancelled]': integer
+  '[carrier_delay]': integer
+  '[crs_dep_time]': integer
+  '[crs_elapsed_time]': integer
+  '[dep_delay]': integer
+  '[dep_delay_new]': integer
+  '[dep_time]': integer
+  '[dest]':
+    foreign_key: '[airports].[code]'
+    type: text
+  '[dest_airport_id]': integer
+  '[dest_airport_seq_id]': integer
+  '[dest_city_market_id]': integer
+  '[fl_date]': text
+  '[late_aircraft_delay]': integer
+  '[nas_delay]': integer
+  '[op_carrier_airline_id]':
+    foreign_key: '[air carriers].[code]'
+    type: integer
+  '[op_carrier_fl_num]': integer
+  '[origin]':
+    foreign_key: '[airports].[code]'
+    type: text
+  '[origin_airport_id]': integer
+  '[origin_airport_seq_id]': integer
+  '[origin_city_market_id]': integer
+  '[security_delay]': integer
+  '[tail_num]': text
+  '[weather_delay]': integer
+'[airports]':
+  '[code]':
+    primary_key: true
+    type: text
+  '[description]': text

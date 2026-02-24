@@ -1,0 +1,72 @@
+'[award]':
+  '[award]': text
+  '[award_category]': text
+  '[award_id]':
+    primary_key: true
+    type: integer
+  '[episode_id]':
+    foreign_key: '[episode].[episode_id]'
+    type: text
+  '[organization]': text
+  '[person]':
+    foreign_key: '[person].[name]'
+    type: text
+  '[result]': text
+  '[role]': text
+  '[season]': text
+  '[song]': text
+  '[year]': integer
+'[character_award]':
+  '[award_id]':
+    foreign_key: '[award].[award_id]'
+    type: integer
+  '[character]': text
+'[credit]':
+  '[category]': text
+  '[credited]': text
+  '[episode_id]':
+    foreign_key: '[episode].[episode_id]'
+    type: text
+  '[person]':
+    foreign_key: '[person].[name]'
+    type: text
+  '[role]': text
+'[episode]':
+  '[air_date]': text
+  '[episode]': integer
+  '[episode_id]':
+    primary_key: true
+    type: text
+  '[episode_image]': text
+  '[number_in_series]': integer
+  '[rating]': real
+  '[season]': integer
+  '[summary]': text
+  '[title]': text
+  '[votes]': integer
+'[keyword]':
+  '[episode_id]':
+    foreign_key: '[episode].[episode_id]'
+    primary_key: true
+    type: text
+  '[keyword]':
+    primary_key: true
+    type: text
+'[person]':
+  '[birth_country]': text
+  '[birth_name]': text
+  '[birth_place]': text
+  '[birth_region]': text
+  '[birthdate]': text
+  '[height_meters]': real
+  '[name]':
+    primary_key: true
+    type: text
+  '[nickname]': text
+'[vote]':
+  '[episode_id]':
+    foreign_key: '[episode].[episode_id]'
+    type: text
+  '[percent]': real
+  '[stars]': integer
+  '[votes]': integer

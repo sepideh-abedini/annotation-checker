@@ -1,0 +1,116 @@
+'[country]':
+  '[country_id]':
+    primary_key: true
+    type: integer
+  '[country_iso_code]': text
+  '[country_name]': text
+'[department]':
+  '[department_id]':
+    primary_key: true
+    type: integer
+  '[department_name]': text
+'[gender]':
+  '[gender]': text
+  '[gender_id]':
+    primary_key: true
+    type: integer
+'[genre]':
+  '[genre_id]':
+    primary_key: true
+    type: integer
+  '[genre_name]': text
+'[keyword]':
+  '[keyword_id]':
+    primary_key: true
+    type: integer
+  '[keyword_name]': text
+'[language]':
+  '[language_code]': text
+  '[language_id]':
+    primary_key: true
+    type: integer
+  '[language_name]': text
+'[language_role]':
+  '[language_role]': text
+  '[role_id]':
+    primary_key: true
+    type: integer
+'[movie]':
+  '[budget]': integer
+  '[homepage]': text
+  '[movie_id]':
+    primary_key: true
+    type: integer
+  '[movie_status]': text
+  '[overview]': text
+  '[popularity]': real
+  '[release_date]': date
+  '[revenue]': integer
+  '[runtime]': integer
+  '[tagline]': text
+  '[title]': text
+  '[vote_average]': real
+  '[vote_count]': integer
+'[movie_cast]':
+  '[cast_order]': integer
+  '[character_name]': text
+  '[gender_id]':
+    foreign_key: '[gender].[gender_id]'
+    type: integer
+  '[movie_id]':
+    foreign_key: '[movie].[movie_id]'
+    type: integer
+  '[person_id]':
+    foreign_key: '[person].[person_id]'
+    type: integer
+'[movie_company]':
+  '[company_id]': integer
+  '[movie_id]': integer
+'[movie_crew]':
+  '[department_id]':
+    foreign_key: '[department].[department_id]'
+    type: integer
+  '[job]': text
+  '[movie_id]':
+    foreign_key: '[movie].[movie_id]'
+    type: integer
+  '[person_id]':
+    foreign_key: '[person].[person_id]'
+    type: integer
+'[movie_genres]':
+  '[genre_id]':
+    foreign_key: '[genre].[genre_id]'
+    type: integer
+  '[movie_id]':
+    foreign_key: '[movie].[movie_id]'
+    type: integer
+'[movie_keywords]':
+  '[keyword_id]': integer
+  '[movie_id]': integer
+'[movie_languages]':
+  '[language_id]':
+    foreign_key: '[language].[language_id]'
+    type: integer
+  '[language_role_id]':
+    foreign_key: '[language_role].[role_id]'
+    type: integer
+  '[movie_id]':
+    foreign_key: '[movie].[movie_id]'
+    type: integer
+'[person]':
+  '[person_id]':
+    primary_key: true
+    type: integer
+  '[person_name]': text
+'[production_company]':
+  '[company_id]':
+    primary_key: true
+    type: integer
+  '[company_name]': text
+'[production_country]':
+  '[country_id]':
+    foreign_key: '[country].[country_id]'
+    type: integer
+  '[movie_id]':
+    foreign_key: '[movie].[movie_id]'
+    type: integer

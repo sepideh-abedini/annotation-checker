@@ -1,0 +1,227 @@
+[
+    {
+        "idx": "bird_164",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "Who placed the order with the id 32423?  ",
+        "orig_masked": "Who [T7] the [T7] with the [C45] [V1]?  ; [V1] is a value of the column [C45]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "order": "TABLE:[order]",
+            "placed": "TABLE:[order]",
+            "id": "COLUMN:[order].[order_id]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "32423": "[order].[order_id]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T3.client_id FROM `order` AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id INNER JOIN disp AS T4 ON T4.account_id = T2.account_id  INNER JOIN client AS T3 ON T4.client_id = T3.client_id WHERE T1.order_id = 32423",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_174",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "What year was account owner number 130 born? ",
+        "orig_masked": "What [C9] was [C1] [V1] [C9]? ; [V1] is a value of the column [C1]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "account owner number": "COLUMN:[account].[account_id]",
+            "year": "COLUMN:[client].[birth_date]",
+            "born": "COLUMN:[client].[birth_date]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "130": "[account].[account_id]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT STRFTIME('%Y', T1.birth_date) FROM client AS T1 INNER JOIN disp AS T3 ON T1.client_id = T3.client_id INNER JOIN account AS T2 ON T3.account_id = T2.account_id WHERE T2.account_id = 130",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1086",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "What's the heading accuracy of Ariel Borysiuk? ",
+        "orig_masked": "What's the [C146] of [V1]? ; [V1] is a value of the column [C126]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "heading accuracy": "COLUMN:[player_attributes].[heading_accuracy]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Ariel Borysiuk": "[player].[player_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT t2.heading_accuracy FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t1.player_name = 'Ariel Borysiuk'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_795",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "How many superheroes have a neutral alignment?  ",
+        "orig_masked": "How many [T9] have a [V1] [C1]?  ; [V1] is a value of the column [C1]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "superheroes": "TABLE:[superhero]",
+            "alignment": "COLUMN:[alignment].[alignment]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "neutral": "[alignment].[alignment]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(T1.id) FROM superhero AS T1 INNER JOIN alignment AS T2 ON T1.alignment_id = T2.id WHERE T2.alignment = 'Neutral'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_838",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "Provide the full name of the superhero named Alien. ",
+        "orig_masked": "Provide the [C20] of the [T9] [C28] [V1]. ; [V1] is a value of the column [C28]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "named": "COLUMN:[superhero].[superhero_name]",
+            "full name": "COLUMN:[superhero].[full_name]",
+            "superhero": "TABLE:[superhero]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Alien": "[superhero].[superhero_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT full_name FROM superhero WHERE superhero_name = 'Alien'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_143",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "What are the accounts that have gold credit cards?  ",
+        "orig_masked": "What are the [C13] that have [V1] [T2]?  ; [V1] is a value of the column [C8]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "accounts": "COLUMN:[disp].[account_id]",
+            "credit cards": "TABLE:[card]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "gold": "[card].[type]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T2.account_id FROM disp AS T2  INNER JOIN card AS T1 ON T1.disp_id = T2.disp_id  WHERE T1.type = 'gold'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_183",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "How many accounts in Beroun were opened after 1996? ",
+        "orig_masked": "How many [T1] in [V1] were [C2] [C2] [V2]? ; [V1] is a value of the column [C24]; [V2] is a value of the column [C2]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "accounts": "TABLE:[account]",
+            "opened": "COLUMN:[account].[date]",
+            "after": "COLUMN:[account].[date]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "1996": "[account].[date]",
+            "Beroun": "[district].[a2]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(account_id) FROM account AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id WHERE STRFTIME('%Y', T1.date) > '1996' AND T2.A2 = 'Beroun'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_166",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "How many of the accounts are from Jesenik district?  ",
+        "orig_masked": "How many of the [T1] are from [V1] [T5]?  ; [V1] is a value of the column [C24]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "accounts": "TABLE:[account]",
+            "district": "TABLE:[district]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Jesenik": "[district].[a2]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(T2.account_id) FROM district AS T1 INNER JOIN account AS T2 ON T1.district_id = T2.district_id WHERE T1.A2 = 'Jesenik'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1138",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "In what country did the Poland Ekstraklasa take place? ",
+        "orig_masked": "In what [T1] did the [V1] [T1]? ; [V1] is a value of the column [C5]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "country": "TABLE:[country]",
+            "take place": "TABLE:[country]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Poland Ekstraklasa": "[league].[name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT name FROM Country WHERE id IN ( SELECT country_id FROM League WHERE name = 'Poland Ekstraklasa' )",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_178",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "Which kind of credit card does client number 9 possess? ",
+        "orig_masked": "Which [C8] of [T2] does [C10] [V1] possess? ; [V1] is a value of the column [C10]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "client number": "COLUMN:[client].[client_id]",
+            "credit card": "TABLE:[card]",
+            "kind": "COLUMN:[card].[type]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "9": "[client].[client_id]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T3.type FROM client AS T1 INNER JOIN disp AS T2 ON T1.client_id = T2.client_id INNER JOIN card AS T3 ON T2.disp_id = T3.disp_id WHERE T1.client_id = 9",
+        "evidence_added": true
+    }
+]

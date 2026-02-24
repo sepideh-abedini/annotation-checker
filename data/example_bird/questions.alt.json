@@ -1,0 +1,95 @@
+[
+    {
+        "idx": "bird_1044",
+        "question": "List the patients with a birthyear of 1990 and a birthmonth of December. patients with a birthyear of 1990 and a birthmonth of December refers to substr(birthday,1,7) AS 'year-month',WHERE year = '1990' AND month = '10';",
+        "db_id": "synthea",
+        "original_symbolic": "List the [T4] with a [C121] of [V2] and a [C121] of [V1]. [T4] with a [C121] of [V2] and a [C121] of [V1] refers to substr([C121],1,7) AS '[C121]-[C121]',WHERE [C121] = '[V2]' AND [C121] = '[V3]';; [V1] is a value of the column [C121]; [V2] is a value of the column [C121]; [V3] is a value of the column [C121]",
+        "original_question": "List the football players with a birthyear of 1970 and a birthmonth of October. players with a birthyear of 1970 and a birthmonth of October refers to substr(birthday,1,7) AS 'year-month',WHERE year = '1970' AND month = '10';",
+        "original_db_id": "european_football_2",
+        "gold_schema_links": {
+            "patients": "TABLE:[patients]",
+            "year": "COLUMN:[patients].[birthdate]",
+            "month": "COLUMN:[patients].[birthdate]",
+            "birthday": "COLUMN:[patients].[birthdate]",
+            "birthyear": "COLUMN:[patients].[birthdate]",
+            "birthmonth": "COLUMN:[patients].[birthdate]"
+        },
+        "gold_value_links": {
+            "1990": "[patients].[birthdate]",
+            "10": "[patients].[birthdate]",
+            "December": "[patients].[birthdate]"
+        }
+    },
+    {
+        "idx": "bird_1045",
+        "question": "What is the gender of the subject Garcia? ",
+        "db_id": "shooting",
+        "original_symbolic": "What is the [C131] of the [T4] [V1]? ; [V1] is a value of the column [C126]",
+        "original_question": "What is the attacking work rate of the football playerr Franco Zennaro? ",
+        "original_db_id": "european_football_2",
+        "gold_schema_links": {
+            "gender": "COLUMN:[subjects].[gender]",
+            "subject": "TABLE:[subjects]"
+        },
+        "gold_value_links": {
+            "Garcia": "[subjects].[last_name]"
+        }
+    },
+    {
+        "idx": "bird_744",
+        "question": "Between Mack and Kenw, which truck has shipped more shipments? Find the difference in the number of shipments they have shipped.  Mack refers to make = 'Mack'; Kenw refers to make = 'Kenworth'; calculation = SUBTRACT(SUM(make = 'Mack'), SUM(make = 'Kenworth'))",
+        "db_id": "shipping",
+        "original_symbolic": "Between [V3] and [V1], which [T7] has [T7] more [T9]? Find the difference in the number of [T9] they have [T7].  [V3] refers to [C15] = '[V2]'; [V1] refers to [C15] = '[V1]'; calculation = SUBTRACT(SUM([C15] = '[V1]'), SUM([C15] = '[V2]')); [V1] is a value of the column [C15]; [V2] is a value of the column [C15]; [V3] is a value of the column [C15]",
+        "original_question": "Between DC and Marvel Comics, which publisher has published more superheroes? Find the difference in the number of superheroes they have published.  DC refers to publisher_name = 'DC Comics'; Marvel Comics refers to publisher_name = 'Marvel Comics'; calculation = SUBTRACT(SUM(publisher_name = 'Marvel Comics'), SUM(publisher_name = 'DC Comics'))",
+        "original_db_id": "superhero",
+        "gold_schema_links": {
+            "truck": "TABLE:[truck]",
+            "shipped": "TABLE:[shipment]",
+            "shipments": "TABLE:[shipment]",
+            "make": "COLUMN:[truck].[make]"
+        },
+        "gold_value_links": {
+            "Mack": "[truck].[make]",
+            "Kenw": "[truck].[make]",
+            "Kenworth": "[truck].[make]"
+        }
+    },
+    {
+        "idx": "bird_743",
+        "question": "What is the percentage of persons who operate camera? Indicate how many of the said persons were awarded by Primetime Emmy Awards. awarded by Primetime Emmy Awards refers to organization = 'Primetime Emmy Awards'; persons who operate camera refers to role = 'camera operator'; calculation = MULTIPLY(DIVIDE(SUM(role = 'camera operator'); count(person_id)), 100)",
+        "db_id": "law_episode",
+        "original_symbolic": "What is the percentage of [T9] who [V1]? Indicate how many of the said [T9] were [T7] by [V2]. [T7] by [V2] refers to [C15] = '[V2]'; [T9] who [V1] refers to [C1] = '[V3]'; calculation = MULTIPLY(DIVIDE(SUM([C1] = '[V3]'); count([C2])), 100); [V1] is a value of the column [C1]; [V2] is a value of the column [C15]; [V3] is a value of the column [C1]",
+        "original_question": "What is the percentage of superheroes who act in their own self-interest or make decisions based on their own moral code? Indicate how many of the said superheroes were published by Marvel Comics. published by Marvel Comics refers to publisher_name = 'Marvel Comics'; superheroes who act in their own self-interest or make decisions based on their own moral code refers to alignment = 'Bad'; calculation = MULTIPLY(DIVIDE(SUM(alignment = 'Bad'); count(id)), 100)",
+        "original_db_id": "superhero",
+        "gold_schema_links": {
+            "persons": "TABLE:[person]",
+            "person_id": "COLUMN:[person].[person_id]",
+            "role": "COLUMN:[credit].[role]",
+            "awarded": "TABLE:[award]",
+            "organization": "COLUMN:[award].[organization]"
+        },
+        "gold_value_links": {
+            "Primetime Emmy Awards": "[award].[organization]",
+            "camera operator": "[credit].[role]",
+            "operate camera": "[credit].[role]"
+        }
+    },
+    {
+        "idx": "bird_785",
+        "question": "Describe the roles of Edgar category awards.  roles of awards refers to role; Edgar category refers to award_category = 'Edgar';",
+        "db_id": "law_episode",
+        "original_symbolic": "Describe the [C28] of [V1] [C1] [T9].  [C28] of [T9] refers to [C28]; [V1] [C1] refers to [C1] = '[V1]';; [V1] is a value of the column [C1]",
+        "original_question": "Describe the names of neutral alignment superheroes.  names of superheroes refers to superhero_name; neutral alignment refers to alignment = 'Neutral';",
+        "original_db_id": "superhero",
+        "gold_schema_links": {
+            "roles": "COLUMN:[award].[role]",
+            "role": "COLUMN:[award].[role]",
+            "awards": "TABLE:[award]",
+            "category": "COLUMN:[award].[award_category]",
+            "award_category": "COLUMN:[award].[award_category]"
+        },
+        "gold_value_links": {
+            "Edgar": "[award].[award_category]"
+        }
+    }
+]

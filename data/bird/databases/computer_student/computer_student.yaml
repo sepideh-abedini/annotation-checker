@@ -1,0 +1,32 @@
+'[advisedby]':
+  '[p_id]':
+    foreign_key: '[person].[p_id]'
+    primary_key: true
+    type: integer
+  '[p_id_dummy]':
+    foreign_key: '[person].[p_id]'
+    primary_key: true
+    type: integer
+'[course]':
+  '[course_id]':
+    primary_key: true
+    type: integer
+  '[courselevel]': text
+'[person]':
+  '[hasposition]': text
+  '[inphase]': text
+  '[p_id]':
+    primary_key: true
+    type: integer
+  '[professor]': integer
+  '[student]': integer
+  '[yearsinprogram]': text
+'[taughtby]':
+  '[course_id]':
+    foreign_key: '[course].[course_id]'
+    primary_key: true
+    type: integer
+  '[p_id]':
+    foreign_key: '[person].[p_id]'
+    primary_key: true
+    type: integer

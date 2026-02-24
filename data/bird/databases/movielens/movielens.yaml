@@ -1,0 +1,51 @@
+'[actors]':
+  '[a_gender]': text
+  '[a_quality]': integer
+  '[actorid]':
+    primary_key: true
+    type: integer
+'[directors]':
+  '[avg_revenue]': integer
+  '[d_quality]': integer
+  '[directorid]':
+    primary_key: true
+    type: integer
+'[movies2actors]':
+  '[actorid]':
+    primary_key: true
+    type: integer
+  '[cast_num]': integer
+  '[movieid]':
+    primary_key: true
+    type: integer
+'[movies2directors]':
+  '[directorid]':
+    primary_key: true
+    type: integer
+  '[genre]': text
+  '[movieid]':
+    primary_key: true
+    type: integer
+'[movies]':
+  '[country]': text
+  '[isenglish]': text
+  '[movieid]':
+    primary_key: true
+    type: integer
+  '[runningtime]': integer
+  '[year]': integer
+'[u2base]':
+  '[movieid]':
+    primary_key: true
+    type: integer
+  '[rating]': text
+  '[userid]':
+    primary_key: true
+    type: integer
+'[users]':
+  '[age]': text
+  '[occupation]': text
+  '[u_gender]': text
+  '[userid]':
+    primary_key: true
+    type: integer

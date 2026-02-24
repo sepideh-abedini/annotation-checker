@@ -1,0 +1,34 @@
+'[businesses]':
+  '[address]': text
+  '[application_date]': date
+  '[business_certificate]': integer
+  '[business_id]':
+    primary_key: true
+    type: integer
+  '[city]': text
+  '[latitude]': real
+  '[longitude]': real
+  '[name]': text
+  '[owner_address]': text
+  '[owner_city]': text
+  '[owner_name]': text
+  '[owner_state]': text
+  '[owner_zip]': text
+  '[phone_number]': integer
+  '[postal_code]': text
+  '[tax_code]': text
+'[inspections]':
+  '[business_id]':
+    foreign_key: '[businesses].[business_id]'
+    type: integer
+  '[date]': date
+  '[score]': integer
+  '[type]': text
+'[violations]':
+  '[business_id]':
+    foreign_key: '[businesses].[business_id]'
+    type: integer
+  '[date]': date
+  '[description]': text
+  '[risk_category]': text
+  '[violation_type_id]': text

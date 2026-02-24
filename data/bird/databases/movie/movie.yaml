@@ -1,0 +1,40 @@
+'[actor]':
+  '[actorid]':
+    primary_key: true
+    type: integer
+  '[biography]': text
+  '[birth city]': text
+  '[birth country]': text
+  '[date of birth]': date
+  '[ethnicity]': text
+  '[gender]': text
+  '[height (inches)]': integer
+  '[name]': text
+  '[networth]': text
+'[characters]':
+  '[actorid]':
+    foreign_key: '[actor].[actorid]'
+    primary_key: true
+    type: integer
+  '[character name]': text
+  '[creditorder]': integer
+  '[movieid]':
+    foreign_key: '[movie].[movieid]'
+    primary_key: true
+    type: integer
+  '[pay]': text
+  '[screentime]': text
+'[movie]':
+  '[budget]': integer
+  '[genre]': text
+  '[gross]': integer
+  '[movieid]':
+    primary_key: true
+    type: integer
+  '[mpaa rating]': text
+  '[rating count]': integer
+  '[rating]': real
+  '[release date]': text
+  '[runtime]': integer
+  '[summary]': text
+  '[title]': text

@@ -1,0 +1,46 @@
+'[characters]':
+  '[hero]':
+    foreign_key: '[voice-actors].[character]'
+    type: text
+  '[movie_title]':
+    primary_key: true
+    type: text
+  '[release_date]': text
+  '[song]': text
+  '[villian]': text
+'[director]':
+  '[director]': text
+  '[name]':
+    foreign_key: '[characters].[movie_title]'
+    primary_key: true
+    type: text
+'[movies_total_gross]':
+  '[genre]': text
+  '[inflation_adjusted_gross]': text
+  '[movie_title]':
+    foreign_key: '[characters].[movie_title]'
+    primary_key: true
+    type: text
+  '[mpaa_rating]': text
+  '[release_date]':
+    primary_key: true
+    type: text
+  '[total_gross]': text
+'[revenue]':
+  '[disney consumer products[ni 2]]': real
+  '[disney interactive[ni 3][rev 1]]': integer
+  '[disney media networks]': text
+  '[studio entertainment[ni 1]]': real
+  '[total]': integer
+  '[walt disney parks and resorts]': real
+  '[year]':
+    primary_key: true
+    type: integer
+'[voice-actors]':
+  '[character]':
+    primary_key: true
+    type: text
+  '[movie]':
+    foreign_key: '[characters].[movie_title]'
+    type: text
+  '[voice-actor]': text

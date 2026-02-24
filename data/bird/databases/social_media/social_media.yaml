@@ -1,0 +1,34 @@
+'[location]':
+  '[city]': text
+  '[country]': text
+  '[locationid]':
+    primary_key: true
+    type: integer
+  '[state]': text
+  '[statecode]': text
+'[twitter]':
+  '[day]': integer
+  '[hour]': integer
+  '[isreshare]': text
+  '[klout]': integer
+  '[lang]': text
+  '[likes]': integer
+  '[locationid]':
+    foreign_key: '[location].[locationid]'
+    type: integer
+  '[reach]': integer
+  '[retweetcount]': integer
+  '[sentiment]': real
+  '[text]': text
+  '[tweetid]':
+    primary_key: true
+    type: text
+  '[userid]':
+    foreign_key: '[user].[userid]'
+    type: text
+  '[weekday]': text
+'[user]':
+  '[gender]': text
+  '[userid]':
+    primary_key: true
+    type: text

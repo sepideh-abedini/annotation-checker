@@ -1,0 +1,141 @@
+'[actor]':
+  '[actor_id]':
+    primary_key: true
+    type: integer
+  '[first_name]': text
+  '[last_name]': text
+  '[last_update]': datetime
+'[address]':
+  '[address2]': text
+  '[address]': text
+  '[address_id]':
+    primary_key: true
+    type: integer
+  '[city_id]': integer
+  '[district]': text
+  '[last_update]': datetime
+  '[phone]': text
+  '[postal_code]': text
+'[category]':
+  '[category_id]':
+    primary_key: true
+    type: integer
+  '[last_update]': datetime
+  '[name]': text
+'[city]':
+  '[city]': text
+  '[city_id]':
+    primary_key: true
+    type: integer
+  '[country_id]': integer
+  '[last_update]': datetime
+'[country]':
+  '[country]': text
+  '[country_id]':
+    primary_key: true
+    type: integer
+  '[last_update]': datetime
+'[customer]':
+  '[active]': integer
+  '[address_id]': integer
+  '[create_date]': datetime
+  '[customer_id]':
+    primary_key: true
+    type: integer
+  '[email]': text
+  '[first_name]': text
+  '[last_name]': text
+  '[last_update]': datetime
+  '[store_id]': integer
+'[film]':
+  '[description]': text
+  '[film_id]':
+    primary_key: true
+    type: integer
+  '[language_id]': integer
+  '[last_update]': datetime
+  '[length]': integer
+  '[original_language_id]': integer
+  '[rating]': text
+  '[release_year]': text
+  '[rental_duration]': integer
+  '[rental_rate]': real
+  '[replacement_cost]': real
+  '[special_features]': text
+  '[title]': text
+'[film_actor]':
+  '[actor_id]':
+    primary_key: true
+    type: integer
+  '[film_id]':
+    primary_key: true
+    type: integer
+  '[last_update]': datetime
+'[film_category]':
+  '[category_id]':
+    primary_key: true
+    type: integer
+  '[film_id]':
+    primary_key: true
+    type: integer
+  '[last_update]': datetime
+'[film_text]':
+  '[description]': text
+  '[film_id]':
+    primary_key: true
+    type: integer
+  '[title]': text
+'[inventory]':
+  '[film_id]': integer
+  '[inventory_id]':
+    primary_key: true
+    type: integer
+  '[last_update]': datetime
+  '[store_id]': integer
+'[language]':
+  '[language_id]':
+    primary_key: true
+    type: integer
+  '[last_update]': datetime
+  '[name]': text
+'[payment]':
+  '[amount]': real
+  '[customer_id]': integer
+  '[last_update]': datetime
+  '[payment_date]': datetime
+  '[payment_id]':
+    primary_key: true
+    type: integer
+  '[rental_id]': integer
+  '[staff_id]': integer
+'[rental]':
+  '[customer_id]': integer
+  '[inventory_id]': integer
+  '[last_update]': datetime
+  '[rental_date]': datetime
+  '[rental_id]':
+    primary_key: true
+    type: integer
+  '[return_date]': datetime
+  '[staff_id]': integer
+'[staff]':
+  '[active]': integer
+  '[address_id]': integer
+  '[email]': text
+  '[first_name]': text
+  '[last_name]': text
+  '[last_update]': datetime
+  '[password]': text
+  '[picture]': blob
+  '[staff_id]':
+    primary_key: true
+    type: integer
+  '[store_id]': integer
+  '[username]': text
+'[store]':
+  '[address_id]': integer
+  '[last_update]': datetime
+  '[manager_staff_id]': integer
+  '[store_id]':
+    primary_key: true
+    type: integer

@@ -1,0 +1,26 @@
+'[generalinfo]':
+  '[city]':
+    foreign_key: '[geographic].[city]'
+    type: text
+  '[food_type]': text
+  '[id_restaurant]':
+    primary_key: true
+    type: integer
+  '[label]': text
+  '[review]': real
+'[geographic]':
+  '[city]':
+    primary_key: true
+    type: text
+  '[county]': text
+  '[region]': text
+'[location]':
+  '[city]':
+    foreign_key: '[geographic].[city]'
+    type: text
+  '[id_restaurant]':
+    foreign_key: '[generalinfo].[id_restaurant]'
+    primary_key: true
+    type: integer
+  '[street_name]': text
+  '[street_num]': integer

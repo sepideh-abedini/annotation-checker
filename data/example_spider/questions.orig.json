@@ -1,0 +1,240 @@
+[
+    {
+        "idx": "spider_964",
+        "db_id": "dog_kennels",
+        "question": "What are the arriving date and the departing date of all the dogs?",
+        "evidence": "",
+        "evidence_added": true,
+        "query": "SELECT date_arrived ,  date_departed FROM Dogs",
+        "gold_value_links": {},
+        "gold_schema_links": {
+            "arriving date": "COLUMN:[dogs].[date_arrived]",
+            "departing date": "COLUMN:[dogs].[date_departed]",
+            "dogs": "TABLE:[dogs]"
+        }
+    },
+    {
+        "idx": "spider_996",
+        "db_id": "dog_kennels",
+        "question": "What are all the possible breed type and size type combinations?",
+        "evidence": "",
+        "evidence_added": true,
+        "query": "SELECT DISTINCT breed_code ,  size_code FROM dogs",
+        "gold_value_links": {},
+        "gold_schema_links": {
+            "breed type": "COLUMN:[dogs].[breed_code]",
+            "size type": "COLUMN:[dogs].[size_code]"
+        }
+    },
+    {
+        "idx": "spider_932",
+        "db_id": "dog_kennels",
+        "question": "Which professionals have done at least two treatments? List the professional's id, role, and first name.",
+        "evidence": "",
+        "evidence_added": true,
+        "query": "SELECT T1.professional_id ,  T1.role_code ,  T1.first_name FROM Professionals AS T1 JOIN Treatments AS T2 ON T1.professional_id  =  T2.professional_id GROUP BY T1.professional_id HAVING count(*)  >=  2",
+        "gold_value_links": {},
+        "gold_schema_links": {
+            "professionals": "TABLE:[professionals]",
+            "treatments": "TABLE:[treatments]",
+            "done": "TABLE:[treatments]",
+            "id": "COLUMN:[professionals].[professional_id]",
+            "role": "COLUMN:[professionals].[role_code]",
+            "first name": "COLUMN:[professionals].[first_name]",
+            "professional": "TABLE:[professionals]"
+        }
+    },
+    {
+        "idx": "spider_990",
+        "db_id": "dog_kennels",
+        "question": "How much does each charge type costs? List both charge type and amount.",
+        "evidence": "",
+        "evidence_added": true,
+        "query": "SELECT charge_type ,  charge_amount FROM Charges",
+        "gold_value_links": {},
+        "gold_schema_links": {
+            "charge type": "COLUMN:[charges].[charge_type]",
+            "amount": "COLUMN:[charges].[charge_amount]",
+            "costs": "COLUMN:[charges].[charge_amount]"
+        }
+    },
+    {
+        "idx": "spider_84",
+        "db_id": "pets_1",
+        "question": "What is the last name of the student who has a cat that is 3 years old?",
+        "evidence": "",
+        "evidence_added": true,
+        "query": "SELECT T1.lname FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid  =  T2.stuid JOIN pets AS T3 ON T3.petid  =  T2.petid WHERE T3.pet_age  =  3 AND T3.pettype  =  'cat'",
+        "gold_value_links": {
+            "3": "[pets].[pet_age]",
+            "cat": "[pets].[pettype]"
+        },
+        "gold_schema_links": {
+            "last name": "COLUMN:[student].[lname]",
+            "student": "TABLE:[student]",
+            "has": "TABLE:[has_pet]",
+            "years old": "COLUMN:[pets].[pet_age]"
+        }
+    },
+    {
+        "idx": "spider_946",
+        "db_id": "dog_kennels",
+        "question": "List the date of each treatment, together with the first name of the professional who operated it.",
+        "evidence": "",
+        "evidence_added": true,
+        "query": "SELECT T1.date_of_treatment ,  T2.first_name FROM Treatments AS T1 JOIN Professionals AS T2 ON T1.professional_id  =  T2.professional_id",
+        "gold_value_links": {},
+        "gold_schema_links": {
+            "date": "COLUMN:[treatments].[date_of_treatment]",
+            "treatment": "TABLE:[treatments]",
+            "first name": "COLUMN:[professionals].[first_name]",
+            "professional": "TABLE:[professionals]",
+            "operated": "TABLE:[treatments]"
+        }
+    },
+    {
+        "idx": "spider_939",
+        "db_id": "dog_kennels",
+        "question": "Give me the description of the treatment type whose total cost is the lowest.",
+        "evidence": "",
+        "evidence_added": true,
+        "query": "SELECT T1.treatment_type_description FROM Treatment_types AS T1 JOIN Treatments AS T2 ON T1.treatment_type_code  =  T2.treatment_type_code GROUP BY T1.treatment_type_code ORDER BY sum(cost_of_treatment) ASC LIMIT 1",
+        "gold_value_links": {},
+        "gold_schema_links": {
+            "description": "COLUMN:[treatment_types].[treatment_type_description]",
+            "treatment type": "TABLE:[treatment_types]",
+            "cost": "COLUMN:[treatments].[cost_of_treatment]"
+        }
+    },
+    {
+        "idx": "spider_83",
+        "db_id": "pets_1",
+        "question": "Find the last name of the student who has a cat that is age 3.",
+        "evidence": "",
+        "evidence_added": true,
+        "query": "SELECT T1.lname FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid  =  T2.stuid JOIN pets AS T3 ON T3.petid  =  T2.petid WHERE T3.pet_age  =  3 AND T3.pettype  =  'cat'",
+        "gold_value_links": {
+            "3": "[pets].[pet_age]",
+            "cat": "[pets].[pettype]"
+        },
+        "gold_schema_links": {
+            "last name": "COLUMN:[student].[lname]",
+            "student": "TABLE:[student]",
+            "age": "COLUMN:[pets].[pet_age]",
+            "has": "TABLE:[has_pet]"
+        }
+    },
+    {
+        "idx": "spider_985",
+        "db_id": "dog_kennels",
+        "question": "What are the dog name, age and weight of the dogs that were abandoned? Note that 1 stands for yes, and 0 stands for no in the tables.",
+        "evidence": "",
+        "evidence_added": true,
+        "query": "SELECT name ,  age ,  weight FROM Dogs WHERE abandoned_yn  =  1",
+        "gold_value_links": {
+            "1": "[dogs].[abandoned_yn]",
+            "0": "[dogs].[abandoned_yn]",
+            "yes": "[dogs].[abandoned_yn]",
+            "no": "[dogs].[abandoned_yn]"
+        },
+        "gold_schema_links": {
+            "dog name": "COLUMN:[dogs].[name]",
+            "age": "COLUMN:[dogs].[age]",
+            "weight": "COLUMN:[dogs].[weight]",
+            "dogs": "TABLE:[dogs]",
+            "abandoned": "COLUMN:[dogs].[abandoned_yn]"
+        }
+    },
+    {
+        "idx": "spider_931",
+        "db_id": "dog_kennels",
+        "question": "Return the owner id, first name and last name of the owner who has the most dogs.",
+        "evidence": "",
+        "evidence_added": true,
+        "query": "SELECT T1.owner_id ,  T2.first_name ,  T2.last_name FROM Dogs AS T1 JOIN Owners AS T2 ON T1.owner_id  =  T2.owner_id GROUP BY T1.owner_id ORDER BY count(*) DESC LIMIT 1",
+        "gold_value_links": {},
+        "gold_schema_links": {
+            "owner id": "COLUMN:[owners].[owner_id]",
+            "first name": "COLUMN:[owners].[first_name]",
+            "last name": "COLUMN:[owners].[last_name]",
+            "owner": "TABLE:[owners]",
+            "dogs": "TABLE:[dogs]"
+        }
+    },
+    {
+        "idx": "spider_935",
+        "db_id": "dog_kennels",
+        "question": "Which breed do the most dogs have? Give me the breed name.",
+        "evidence": "",
+        "evidence_added": true,
+        "query": "SELECT T1.breed_name FROM Breeds AS T1 JOIN Dogs AS T2 ON T1.breed_code  =  T2.breed_code GROUP BY T1.breed_name ORDER BY count(*) DESC LIMIT 1",
+        "gold_value_links": {},
+        "gold_schema_links": {
+            "breed": "TABLE:[breeds]",
+            "dogs": "TABLE:[dogs]",
+            "breed name": "COLUMN:[breeds].[breed_name]"
+        }
+    },
+    {
+        "idx": "spider_47",
+        "db_id": "pets_1",
+        "question": "Find the weight of the youngest dog.",
+        "evidence": "",
+        "evidence_added": true,
+        "query": "SELECT weight FROM pets ORDER BY pet_age LIMIT 1",
+        "gold_value_links": {},
+        "gold_schema_links": {
+            "weight": "COLUMN:[pets].[weight]",
+            "dog": "TABLE:[pets]",
+            "youngest": "COLUMN:[pets].[pet_age]"
+        }
+    },
+    {
+        "idx": "spider_85",
+        "db_id": "pets_1",
+        "question": "Find the average age of students who do not have any pet .",
+        "evidence": "",
+        "evidence_added": true,
+        "query": "select avg(age) from student where stuid not in (select stuid from has_pet)",
+        "gold_value_links": {},
+        "gold_schema_links": {
+            "age": "COLUMN:[student].[age]",
+            "students": "TABLE:[student]",
+            "pet": "TABLE:[pets]",
+            "have": "TABLE:[has_pet]"
+        },
+        "alt_question": "Find the average age of staffs who do not attended any conferences .",
+        "alt_db_id": "conference"
+    },
+    {
+        "idx": "spider_986",
+        "db_id": "dog_kennels",
+        "question": "What is the average age of all the dogs?",
+        "evidence": "",
+        "evidence_added": true,
+        "query": "SELECT avg(age) FROM Dogs",
+        "gold_value_links": {},
+        "gold_schema_links": {
+            "age": "COLUMN:[dogs].[age]",
+            "dogs": "TABLE:[dogs]"
+        },
+        "alt_question": "What is the average rating of all the movies?",
+        "alt_db_id": "movie_1"
+    },
+    {
+        "idx": "spider_50",
+        "db_id": "pets_1",
+        "question": "List the maximum weight and type for each type of pet.",
+        "evidence": "",
+        "evidence_added": true,
+        "query": "SELECT max(weight) ,  petType FROM pets GROUP BY petType",
+        "gold_value_links": {},
+        "gold_schema_links": {
+            "weight": "COLUMN:[pets].[weight]",
+            "type": "COLUMN:[pets].[pettype]",
+            "pet": "TABLE:[pets]"
+        },
+        "alt_question": "List the maximum age and nationality for each nationality of staff.",
+        "alt_db_id": "conference"
+    }
+]

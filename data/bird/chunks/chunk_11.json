@@ -1,0 +1,330 @@
+[
+    {
+        "idx": "bird_160",
+        "db_id": "social_media",
+        "orig_db_id": "financial",
+        "question": "Among the English tweets, how many have a likes count of under 5? lang = 'en' stands for English tweets",
+        "orig_question": "Among the weekly issuance accounts, how many have a loan of under 200000? frequency = 'POPLATEK TYDNE' stands for weekly issuance",
+        "orig_masked": "Among the [C4], how many have a [T6] of under [V2]? [C4] = '[V1]' stands for [C4]; [V1] is a value of the column [C4]; [V2] is a value of the column [C34]",
+        "evidence": "lang = 'en' stands for English tweets",
+        "orig_evidence": "frequency = 'POPLATEK TYDNE' stands for weekly issuance",
+        "gold_schema_links": {
+            "English tweets": "COLUMN:[twitter].[lang]",
+            "likes count": "TABLE:[twitter]",
+            "lang": "COLUMN:[twitter].[lang]",
+            "likes": "COLUMN:[twitter].[likes]"
+        },
+        "orig_gold_schema_links": {
+            "accounts": "TABLE:[account]",
+            "weekly issuance accounts": "COLUMN:[account].[frequency]",
+            "weekly issuance": "COLUMN:[account].[frequency]",
+            "frequency": "COLUMN:[account].[frequency]",
+            "loan": "TABLE:[loan]"
+        },
+        "gold_value_links": {
+            "en": "[twitter].[lang]",
+            "5": "[twitter].[likes]"
+        },
+        "orig_gold_value_links": {
+            "POPLATEK TYDNE": "[account].[frequency]",
+            "200000": "[loan].[amount]"
+        },
+        "gold_sql": "SELECT COUNT(T1.tweetid) FROM twitter AS T1 WHERE T1.lang = 'en' AND T1.likes < 5",
+        "orig_gold_sql": "SELECT COUNT(T1.account_id) FROM loan AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id WHERE T2.frequency = 'POPLATEK TYDNE' AND T1.amount < 200000",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_750",
+        "db_id": "synthea",
+        "orig_db_id": "superhero",
+        "question": "What is the average billable period of all hispanic patients?  hispanic refers to race = 'hispanic'; average billable period refers to AVG(total)",
+        "orig_question": "What is the average weight of all female superheroes?  female refers to gender = 'Female'; average weight refers to AVG(weight_kg)",
+        "orig_masked": "What is the average [C29] of all [V1] [T9]?  [V1] refers to [C7] = '[V1]'; average [C29] refers to AVG([C29]); [V1] is a value of the column [C7]",
+        "evidence": "hispanic refers to race = 'hispanic'; average billable period refers to AVG(total)",
+        "orig_evidence": "female refers to gender = 'Female'; average weight refers to AVG(weight_kg)",
+        "gold_schema_links": {
+            "billable period": "COLUMN:[claims].[total]",
+            "patients": "TABLE:[patients]",
+            "hispanic": "COLUMN:[patients].[race]",
+            "race": "COLUMN:[patients].[race]",
+            "claims": "TABLE:[claims]",
+            "total": "COLUMN:[claims].[total]"
+        },
+        "orig_gold_schema_links": {
+            "weight": "COLUMN:[superhero].[weight_kg]",
+            "superheroes": "TABLE:[superhero]",
+            "gender": "COLUMN:[gender].[gender]",
+            "weight_kg": "COLUMN:[superhero].[weight_kg]"
+        },
+        "gold_value_links": {
+            "hispanic": "[patients].[race]"
+        },
+        "orig_gold_value_links": {
+            "Female": "[gender].[gender]"
+        },
+        "gold_sql": "SELECT AVG(T1.total) FROM claims AS T1 INNER JOIN patients AS T2 ON T1.patient = T2.patient WHERE T2.race = 'hispanic'",
+        "orig_gold_sql": "SELECT AVG(T1.weight_kg) FROM superhero AS T1 INNER JOIN gender AS T2 ON T1.gender_id = T2.id WHERE T2.gender = 'Female'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1196",
+        "db_id": "software_company",
+        "orig_db_id": "thrombosis_prediction",
+        "question": "What is the most common marital status of customers with farming or fishing occupation? the most common marital status refers to MAX(marital_status); 'farming or fishing' refers to occupation",
+        "orig_question": "What is the most common sign of patients with SLE disease? the most common sign refers to MAX(symptoms); 'SLE' refers to diagnosis",
+        "orig_masked": "What is the most common [C12] of [T1] with [V1] [C6]? the most common [C12] refers to MAX([C12]); '[V1]' refers to [C6]; [V1] is a value of the column [C6]",
+        "evidence": "the most common marital status refers to MAX(marital_status); 'farming or fishing' refers to occupation",
+        "orig_evidence": "the most common sign refers to MAX(symptoms); 'SLE' refers to diagnosis",
+        "gold_schema_links": {
+            "customers": "TABLE:[customers]",
+            "marital status": "COLUMN:[customers].[marital_status]",
+            "occupation": "COLUMN:[customers].[occupation]",
+            "marital_status": "COLUMN:[customers].[marital_status]"
+        },
+        "orig_gold_schema_links": {
+            "diagnosis": "COLUMN:[examination].[diagnosis]",
+            "symptoms": "COLUMN:[examination].[symptoms]",
+            "patients": "TABLE:[examination]",
+            "disease": "COLUMN:[examination].[diagnosis]",
+            "sign": "COLUMN:[examination].[symptoms]"
+        },
+        "gold_value_links": {
+            "farming or fishing": "[customers].[occupation]"
+        },
+        "orig_gold_value_links": {
+            "SLE": "[examination].[diagnosis]"
+        },
+        "gold_sql": "SELECT T1.marital_status FROM customers AS T1 WHERE T1.occupation = 'Farming-fishing' GROUP BY T1.marital_status ORDER BY COUNT(T1.marital_status) DESC LIMIT 1",
+        "orig_gold_sql": "SELECT Symptoms FROM Examination WHERE Diagnosis = 'SLE' GROUP BY Symptoms ORDER BY COUNT(Symptoms) DESC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1159",
+        "db_id": "software_company",
+        "orig_db_id": "thrombosis_prediction",
+        "question": "For customers with education level lower than 2, list their age, sex and average income. education level lower than 2 refers to educationnum < 2;",
+        "orig_question": "For patient with albumin level lower than 3.5, list their ID, sex and diagnosis. albumin level lower than 3.5 refers to ALB < 3.5;",
+        "orig_masked": "For [T3] with [C14] lower than [V1], list their [C63], [C64] and [C61]. [C14] lower than [V1] refers to [C14] < [V1];; [V1] is a value of the column [C14]",
+        "evidence": "education level lower than 2 refers to educationnum < 2;",
+        "orig_evidence": "albumin level lower than 3.5 refers to ALB < 3.5;",
+        "gold_schema_links": {
+            "customers": "TABLE:[customers]",
+            "education level": "COLUMN:[customers].[educationnum]",
+            "age": "COLUMN:[customers].[age]",
+            "sex": "COLUMN:[customers].[sex]",
+            "average income": "COLUMN:[demog].[income_k]",
+            "educationnum": "COLUMN:[customers].[educationnum]"
+        },
+        "orig_gold_schema_links": {
+            "albumin level": "COLUMN:[laboratory].[alb]",
+            "diagnosis": "COLUMN:[patient].[diagnosis]",
+            "patient": "TABLE:[patient]",
+            "sex": "COLUMN:[patient].[sex]",
+            "alb": "COLUMN:[laboratory].[alb]",
+            "ID": "COLUMN:[patient].[id]"
+        },
+        "gold_value_links": {
+            "2": "[customers].[educationnum]"
+        },
+        "orig_gold_value_links": {
+            "3.5": "[laboratory].[alb]"
+        },
+        "gold_sql": "SELECT DISTINCT T1.age, T1.sex, T2.income_k FROM customers AS T1 INNER JOIN demog AS T2 ON T1.geoid = T2.geoid WHERE T1.educationnum < 2",
+        "orig_gold_sql": "SELECT DISTINCT T1.ID, T1.SEX, T1.Diagnosis FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.ALB < 3.5",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1078",
+        "db_id": "human_resources",
+        "orig_db_id": "european_football_2",
+        "question": "Which employee is more senior, Manin or Foster? The larger the hire date value, the more senior the person is, and vice versa;",
+        "orig_question": "Which player is older, Aaron Lennon or Abdelaziz Barrada? The larger the birthday value, the younger the person is, and vice versa;",
+        "orig_masked": "Which [T4] is [C121], [V2] or [V1]? The larger the [C121] value, the [C121] the [T4] is, and vice versa;; [V1] is a value of the column [C126]; [V2] is a value of the column [C126]",
+        "evidence": "The larger the hire date value, the younger the person is, and vice versa;",
+        "orig_evidence": "The larger the birthday value, the younger the person is, and vice versa;",
+        "gold_schema_links": {
+            "employee": "TABLE:[employee]",
+            "person": "TABLE:[employee]",
+            "more senior": "COLUMN:[employee].[hiredate]",
+            "hire date": "COLUMN:[employee].[hiredate]"
+        },
+        "orig_gold_schema_links": {
+            "player": "TABLE:[player]",
+            "person": "TABLE:[player]",
+            "older": "COLUMN:[player].[birthday]",
+            "birthday": "COLUMN:[player].[birthday]",
+            "younger": "COLUMN:[player].[birthday]"
+        },
+        "gold_value_links": {
+            "Manin": "[employee].[lastname]",
+            "Foster": "[employee].[lastname]"
+        },
+        "orig_gold_value_links": {
+            "Aaron Lennon": "[player].[player_name]",
+            "Abdelaziz Barrada": "[player].[player_name]"
+        },
+        "gold_sql": "SELECT T1.lastname FROM employee AS T1 WHERE T1.lastname IN ('Manin', 'Foster') ORDER BY T1.hiredate ASC LIMIT 1",
+        "orig_gold_sql": "SELECT player_name FROM Player WHERE player_name IN ('Aaron Lennon', 'Abdelaziz Barrada') ORDER BY birthday ASC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_139",
+        "db_id": "app_store",
+        "orig_db_id": "financial",
+        "question": "How many high-level apps have \"SOCIAL\" category of app?  High-level apps refers to the apps with the 1,000,000,000+ installs.",
+        "orig_question": "How many high-level credit cards have \"OWNER\" type of disposition?  High-level credit cards refers to the cards with the gold type.",
+        "orig_masked": "How many [C8] [T2] have \"[V1]\" [C8] of [T4]?  [C8] [T2] refers to the [T2] with the [V2] [C8].; [V1] is a value of the column [C16]; [V2] is a value of the column [C8]",
+        "evidence": "High-level apps refers to the apps with the 1,000,000,000+ installs.",
+        "orig_evidence": "High-level credit cards refers to the cards with the gold type.",
+        "gold_schema_links": {
+            "apps": "TABLE:[playstore]",
+            "category": "COLUMN:[playstore].[category]",
+            "app": "TABLE:[playstore]",
+            "installs": "COLUMN:[playstore].[installs]",
+            "high-level": "COLUMN:[playstore].[installs]"
+        },
+        "orig_gold_schema_links": {
+            "credit cards": "TABLE:[card]",
+            "disposition": "TABLE:[disp]",
+            "type": "COLUMN:[card].[type]",
+            "high-level": "COLUMN:[card].[type]",
+            "cards": "TABLE:[card]"
+        },
+        "gold_value_links": {
+            "SOCIAL": "[playstore].[category]",
+            "1,000,000,000+": "[playstore].[installs]"
+        },
+        "orig_gold_value_links": {
+            "gold": "[card].[type]",
+            "OWNER": "[disp].[type]"
+        },
+        "gold_sql": "SELECT COUNT(DISTINCT T1.app) FROM playstore AS T1 INNER JOIN playstore AS T2 ON T1.app = T2.app WHERE T1.installs = '1,000,000,000+' AND T2.category = 'SOCIAL'",
+        "orig_gold_sql": "SELECT COUNT(T1.card_id) FROM card AS T1 INNER JOIN disp AS T2 ON T1.disp_id = T2.disp_id WHERE T1.type = 'gold' AND T2.type = 'OWNER'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1048",
+        "db_id": "synthea",
+        "orig_db_id": "european_football_2",
+        "question": "What is the code of the immunization MMR in year 2008? in year 2008 refers to strftime('%Y', date) = '2008';",
+        "orig_question": "What is the overall rating of the football player Gabriel Tamas in year 2011? in year 2011 refers to strftime('%Y', date) = '2011';",
+        "orig_masked": "What is the [C153] of the [T4] [V1] in [C136] [V2]? in [C136] [V2] refers to strftime('%Y', [C136]) = '[V2]';; [V1] is a value of the column [C126]; [V2] is a value of the column [C136]",
+        "evidence": "in year 2008 refers to strftime('%Y', date) = '2008';",
+        "orig_evidence": "in year 2011 refers to strftime('%Y', date) = '2011';",
+        "gold_schema_links": {
+            "code": "COLUMN:[immunizations].[code]",
+            "immunization": "TABLE:[immunizations]",
+            "year": "COLUMN:[immunizations].[date]",
+            "date": "COLUMN:[immunizations].[date]"
+        },
+        "orig_gold_schema_links": {
+            "overall rating": "COLUMN:[player_attributes].[overall_rating]",
+            "football player": "TABLE:[player]",
+            "year": "COLUMN:[player_attributes].[date]",
+            "date": "COLUMN:[player_attributes].[date]"
+        },
+        "gold_value_links": {
+            "MMR": "[immunizations].[description]",
+            "2008": "[immunizations].[date]"
+        },
+        "orig_gold_value_links": {
+            "Gabriel Tamas": "[player].[player_name]",
+            "2011": "[player_attributes].[date]"
+        },
+        "gold_sql": "SELECT DISTINCT T2.code FROM immunizations AS T1 INNER JOIN immunizations AS T2 ON T1.patient = T2.patient AND T1.encounter = T2.encounter AND T1.date = T2.date WHERE T1.description = 'MMR' AND strftime('%Y', T2.date) = '2008' LIMIT 1",
+        "orig_gold_sql": "SELECT t2.overall_rating FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t1.player_name = 'Gabriel Tamas' AND strftime('%Y', t2.date) = '2011'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_124",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "List the loan ID, district and average salary for loan with duration of 60 months.  A3 refers to regions; A11 refers to average salary",
+        "orig_masked": "List the [C37], [T5] and [C18] for [T6] with [C36] of [V1] [C36].  [T5] refers to [T5]; [C18] refers to [C18]; [V1] is a value of the column [C36]",
+        "evidence": "abbreviation refers to state; avg_income_per_household refers to average income per household",
+        "orig_evidence": "A3 refers to regions; A11 refers to average salary",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "loan ID": "COLUMN:[loan].[loan_id]",
+            "district": "TABLE:[district]",
+            "average salary": "COLUMN:[district].[a11]",
+            "loan": "TABLE:[loan]",
+            "duration": "COLUMN:[loan].[duration]",
+            "months": "COLUMN:[loan].[duration]",
+            "regions": "TABLE:[district]",
+            "A3": "TABLE:[district]",
+            "A11": "COLUMN:[district].[a11]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "60": "[loan].[duration]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T3.loan_id, T2.A2, T2.A11 FROM account AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id INNER JOIN loan AS T3 ON T1.account_id = T3.account_id WHERE T3.duration = 60",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_718",
+        "db_id": "simpson_episodes",
+        "orig_db_id": "superhero",
+        "question": "How many episodes have the award of \"Primetime Emmy\"?  award of \"Primetime Emmy\" refers to award_category = 'Primetime Emmy'",
+        "orig_question": "How many superheroes have the super power of \"Super Strength\"?  super power of \"Super Strength\" refers to power_name = 'Super Strength'",
+        "orig_masked": "How many [C12] have the [T10] of \"[V1]\"?  [T10] of \"[V1]\" refers to [C31] = '[V1]'; [V1] is a value of the column [C31]",
+        "evidence": "award of \"Primetime Emmy\" refers to award_category = 'Primetime Emmy'",
+        "orig_evidence": "super power of \"Super Strength\" refers to power_name = 'Super Strength'",
+        "gold_schema_links": {
+            "episodes": "COLUMN:[episode].[episode_id]",
+            "award": "TABLE:[award]",
+            "award_category": "COLUMN:[award].[award_category]"
+        },
+        "orig_gold_schema_links": {
+            "superheroes": "COLUMN:[hero_power].[hero_id]",
+            "super power": "TABLE:[superpower]",
+            "power_name": "COLUMN:[superpower].[power_name]"
+        },
+        "gold_value_links": {
+            "Primetime Emmy": "[award].[award_category]"
+        },
+        "orig_gold_value_links": {
+            "Super Strength": "[superpower].[power_name]"
+        },
+        "gold_sql": "SELECT COUNT(DISTINCT episode_id) FROM award WHERE award_category = 'Primetime Emmy'",
+        "orig_gold_sql": "SELECT COUNT(T1.hero_id) FROM hero_power AS T1 INNER JOIN superpower AS T2 ON T1.power_id = T2.id WHERE T2.power_name = 'Super Strength'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_776",
+        "db_id": "disney",
+        "orig_db_id": "superhero",
+        "question": "Provide the voice actor and movie_title of Chernabog. voice actor refers to voice-actor; Chernabog is the villain of characters;",
+        "orig_question": "Provide the hero name and race of Charles Chandler. hero name refers to superhero_name; Charles Chandler is the full name of superhero;",
+        "orig_masked": "Provide the [C28] and [C17] of [V1]. [C28] refers to [C28]; [V1] is the [C20] of [T9];; [V1] is a value of the column [C20]",
+        "evidence": "voice actor refers to voice-actor; Chernabog is the villain of characters;",
+        "orig_evidence": "hero name refers to superhero_name; Charles Chandler is the full name of superhero;",
+        "gold_schema_links": {
+            "voice actor": "COLUMN:[voice-actors].[voice-actor]",
+            "voice-actor": "COLUMN:[voice-actors].[voice-actor]",
+            "movie_title": "COLUMN:[characters].[movie_title]",
+            "character": "COLUMN:[voice-actors].[character]",
+            "characters": "TABLE:[characters]",
+            "villain": "COLUMN:[characters].[villian]"
+        },
+        "orig_gold_schema_links": {
+            "superhero_name": "COLUMN:[superhero].[superhero_name]",
+            "hero name": "COLUMN:[superhero].[superhero_name]",
+            "full name": "COLUMN:[superhero].[full_name]",
+            "superhero": "TABLE:[superhero]",
+            "race": "COLUMN:[race].[race]"
+        },
+        "gold_value_links": {
+            "Chernabog": "[characters].[villian]"
+        },
+        "orig_gold_value_links": {
+            "Charles Chandler": "[superhero].[full_name]"
+        },
+        "gold_sql": "SELECT T1.\"voice-actor\", T2.movie_title FROM \"voice-actors\" AS T1 INNER JOIN characters AS T2 ON T1.movie = T2.movie_title WHERE T1.character = 'Chernabog'",
+        "orig_gold_sql": "SELECT T1.superhero_name, T2.race FROM superhero AS T1 INNER JOIN race AS T2 ON T1.race_id = T2.id WHERE T1.full_name = 'Charles Chandler'",
+        "evidence_added": true
+    }
+]

@@ -1,0 +1,20 @@
+'[cites]':
+  '[cited_paper_id]':
+    primary_key: true
+    type: text
+  '[citing_paper_id]':
+    primary_key: true
+    type: text
+'[content]':
+  '[paper_id]':
+    foreign_key: '[paper].[paper_id]'
+    primary_key: true
+    type: text
+  '[word_cited_id]':
+    primary_key: true
+    type: text
+'[paper]':
+  '[class_label]': text
+  '[paper_id]':
+    primary_key: true
+    type: text

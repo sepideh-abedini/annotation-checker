@@ -1,0 +1,257 @@
+[
+    {
+        "idx": "bird_155",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "How many percent of 'Gold' cards were issued prior to 1998? Percent of Gold = [ count(type = 'gold' and issued date < 1998) / count(all cards)] * 100%",
+        "orig_masked": "How many percent of '[V1]' [T2] were [C7] prior to [V2]? Percent of [V1] = [ count([C8] = '[V1]' and [C7] < [V2]) / count(all [T2])] * 100%; [V1] is a value of the column [C8]; [V2] is a value of the column [C7]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Percent of Gold = [ count(type = 'gold' and issued date < 1998) / count(all cards)] * 100%",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "issued date": "COLUMN:[card].[issued]",
+            "issued": "COLUMN:[card].[issued]",
+            "cards": "TABLE:[card]",
+            "type": "COLUMN:[card].[type]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "gold": "[card].[type]",
+            "1998": "[card].[issued]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT CAST(SUM(type = 'gold' AND STRFTIME('%Y', issued) < '1998') AS REAL) * 100 / COUNT(card_id) FROM card",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_112",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "For the female client who was born in 1976/1/29, which district did she opened her account?  Female refers to gender = 'F'; A2 refers to district names",
+        "orig_masked": "For the [C12] [T3] who was [C9] in [V1], which [T5] did she [T3] her [T3]?  [C12] refers to [C12] = '[V2]'; [C24] refers to [T5] names; [V1] is a value of the column [C9]; [V2] is a value of the column [C12]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Female refers to gender = 'F'; A2 refers to district names",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "district": "TABLE:[district]",
+            "client": "TABLE:[client]",
+            "opened": "TABLE:[client]",
+            "account": "TABLE:[client]",
+            "born": "COLUMN:[client].[birth_date]",
+            "female": "COLUMN:[client].[gender]",
+            "A2": "COLUMN:[district].[a2]",
+            "gender": "COLUMN:[client].[gender]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "1976/1/29": "[client].[birth_date]",
+            "F": "[client].[gender]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T1.A2 FROM district AS T1 INNER JOIN client AS T2 ON T1.district_id = T2.district_id WHERE T2.birth_date = '1976-01-29' AND T2.gender = 'F'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1103",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "What was the overall rating for Aaron Mooy on 2016/2/4? Aaron Mooy refers to player_name = 'Aaron Mooy'; on 2016/2/4 refers to date LIKE '2016-02-04%';",
+        "orig_masked": "What was the [C153] for [V1] on [V3]? [V1] refers to [C126] = '[V1]'; on [V3] refers to [C136] LIKE '[V2]%';; [V1] is a value of the column [C126]; [V2] is a value of the column [C136]; [V3] is a value of the column [C136]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Aaron Mooy refers to player_name = 'Aaron Mooy'; on 2016/2/4 refers to date LIKE '2016-02-04%';",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "overall rating": "COLUMN:[player_attributes].[overall_rating]",
+            "player_name": "COLUMN:[player].[player_name]",
+            "date": "COLUMN:[player_attributes].[date]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Aaron Mooy": "[player].[player_name]",
+            "2016/2/4": "[player_attributes].[date]",
+            "2016-02-04": "[player_attributes].[date]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT t2.overall_rating FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE SUBSTR(t2.`date`, 1, 10) = '2016-02-04' AND t1.player_name = 'Aaron Mooy'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1049",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "How many matches in the 2015/2016 season were held in Scotland Premier League\n? Scotland Premier League refers to League.name = 'Scotland Premier League';",
+        "orig_masked": "How many [T3] in the [V2] [C108] were held in [V1]\n? [V1] refers to [T2].[C5] = '[V1]';; [V1] is a value of the column [C5]; [V2] is a value of the column [C108]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Scotland Premier League refers to League.name = 'Scotland Premier League';",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "matches": "TABLE:[match]",
+            "season": "COLUMN:[match].[season]",
+            "name": "COLUMN:[league].[name]",
+            "League": "TABLE:[league]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "2015/2016": "[match].[season]",
+            "Scotland Premier League": "[league].[name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(t2.id) FROM League AS t1 INNER JOIN Match AS t2 ON t1.id = t2.league_id WHERE t2.season = '2015/2016' AND t1.name = 'Scotland Premier League'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1096",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "Calculate the average overall rating of Pietro Marino. Pietro Marino refers to player_name = 'Pietro Marino'; average overall rating AVG(T1.overall_rating)",
+        "orig_masked": "Calculate the average [C153] of [V1]. [V1] refers to [C126] = '[V1]'; average [C153] AVG(T1.[C153]); [V1] is a value of the column [C126]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Pietro Marino refers to player_name = 'Pietro Marino'; average overall rating AVG(T1.overall_rating)",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "overall rating": "COLUMN:[player_attributes].[overall_rating]",
+            "overall_rating": "COLUMN:[player_attributes].[overall_rating]",
+            "player_name": "COLUMN:[player].[player_name]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Pietro Marino": "[player].[player_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT CAST(SUM(t2.overall_rating) AS REAL) / COUNT(t2.id) FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t1.player_name = 'Pietro Marino'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_831",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "What is Abomination's eye colour?  Abomination refers to superhero_name = 'Abomination'; eye colour refers to colour.colour where eye_colour_id = colour.id;",
+        "orig_masked": "What is [V1]'s [C19]?  [V1] refers to [C28] = '[V1]'; [C19] refers to [C5].[C5] where [C19] = [C5].[C6];; [V1] is a value of the column [C28]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Abomination refers to superhero_name = 'Abomination'; eye colour refers to colour.colour where eye_colour_id = colour.id;",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "eye colour": "COLUMN:[superhero].[eye_colour_id]",
+            "colour": "COLUMN:[colour].[colour]",
+            "eye_colour_id": "COLUMN:[superhero].[eye_colour_id]",
+            "id": "COLUMN:[colour].[id]",
+            "superhero_name": "COLUMN:[superhero].[superhero_name]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Abomination": "[superhero].[superhero_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T2.colour FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id WHERE T1.superhero_name = 'Abomination'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_783",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "Provide the eye colours of the heroes whose skin colours are gold.  skin colours are gold refers to colour.colour = 'Gold' WHERE skin_colour_id = colour.id;",
+        "orig_masked": "Provide the [C19] of the [T9] whose [C27] are [V1].  [C27] are [V1] refers to [C5] = '[V1]' WHERE [C27] = [C6];; [V1] is a value of the column [C5]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "skin colours are gold refers to colour.colour = 'Gold' WHERE skin_colour_id = colour.id;",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "eye colours": "COLUMN:[superhero].[eye_colour_id]",
+            "heroes": "TABLE:[superhero]",
+            "skin colours": "COLUMN:[superhero].[skin_colour_id]",
+            "colour.colour": "COLUMN:[colour].[colour]",
+            "skin_colour_id": "COLUMN:[superhero].[skin_colour_id]",
+            "colour.id": "COLUMN:[colour].[id]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Gold": "[colour].[colour]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T2.colour FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id INNER JOIN colour AS T3 ON T1.skin_colour_id = T3.id WHERE T3.colour = 'Gold'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_91",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "The average unemployment ratio of 1995 and 1996, which one has higher percentage?  A12 refers to unemploymant rate 1995; A13 refers to unemploymant rate 1996",
+        "orig_masked": "The average [C19] and [C20], which one has higher percentage?  [C19] refers to [C19]; [C20] refers to [C20] [C20]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "A12 refers to unemploymant rate 1995; A13 refers to unemploymant rate 1996",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "A12": "COLUMN:[district].[a12]",
+            "unemployment ratio of 1995": "COLUMN:[district].[a12]",
+            "unemploymant rate 1995": "COLUMN:[district].[a12]",
+            "A13": "COLUMN:[district].[a13]",
+            "1996": "COLUMN:[district].[a13]",
+            "unemploymant rate": "COLUMN:[district].[a13]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {},
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT DISTINCT IIF(AVG(A13) > AVG(A12), '1996', '1995') FROM district",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_770",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "What is the eyes colour of Abraham Sapien?  eye colour refers to colour.colour where eye_colour_id = colour.id; Abraham Sapien is the full name of superhero;",
+        "orig_masked": "What is the [C19] [C5] of [V1]?  [C19] [C5] refers to [C5] where [C19] = [C6]; [V1] is the [C20] of [T9];; [V1] is a value of the column [C20]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "eye colour refers to colour.colour where eye_colour_id = colour.id; Abraham Sapien is the full name of superhero;",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "eyes": "COLUMN:[superhero].[eye_colour_id]",
+            "colour.colour": "COLUMN:[colour].[colour]",
+            "eye_colour_id": "COLUMN:[superhero].[eye_colour_id]",
+            "colour.id": "COLUMN:[colour].[id]",
+            "full name": "COLUMN:[superhero].[full_name]",
+            "superhero": "TABLE:[superhero]",
+            "eye": "COLUMN:[superhero].[eye_colour_id]",
+            "colour": "COLUMN:[colour].[colour]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Abraham Sapien": "[superhero].[full_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T2.colour FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id WHERE T1.full_name = 'Abraham Sapien'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_722",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "What is the colour of Apocalypse's skin?  Apocalypse refers to superhero_name = 'Apocalypse'; colour of skin refers to colour where skin_colour_id = colour.id",
+        "orig_masked": "What is the [C5] of [V1]'s [C27]?  [V1] refers to [C28] = '[V1]'; [C5] of [C27] refers to [C5] where [C27] = [C6]; [V1] is a value of the column [C28]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Apocalypse refers to superhero_name = 'Apocalypse'; colour of skin refers to colour where skin_colour_id = colour.id",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "colour": "COLUMN:[colour].[colour]",
+            "skin": "COLUMN:[superhero].[skin_colour_id]",
+            "superhero_name": "COLUMN:[superhero].[superhero_name]",
+            "skin_colour_id": "COLUMN:[superhero].[skin_colour_id]",
+            "colour.id": "COLUMN:[colour].[id]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Apocalypse": "[superhero].[superhero_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T2.colour FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.skin_colour_id = T2.id WHERE T1.superhero_name = 'Apocalypse'",
+        "evidence_added": true
+    }
+]

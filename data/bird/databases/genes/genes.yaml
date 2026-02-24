@@ -1,0 +1,28 @@
+'[classification]':
+  '[geneid]':
+    primary_key: true
+    type: text
+  '[localization]': text
+'[genes]':
+  '[chromosome]': integer
+  '[class]': text
+  '[complex]': text
+  '[essential]': text
+  '[function]': text
+  '[geneid]':
+    foreign_key: '[classification].[geneid]'
+    type: text
+  '[localization]': text
+  '[motif]': text
+  '[phenotype]': text
+'[interactions]':
+  '[expression_corr]': real
+  '[geneid1]':
+    foreign_key: '[classification].[geneid]'
+    primary_key: true
+    type: text
+  '[geneid2]':
+    foreign_key: '[classification].[geneid]'
+    primary_key: true
+    type: text
+  '[type]': text

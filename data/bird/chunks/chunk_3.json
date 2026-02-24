@@ -1,0 +1,235 @@
+[
+    {
+        "idx": "bird_140",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "How many accounts are there in the district of \"Pisek\"?  A2 refers to district name",
+        "orig_masked": "How many [T1] are there in the [T5] of \"[V1]\"?  [C24] refers to [C24]; [V1] is a value of the column [C24]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "A2 refers to district name",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "accounts": "TABLE:[account]",
+            "district": "TABLE:[district]",
+            "A2": "COLUMN:[district].[a2]",
+            "district name": "COLUMN:[district].[a2]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Pisek": "[district].[a2]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(T1.account_id) FROM account AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id WHERE T2.A2 = 'Pisek'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_765",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "How many heroes have stealth power? stealth power refers to power_name = 'stealth';",
+        "orig_masked": "How many [C12] have [V1] [C31]? [V1] [C31] refers to [C31] = '[V1]';; [V1] is a value of the column [C31]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "stealth power refers to power_name = 'stealth';",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "power_name": "COLUMN:[superpower].[power_name]",
+            "heroes": "COLUMN:[hero_power].[hero_id]",
+            "power": "COLUMN:[superpower].[power_name]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "stealth": "[superpower].[power_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(T1.hero_id) FROM hero_power AS T1 INNER JOIN superpower AS T2 ON T1.power_id = T2.id WHERE T2.power_name = 'Stealth'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_184",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "How many female customers have a junior credit card?  Female refers to gender = 'F'",
+        "orig_masked": "How many [C12] [T3] have a [V1] [T2]?  [C12] refers to [C12] = '[V2]'; [V1] is a value of the column [C8]; [V2] is a value of the column [C12]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Female refers to gender = 'F'",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "female": "COLUMN:[client].[gender]",
+            "customers": "TABLE:[client]",
+            "credit card": "TABLE:[card]",
+            "gender": "COLUMN:[client].[gender]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "F": "[client].[gender]",
+            "junior": "[card].[type]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(T1.client_id) FROM client AS T1 INNER JOIN disp AS T2 ON T1.client_id = T2.client_id INNER JOIN card AS T3 ON T2.disp_id = T3.disp_id WHERE T1.gender = 'F' AND T3.type = 'junior'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_113",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "For the client who applied 98832 USD loan in 1996/1/3, when was his/her birthday?  ",
+        "orig_masked": "For the [T3] who applied [V1] [T6] in [V2], when was his/her [C9]?  ; [V1] is a value of the column [C34]; [V2] is a value of the column [C35]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "birthday": "COLUMN:[client].[birth_date]",
+            "client": "TABLE:[client]",
+            "loan": "TABLE:[loan]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "1996/1/3": "[loan].[date]",
+            "98832 USD": "[loan].[amount]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T4.birth_date FROM loan AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id INNER JOIN disp AS T3 ON T2.account_id = T3.account_id INNER JOIN client AS T4 ON T3.client_id = T4.client_id WHERE T1.date = '1996-01-03' AND T1.amount = 98832",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_179",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "How much, in total, did client number 617 pay for all of the transactions in 1998? ",
+        "orig_masked": "How much, in total, did [T3] [C10] [V2] [T8] for all of the [T8] in [V1]? ; [V1] is a value of the column [C51]; [V2] is a value of the column [C10]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "client": "TABLE:[client]",
+            "number": "COLUMN:[client].[client_id]",
+            "transactions": "TABLE:[trans]",
+            "pay": "TABLE:[trans]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "1998": "[trans].[date]",
+            "617": "[client].[client_id]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT SUM(T3.amount) FROM client AS T1 INNER JOIN disp AS T4 ON T1.client_id = T4.client_id INNER JOIN account AS T2 ON T4.account_id = T2.account_id INNER JOIN trans AS T3 ON T2.account_id = T3.account_id WHERE STRFTIME('%Y', T3.date)= '1998' AND T1.client_id = 617",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1069",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "Which football player has the shortest height? shortest height refers to MIN(height);",
+        "orig_masked": "Which [T4] has the shortest [C122]? shortest [C122] refers to MIN([C122]);",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "shortest height refers to MIN(height);",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "football player": "TABLE:[player]",
+            "height": "COLUMN:[player].[height]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {},
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT player_name FROM player ORDER BY height ASC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_784",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "Provide the full names of vampire heroes.  vampire heroes refers to race = 'Vampire';",
+        "orig_masked": "Provide the [C20] of [V1] [T9].  [V1] [T9] refers to [C17] = '[V1]';; [V1] is a value of the column [C17]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "vampire heroes refers to race = 'Vampire';",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "full names": "COLUMN:[superhero].[full_name]",
+            "heroes": "TABLE:[superhero]",
+            "race": "COLUMN:[race].[race]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Vampire": "[race].[race]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T1.full_name FROM superhero AS T1 INNER JOIN race AS T2 ON T1.race_id = T2.id WHERE T2.race = 'Vampire'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_779",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "How many powers does Amazo hero have?  Amazo hero refers to superhero_name = 'Amazo';",
+        "orig_masked": "How many [C13] does [V1] [T9] have?  [V1] [T9] refers to [C28] = '[V1]';; [V1] is a value of the column [C28]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Amazo hero refers to superhero_name = 'Amazo';",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "powers": "COLUMN:[hero_power].[power_id]",
+            "hero": "TABLE:[superhero]",
+            "superhero_name": "COLUMN:[superhero].[superhero_name]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Amazo": "[superhero].[superhero_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(T1.power_id) FROM hero_power AS T1 INNER JOIN superhero AS T2 ON T1.hero_id = T2.id WHERE T2.superhero_name = 'Amazo'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_110",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "What is the disposition id of the client who made 5100 USD transaction in 1998/9/2?  ",
+        "orig_masked": "What is the [C15] of the [T1] who made [V1] [T8] in [V2]?  ; [V1] is a value of the column [C48]; [V2] is a value of the column [C51]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "disposition id": "COLUMN:[disp].[disp_id]",
+            "transaction": "TABLE:[trans]",
+            "client": "TABLE:[account]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "5100 USD": "[trans].[amount]",
+            "1998/9/2": "[trans].[date]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T1.disp_id FROM disp AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id INNER JOIN trans AS T3 ON T2.account_id = T3.account_id WHERE T3.date='1997-08-20' AND T3.amount = 5100",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_742",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "How many vampire superheroes are there?  vampire superheroes refers to race = 'Vampire'",
+        "orig_masked": "How many [V1] [T9] are there?  [V1] [T9] refers to [C17] = '[V1]'; [V1] is a value of the column [C17]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "vampire superheroes refers to race = 'Vampire'",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "superheroes": "TABLE:[superhero]",
+            "race": "COLUMN:[race].[race]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Vampire": "[race].[race]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(T1.superhero_name) FROM superhero AS T1 INNER JOIN race AS T2 ON T1.race_id = T2.id WHERE T2.race = 'Vampire'",
+        "evidence_added": true
+    }
+]

@@ -1,0 +1,55 @@
+'[city]':
+  '[area]': real
+  '[city_id]':
+    primary_key: true
+    type: integer
+  '[city_name]': text
+  '[population]': integer
+  '[state]': text
+'[customer]':
+  '[address]': text
+  '[annual_revenue]': integer
+  '[city]': text
+  '[cust_id]':
+    primary_key: true
+    type: integer
+  '[cust_name]': text
+  '[cust_type]': text
+  '[phone]': text
+  '[state]': text
+  '[zip]': real
+'[driver]':
+  '[address]': text
+  '[city]': text
+  '[driver_id]':
+    primary_key: true
+    type: integer
+  '[first_name]': text
+  '[last_name]': text
+  '[phone]': text
+  '[state]': text
+  '[zip_code]': integer
+'[shipment]':
+  '[city_id]':
+    foreign_key: '[city].[city_id]'
+    type: integer
+  '[cust_id]':
+    foreign_key: '[customer].[cust_id]'
+    type: integer
+  '[driver_id]':
+    foreign_key: '[driver].[driver_id]'
+    type: integer
+  '[ship_date]': text
+  '[ship_id]':
+    primary_key: true
+    type: integer
+  '[truck_id]':
+    foreign_key: '[truck].[truck_id]'
+    type: integer
+  '[weight]': real
+'[truck]':
+  '[make]': text
+  '[model_year]': integer
+  '[truck_id]':
+    primary_key: true
+    type: integer

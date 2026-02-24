@@ -1,0 +1,152 @@
+'[all_prevalences]':
+  '[item]':
+    primary_key: true
+    type: text
+  '[occurrences]': integer
+  '[population count]': integer
+  '[population type]': text
+  '[prevalence percentage]': real
+  '[prevalence rate]': real
+'[allergies]':
+  '[code]':
+    primary_key: true
+    type: integer
+  '[description]': text
+  '[encounter]':
+    foreign_key: '[encounters].[id]'
+    primary_key: true
+    type: text
+  '[patient]':
+    foreign_key: '[patients].[patient]'
+    primary_key: true
+    type: text
+  '[start]': text
+  '[stop]': text
+'[careplans]':
+  '[code]': real
+  '[description]': text
+  '[encounter]':
+    foreign_key: '[encounters].[id]'
+    type: text
+  '[id]': text
+  '[patient]':
+    foreign_key: '[patients].[patient]'
+    type: text
+  '[reasoncode]': integer
+  '[reasondescription]': text
+  '[start]': date
+  '[stop]': date
+'[claims]':
+  '[billableperiod]': date
+  '[diagnosis]': text
+  '[encounter]': text
+  '[id]':
+    primary_key: true
+    type: text
+  '[organization]': text
+  '[patient]': text
+  '[total]': integer
+'[conditions]':
+  '[code]': integer
+  '[description]':
+    foreign_key: '[all_prevalences].[item]'
+    type: text
+  '[encounter]':
+    foreign_key: '[encounters].[id]'
+    type: text
+  '[patient]':
+    foreign_key: '[patients].[patient]'
+    type: text
+  '[start]': date
+  '[stop]': date
+'[encounters]':
+  '[code]': integer
+  '[date]': date
+  '[description]': text
+  '[id]':
+    primary_key: true
+    type: text
+  '[patient]':
+    foreign_key: '[patients].[patient]'
+    type: text
+  '[reasoncode]': integer
+  '[reasondescription]': text
+'[immunizations]':
+  '[code]':
+    primary_key: true
+    type: integer
+  '[date]':
+    primary_key: true
+    type: date
+  '[description]': text
+  '[encounter]':
+    foreign_key: '[encounters].[id]'
+    primary_key: true
+    type: text
+  '[patient]':
+    foreign_key: '[patients].[patient]'
+    primary_key: true
+    type: text
+'[medications]':
+  '[code]':
+    primary_key: true
+    type: integer
+  '[description]': text
+  '[encounter]':
+    foreign_key: '[encounters].[id]'
+    primary_key: true
+    type: text
+  '[patient]':
+    foreign_key: '[patients].[patient]'
+    primary_key: true
+    type: text
+  '[reasoncode]': integer
+  '[reasondescription]': text
+  '[start]':
+    primary_key: true
+    type: date
+  '[stop]': date
+'[observations]':
+  '[code]': text
+  '[date]': date
+  '[description]': text
+  '[encounter]':
+    foreign_key: '[encounters].[id]'
+    type: text
+  '[patient]':
+    foreign_key: '[patients].[patient]'
+    type: text
+  '[units]': text
+  '[value]': real
+'[patients]':
+  '[address]': text
+  '[birthdate]': date
+  '[birthplace]': text
+  '[deathdate]': date
+  '[drivers]': text
+  '[ethnicity]': text
+  '[first]': text
+  '[gender]': text
+  '[last]': text
+  '[maiden]': text
+  '[marital]': text
+  '[passport]': text
+  '[patient]':
+    primary_key: true
+    type: text
+  '[prefix]': text
+  '[race]': text
+  '[ssn]': text
+  '[suffix]': text
+'[procedures]':
+  '[code]': integer
+  '[date]': date
+  '[description]': text
+  '[encounter]':
+    foreign_key: '[encounters].[id]'
+    type: text
+  '[patient]':
+    foreign_key: '[patients].[patient]'
+    type: text
+  '[reasoncode]': integer
+  '[reasondescription]': text

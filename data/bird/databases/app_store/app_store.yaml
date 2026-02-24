@@ -1,0 +1,19 @@
+'[playstore]':
+  '[app]': text
+  '[category]': text
+  '[content rating]': text
+  '[genres]': text
+  '[installs]': text
+  '[price]': text
+  '[rating]': real
+  '[reviews]': integer
+  '[size]': text
+  '[type]': text
+'[user_reviews]':
+  '[app]':
+    foreign_key: '[playstore].[app]'
+    type: text
+  '[sentiment]': text
+  '[sentiment_polarity]': text
+  '[sentiment_subjectivity]': text
+  '[translated_review]': text

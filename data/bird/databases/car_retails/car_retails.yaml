@@ -1,0 +1,98 @@
+'[customers]':
+  '[addressline1]': text
+  '[addressline2]': text
+  '[city]': text
+  '[contactfirstname]': text
+  '[contactlastname]': text
+  '[country]': text
+  '[creditlimit]': real
+  '[customername]': text
+  '[customernumber]':
+    primary_key: true
+    type: integer
+  '[phone]': text
+  '[postalcode]': text
+  '[salesrepemployeenumber]':
+    foreign_key: '[employees].[employeenumber]'
+    type: integer
+  '[state]': text
+'[employees]':
+  '[email]': text
+  '[employeenumber]':
+    primary_key: true
+    type: integer
+  '[extension]': text
+  '[firstname]': text
+  '[jobtitle]': text
+  '[lastname]': text
+  '[officecode]':
+    foreign_key: '[offices].[officecode]'
+    type: text
+  '[reportsto]':
+    foreign_key: '[employees].[employeenumber]'
+    type: integer
+'[offices]':
+  '[addressline1]': text
+  '[addressline2]': text
+  '[city]': text
+  '[country]': text
+  '[officecode]':
+    primary_key: true
+    type: text
+  '[phone]': text
+  '[postalcode]': text
+  '[state]': text
+  '[territory]': text
+'[orderdetails]':
+  '[orderlinenumber]': integer
+  '[ordernumber]':
+    primary_key: true
+    type: integer
+  '[priceeach]': real
+  '[productcode]':
+    primary_key: true
+    type: text
+  '[quantityordered]': integer
+'[orders]':
+  '[comments]': text
+  '[customernumber]':
+    foreign_key: '[customers].[customernumber]'
+    type: integer
+  '[orderdate]': date
+  '[ordernumber]':
+    primary_key: true
+    type: integer
+  '[requireddate]': date
+  '[shippeddate]': date
+  '[status]': text
+'[payments]':
+  '[amount]': real
+  '[checknumber]':
+    primary_key: true
+    type: text
+  '[customernumber]':
+    foreign_key: '[customers].[customernumber]'
+    primary_key: true
+    type: integer
+  '[paymentdate]': date
+'[productlines]':
+  '[htmldescription]': text
+  '[image]': blob
+  '[productline]':
+    primary_key: true
+    type: text
+  '[textdescription]': text
+'[products]':
+  '[buyprice]': real
+  '[msrp]': real
+  '[productcode]':
+    primary_key: true
+    type: text
+  '[productdescription]': text
+  '[productline]':
+    foreign_key: '[productlines].[productline]'
+    type: text
+  '[productname]': text
+  '[productscale]': text
+  '[productvendor]': text
+  '[quantityinstock]': integer

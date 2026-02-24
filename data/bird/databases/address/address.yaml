@@ -1,0 +1,130 @@
+'[alias]':
+  '[alias]': text
+  '[zip_code]':
+    foreign_key: '[zip_data].[zip_code]'
+    primary_key: true
+    type: integer
+'[area_code]':
+  '[area_code]':
+    primary_key: true
+    type: integer
+  '[zip_code]':
+    foreign_key: '[zip_data].[zip_code]'
+    primary_key: true
+    type: integer
+'[avoid]':
+  '[bad_alias]':
+    primary_key: true
+    type: text
+  '[zip_code]':
+    foreign_key: '[zip_data].[zip_code]'
+    primary_key: true
+    type: integer
+'[cbsa]':
+  '[cbsa]':
+    primary_key: true
+    type: integer
+  '[cbsa_name]': text
+  '[cbsa_type]': text
+'[congress]':
+  '[abbreviation]':
+    foreign_key: '[state].[abbreviation]'
+    type: text
+  '[cid]': text
+  '[cognress_rep_id]':
+    primary_key: true
+    type: text
+  '[district]': integer
+  '[first_name]': text
+  '[house]': text
+  '[land_area]': real
+  '[last_name]': text
+  '[party]': text
+  '[state]': text
+'[country]':
+  '[county]':
+    primary_key: true
+    type: text
+  '[state]':
+    foreign_key: '[state].[abbreviation]'
+    type: text
+  '[zip_code]':
+    foreign_key: '[zip_data].[zip_code]'
+    primary_key: true
+    type: integer
+'[state]':
+  '[abbreviation]':
+    primary_key: true
+    type: text
+  '[name]': text
+'[zip_congress]':
+  '[district]':
+    foreign_key: '[congress].[cognress_rep_id]'
+    primary_key: true
+    type: text
+  '[zip_code]':
+    foreign_key: '[zip_data].[zip_code]'
+    primary_key: true
+    type: integer
+'[zip_data]':
+  '[1st_quarter_payroll]': integer
+  '[american_indian_population]': integer
+  '[annual_payroll]': integer
+  '[asian_population]': integer
+  '[avg_house_value]': integer
+  '[avg_income_per_household]': integer
+  '[black_population]': integer
+  '[business_mailboxes]': integer
+  '[businesses]': integer
+  '[cbsa]':
+    foreign_key: '[cbsa].[cbsa]'
+    type: integer
+  '[children]': integer
+  '[city]': text
+  '[county_fips]': integer
+  '[daylight_savings]': text
+  '[disabled_workers]': integer
+  '[division]': text
+  '[elevation]': integer
+  '[employees]': integer
+  '[female_median_age]': real
+  '[female_population]': integer
+  '[hawaiian_population]': integer
+  '[hispanic_population]': integer
+  '[households]': integer
+  '[land_area]': real
+  '[latitude]': real
+  '[longitude]': real
+  '[male_median_age]': real
+  '[male_population]': integer
+  '[median_age]': real
+  '[monthly_benefits_all]': integer
+  '[monthly_benefits_retired_workers]': integer
+  '[monthly_benefits_widowed]': integer
+  '[multi_county]': text
+  '[multi_family_delivery_units]': integer
+  '[organization]': text
+  '[other_population]': integer
+  '[over_65]': integer
+  '[parents_and_widowed]': integer
+  '[persons_per_household]': real
+  '[population_2010]': integer
+  '[population_2020]': integer
+  '[region]': text
+  '[residential_mailboxes]': integer
+  '[retired_workers]': integer
+  '[single_family_delivery_units]': integer
+  '[spouses]': integer
+  '[state]':
+    foreign_key: '[state].[abbreviation]'
+    type: text
+  '[state_fips]': integer
+  '[time_zone]': text
+  '[total_beneficiaries]': integer
+  '[total_delivery_receptacles]': integer
+  '[type]': text
+  '[water_area]': real
+  '[white_population]': integer
+  '[zip_code]':
+    primary_key: true
+    type: integer

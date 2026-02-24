@@ -1,0 +1,80 @@
+'[categories]':
+  '[categoryid]':
+    primary_key: true
+    type: integer
+  '[categoryname]': text
+  '[description]': text
+'[customers]':
+  '[address]': text
+  '[city]': text
+  '[contactname]': text
+  '[country]': text
+  '[customerid]':
+    primary_key: true
+    type: integer
+  '[customername]': text
+  '[postalcode]': text
+'[employees]':
+  '[birthdate]': date
+  '[employeeid]':
+    primary_key: true
+    type: integer
+  '[firstname]': text
+  '[lastname]': text
+  '[notes]': text
+  '[photo]': text
+'[orderdetails]':
+  '[orderdetailid]':
+    primary_key: true
+    type: integer
+  '[orderid]':
+    foreign_key: '[orders].[orderid]'
+    type: integer
+  '[productid]':
+    foreign_key: '[products].[productid]'
+    type: integer
+  '[quantity]': integer
+'[orders]':
+  '[customerid]':
+    foreign_key: '[customers].[customerid]'
+    type: integer
+  '[employeeid]':
+    foreign_key: '[employees].[employeeid]'
+    type: integer
+  '[orderdate]': datetime
+  '[orderid]':
+    primary_key: true
+    type: integer
+  '[shipperid]':
+    foreign_key: '[shippers].[shipperid]'
+    type: integer
+'[products]':
+  '[categoryid]':
+    foreign_key: '[categories].[categoryid]'
+    type: integer
+  '[price]': real
+  '[productid]':
+    primary_key: true
+    type: integer
+  '[productname]': text
+  '[supplierid]':
+    foreign_key: '[suppliers].[supplierid]'
+    type: integer
+  '[unit]': text
+'[shippers]':
+  '[phone]': text
+  '[shipperid]':
+    primary_key: true
+    type: integer
+  '[shippername]': text
+'[suppliers]':
+  '[address]': text
+  '[city]': text
+  '[contactname]': text
+  '[country]': text
+  '[phone]': text
+  '[postalcode]': text
+  '[supplierid]':
+    primary_key: true
+    type: integer
+  '[suppliername]': text

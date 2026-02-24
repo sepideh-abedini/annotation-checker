@@ -1,0 +1,197 @@
+[
+    {
+        "idx": "spider_964",
+        "question": "What are the price and the weight of all the bikes?",
+        "db_id": "bike_racing",
+        "original_symbolic": "What are the [C10] and the [C11] of all the [T3]?",
+        "original_question": "What are the arriving date and the departing date of all the dogs?",
+        "original_db_id": "dog_kennels",
+        "gold_schema_links": {
+            "price": "COLUMN:[bike].[price]",
+            "weight": "COLUMN:[bike].[weight]",
+            "bikes": "TABLE:[bike]"
+        },
+        "gold_value_links": {}
+    },
+    {
+        "idx": "spider_996",
+        "question": "What are all the possible weight and price combinations?",
+        "db_id": "bike_racing",
+        "original_symbolic": "What are all the possible [C8] and [C17] combinations?",
+        "original_question": "What are all the possible breed type and size type combinations?",
+        "original_db_id": "dog_kennels",
+        "gold_schema_links": {
+            "weight": "COLUMN:[bike].[weight]",
+            "price": "COLUMN:[bike].[price]"
+        },
+        "gold_value_links": {}
+    },
+    {
+        "idx": "spider_932",
+        "question": "Which cyclist have owned at least two bikes? List the cyclist's name, nation, and heat.",
+        "db_id": "bike_racing",
+        "original_symbolic": "Which [T5] have [T8] at least two [T8]? List the [T5]'s [C35], [C36], and [C32].",
+        "original_question": "Which professionals have done at least two treatments? List the professional's id, role, and first name.",
+        "original_db_id": "dog_kennels",
+        "gold_schema_links": {
+            "cyclist": "TABLE:[cyclist]",
+            "owned": "TABLE:[cyclists_own_bikes]",
+            "bikes": "TABLE:[bike]",
+            "name": "COLUMN:[cyclist].[name]",
+            "nation": "COLUMN:[cyclist].[nation]",
+            "heat": "COLUMN:[cyclist].[heat]"
+        },
+        "gold_value_links": {}
+    },
+    {
+        "idx": "spider_990",
+        "question": "How much does each material costs? List both material and price.",
+        "db_id": "bike_racing",
+        "original_symbolic": "How much does each [C5] [C3]? List both [C5] and [C3].",
+        "original_question": "How much does each charge type costs? List both charge type and amount.",
+        "original_db_id": "dog_kennels",
+        "gold_schema_links": {
+            "material": "COLUMN:[bike].[material]",
+            "costs": "COLUMN:[bike].[price]",
+            "price": "COLUMN:[bike].[price]"
+        },
+        "gold_value_links": {}
+    },
+    {
+        "idx": "spider_946",
+        "question": "List the weight of each bike, together with the name of the cyclist who owns it.",
+        "db_id": "bike_racing",
+        "original_symbolic": "List the [C45] of each [T8], together with the [C32] of the [T5] who [T8] it.",
+        "original_question": "List the date of each treatment, together with the first name of the professional who operated it.",
+        "original_db_id": "dog_kennels",
+        "gold_schema_links": {
+            "weight": "COLUMN:[bike].[weight]",
+            "bike": "TABLE:[bike]",
+            "name": "COLUMN:[cyclist].[name]",
+            "cyclist": "TABLE:[cyclist]",
+            "owns": "TABLE:[cyclists_own_bikes]"
+        },
+        "gold_value_links": {}
+    },
+    {
+        "idx": "spider_939",
+        "question": "Give me the name of the bike whose total weight is the lowest.",
+        "db_id": "bike_racing",
+        "original_symbolic": "Give me the [C43] of the [T7] whose total [C44] is the lowest.",
+        "original_question": "Give me the description of the treatment type whose total cost is the lowest.",
+        "original_db_id": "dog_kennels",
+        "gold_schema_links": {
+            "name": "COLUMN:[bike].[product_name]",
+            "bike": "TABLE:[bike]",
+            "weight": "COLUMN:[bike].[weight]"
+        },
+        "gold_value_links": {}
+    },
+    {
+        "idx": "spider_985",
+        "question": "What are the channel_id, show_id and online status of the city channel tv shows that were free? Note that T stands for true, and F stands for false in the tables.",
+        "db_id": "tv_shows",
+        "original_symbolic": "What are the [C15], [C7] and [C18] of the [T3] that were [C6]? Note that [V3] stands for [V1], and [V4] stands for [V2] in the tables.; [V1] is a value of the column [C6]; [V2] is a value of the column [C6]; [V3] is a value of the column [C6]; [V4] is a value of the column [C6]",
+        "original_question": "What are the dog name, age and weight of the dogs that were abandoned? Note that 1 stands for yes, and 0 stands for no in the tables.",
+        "original_db_id": "dog_kennels",
+        "gold_schema_links": {
+            "channel_id": "COLUMN:[city_channel].[id]",
+            "show_id": "COLUMN:[tv_show].[tv_show_id]",
+            "online status": "COLUMN:[city_channel_tv_show].[is_online]",
+            "city channel tv shows": "TABLE:[city_channel_tv_show]",
+            "free": "COLUMN:[city_channel_tv_show].[is_free]"
+        },
+        "gold_value_links": {
+            "T": "[city_channel_tv_show].[is_free]",
+            "true": "[city_channel_tv_show].[is_free]",
+            "F": "[city_channel_tv_show].[is_free]",
+            "false": "[city_channel_tv_show].[is_free]"
+        }
+    },
+    {
+        "idx": "spider_931",
+        "question": "Return the staff id, age and nationality of the staff who has the most conferences.",
+        "db_id": "conference",
+        "original_symbolic": "Return the [C25], [C22] and [C24] of the [T4] who has the most [T3].",
+        "original_question": "Return the owner id, first name and last name of the owner who has the most dogs.",
+        "original_db_id": "dog_kennels",
+        "gold_schema_links": {
+            "staff id": "COLUMN:[staff].[staff_id]",
+            "age": "COLUMN:[staff].[age]",
+            "nationality": "COLUMN:[staff].[nationality]",
+            "staff": "TABLE:[staff]",
+            "conferences": "TABLE:[conference_participation]"
+        },
+        "gold_value_links": {}
+    },
+    {
+        "idx": "spider_935",
+        "question": "Which coach do the most players have? Give me the coach name.",
+        "db_id": "riding_club",
+        "original_symbolic": "Which [T1] do the most [T3] have? Give me the [C2].",
+        "original_question": "Which breed do the most dogs have? Give me the breed name.",
+        "original_db_id": "dog_kennels",
+        "gold_schema_links": {
+            "coach": "TABLE:[coach]",
+            "players": "TABLE:[player]",
+            "coach name": "COLUMN:[coach].[coach_name]"
+        },
+        "gold_value_links": {}
+    },
+    {
+        "idx": "spider_47",
+        "question": "Find the name of the youngest staff.",
+        "db_id": "conference",
+        "original_symbolic": "Find the [C6] of the [C3] [T2].",
+        "original_question": "Find the weight of the youngest dog.",
+        "original_db_id": "pets_1",
+        "gold_schema_links": {
+            "name": "COLUMN:[staff].[name]",
+            "youngest": "COLUMN:[staff].[age]",
+            "staff": "TABLE:[staff]"
+        },
+        "gold_value_links": {}
+    },
+    {
+        "idx": "spider_85",
+        "question": "Find the average age of staffs who do not attended any conferences .",
+        "db_id": "conference",
+        "original_symbolic": "Find the average [C8] of [T3] who do not [T1] any [T2] .",
+        "original_question": "Find the average age of students who do not have any pet .",
+        "original_db_id": "pets_1",
+        "gold_schema_links": {
+            "age": "COLUMN:[staff].[age]",
+            "staffs": "TABLE:[staff]",
+            "conferences": "TABLE:[conference]",
+            "attended": "TABLE:[conference_participation]"
+        },
+        "gold_value_links": {}
+    },
+    {
+        "idx": "spider_986",
+        "question": "What is the average rating of all the movies?",
+        "db_id": "movie_1",
+        "original_symbolic": "What is the average [C7] of all the [T3]?",
+        "original_question": "What is the average age of all the dogs?",
+        "original_db_id": "dog_kennels",
+        "gold_schema_links": {
+            "rating": "COLUMN:[rating].[stars]",
+            "movies": "TABLE:[movie]"
+        },
+        "gold_value_links": {}
+    },
+    {
+        "idx": "spider_50",
+        "question": "List the maximum age and nationality for each nationality of staff.",
+        "db_id": "conference",
+        "original_symbolic": "List the maximum [C6] and [C5] for each [C5] of [T2].",
+        "original_question": "List the maximum weight and type for each type of pet.",
+        "original_db_id": "pets_1",
+        "gold_schema_links": {
+            "age": "COLUMN:[staff].[age]",
+            "nationality": "COLUMN:[staff].[nationality]",
+            "staff": "TABLE:[staff]"
+        },
+        "gold_value_links": {}
+    }
+]

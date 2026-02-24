@@ -1,0 +1,53 @@
+'[customers]':
+  '[age]': integer
+  '[educationnum]': integer
+  '[geoid]': integer
+  '[id]':
+    primary_key: true
+    type: integer
+  '[marital_status]': text
+  '[occupation]': text
+  '[sex]': text
+'[demog]':
+  '[a_var10]': real
+  '[a_var11]': real
+  '[a_var12]': real
+  '[a_var13]': real
+  '[a_var14]': real
+  '[a_var15]': real
+  '[a_var16]': real
+  '[a_var17]': real
+  '[a_var18]': real
+  '[a_var1]': real
+  '[a_var2]': real
+  '[a_var3]': real
+  '[a_var4]': real
+  '[a_var5]': real
+  '[a_var6]': real
+  '[a_var7]': real
+  '[a_var8]': real
+  '[a_var9]': real
+  '[geoid]':
+    primary_key: true
+    type: integer
+  '[income_k]': real
+  '[inhabitants_k]': real
+'[mailings1_2]':
+  '[ref_date]': datetime
+  '[refid]':
+    primary_key: true
+    type: integer
+  '[response]': text
+'[mailings3]':
+  '[ref_date]': datetime
+  '[refid]':
+    primary_key: true
+    type: integer
+  '[response]': text
+'[sales]':
+  '[amount]': real
+  '[event_date]': datetime
+  '[eventid]':
+    primary_key: true
+    type: integer
+  '[refid]': integer

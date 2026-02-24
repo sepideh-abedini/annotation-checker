@@ -1,0 +1,17 @@
+'[divisions]':
+  '[country]': text
+  '[division]':
+    primary_key: true
+    type: text
+  '[name]': text
+'[matchs]':
+  '[awayteam]': text
+  '[date]': date
+  '[div]':
+    foreign_key: '[divisions].[division]'
+    type: text
+  '[ftag]': integer
+  '[fthg]': integer
+  '[ftr]': text
+  '[hometeam]': text
+  '[season]': integer

@@ -1,0 +1,16 @@
+'[tags]':
+  '[id]': integer
+  '[index]':
+    primary_key: true
+    type: integer
+  '[tag]': text
+'[torrents]':
+  '[artist]': text
+  '[groupid]': integer
+  '[groupname]': text
+  '[groupyear]': integer
+  '[id]':
+    primary_key: true
+    type: integer
+  '[releasetype]': text
+  '[totalsnatched]': integer

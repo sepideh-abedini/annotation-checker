@@ -1,0 +1,266 @@
+[
+    {
+        "idx": "bird_1203",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "thrombosis_prediction",
+        "question": "<QUESTION>",
+        "orig_question": "How many patients who were female got white blood cells that were below 3.5? female refers to SEX = 'F'; white blood cells that were below 3.5 refers to WBC < 3.5",
+        "orig_masked": "How many [T3] who were [C64] got [C57] that were below [V1]? [C64] refers to [C64] = '[V2]'; [C57] that were below [V1] refers to [C57] < [V1]; [V1] is a value of the column [C57]; [V2] is a value of the column [C64]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "female refers to SEX = 'F'; white blood cells that were below 3.5 refers to WBC < 3.5",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "white blood cells": "COLUMN:[laboratory].[wbc]",
+            "patients": "TABLE:[patient]",
+            "WBC": "COLUMN:[laboratory].[wbc]",
+            "SEX": "COLUMN:[patient].[sex]",
+            "female": "COLUMN:[patient].[sex]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "3.5": "[laboratory].[wbc]",
+            "F": "[patient].[sex]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.WBC < 3.5 AND T1.SEX = 'F'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1205",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "thrombosis_prediction",
+        "question": "<QUESTION>",
+        "orig_question": "Was the patient with the number 57266's uric acid within a normal range? uric acid within a normal range refers to UA > 8.0 and SEX = 'M'OR UA > 6.5 and SEX = 'F'",
+        "orig_masked": "Was the [T3] with the [C63] [V1]'s [C55]? [C55] refers to [C55] > [V3] and [C64] = '[V5]'OR [C55] > [V2] and [C64] = '[V4]'; [V1] is a value of the column [C63]; [V2] is a value of the column [C55]; [V3] is a value of the column [C55]; [V4] is a value of the column [C64]; [V5] is a value of the column [C64]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "uric acid within a normal range refers to UA > 8.0 and SEX = 'M'OR UA > 6.5 and SEX = 'F'",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "uric acid within a normal range": "COLUMN:[laboratory].[ua]",
+            "number": "COLUMN:[patient].[id]",
+            "SEX": "COLUMN:[patient].[sex]",
+            "patient": "TABLE:[patient]",
+            "UA": "COLUMN:[laboratory].[ua]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "57266": "[patient].[id]",
+            "F": "[patient].[sex]",
+            "6.5": "[laboratory].[ua]",
+            "M": "[patient].[sex]",
+            "8.0": "[laboratory].[ua]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT CASE WHEN (T1.SEX = 'F' AND T2.UA > 6.5) OR (T1.SEX = 'M' AND T2.UA > 8.0) THEN true ELSE false END FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T1.ID = 57266",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1303",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "thrombosis_prediction",
+        "question": "<QUESTION>",
+        "orig_question": "When is the birthday of the oldest patient whose blood glucose is abnormal? oldest patient refers to MIN(Birthday); blood glucose is abnormal refers to GLU > 180;",
+        "orig_masked": "When is the [C59] of the [C59] [T3] whose [C27] is [C27]? [C59] [T3] refers to MIN([C59]); [C27] is [C27] refers to [C27] > [V1];; [V1] is a value of the column [C27]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "oldest patient refers to MIN(Birthday); blood glucose is abnormal refers to GLU > 180;",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "patient": "TABLE:[patient]",
+            "blood glucose": "COLUMN:[laboratory].[glu]",
+            "abnormal": "COLUMN:[laboratory].[glu]",
+            "birthday": "COLUMN:[patient].[birthday]",
+            "oldest": "COLUMN:[patient].[birthday]",
+            "glu": "COLUMN:[laboratory].[glu]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "180": "[laboratory].[glu]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T1.Birthday FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.GLU > 180 ORDER BY T1.Birthday ASC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1108",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "What was the build up play speed class for \"Willem II\" on 2011/2/22? \"Willem II\" refers to team_long_name = 'Willem II'; on 2011/2/22 refers to date = '2012-02-22'",
+        "orig_masked": "What was the [C181] for \"[V2]\" on [V3]? \"[V2]\" refers to [C173] = '[V2]'; on [V3] refers to [C189] = '[V1]'; [V1] is a value of the column [C189]; [V2] is a value of the column [C173]; [V3] is a value of the column [C189]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "\"Willem II\" refers to team_long_name = 'Willem II'; on 2011/2/22 refers to date = '2012-02-22'",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "build up play speed class": "COLUMN:[team_attributes].[buildupplayspeedclass]",
+            "team_long_name": "COLUMN:[team].[team_long_name]",
+            "date": "COLUMN:[team_attributes].[date]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Willem II": "[team].[team_long_name]",
+            "2011/2/22": "[team_attributes].[date]",
+            "2012-02-22": "[team_attributes].[date]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT t2.buildUpPlaySpeedClass FROM Team AS t1 INNER JOIN Team_Attributes AS t2 ON t1.team_api_id = t2.team_api_id WHERE t1.team_long_name = 'Willem II' AND SUBSTR(t2.`date`, 1, 10) = '2011-02-22'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_151",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "Please list the name of the districts with accounts that made withdrawal transactions.  A2 refers to district name; type = 'VYDAJ' stands for withdrawal transactions",
+        "orig_masked": "Please list the [C24] of the [T5] with [T1] that made [C55] [T8].  [C24] refers to [T5] [C24]; [C55] = '[V1]' stands for [C55] [T8]; [V1] is a value of the column [C55]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "A2 refers to district name; type = 'VYDAJ' stands for withdrawal transactions",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "name": "COLUMN:[district].[a2]",
+            "districts": "TABLE:[district]",
+            "accounts": "TABLE:[account]",
+            "transactions": "TABLE:[trans]",
+            "withdrawal": "COLUMN:[trans].[type]",
+            "A2": "COLUMN:[district].[a2]",
+            "type": "COLUMN:[trans].[type]",
+            "district": "TABLE:[district]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "VYDAJ": "[trans].[type]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT DISTINCT T1.A2 FROM district AS T1 INNER JOIN account AS T2 ON T1.district_id = T2.district_id INNER JOIN trans AS T3 ON T2.account_id = T3.account_id WHERE T3.type = 'VYDAJ'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_188",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "Among the accounts who have loan validity more than 24 months, list out the accounts that have the lowest approved amount and have account opening date before 1997. ",
+        "orig_masked": "Among the [T1] who have [C36] more than [V1], list out the [T1] that have the lowest [C34] and have [T1] [C2] before [V2]. ; [V1] is a value of the column [C36]; [V2] is a value of the column [C2]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "account": "TABLE:[account]",
+            "opening date": "COLUMN:[account].[date]",
+            "month": "COLUMN:[account].[date]",
+            "approved amount": "COLUMN:[loan].[amount]",
+            "loan validity": "COLUMN:[loan].[duration]",
+            "accounts": "TABLE:[account]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "1997": "[account].[date]",
+            "24 months": "[loan].[duration]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T1.account_id FROM loan AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id WHERE T1.duration > 24 AND STRFTIME('%Y', T2.date) < '1997' ORDER BY T1.amount ASC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_148",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "Please list the accounts whose district is Tabor that are eligible for loans.  District refers to column A2; when the account type = 'OWNER', it's eligible for loans",
+        "orig_masked": "Please list the [T1] whose [T5] is [V2] that are [C16].  [T5] refers to column [C24]; when the [C16] = '[V1]', it's [C16]; [V1] is a value of the column [C16]; [V2] is a value of the column [C24]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "District refers to column A2; when the account type = 'OWNER', it's eligible for loans",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "accounts": "TABLE:[account]",
+            "A2": "COLUMN:[district].[a2]",
+            "account type": "COLUMN:[disp].[type]",
+            "district": "TABLE:[district]",
+            "eligible for loans": "COLUMN:[disp].[type]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "OWNER": "[disp].[type]",
+            "Tabor": "[district].[a2]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T2.account_id FROM district AS T1 INNER JOIN account AS T2 ON T1.district_id = T2.district_id INNER JOIN disp AS T3 ON T2.account_id = T3.account_id WHERE T3.type = 'OWNER' AND T1.A2 = 'Tabor'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1222",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "thrombosis_prediction",
+        "question": "<QUESTION>",
+        "orig_question": "How many male patients are are with creatinine index out of the normal range? creatinine (CRE) out of the normal range refers to CRE > = 1.5; Male refers to Sex = 'M'",
+        "orig_masked": "How many male [T3] are are with [C21]? [C21] refers to [C21] > = [V1]; Male refers to [C64] = '[V2]'; [V1] is a value of the column [C21]; [V2] is a value of the column [C64]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "creatinine (CRE) out of the normal range refers to CRE > = 1.5; Male refers to Sex = 'M'",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "creatinine (CRE) out of the normal range": "COLUMN:[laboratory].[cre]",
+            "creatinine index out of the normal range": "COLUMN:[laboratory].[cre]",
+            "patients": "TABLE:[patient]",
+            "CRE": "COLUMN:[laboratory].[cre]",
+            "Sex": "COLUMN:[patient].[sex]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "1.5": "[laboratory].[cre]",
+            "M": "[patient].[sex]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.CRE >= 1.5 AND T1.SEX = 'M'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1217",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "thrombosis_prediction",
+        "question": "<QUESTION>",
+        "orig_question": "For all patient born in 1982, state if their albumin is within normal range. Year(Birthday) = '1982'; albumin is within normal range refers to ALB between 3.5 and 5.5",
+        "orig_masked": "For all [T3] [C59] in [V1], state if their [C14] is [C14]. Year([C59]) = '[V1]'; [C14] is [C14] refers to [C14] between [V2] and [V3]; [V1] is a value of the column [C59]; [V2] is a value of the column [C14]; [V3] is a value of the column [C14]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Year(Birthday) = '1982'; albumin is within normal range refers to ALB between 3.5 and 5.5",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "born": "COLUMN:[patient].[birthday]",
+            "Birthday": "COLUMN:[patient].[birthday]",
+            "albumin": "COLUMN:[laboratory].[alb]",
+            "within normal range": "COLUMN:[laboratory].[alb]",
+            "ALB": "COLUMN:[laboratory].[alb]",
+            "patient": "TABLE:[patient]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "1982": "[patient].[birthday]",
+            "3.5": "[laboratory].[alb]",
+            "5.5": "[laboratory].[alb]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT CASE WHEN T2.ALB >= 3.5 AND T2.ALB <= 5.5 THEN 'normal' ELSE 'abnormal' END FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE STRFTIME('%Y', T1.Birthday) = '1982'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1100",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "What is the highest overall rating received by Dorlan Pabon? Dorlan Pabon refers to T2.player_name = 'Dorlan Pabon'; highest overall rating refers to MAX(overall_rating)",
+        "orig_masked": "What is the highest [C153] received by [V1]? [V1] refers to T2.[C126] = '[V1]'; highest [C153] refers to MAX([C153]); [V1] is a value of the column [C126]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Dorlan Pabon refers to T2.player_name = 'Dorlan Pabon'; highest overall rating refers to MAX(overall_rating)",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "overall_rating": "COLUMN:[player_attributes].[overall_rating]",
+            "overall rating": "COLUMN:[player_attributes].[overall_rating]",
+            "player_name": "COLUMN:[player].[player_name]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Dorlan Pabon": "[player].[player_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT MAX(t2.overall_rating) FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t1.player_name = 'Dorlan Pabon'",
+        "evidence_added": true
+    }
+]

@@ -1,0 +1,56 @@
+'[ingredient]':
+  '[category]': text
+  '[ingredient_id]':
+    primary_key: true
+    type: integer
+  '[name]': text
+  '[plural]': text
+'[nutrition]':
+  '[alcohol]': real
+  '[calories]': real
+  '[carbo]': real
+  '[cholestrl]': real
+  '[fiber]': real
+  '[iron]': real
+  '[pcnt_cal_carb]': real
+  '[pcnt_cal_fat]': real
+  '[pcnt_cal_prot]': real
+  '[protein]': real
+  '[recipe_id]':
+    foreign_key: '[recipe].[recipe_id]'
+    primary_key: true
+    type: integer
+  '[sat_fat]': real
+  '[sodium]': real
+  '[total_fat]': real
+  '[vitamin_a]': real
+  '[vitamin_c]': real
+'[quantity]':
+  '[ingredient_id]':
+    foreign_key: '[ingredient].[ingredient_id]'
+    type: integer
+  '[max_qty]': real
+  '[min_qty]': real
+  '[optional]': text
+  '[preparation]': text
+  '[quantity_id]':
+    primary_key: true
+    type: integer
+  '[recipe_id]':
+    foreign_key: '[recipe].[recipe_id]'
+    type: integer
+  '[unit]': text
+'[recipe]':
+  '[cook_min]': integer
+  '[directions]': text
+  '[intro]': text
+  '[prep_min]': integer
+  '[recipe_id]':
+    primary_key: true
+    type: integer
+  '[servings]': integer
+  '[source]': text
+  '[stnd_min]': integer
+  '[subtitle]': text
+  '[title]': text
+  '[yield_unit]': text

@@ -1,0 +1,255 @@
+[
+    {
+        "idx": "bird_1134",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "What is the difference between players 6 and 23's jumping scores? difference between players 6 and 23's jumping scores refers to SUBTRACT(jumping AND id = 6,jumping AND id = 23)",
+        "orig_masked": "What is the difference between [T5] [V2] and [V1]'s [C149]? difference between [T5] [V2] and [V1]'s [C149] refers to SUBTRACT([C149] AND [C147] = [V2],[C149] AND [C147] = [V1]); [V1] is a value of the column [C147]; [V2] is a value of the column [C147]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "difference between players 6 and 23's jumping scores refers to SUBTRACT(jumping AND id = 6,jumping AND id = 23)",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "jumping scores": "COLUMN:[player_attributes].[jumping]",
+            "players": "TABLE:[player_attributes]",
+            "jumping": "COLUMN:[player_attributes].[jumping]",
+            "id": "COLUMN:[player_attributes].[id]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "6": "[player_attributes].[id]",
+            "23": "[player_attributes].[id]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT SUM(CASE WHEN t1.id = 6 THEN t1.jumping ELSE 0 END) - SUM(CASE WHEN t1.id = 23 THEN t1.jumping ELSE 0 END) FROM Player_Attributes AS t1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_93",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "financial",
+        "question": "<QUESTION>",
+        "orig_question": "How many male customers who are living in North Bohemia have average salary greater than 8000? Male means that gender = 'M'; A3 refers to region; A11 pertains to average salary.",
+        "orig_masked": "How many [C12] [T3] who are [C25] in [V1] have average [C18] greater than [V2]? [C12] means that [C12] = '[V3]'; [C25] refers to [C25]; [C18] pertains to average [C18].; [V1] is a value of the column [C25]; [V2] is a value of the column [C18]; [V3] is a value of the column [C12]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Male means that gender = 'M'; A3 refers to region; A11 pertains to average salary.",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "salary": "COLUMN:[district].[a11]",
+            "customers": "TABLE:[client]",
+            "gender": "COLUMN:[client].[gender]",
+            "living": "COLUMN:[district].[a3]",
+            "region": "COLUMN:[district].[a3]",
+            "A11": "COLUMN:[district].[a11]",
+            "A3": "COLUMN:[district].[a3]",
+            "Male": "COLUMN:[client].[gender]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "8000": "[district].[a11]",
+            "M": "[client].[gender]",
+            "North Bohemia": "[district].[a3]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(T1.client_id) FROM client AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id WHERE T1.gender = 'M' AND T2.A3 = 'north Bohemia' AND T2.A11 > 8000",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1112",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "What was the chance creation crossing class for \"Hull City\" on 2010/2/22? \"Hull City\" refers to team_long_name = 'Hull City'; on 2010/2/22 refers to date = '2010-02-22 00:00:00'",
+        "orig_masked": "What was the [C183] for \"[V2]\" on [V3]? \"[V2]\" refers to [C173] = '[V2]'; on [V3] refers to [C189] = '[V1]'; [V1] is a value of the column [C189]; [V2] is a value of the column [C173]; [V3] is a value of the column [C189]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "\"Hull City\" refers to team_long_name = 'Hull City'; on 2010/2/22 refers to date = '2010-02-22 00:00:00'",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "chance creation crossing class": "COLUMN:[team_attributes].[chancecreationcrossingclass]",
+            "team_long_name": "COLUMN:[team].[team_long_name]",
+            "date": "COLUMN:[team_attributes].[date]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Hull City": "[team].[team_long_name]",
+            "2010/2/22": "[team_attributes].[date]",
+            "2010-02-22 00:00:00": "[team_attributes].[date]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT t2.chanceCreationCrossingClass FROM Team AS t1 INNER JOIN Team_Attributes AS t2 ON t1.team_api_id = t2.team_api_id WHERE t1.team_long_name = 'Hull City' AND SUBSTR(t2.`date`, 1, 10) = '2010-02-22'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1216",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "thrombosis_prediction",
+        "question": "<QUESTION>",
+        "orig_question": "Sort in descending order all patients by birthday for male patient with albumin not within range. male = SEX = 'M'; albumin not within range refers to ALB < = 3.5 or ALB > = 5.5",
+        "orig_masked": "Sort in descending order all [T3] by [C59] for [C64] [T3] with [C14] not [C14]. [C64] = [C64] = '[V3]'; [C14] not [C14] refers to [C14] < = [V1] or [C14] > = [V2]; [V1] is a value of the column [C14]; [V2] is a value of the column [C14]; [V3] is a value of the column [C64]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "male = SEX = 'M'; albumin not within range refers to ALB < = 3.5 or ALB > = 5.5",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "patients": "TABLE:[patient]",
+            "birthday": "COLUMN:[patient].[birthday]",
+            "albumin": "COLUMN:[laboratory].[alb]",
+            "patient": "TABLE:[patient]",
+            "within range": "COLUMN:[laboratory].[alb]",
+            "SEX": "COLUMN:[patient].[sex]",
+            "male": "COLUMN:[patient].[sex]",
+            "alb": "COLUMN:[laboratory].[alb]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "M": "[patient].[sex]",
+            "3.5": "[laboratory].[alb]",
+            "5.5": "[laboratory].[alb]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT DISTINCT T1.ID FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T1.SEX = 'M' AND (T2.ALB <= 3.5 OR T2.ALB >= 5.5) ORDER BY T1.Birthday DESC",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1304",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "thrombosis_prediction",
+        "question": "<QUESTION>",
+        "orig_question": "Among the patients with a normal blood glucose, how many of them don't have thrombosis? normal blood glucose refers to GLU < 180; don't have thrombosis refers to Thrombosis = 0;",
+        "orig_masked": "Among the [T3] with a [C27], how many of them don't have [C13]? [C27] refers to [C27] < [V1]; don't have [C13] refers to [C13] = [V2];; [V1] is a value of the column [C27]; [V2] is a value of the column [C13]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "normal blood glucose refers to GLU < 180; don't have thrombosis refers to Thrombosis = 0;",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "normal blood glucose": "COLUMN:[laboratory].[glu]",
+            "thrombosis": "COLUMN:[examination].[thrombosis]",
+            "patients": "TABLE:[patient]",
+            "glu": "COLUMN:[laboratory].[glu]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "180": "[laboratory].[glu]",
+            "0": "[examination].[thrombosis]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID INNER JOIN Examination AS T3 ON T1.ID = T3.ID WHERE T2.GLU < 180 AND T3.Thrombosis = 0",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_741",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "What is the name of the superhero that has the most powers? name of the superhero refers to superhero_name; superhero that has the most powers refers to MAX(COUNT(superhero_name))",
+        "orig_masked": "What is the [C28] of the [T9] that has the most [T6]? [C28] of the [T9] refers to [C28]; [T9] that has the most [T6] refers to MAX(COUNT([C28]))",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "name of the superhero refers to superhero_name; superhero that has the most powers refers to MAX(COUNT(superhero_name))",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "superhero_name": "COLUMN:[superhero].[superhero_name]",
+            "superhero": "TABLE:[superhero]",
+            "powers": "TABLE:[hero_power]",
+            "name": "COLUMN:[superhero].[superhero_name]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {},
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T1.superhero_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id GROUP BY T1.superhero_name ORDER BY COUNT(T2.hero_id) DESC LIMIT 1",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1120",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "Sum up the away team goal scored by both Daan Smith and Filipe Ferreira. Daan Smith refers to player_name = 'Daan Smith'; Filipe Ferreira refers to player_name = 'Filipe Ferreira'",
+        "orig_masked": "Sum up the [C40] by both [V2] and [V1]. [V2] refers to [C126] = '[V2]'; [V1] refers to [C126] = '[V1]'; [V1] is a value of the column [C126]; [V2] is a value of the column [C126]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "Daan Smith refers to player_name = 'Daan Smith'; Filipe Ferreira refers to player_name = 'Filipe Ferreira'",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "away team goal scored": "COLUMN:[match].[away_team_goal]",
+            "player_name": "COLUMN:[player].[player_name]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Daan Smith": "[player].[player_name]",
+            "Filipe Ferreira": "[player].[player_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT SUM(t2.away_team_goal) FROM Player AS t1 INNER JOIN match AS t2 ON t1.player_api_id = t2.away_player_5 WHERE t1.player_name IN ('Daan Smith', 'Filipe Ferreira')",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_824",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "superhero",
+        "question": "<QUESTION>",
+        "orig_question": "Identify superheroes who can control wind and list their names in alphabetical order.  superheroes refers to superhero_name; can control wind refers to power_name = 'Wind Control';",
+        "orig_masked": "Identify [C28] who [C31] and list their [C28] in alphabetical order.  [C28] refers to [C28]; [C31] refers to [C31] = '[V1]';; [V1] is a value of the column [C31]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "superheroes refers to superhero_name; can control wind refers to power_name = 'Wind Control';",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "superheroes": "COLUMN:[superhero].[superhero_name]",
+            "names": "COLUMN:[superhero].[superhero_name]",
+            "superhero_name": "COLUMN:[superhero].[superhero_name]",
+            "can control wind": "COLUMN:[superpower].[power_name]",
+            "power_name": "COLUMN:[superpower].[power_name]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "Wind Control": "[superpower].[power_name]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T1.superhero_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T2.power_id = T3.id WHERE T3.power_name = 'Wind Control' ORDER BY T1.superhero_name",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1213",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "thrombosis_prediction",
+        "question": "<QUESTION>",
+        "orig_question": "Name the ID of the patient who is born on the April 1st, 1982. Is his/her alkaliphophatase (ALP) within normal range? alkaliphophatase (ALP) within normal range refers to ALP < 300",
+        "orig_masked": "Name the [C63] of the [T3] who is [C59] on the [V1]. Is his/her [C15]? [C15] refers to [C15] < [V2]; [V1] is a value of the column [C59]; [V2] is a value of the column [C15]",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "alkaliphophatase (ALP) within normal range refers to ALP < 300",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "alkaliphophatase (ALP) within normal range": "COLUMN:[laboratory].[alp]",
+            "ALP": "COLUMN:[laboratory].[alp]",
+            "patient": "TABLE:[patient]",
+            "born": "COLUMN:[patient].[birthday]",
+            "ID": "COLUMN:[patient].[id]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {
+            "April 1st, 1982": "[patient].[birthday]",
+            "300": "[laboratory].[alp]"
+        },
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT T1.ID , CASE WHEN T2.ALP < 300 THEN 'normal' ELSE 'abNormal' END FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T1.Birthday = '1982-04-01'",
+        "evidence_added": true
+    },
+    {
+        "idx": "bird_1022",
+        "db_id": "<DB_ID>",
+        "orig_db_id": "european_football_2",
+        "question": "<QUESTION>",
+        "orig_question": "What is the preferred foot when attacking of the player with the lowest potential? preferred foot when attacking refers to preferred_foot; lowest potential refers to MIN(potential);",
+        "orig_masked": "What is the [C159] of the [T5] with the lowest [C158]? [C159] refers to [C159]; lowest [C158] refers to MIN([C158]);",
+        "evidence": "<EVIDENCE>",
+        "orig_evidence": "preferred foot when attacking refers to preferred_foot; lowest potential refers to MIN(potential);",
+        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "orig_gold_schema_links": {
+            "preferred foot when attacking": "COLUMN:[player_attributes].[preferred_foot]",
+            "potential": "COLUMN:[player_attributes].[potential]",
+            "player": "TABLE:[player_attributes]",
+            "preferred_foot": "COLUMN:[player_attributes].[preferred_foot]"
+        },
+        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "orig_gold_value_links": {},
+        "gold_sql": "<GOLD_SQL>",
+        "orig_gold_sql": "SELECT preferred_foot FROM Player_Attributes WHERE potential IS NOT NULL ORDER BY potential ASC LIMIT 1",
+        "evidence_added": true
+    }
+]
