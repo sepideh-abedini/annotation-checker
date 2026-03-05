@@ -43,7 +43,9 @@ class DebugMaskedQuestion(JsonListTransformer):
         alt_db_id = row['alt_db_id']
 
         gold_sql = row['alt_sql']
-        exec_res = self.dbf.exec_query(alt_db_id, gold_sql)
+        exec_res = None
+        if gold_sql is not None:
+            exec_res = self.dbf.exec_query(alt_db_id, gold_sql)
 
         alt_question = row['alt_question']
         orig_question = row['question']
@@ -57,7 +59,8 @@ class DebugMaskedQuestion(JsonListTransformer):
         print(f"{'DB ID[O]':<12}: {orig_db_id}")
         print("------")
         print(f"{'SQL [A]':<12}: {gold_sql}")
-        print(f"{'Res [A]':<12}: {exec_res[:15]}")
+        if exec_res is not None:
+            print(f"{'Res [A]':<12}: {exec_res[:15]}")
         return row
 
 
@@ -97,7 +100,7 @@ async def add_alt_data(orig_questions_path, alt_questions_path, tables_path):
         orig_masked = orig_row['symbolic']['question']
         alt_db_id = alt_row["db_id"]
         alt_question = alt_row["question"]
-        alt_sql = alt_row["gold_sql"]
+        alt_sql = alt_row.get("gold_sql", None)
         for key in list(orig_row.keys()):
             if key not in KEYS:
                 del orig_row[key]
