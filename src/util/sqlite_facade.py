@@ -39,7 +39,7 @@ class SqliteFacade:
 
         db_file = os.path.join(self.db_dir, db_id, f"{db_id}.sqlite")
         try:
-            conn = sqlite3.connect(f"file:{db_file}?mode=ro")
+            conn = sqlite3.connect(f"file:{db_file}?mode=ro",uri=True)
         except sqlite3.OperationalError as e:
             if "unable to open database file" in str(e):
                 logger.error(f"SQLite Error: {db_id} {db_file}")
