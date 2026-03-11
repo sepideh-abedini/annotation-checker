@@ -40,11 +40,11 @@
         "idx": "bird_1121",
         "db_id": "retail_world",
         "orig_db_id": "european_football_2",
-        "question": "Calculate the total items sold by employees whose age are 60 years old and below. age are 60 years old and below refers to SUBTRACT(datetime(CURRENT_TIMESTAMP,'localtime'), datetime(birthdate) < 61)",
-        "orig_question": "Calculate the total home team goal scored by players whose age are 30 years old and below. age are 30 years old and below refers to SUBTRACT(datetime(CURRENT_TIMESTAMP,'localtime'), datetime(birthday) < 31)",
-        "orig_masked": "Calculate the total [C94] [C94] by [T4] whose [C121] are [V3] [C121] and below. [C121] are [V3] [C121] and below refers to SUBTRACT(datetime(CURRENT_TIMESTAMP,'[V1]'), datetime([C121]) < [V2]); [V1] is a value of the column [C121]; [V2] is a value of the column [C121]; [V3] is a value of the column [C121]",
-        "evidence": "age are 60 years old and below refers to SUBTRACT(datetime(CURRENT_TIMESTAMP,'localtime'), datetime(birthdate) < 61)",
-        "orig_evidence": "age are 30 years old and below refers to SUBTRACT(datetime(CURRENT_TIMESTAMP,'localtime'), datetime(birthday) < 31)",
+        "question": "Calculate the total items sold by employees whose age are 60 years old and below. age are 60 years old and below refers to SUBTRACT(datetime('2026-03-10','localtime'), datetime(birthdate) < 61)",
+        "orig_question": "Calculate the total home team goal scored by players whose age are 30 years old and below. age are 30 years old and below refers to SUBTRACT(datetime('2026-03-10','localtime'), datetime(birthday) < 31)",
+        "orig_masked": "Calculate the total [C94] [C94] by [T4] whose [C121] are [V3] [C121] and below. [C121] are [V3] [C121] and below refers to SUBTRACT(datetime('2026-03-10','[V1]'), datetime([C121]) < [V2]); [V1] is a value of the column [C121]; [V2] is a value of the column [C121]; [V3] is a value of the column [C121]",
+        "evidence": "age are 60 years old and below refers to SUBTRACT(datetime('2026-03-10','localtime'), datetime(birthdate) < 61)",
+        "orig_evidence": "age are 30 years old and below refers to SUBTRACT(datetime('2026-03-10','localtime'), datetime(birthday) < 31)",
         "gold_schema_links": {
             "items": "COLUMN:[orderdetails].[quantity]",
             "sold": "COLUMN:[orderdetails].[quantity]",
@@ -70,9 +70,9 @@
             "30": "[player].[birthday]"
         },
         "gold_sql": "SELECT SUM(T3.quantity) FROM Employees AS T1 INNER JOIN orders as T2 ON T1.employeeid = T2.employeeid INNER JOIN orderdetails as T3 ON T3.orderid = T2.orderid WHERE datetime('2026-03-10', 'localtime') - datetime(T1.birthdate) < 61",
-        "orig_gold_sql": "SELECT SUM(t2.home_team_goal) FROM Player AS t1 INNER JOIN match AS t2 ON t1.player_api_id = t2.away_player_1 WHERE datetime(CURRENT_TIMESTAMP, 'localtime') - datetime(T1.birthday) < 31",
+        "orig_gold_sql": "SELECT SUM(t2.home_team_goal) FROM Player AS t1 INNER JOIN match AS t2 ON t1.player_api_id = t2.away_player_1 WHERE datetime('2026-03-10', 'localtime') - datetime(T1.birthday) < 31",
         "evidence_added": true,
-        "note": "fixing value link of localtime"
+        "note": "fixing value link of localtime. Also fixing the reliance on current time stamp, which moves with time the query is run"
     },
     {
         "idx": "bird_1095",
@@ -111,7 +111,7 @@
         "question": "Give the MovieID of movies with more than 5 but less than 7 rating. movies with more than 5 but less than 7 rating refers to rating >5 AND rating <7; ",
         "orig_question": "Give the team_fifa_api_id of teams with more than 50 but less than 60 build-up play speed. teams with more than 50 but less than 60 build-up play speed refers to buildUpPlaySpeed >50 AND buildUpPlaySpeed <60; ",
         "orig_masked": "Give the [C199] of [T7] with more than [V1] but less than [V2] [C180]. [T7] with more than [V1] but less than [V2] [C180] refers to [C180] >[V1] AND [C180] <[V2]; ; [V1] is a value of the column [C180]; [V2] is a value of the column [C180]",
-        "evidence": "ovies with more than 5 but less than 7 rating refers to rating >5 AND rating <7; ",
+        "evidence": "movies with more than 5 but less than 7 rating refers to rating >5 AND rating <7; ",
         "orig_evidence": "teams with more than 50 but less than 60 build-up play speed refers to buildUpPlaySpeed >50 AND buildUpPlaySpeed <60; ",
         "gold_schema_links": {
             "MovieID": "COLUMN:[movie].[movieid]",
@@ -203,7 +203,7 @@
             "3.5": "[laboratory].[alb]",
             "5.5": "[laboratory].[alb]"
         },
-        "gold_sql": "SELECT date FROM inspections WHERE score = (SELECT score FROM inspections WHERE  score > 70 AND score < 90 ORDER BY score DESC)",
+        "gold_sql": "SELECT date FROM inspections WHERE score = (SELECT score FROM inspections WHERE  score > 70 AND score < 90 ORDER BY score DESC LIMIT 1)",
         "orig_gold_sql": "SELECT Date FROM Laboratory WHERE ALB > 3.5 AND ALB < 5.5 ORDER BY ALB DESC LIMIT 1",
         "evidence_added": true,
         "note": "Fixed a missing link to date"
@@ -254,10 +254,10 @@
         "idx": "bird_1188",
         "db_id": "movie",
         "orig_db_id": "thrombosis_prediction",
-        "question": "How many feminine actors born in 1990 were in a Comedic film? List them by ID. feminine refers to gender = 'Female'; born in 1990 refers to YEAR(Date of Birth) = 1990; in a Comedic film refers to genre = 'Comedy'",
+        "question": "How many feminine actors born in 1983 were in a Comedic film? List them by ID. feminine refers to gender = 'Female'; born in 1983 refers to YEAR(Date of Birth) = 1983; in a Comedic film refers to genre = 'Comedy'",
         "orig_question": "How many female patients born in 1964 were admitted to the hospital? List them by ID. female refers to SEX = 'F'; born in 1964 refers to YEAR(Birthday) = 1964; admitted to the hospital refers to Admission = '+'",
         "orig_masked": "How many [C64] [T3] [C59] in [V1] were [C58]? List them by [C63]. [C64] refers to [C64] = '[V3]'; [C59] in [V1] refers to YEAR([C59]) = [V1]; [C58] refers to [C58] = '[V2]'; [V1] is a value of the column [C59]; [V2] is a value of the column [C58]; [V3] is a value of the column [C64]",
-        "evidence": "feminine refers to gender = 'Female'; born in 1990 refers to YEAR(Date of Birth) = 1990; in a Comedic film refers to genre = 'Comedy'",
+        "evidence": "feminine refers to gender = 'Female'; born in 1983 refers to YEAR(Date of Birth) = 1983; in a Comedic film refers to genre = 'Comedy'",
         "orig_evidence": "female refers to SEX = 'F'; born in 1964 refers to YEAR(Birthday) = 1964; admitted to the hospital refers to Admission = '+'",
         "gold_schema_links": {
             "in a Comedic film": "COLUMN:[movie].[genre]",
@@ -332,14 +332,14 @@
         "idx": "bird_1301",
         "db_id": "book_publishing_company",
         "orig_db_id": "thrombosis_prediction",
-        "question": "Please list the titles of the books with no advance and an abnormal number of authors. no advance refers to advance = 0 ; abnormal number of authors refers to au_ord > 1;",
+        "question": "Please list the titles of the books with no royalty and an abnormal number of authors. no royalty refers to royalty = 10 ; abnormal number of authors refers to au_ord > 1;",
         "orig_question": "Please list the IDs of the patients with no thrombosis and an abnormal level of creatinine phosphokinase. no thrombosis refers to Thrombosis = 0 ; abnormal level of creatinine phosphokinase refers to CPK < 250;",
         "orig_masked": "Please list the [C32] of the [T1] with no [C13] and an [C20]. no [C13] refers to [C13] = [V2] ; [C20] refers to [C20] < [V1];; [V1] is a value of the column [C20]; [V2] is a value of the column [C13]",
-        "evidence": "no advance refers to advance = 0 ; abnormal number of authors refers to au_ord > 1;",
+        "evidence": "no royalty refers to royalty = 10 ; abnormal number of authors refers to au_ord > 1;",
         "orig_evidence": "no thrombosis refers to Thrombosis = 0 ; abnormal level of creatinine phosphokinase refers to CPK < 250;",
         "gold_schema_links": {
             "abnormal number of authors": "COLUMN:[titleauthor].[au_ord]",
-            "advance": "COLUMN:[titles].[advance]",
+            "royalty": "COLUMN:[titles].[royalty]",
             "books": "TABLE:[titles]",
             "au_ord": "COLUMN:[titleauthor].[au_ord]",
             "titles": "COLUMN:[titles].[title]"
@@ -352,14 +352,14 @@
             "IDs": "COLUMN:[laboratory].[id]"
         },
         "gold_value_links": {
-            "0": "[titles].[advance]",
+            "10": "[titles].[royalty]",
             "1": "[titleauthor].[au_ord]"
         },
         "orig_gold_value_links": {
             "0": "[examination].[thrombosis]",
             "250": "[laboratory].[cpk]"
         },
-        "gold_sql": "SELECT DISTINCT T1.title FROM titles as T1 INNER JOIN titleauthor as T2 ON T1.title_id = T2.title_id WHERE T2.au_ord > 1",
+        "gold_sql": "SELECT DISTINCT T1.title FROM titles as T1 INNER JOIN titleauthor as T2 ON T1.title_id = T2.title_id WHERE T2.au_ord > 1 AND T1.royalty = 10",
         "orig_gold_sql": "SELECT DISTINCT T1.ID FROM Laboratory AS T1 INNER JOIN Examination AS T2 ON T1.ID = T2.ID WHERE T2.Thrombosis = 0 AND T1.CPK < 250",
         "evidence_added": true
     }

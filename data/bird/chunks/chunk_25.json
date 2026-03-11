@@ -101,7 +101,7 @@
         "orig_gold_value_links": {
             "70": "[player_attributes].[volleys]"
         },
-        "gold_sql": "SELECT ssn FROM patients WHERE patient in (SELECT patient from observations WHERE description = 'Body Height' AND value > 100) AND patient in ((SELECT patient from observations WHERE description = 'Body Weight' AND value > 100))",
+        "gold_sql": "SELECT ssn FROM patients WHERE patient in (SELECT patient from observations WHERE description = 'Body Height' AND value > 100) AND patient in (SELECT patient from observations WHERE description = 'Body Weight' AND value > 100)",
         "orig_gold_sql": "SELECT DISTINCT t1.player_name FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t2.volleys > 70 AND t2.dribbling > 70",
         "evidence_added": true
     },
@@ -174,7 +174,7 @@
             "Marvel Comics": "[publisher].[publisher_name]",
             "gold": "[colour].[colour]"
         },
-        "gold_sql": "SELECT COUNT(T1.movie_id) FROM movie as T1 INNER JOIN movie_languages as T2 ON T1.movie_id = T2.movie_id INNER JOIN language as T3 ON T2.language_id=T3.language_id INNER JOIN movie_company as T4 ON T4.movie_id = T1.movie_id INNER JOIN production_company as T5 ON T5.company_id = T4.company_id WHERE T3.language_name = 'English' AND T5.company_name = 'Walt Disney Pictures'",
+        "gold_sql": "SELECT COUNT(DISTINCT T1.movie_id) FROM movie as T1 INNER JOIN movie_languages as T2 ON T1.movie_id = T2.movie_id INNER JOIN language as T3 ON T2.language_id=T3.language_id INNER JOIN movie_company as T4 ON T4.movie_id = T1.movie_id INNER JOIN production_company as T5 ON T5.company_id = T4.company_id WHERE T3.language_name = 'English' AND T5.company_name = 'Walt Disney Pictures'",
         "orig_gold_sql": "SELECT COUNT(T1.id) FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id INNER JOIN colour AS T3 ON T1.eye_colour_id = T3.id WHERE T2.publisher_name = 'Marvel Comics' AND T3.colour = 'Gold'",
         "evidence_added": true
     },

@@ -30,7 +30,7 @@
         },
         "gold_value_links": {},
         "orig_gold_value_links": {},
-        "gold_sql": "SELECT T1.patient FROM patients as T1 INNER JOIN observations as T2 ON T1.patient = T2.patient ORDER BY T1.birthdate DESC, T2.value DESC LIMIT 1",
+        "gold_sql": "SELECT DISTINCT T1.patient FROM patients as T1 INNER JOIN observations as T2 ON T1.patient = T2.patient WHERE T1.birthdate = (SELECT birthdate FROM patients ORDER BY birthdate DESC LIMIT 1) AND T2.value = (SELECT T2.value FROM patients as T1 INNER JOIN observations as T2 ON T1.patient = T2.patient ORDER BY T1.birthdate DESC, T2.value DESC LIMIT 1)",
         "orig_gold_sql": "SELECT T1.account_id  FROM account AS T1 INNER JOIN disp AS T2 ON T1.account_id = T2.account_id INNER JOIN client AS T3 ON T2.client_id = T3.client_id INNER JOIN district AS T4 on T4.district_id = T1.district_id WHERE T2.client_id = ( SELECT client_id FROM client ORDER BY birth_date DESC LIMIT 1) GROUP BY T4.A11, T1.account_id",
         "evidence_added": true
     },
@@ -69,7 +69,7 @@
             "Agility": "[superpower].[power_name]",
             "Blue": "[colour].[colour]"
         },
-        "gold_sql": "SELECT COUNT(*) FROM employee AS T1 INNER JOIN location AS T2 ON T1.locationid = T2.locationid WHERE T1.performance = 'Average' AND T2.locationcity = 'Boston'",
+        "gold_sql": "SELECT COUNT(DISTINCT ssn) FROM employee AS T1 INNER JOIN location AS T2 ON T1.locationid = T2.locationid WHERE T1.performance = 'Average' AND T2.locationcity = 'Boston'",
         "orig_gold_sql": "SELECT COUNT(T1.id) FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T2.power_id = T3.id INNER JOIN colour AS T4 ON T1.eye_colour_id = T4.id WHERE T3.power_name = 'Agility' AND T4.colour = 'Blue'",
         "evidence_added": true
     },
@@ -188,7 +188,8 @@
         },
         "gold_sql": "SELECT T2.expression_corr FROM Genes as T1 INNER JOIN Interactions as T2 On T1.GeneID = T2.GeneID1 WHERE lower(T1.Complex) = lower(T1.Localization) AND T1.Localization = 'cytoskeleton'",
         "orig_gold_sql": "SELECT T1.superhero_name FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id AND T1.hair_colour_id = T2.id WHERE T2.colour = 'Black'",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "Fixed lining in original gold"
     },
     {
         "idx": "bird_1199",

@@ -3,11 +3,11 @@
         "idx": "bird_1235",
         "db_id": "synthea",
         "orig_db_id": "thrombosis_prediction",
-        "question": "What are the patient's immunization code for those who has lower observation values? State their ID and age. patient's immunization code refers to immunizations.code; lower observation values refers to observations.VALUE < 10; age = SUBTRACT(year(current_timestamp), year(birthdate));",
-        "orig_question": "What are the patient's diagnosis for those who has lower red blood blood cell? State their ID and age. patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year(current_timestamp), year(Birthday));",
-        "orig_masked": "What are the [T3]'s [C61] for those who has lower [C41]? State their [C63] and [C59]. [T3]'s [C61] refers to [C61]; lower [C41] refers to [C41] < [V1]; [C59] = SUBTRACT(year(current_timestamp), year([C59]));; [V1] is a value of the column [C41]",
-        "evidence": "patient's immunization code refers to immunizations.code; lower observation values refers to observations.VALUE < 10; age = SUBTRACT(year(current_timestamp), year(birthdate));",
-        "orig_evidence": "patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year(current_timestamp), year(Birthday)); ",
+        "question": "What are the patient's immunization code for those who has lower observation values? State their ID and age. patient's immunization code refers to immunizations.code; lower observation values refers to observations.VALUE < 10; age = SUBTRACT(year('2026-03-11'), year(birthdate));",
+        "orig_question": "What are the patient's diagnosis for those who has lower red blood blood cell? State their ID and age. patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year('2026-03-11'), year(Birthday));",
+        "orig_masked": "What are the [T3]'s [C61] for those who has lower [C41]? State their [C63] and [C59]. [T3]'s [C61] refers to [C61]; lower [C41] refers to [C41] < [V1]; [C59] = SUBTRACT(year('2026-03-11'), year([C59]));; [V1] is a value of the column [C41]",
+        "evidence": "patient's immunization code refers to immunizations.code; lower observation values refers to observations.VALUE < 10; age = SUBTRACT(year('2026-03-11'), year(birthdate));",
+        "orig_evidence": "patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year('2026-03-11'), year(Birthday)); ",
         "gold_schema_links": {
             "patient": "TABLE:[patients]",
             "immunization code": "COLUMN:[immunizations].[code]",
@@ -34,9 +34,10 @@
         "orig_gold_value_links": {
             "3.5": "[laboratory].[rbc]"
         },
-        "gold_sql": "SELECT DISTINCT T2.CODE, T1.patient, STRFTIME('%Y', CURRENT_TIMESTAMP) -STRFTIME('%Y', T1.birthdate) FROM patients as T1 INNER JOIN immunizations as T2 ON T1.patient = T2.patient INNER JOIN observations as T3 ON T1.patient = T3.patient WHERE T3.VALUE < 10",
-        "orig_gold_sql": "SELECT DISTINCT T1.Diagnosis, T1.ID , STRFTIME('%Y', CURRENT_TIMESTAMP) -STRFTIME('%Y', T1.Birthday) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.RBC < 3.5",
-        "evidence_added": true
+        "gold_sql": "SELECT DISTINCT T2.CODE, T1.patient, STRFTIME('%Y', '2026-03-11') -STRFTIME('%Y', T1.birthdate) FROM patients as T1 INNER JOIN immunizations as T2 ON T1.patient = T2.patient INNER JOIN observations as T3 ON T1.patient = T3.patient WHERE T3.VALUE < 10",
+        "orig_gold_sql": "SELECT DISTINCT T1.Diagnosis, T1.ID , STRFTIME('%Y', '2026-03-11') -STRFTIME('%Y', T1.Birthday) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.RBC < 3.5",
+        "evidence_added": true,
+        "note": "Replacing the current time stamps here in the original etc. because that's a moving target."
     },
     {
         "idx": "bird_1201",
@@ -110,7 +111,7 @@
             "80%": "[superhero].[height_cm]"
         },
         "gold_sql": "SELECT birth_place FROM person WHERE height_meters * 100 > ( SELECT AVG(height_meters) FROM person ) * 80",
-        "orig_gold_sql": "SELECT T3.power_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T2.power_id = T3.id WHERE T1.height_cm * 100 > ( SELECT AVG(height_cm) FROM superhero ) * 80",
+        "orig_gold_sql": "SELECT T3.power_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T2.power_id = T3.id WHERE (T1.height_cm * 100) > ((SELECT AVG(height_cm) FROM superhero ) * 80)",
         "evidence_added": true
     },
     {
@@ -366,7 +367,7 @@
             "79%": "[superhero].[weight_kg]",
             "0.79": "[superhero].[weight_kg]"
         },
-        "gold_sql": "SELECT T1.full_name from person as T1 INNER JOIN person_region as T2 ON T1.id = T2.person_id INNER JOIN noc_region as T3 ON T2.region_id = T3.id WHERE T3.region_name = 'USA' AND T1.weight * 100 > ( SELECT AVG(weight) FROM person ) * 79",
+        "gold_sql": "SELECT T1.full_name from person as T1 INNER JOIN person_region as T2 ON T1.id = T2.person_id INNER JOIN noc_region as T3 ON T2.region_id = T3.id WHERE T3.region_name = 'USA' AND (T1.weight * 100) > ((SELECT AVG(weight) FROM person) * 79)",
         "orig_gold_sql": "SELECT T1.superhero_name FROM superhero AS T1 INNER JOIN gender AS T2 ON T1.gender_id = T2.id WHERE T2.gender = 'Male' AND T1.weight_kg * 100 > ( SELECT AVG(weight_kg) FROM superhero ) * 79",
         "evidence_added": true
     }

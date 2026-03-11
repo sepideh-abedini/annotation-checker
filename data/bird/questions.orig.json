@@ -4289,10 +4289,10 @@
     {
         "idx": "bird_1121",
         "db_id": "european_football_2",
-        "question": "Calculate the total home team goal scored by players whose age are 30 years old and below. age are 30 years old and below refers to SUBTRACT(datetime(CURRENT_TIMESTAMP,'localtime'), datetime(birthday) < 31)",
-        "evidence": "age are 30 years old and below refers to SUBTRACT(datetime(CURRENT_TIMESTAMP,'localtime'), datetime(birthday) < 31)",
+        "question": "Calculate the total home team goal scored by players whose age are 30 years old and below. age are 30 years old and below refers to SUBTRACT(datetime('2026-03-10','localtime'), datetime(birthday) < 31)",
+        "evidence": "age are 30 years old and below refers to SUBTRACT(datetime('2026-03-10','localtime'), datetime(birthday) < 31)",
         "evidence_added": true,
-        "query": "SELECT SUM(t2.home_team_goal) FROM Player AS t1 INNER JOIN match AS t2 ON t1.player_api_id = t2.away_player_1 WHERE datetime(CURRENT_TIMESTAMP, 'localtime') - datetime(T1.birthday) < 31",
+        "query": "SELECT SUM(t2.home_team_goal) FROM Player AS t1 INNER JOIN match AS t2 ON t1.player_api_id = t2.away_player_1 WHERE datetime('2026-03-10', 'localtime') - datetime(T1.birthday) < 31",
         "gold_value_links": {
             "31": "[player].[birthday]",
             "30": "[player].[birthday]"
@@ -5075,10 +5075,10 @@
     {
         "idx": "bird_1235",
         "db_id": "thrombosis_prediction",
-        "question": "What are the patient's diagnosis for those who has lower red blood blood cell? State their ID and age. patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year(current_timestamp), year(Birthday));",
-        "evidence": "patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year(current_timestamp), year(Birthday)); ",
+        "question": "What are the patient's diagnosis for those who has lower red blood blood cell? State their ID and age. patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year('2026-03-11'), year(Birthday));",
+        "evidence": "patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year('2026-03-11'), year(Birthday)); ",
         "evidence_added": true,
-        "query": "SELECT DISTINCT T1.Diagnosis, T1.ID , STRFTIME('%Y', CURRENT_TIMESTAMP) -STRFTIME('%Y', T1.Birthday) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.RBC < 3.5",
+        "query": "SELECT DISTINCT T1.Diagnosis, T1.ID , STRFTIME('%Y', '2026-03-11') -STRFTIME('%Y', T1.Birthday) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.RBC < 3.5",
         "gold_value_links": {
             "3.5": "[laboratory].[rbc]"
         },

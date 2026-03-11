@@ -152,7 +152,7 @@
             "1990-01-01 00:00:00": "[player].[birthday]",
             "1996-01-01 00:00:00": "[player].[birthday]"
         },
-        "gold_sql": "SELECT SUM(\"height (inches)\") / COUNT(actorid) FROM actor WHERE SUBSTR(\"date of birth\", 1, 4) BETWEEN '1990' AND '1995' AND NetWorth IS NOT NULL",
+        "gold_sql": "SELECT SUM(\"height (inches)\") / COUNT(actorid) FROM actor WHERE SUBSTR(\"date of birth\", 1, 4) BETWEEN '1990' AND '1995'",
         "orig_gold_sql": "SELECT SUM(height) / COUNT(id) FROM Player WHERE SUBSTR(birthday, 1, 4) BETWEEN '1990' AND '1995'",
         "evidence_added": true
     },

@@ -180,7 +180,7 @@
         "idx": "bird_100",
         "db_id": "shipping",
         "orig_db_id": "financial",
-        "question": "Among the customers, how many wholesale customers who were placing orders before 2016 and stayed in 2017? Customers refer to customer; wholesale refers to cust_type = 'wholesaler'; order dates appear in column ship_date",
+        "question": "Among the customers, how many wholesale customers who were placing orders in 2016 and stayed in 2017? Customers refer to customer; wholesale refers to cust_type = 'wholesaler'; order dates appear in column ship_date",
         "orig_question": "Among the account opened, how many female customers who were born before 1950 and stayed in Sokolov? Customers refer to clients; Female refers to gender = 'F'; Names of districts appear in column A2",
         "orig_masked": "Among the [T1], how many [C12] [T3] who were [C9] before [V2] and stayed in [V1]? [T3] refer to [T3]; [C12] refers to [C12] = '[V3]'; [C24] appear in column [C24]; [V1] is a value of the column [C24]; [V2] is a value of the column [C9]; [V3] is a value of the column [C12]",
         "evidence": "Customers refer to customer; wholesale refers to cust_type = 'wholesaler'; order dates appear in column ship_date",
@@ -278,7 +278,7 @@
         "orig_gold_value_links": {
             "70": "[team_attributes].[buildupplaypassing]"
         },
-        "gold_sql": "SELECT T2.song FROM movies_total_gross as T1 INNER JOIN characters AS T2 ON T1.movie_title = T2.movie_title WHERE T2.song IS NOT NULL AND CAST(REPLACE(REPLACE(T1.total_gross, '$', ''), ',', '') AS FLOAT) > 100000000",
+        "gold_sql": "SELECT DISTINCT T2.song FROM movies_total_gross as T1 INNER JOIN characters AS T2 ON T1.movie_title = T2.movie_title WHERE T2.song IS NOT NULL AND CAST(REPLACE(REPLACE(T1.total_gross, '$', ''), ',', '') AS FLOAT) > 100000000",
         "orig_gold_sql": "SELECT DISTINCT t1.team_short_name FROM Team AS t1 INNER JOIN Team_Attributes AS t2 ON t1.team_api_id = t2.team_api_id WHERE t2.buildUpPlayPassing > 70",
         "evidence_added": true
     },
@@ -316,15 +316,15 @@
         "idx": "bird_1030",
         "db_id": "olympics",
         "orig_db_id": "european_football_2",
-        "question": "Give the name of the region had the most athletes with equal height and weight in the male gender? most athletes with equal height and weight refers to MAX(SUM(person.height = person.weight)); male gender refers to gender = 'M';",
+        "question": "Give the name of the region had the most athletes with equal body dimensions in the male gender? most athletes with equal body dimensions refers to MAX(SUM(person.height = person.weight)); male gender refers to gender = 'M';",
         "orig_question": "Give the name of the league had the most matches end as draw in the 2016 season? most matches end as draw refers to MAX(SUM(home_team_goal = away_team_goal)); 2016 season refers to season = '2015/2016';",
         "orig_masked": "Give the [C5] of the [T2] had the most [C94],[C40] in the [C108] [C108]? most [C94],[C40] refers to MAX(SUM([C94] = [C40])); [C108] [C108] refers to [C108] = '[V1]';; [V1] is a value of the column [C108]",
-        "evidence": "most athletes with equal height and weight refers to MAX(SUM(person.height = person.weight)); male gender refers to gender = 'M';",
+        "evidence": "most athletes with equal body dimensions refers to MAX(SUM(person.height = person.weight)); male gender refers to gender = 'M';",
         "orig_evidence": "most matches end as draw refers to MAX(SUM(home_team_goal = away_team_goal)); 2016 season refers to season = '2015/2016';",
         "gold_schema_links": {
             "name": "COLUMN:[noc_region].[region_name]",
             "region": "TABLE:[noc_region]",
-            "athletes with equal height and weight": [
+            "athletes with equal body dimensions": [
                 "COLUMN:[person].[height]",
                 "COLUMN:[person].[weight]"
             ],
@@ -350,7 +350,7 @@
         "orig_gold_value_links": {
             "2015/2016": "[match].[season]"
         },
-        "gold_sql": "SELECT T3.region_name FROM person AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.person_id INNER JOIN noc_region as T3 ON T2.region_id = T3.id WHERE T1.gender = 'M' AND T1.height = T1.weight GROUP BY T3.region_name ORDER BY count(T1.id) DESC LIMIT 1",
+        "gold_sql": "SELECT T3.region_name FROM person AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.person_id INNER JOIN noc_region as T3 ON T2.region_id = T3.id WHERE T1.gender = 'M' AND T1.height = T1.weight GROUP BY T3.region_name ORDER BY count(DISTINCT T1.id) DESC LIMIT 1",
         "orig_gold_sql": "SELECT t2.name FROM Match AS t1 INNER JOIN League AS t2 ON t1.league_id = t2.id WHERE t1.season = '2015/2016' AND t1.home_team_goal = t1.away_team_goal GROUP BY t2.name ORDER BY COUNT(t1.id) DESC LIMIT 1",
         "evidence_added": true
     }
