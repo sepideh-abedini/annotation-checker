@@ -35,24 +35,22 @@
     },
     {
         "idx": "bird_773",
-        "db_id": "books",
+        "db_id": "retail_complains",
         "orig_db_id": "superhero",
-        "question": "Which book has the same book id, language id and author id? Indicate the author of the book. which book refers to title; the same book id, language id and author id refers to book_id = language_id AND book_id = author_id; author refers to author_name;",
+        "question": "Which clients have the same day, month and district id? Indicate the ssn of the clients. which clients refers to client_id; the same day, month and district id refers to day = month AND month = district_id; ssn refers to social;",
         "orig_question": "Which superhero has the same eyes, hair and skin colour? Indicate the publisher of the superhero. which superhero refers to superhero_name; the same eyes, hair and skin colour refers to hair_colour_id = skin_colour_id AND hair_colour_id = eye_colour_id; publisher refers to publisher_name;",
         "orig_masked": "Which [T9] has the same [C19], [C22] and [C27]? Indicate the [T7] of the [T9]. which [T9] refers to [C28]; the same [C19], [C22] and [C27] refers to [C22] = [C27] AND [C22] = [C19]; [T7] refers to [C15];",
         "evidence": "which book refers to title; the same book id, language id and author id refers to book_id = language_id AND book_id = author_id; author refers to author_name;",
         "orig_evidence": "which superhero refers to superhero_name; the same eyes, hair and skin colour refers to hair_colour_id = skin_colour_id AND hair_colour_id = eye_colour_id; publisher refers to publisher_name;",
         "gold_schema_links": {
-            "author": "TABLE:[author]",
-            "book": "TABLE:[book]",
-            "title": "COLUMN:[book].[title]",
-            "author_name": "COLUMN:[author].[author_name]",
-            "book_id": "COLUMN:[book].[book_id]",
-            "language_id": "COLUMN:[book].[language_id]",
-            "author_id": "COLUMN:[author].[author_id]",
-            "book id": "COLUMN:[book].[book_id]",
-            "language id": "COLUMN:[book].[language_id]",
-            "author id": "COLUMN:[author].[author_id]"
+            "clients": "TABLE:[client]",
+            "day": "COLUMN:[client].[day]",
+            "month": "COLUMN:[client].[month]",
+            "district id": "COLUMN:[client].[district_id]",
+            "district_id": "COLUMN:[client].[district_id]",
+            "ssn": "COLUMN:[client].[social]",
+            "social": "COLUMN:[client].[social]",
+            "client_id": "COLUMN:[client].[client_id]"
         },
         "orig_gold_schema_links": {
             "publisher": "TABLE:[publisher]",
@@ -68,7 +66,7 @@
         },
         "gold_value_links": {},
         "orig_gold_value_links": {},
-        "gold_sql": "select T3.author_name from book as T1 INNER JOIN book_author as T2 ON T1.book_id = T2.book_id INNER JOIN author as T3 ON T2.author_id = T3.author_id WHERE T1.book_id = T1.language_id AND T1.book_id = T3.author_id",
+        "gold_sql": "SELECT DISTINCT social FROM client WHERE day = month AND month = district_id",
         "orig_gold_sql": "SELECT T1.superhero_name, T2.publisher_name FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id WHERE T1.eye_colour_id = T1.hair_colour_id AND T1.eye_colour_id = T1.skin_colour_id",
         "evidence_added": true
     },
