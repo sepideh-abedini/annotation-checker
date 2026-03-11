@@ -256,7 +256,7 @@
         "question": "Which movies have total gross revenues more than $100,000,000? Please list their songs. total gross revenues refers to total_gross; total_gross > $100,000,000; songs refers to characters.song;",
         "orig_question": "Which teams have build up play passing more than 70? Please list their short names. build up play passing refers to buildUpPlayPassing; buildUpPlayPassing > 70; short names refers to team_short_name;",
         "orig_masked": "Which [T6] have [C177] more than [V1]? Please list their [C174]. [C177] refers to [C177]; [C177] > [V1]; [C174] refers to [C174];; [V1] is a value of the column [C177]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "total gross revenues refers to total_gross; total_gross > $100,000,000; songs refers to characters.song;",
         "orig_evidence": "build up play passing refers to buildUpPlayPassing; buildUpPlayPassing > 70; short names refers to team_short_name;",
         "gold_schema_links": {
             "movies": "TABLE:[movies_total_gross]",
@@ -289,7 +289,7 @@
         "question": "What is the average height of the athletes from China?  athletes from China refers to region_name = 'China'; average height of the athletes refers to AVG(height)",
         "orig_question": "What is the average height of the superheroes from Marvel Comics?  superheroes from Marvel Comics refers to publisher_name = 'Marvel Comics'; average height of the superheroes refers to AVG(height_cm)",
         "orig_masked": "What is the average [C23] of the [T9] from [V1]?  [T9] from [V1] refers to [C15] = '[V1]'; average [C23] of the [T9] refers to AVG([C23]); [V1] is a value of the column [C15]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "athletes from China refers to region_name = 'China'; average height of the athletes refers to AVG(height)",
         "orig_evidence": "superheroes from Marvel Comics refers to publisher_name = 'Marvel Comics'; average height of the superheroes refers to AVG(height_cm)",
         "gold_schema_links": {
             "height": "COLUMN:[person].[height]",

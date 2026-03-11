@@ -268,7 +268,7 @@
         "idx": "bird_1136",
         "db_id": "<DB_ID>",
         "orig_db_id": "european_football_2",
-        "question": "How many movies had the highest rating that released their [V1] [C159]? highest [C134] refers to MAX([C134]); [C159] their [V1] [C159] refers to [C159] = '[V1]'; [V1] is a value of the column [C159]",
+        "question": "<QUESTION",
         "orig_question": "How many players had the highest potential score for crossing that preferred to use their left foots while attacking? highest potential score for crossing refers to MAX(crossing); preferred to use their left foots while attacking refers to preferred_foot = 'left'",
         "orig_masked": "How many [T5] had the highest [C134] that [C159] their [V1] [C159]? highest [C134] refers to MAX([C134]); [C159] their [V1] [C159] refers to [C159] = '[V1]'; [V1] is a value of the column [C159]",
         "evidence": "<EVIDENCE>",

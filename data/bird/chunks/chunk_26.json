@@ -197,7 +197,7 @@
         "question": "How many patients who underwent procedures in 2008 had observation values outside the normal range? underwent procedures in 2008 refers to YEAR(DATE) = '2008'; observation values within the normal range refers to observation.value > 30 and observation.value < 500",
         "orig_question": "How many patients who underwent testing in 1997 had protein levels outside the normal range? underwent testing in 1997 refers to YEAR(DATE) = '1997'; protein levels within the normal range refers to tp > 6 and tp < 8.5",
         "orig_masked": "How many [T2] who underwent [T2] in [V1] had [C14]? underwent [T2] in [V1] refers to YEAR(DATE) = '[V1]'; [C14] refers to [C14] > [V3] and [C14] < [V2]; [V1] is a value of the column [C23]; [V2] is a value of the column [C14]; [V3] is a value of the column [C14]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "underwent procedures in 2008 refers to YEAR(DATE) = '2008'; observation values within the normal range refers to observation.value > 30 and observation.value < 500",
         "orig_evidence": "underwent testing in 1997 refers to YEAR(DATE) = '1997'; protein levels within the normal range refers to tp > 6 and tp < 8.5",
         "gold_schema_links": {
             "observation values outside the normal range": "COLUMN:[observations].[value]",

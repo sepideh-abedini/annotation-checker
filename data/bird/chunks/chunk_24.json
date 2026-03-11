@@ -143,7 +143,7 @@
         "question": "Provide the location city of the employee who has Milgrom as their last name.  location city refers to location.locationcity where locationID = employee.locationID; Milgrom is the last name of employee;",
         "orig_question": "Provide the eye colour of the superhero who has Karen Beecher-Duncan as their full name.  eye colour refers to colour.colour where eye_colour_id = colour.id; Karen Beecher-Duncan is the full name of superhero;",
         "orig_masked": "Provide the [C5] of the [T9] who has [V1] as their [C20].  [C5] refers to [C5] where [C19] = [C6]; [V1] is the [C20] of [T9];; [V1] is a value of the column [C20]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "location city refers to location.locationcity where locationID = employee.locationID; Milgrom is the last name of employee;",
         "orig_evidence": "eye colour refers to colour.colour where eye_colour_id = colour.id; Karen Beecher-Duncan is the full name of superhero;",
         "gold_schema_links": {
             "location city": "COLUMN:[location].[locationcity]",
