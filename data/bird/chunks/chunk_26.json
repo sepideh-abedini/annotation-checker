@@ -1,14 +1,23 @@
 [
     {
         "idx": "bird_95",
-        "db_id": "<DB_ID>",
+        "db_id": "synthea",
         "orig_db_id": "financial",
-        "question": "<QUESTION>",
+        "question": "List out the patient numbers of patients who are youngest and have highest observation values?  If the person A's birthdate < B's birthdate, it means that person B is younger than person A; observations.value refers to observation values",
         "orig_question": "List out the account numbers of clients who are youngest and have highest average salary?  If the person A's birthdate < B's birthdate, it means that person B is younger than person A; A11 refers to average salary",
         "orig_masked": "List out the [C1] of [T3] who are [C9] and have highest [C18]?  If the [T3] A's [C9] < B's [C9], it means that [T3] B is [C9] than [T3] A; [C18] refers to [C18]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "If the person A's birthdate < B's birthdate, it means that person B is younger than person A;; observations.value refers to observation values",
         "orig_evidence": "If the person A's birthdate < B's birthdate, it means that person B is younger than person A; A11 refers to average salary",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "patient numbers": "COLUMN:[patients].[patient]",
+            "patients": "TABLE:[patients]",
+            "youngest": "COLUMN:[patients].[birthdate]",
+            "younger": "COLUMN:[patients].[birthdate]",
+            "observation values": "COLUMN:[observations].[value]",
+            "birthdate": "COLUMN:[patients].[birthdate]",
+            "observations.value": "COLUMN:[observations].[value]",
+            "person": "TABLE:[patients]"
+        },
         "orig_gold_schema_links": {
             "account numbers": "COLUMN:[account].[account_id]",
             "clients": "TABLE:[client]",
@@ -19,22 +28,30 @@
             "A11": "COLUMN:[district].[a11]",
             "person": "TABLE:[client]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {},
         "orig_gold_value_links": {},
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T1.patient FROM patients as T1 INNER JOIN observations as T2 ON T1.patient = T2.patient ORDER BY T1.birthdate DESC, T2.value DESC LIMIT 1",
         "orig_gold_sql": "SELECT T1.account_id  FROM account AS T1 INNER JOIN disp AS T2 ON T1.account_id = T2.account_id INNER JOIN client AS T3 ON T2.client_id = T3.client_id INNER JOIN district AS T4 on T4.district_id = T1.district_id WHERE T2.client_id = ( SELECT client_id FROM client ORDER BY birth_date DESC LIMIT 1) GROUP BY T4.A11, T1.account_id",
         "evidence_added": true
     },
     {
         "idx": "bird_723",
-        "db_id": "<DB_ID>",
+        "db_id": "human_resources",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "Among the employees with Boston location, how many of them have the performance rating of \"Average\"?  Boston location refers to locationcity = 'Boston' and locationID = employee.locationID; performance rating of \"Average\" refers to performance = 'Average'",
         "orig_question": "Among the superheroes with blue eyes, how many of them have the super power of \"Agility\"?  blue eyes refers to colour = 'Blue' and eye_colour_id = colour.id; super power of \"Agility\" refers to power_name = 'Agility'",
         "orig_masked": "Among the [T9] with [V2] [C19], how many of them have the [T10] of \"[V1]\"?  [V2] [C19] refers to [C5] = '[V2]' and [C19] = [C6]; [T10] of \"[V1]\" refers to [C31] = '[V1]'; [V1] is a value of the column [C31]; [V2] is a value of the column [C5]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "Boston location refers to locationcity = 'Boston' and locationID = employee.locationID; performance rating of \"Average\" refers to performance = 'Average'",
         "orig_evidence": "blue eyes refers to colour = 'Blue' and eye_colour_id = colour.id; super power of \"Agility\" refers to power_name = 'Agility'",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "employees": "TABLE:[employee]",
+            "location": "COLUMN:[employee].[locationid]",
+            "performance rating": "COLUMN:[employee].[performance]",
+            "locationcity": "COLUMN:[location].[locationcity]",
+            "locationID": "COLUMN:[location].[locationid]",
+            "employee.locationID": "COLUMN:[employee].[locationid]",
+            "performance": "COLUMN:[employee].[performance]"
+        },
         "orig_gold_schema_links": {
             "superheroes": "TABLE:[superhero]",
             "eyes": "COLUMN:[superhero].[eye_colour_id]",
@@ -44,25 +61,36 @@
             "colour.id": "COLUMN:[colour].[id]",
             "power_name": "COLUMN:[superpower].[power_name]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Average": "[employee].[performance]",
+            "Boston": "[location].[locationcity]"
+        },
         "orig_gold_value_links": {
             "Agility": "[superpower].[power_name]",
             "Blue": "[colour].[colour]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT COUNT(*) FROM employee AS T1 INNER JOIN location AS T2 ON T1.locationid = T2.locationid WHERE T1.performance = 'Average' AND T2.locationcity = 'Boston'",
         "orig_gold_sql": "SELECT COUNT(T1.id) FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T2.power_id = T3.id INNER JOIN colour AS T4 ON T1.eye_colour_id = T4.id WHERE T3.power_name = 'Agility' AND T4.colour = 'Blue'",
         "evidence_added": true
     },
     {
         "idx": "bird_1234",
-        "db_id": "<DB_ID>",
+        "db_id": "restaurant",
         "orig_db_id": "thrombosis_prediction",
-        "question": "<QUESTION>",
+        "question": "List the restaurant name, street name and region who has abnormal reviews. Group them by region and list the restaurant by street number in ascending order.  abnormal reviews refers to review < = 1.5 or review > = 4.0;",
         "orig_question": "List the patient ID, sex and birthday who has abnormal white blood cell count. Group them by sex and list the patient by age in ascending order.  abnormal white blood cell count refers to WBC < = 3.5 or WBC > = 9.0;",
         "orig_masked": "List the [C63], [C64] and [C59] who has [C57]. Group them by [C64] and list the [T3] by [C59] in ascending order.  [C57] refers to [C57] < = [V1] or [C57] > = [V2];; [V1] is a value of the column [C57]; [V2] is a value of the column [C57]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "abnormal reviews refers to review < = 1.5 or review > = 4.0;",
         "orig_evidence": "abnormal white blood cell count refers to WBC < = 3.5 or WBC > = 9.0;",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "restaurant name": "COLUMN:[generalinfo].[label]",
+            "region": "COLUMN:[geographic].[region]",
+            "street name": "COLUMN:[location].[street_name]",
+            "abnormal reviews": "COLUMN:[generalinfo].[review]",
+            "restaurant": "TABLE:[generalinfo]",
+            "street number": "COLUMN:[location].[street_num]",
+            "review": "COLUMN:[generalinfo].[review]"
+        },
         "orig_gold_schema_links": {
             "patient ID": "COLUMN:[patient].[id]",
             "sex": "COLUMN:[patient].[sex]",
@@ -72,25 +100,34 @@
             "age": "COLUMN:[patient].[birthday]",
             "WBC": "COLUMN:[laboratory].[wbc]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "1.5": "[generalinfo].[review]",
+            "4.0": "[generalinfo].[review]"
+        },
         "orig_gold_value_links": {
             "3.5": "[laboratory].[wbc]",
             "9.0": "[laboratory].[wbc]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT DISTINCT T1.label, T2.street_name, T3.region FROM generalinfo AS T1 INNER JOIN location AS T2 ON T1.id_restaurant = T2.id_restaurant INNER JOIN geographic as T3 ON T2.city = T3.city WHERE T1.review <= 1.5 OR T1.review >= 4.0 GROUP BY T3.region, T1.label ORDER BY T2.street_num ASC",
         "orig_gold_sql": "SELECT DISTINCT T1.ID, T1.SEX, T1.Birthday FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.WBC <= 3.5 OR T2.WBC >= 9.0 GROUP BY T1.SEX,T1.ID ORDER BY T1.Birthday ASC",
         "evidence_added": true
     },
     {
         "idx": "bird_1218",
-        "db_id": "<DB_ID>",
+        "db_id": "olympics",
         "orig_db_id": "thrombosis_prediction",
-        "question": "<QUESTION>",
+        "question": "What is the percentage of the female athletes whose height beyond the normal range? height beyond the normal range refers to height > 180.0 and gender = 'M' or height > 165 and gender = 'F'; female refers to gender = 'F'",
         "orig_question": "What is the percentage of the female patient whose uric acid (UA) beyond the normal range? uric acid (UA) beyond the normal range refers to UA > 8.0 and SEX = 'M' or UA > 6.5 and SEX = 'F'; female refers to Sex = 'F'",
         "orig_masked": "What is the percentage of the [C64] [T3] whose [C55] beyond the [C55]? [C55] beyond the [C55] refers to [C55] > [V2] and [C64] = '[V4]' or [C55] > [V1] and [C64] = '[V3]'; [C64] refers to [C64] = '[V3]'; [V1] is a value of the column [C55]; [V2] is a value of the column [C55]; [V3] is a value of the column [C64]; [V4] is a value of the column [C55]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "height beyond the normal range refers to height > 180.0 and gender = 'M' or height > 165 and gender = 'F'; female refers to gender = 'F'",
         "orig_evidence": "uric acid (UA) beyond the normal range refers to UA > 8.0 and SEX = 'M' or UA > 6.5 and SEX = 'F'; female refers to Sex = 'F'",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "athletes": "TABLE:[person]",
+            "height": "COLUMN:[person].[height]",
+            "gender": "COLUMN:[person].[gender]",
+            "normal range": "COLUMN:[person].[height]",
+            "female": "COLUMN:[person].[gender]"
+        },
         "orig_gold_schema_links": {
             "patient": "TABLE:[patient]",
             "uric acid (UA)": "COLUMN:[laboratory].[ua]",
@@ -99,55 +136,76 @@
             "normal range": "COLUMN:[laboratory].[ua]",
             "female": "COLUMN:[patient].[sex]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "180.0": "[person].[height]",
+            "F": "[person].[gender]",
+            "165": "[person].[height]",
+            "M": "[person].[gender]"
+        },
         "orig_gold_value_links": {
             "6.5": "[laboratory].[ua]",
             "F": "[patient].[sex]",
             "8.0": "[laboratory].[ua]",
             "M": "[laboratory].[ua]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT CAST(SUM(CASE WHEN T1.height > 165 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.id) FROM Person as T1 WHERE T1.gender = 'F'",
         "orig_gold_sql": "SELECT CAST(SUM(CASE WHEN T2.UA > 6.5 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T1.SEX = 'F'",
         "evidence_added": true
     },
     {
         "idx": "bird_782",
-        "db_id": "<DB_ID>",
+        "db_id": "genes",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "List the interactions' correlations whose complex and localization values are both cytoskeleton.  interactions' correlations refers to expression_corr; complex and localization values are both cytoskeleton refers to complex AND localization WHERE genes.localization = 'cytoskeleton';",
         "orig_question": "List the heroes' names whose eyes and hair colours are both black.  heroes' names refers to superhero_name; eyes and hair colours are both black refers to eye_colour_id AND hair_colour_id WHERE colour.colour = 'Black';",
-        "orig_masked": "List the [T9]' [C28] whose [C19] and [C22] are both [V1].  [T9]' [C28] refers to [C28]; [C19] and [C22] are both [V1] refers to [C19] AND [C22] WHERE [C5].[C5] = '[V1]';; [V1] is a value of the column [C5]",
-        "evidence": "<EVIDENCE>",
+        "orig_masked": "List the [T9]' [C28] whose [C19] and [C22] are both [V1].  [T9]' [C28] refers to [C28]; [C19] and [C22] are both [V1] refers to [C19] AND [C22] WHERE [C5] = '[V1]';; [V1] is a value of the column [C5]",
+        "evidence": "interactions' correlations refers to expression_corr; complex and localization values are both cytoskeleton refers to complex AND localization WHERE genes.localization = 'cytoskeleton';",
         "orig_evidence": "heroes' names refers to superhero_name; eyes and hair colours are both black refers to eye_colour_id AND hair_colour_id WHERE colour.colour = 'Black';",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "correlations": "COLUMN:[interactions].[expression_corr]",
+            "interactions": "TABLE:[interactions]",
+            "complex": "COLUMN:[genes].[complex]",
+            "localization": "COLUMN:[genes].[localization]",
+            "localization values": "COLUMN:[genes].[localization]",
+            "genes.localization": "COLUMN:[genes].[localization]",
+            "expression_corr": "COLUMN:[interactions].[expression_corr]"
+        },
         "orig_gold_schema_links": {
             "names": "COLUMN:[superhero].[superhero_name]",
             "heroes": "TABLE:[superhero]",
             "eyes": "COLUMN:[superhero].[eye_colour_id]",
             "hair colours": "COLUMN:[superhero].[hair_colour_id]",
-            "colour": "COLUMN:[colour].[colour]",
+            "colour.colour": "COLUMN:[colour].[colour]",
             "superhero_name": "COLUMN:[superhero].[superhero_name]",
             "eye_colour_id": "COLUMN:[superhero].[eye_colour_id]",
             "hair_colour_id": "COLUMN:[superhero].[hair_colour_id]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "cytoskeleton": "[genes].[localization]"
+        },
         "orig_gold_value_links": {
             "Black": "[colour].[colour]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T2.expression_corr FROM Genes as T1 INNER JOIN Interactions as T2 On T1.GeneID = T2.GeneID1 WHERE lower(T1.Complex) = lower(T1.Localization) AND T1.Localization = 'cytoskeleton'",
         "orig_gold_sql": "SELECT T1.superhero_name FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id AND T1.hair_colour_id = T2.id WHERE T2.colour = 'Black'",
         "evidence_added": true
     },
     {
         "idx": "bird_1199",
-        "db_id": "<DB_ID>",
+        "db_id": "synthea",
         "orig_db_id": "thrombosis_prediction",
-        "question": "<QUESTION>",
+        "question": "How many patients who underwent procedures in 2008 had observation values outside the normal range? underwent procedures in 2008 refers to YEAR(DATE) = '2008'; observation values within the normal range refers to observation.value > 30 and observation.value < 500",
         "orig_question": "How many patients who underwent testing in 1997 had protein levels outside the normal range? underwent testing in 1997 refers to YEAR(DATE) = '1997'; protein levels within the normal range refers to tp > 6 and tp < 8.5",
         "orig_masked": "How many [T2] who underwent [T2] in [V1] had [C14]? underwent [T2] in [V1] refers to YEAR(DATE) = '[V1]'; [C14] refers to [C14] > [V3] and [C14] < [V2]; [V1] is a value of the column [C23]; [V2] is a value of the column [C14]; [V3] is a value of the column [C14]",
         "evidence": "<EVIDENCE>",
         "orig_evidence": "underwent testing in 1997 refers to YEAR(DATE) = '1997'; protein levels within the normal range refers to tp > 6 and tp < 8.5",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "observation values outside the normal range": "COLUMN:[observations].[value]",
+            "observation values within the normal range": "COLUMN:[observations].[value]",
+            "observation.value": "COLUMN:[observations].[value]",
+            "patients": "TABLE:[patients]",
+            "procedures": "TABLE:[procedures]"
+        },
         "orig_gold_schema_links": {
             "protein levels outside the normal range": "COLUMN:[laboratory].[alb]",
             "protein levels within the normal range": "COLUMN:[laboratory].[alb]",
@@ -155,26 +213,37 @@
             "patients": "TABLE:[laboratory]",
             "testing": "TABLE:[laboratory]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links":{
+            "2008": "[procedures].[date]",
+            "30": "[observations].[value]",
+            "500": "[observations].[value]"
+        },
         "orig_gold_value_links": {
             "1997": "[laboratory].[date]",
             "6": "[laboratory].[alb]",
             "8.5": "[laboratory].[alb]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT COUNT(T1.patient) FROM patients as T1 INNER JOIN procedures as T2 ON T1.patient = T2.patient INNER JOIN observations as T3 ON T1.patient = T3.patient WHERE (T3.value <= 30 OR T3.VALUE >= 500) AND STRFTIME('%Y', T2.Date) = '2008'",
         "orig_gold_sql": "SELECT COUNT(ID) FROM Laboratory WHERE (ALB <= 6.0 OR ALB >= 8.5) AND STRFTIME('%Y', Date) = '1997'",
         "evidence_added": true
     },
     {
         "idx": "bird_99",
-        "db_id": "<DB_ID>",
+        "db_id": "movie",
         "orig_db_id": "financial",
-        "question": "<QUESTION>",
+        "question": "Among the movies who have run times more than 120 minutes, list out the movies that have the highest rating and have actor birth date in 1987. run times more than 120 minutes refers to Runtime > 120",
         "orig_question": "Among the accounts who have loan validity more than 12 months, list out the accounts that have the highest approved amount and have account opening date in 1993. Loan validity more than 12 months refers to duration > 12",
         "orig_masked": "Among the [T1] who have [C36] more than [V1], list out the [T1] that have the highest [C34] and have [T1] [C2] in [V2]. [C36] more than [V1] refers to [C36] > 12; [V1] is a value of the column [C36]; [V2] is a value of the column [C2]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "run times more than 120 minutes refers to Runtime > 120",
         "orig_evidence": "Loan validity more than 12 months refers to duration > 12",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "birth date": "COLUMN:[actor].[date of birth]",
+            "rating": "COLUMN:[movie].[rating]",
+            "run times": "COLUMN:[movie].[runtime]",
+            "Runtime": "COLUMN:[movie].[runtime]",
+            "actor": "TABLE:[actor]",
+            "movies": "TABLE:[movie]"
+        },
         "orig_gold_schema_links": {
             "opening date": "COLUMN:[account].[date]",
             "approved amount": "COLUMN:[loan].[amount]",
@@ -183,25 +252,41 @@
             "account": "TABLE:[account]",
             "accounts": "TABLE:[account]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "120 minutes": "[movie].[runtime]",
+            "1987": "[actor].[date of birth]",
+            "120": "[movie].[runtime]"
+        },
         "orig_gold_value_links": {
             "12 months": "[loan].[duration]",
-            "1993": "[account].[date]"
+            "1993": "[account].[date]",
+            "12": "[loan].[duration]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T1.title FROM movie AS T1 INNER JOIN characters AS T2 ON T1.movieid = T2.movieid INNER JOIN actor AS T3 ON T3.actorid = T2.actorid WHERE STRFTIME('%Y', T3.\"date of birth\") = '1987' AND T1.runtime > 120 ORDER BY T1.rating DESC LIMIT 1",
         "orig_gold_sql": "SELECT T1.account_id FROM loan AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id WHERE STRFTIME('%Y', T2.date) = '1993' AND T1.duration > 12 ORDER BY T1.amount DESC LIMIT 1",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "fixed original as it didn't link 12"
     },
     {
         "idx": "bird_726",
-        "db_id": "<DB_ID>",
+        "db_id": "cars",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "Rank cars manufactured by Japan by their price in descending order. car name refers to car_name; the priciest car refers to MAX(price); manufactured by Japan refers to country.country = 'Japan'",
         "orig_question": "Rank heroes published by Marvel Comics by their height in descending order. name refers to superhero_name; the tallest hero refers to MAX(height_cm); published by Marvel Comics refers to publisher_name = 'Marvel Comics'",
         "orig_masked": "Rank [T9] [C15] by [V1] by their [C23] in descending order. [C28] refers to [C28]; the [C23] [T9] refers to MAX([C23]); [C15] by [V1] refers to [C15] = '[V1]'; [V1] is a value of the column [C15]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "car name refers to car_name; the priciest car refers to MAX(price); manufactured by Japan refers to country.country = 'Japan'",
         "orig_evidence": "name refers to superhero_name; the tallest hero refers to MAX(height_cm); published by Marvel Comics refers to publisher_name = 'Marvel Comics'",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "production.id": "COLUMN:[production].[id]",
+            "country.country": "COLUMN:[country].[country]",
+            "car": "TABLE:[production]",
+            "manufactured": "COLUMN:[production].[country]",
+            "price": "COLUMN:[price].[price]",
+            "cars": "TABLE:[data]",
+            "priciest": "COLUMN:[price].[price]",
+            "car name": "COLUMN:[data].[car_name]",
+            "car_name": "COLUMN:[data].[car_name]"
+        },
         "orig_gold_schema_links": {
             "superhero_name": "COLUMN:[superhero].[superhero_name]",
             "publisher_name": "COLUMN:[publisher].[publisher_name]",
@@ -213,24 +298,32 @@
             "tallest": "COLUMN:[superhero].[height_cm]",
             "name": "COLUMN:[superhero].[superhero_name]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Japan": "[country].[country]"
+        },
         "orig_gold_value_links": {
             "Marvel Comics": "[publisher].[publisher_name]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T1.car_name, T4.price, RANK() OVER (ORDER BY T4.price DESC) AS HeightRank FROM data as T1 INNER JOIN production AS T2 ON T1.ID = T2.ID INNER JOIN country as T3 ON T3.origin = T2.country INNER JOIN price as T4 ON T4.ID = T1.ID WHERE T3.country = 'Japan'",
         "orig_gold_sql": "SELECT superhero_name, height_cm, RANK() OVER (ORDER BY height_cm DESC) AS HeightRank FROM superhero INNER JOIN publisher ON superhero.publisher_id = publisher.id WHERE publisher.publisher_name = 'Marvel Comics'",
         "evidence_added": true
     },
     {
         "idx": "bird_1300",
-        "db_id": "<DB_ID>",
+        "db_id": "synthea",
         "orig_db_id": "thrombosis_prediction",
-        "question": "<QUESTION>",
+        "question": "What is the allergy description of the patient who has the highest level of bone density within the normal range?  allergy description referse to allergies.description; highest level of bone density within the normal range refers to MAX(observations.value < 0.41);",
         "orig_question": "What is the disease name of the patient who has the highest level of triglyceride within the normal range?  disease name referse to Diagnosis; highest level of triglyceride within the normal range refers to MAX(TG < 200);",
         "orig_masked": "What is the [C6] of the [T3] who has the highest [C52]?  [C6] referse to [C6]; highest [C52] refers to MAX([C52] < [V1]);; [V1] is a value of the column [C52]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "allergy description referse to allergies.description; highest level of bone density within the normal range refers to MAX(observations.value < 0.41);",
         "orig_evidence": "disease name referse to Diagnosis; highest level of triglyceride within the normal range refers to MAX(TG < 200);",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "allergy description": "COLUMN:[allergies].[description]",
+            "level of bone density within the normal range": "COLUMN:[observations].[value]",
+            "allergies.description": "COLUMN:[allergies].[description]",
+            "patient": "TABLE:[patients]",
+            "observations.value": "COLUMN:[observations].[value]"
+        },
         "orig_gold_schema_links": {
             "disease name": "COLUMN:[examination].[diagnosis]",
             "level of triglyceride within the normal range": "COLUMN:[laboratory].[tg]",
@@ -238,24 +331,32 @@
             "patient": "TABLE:[patient]",
             "TG": "COLUMN:[laboratory].[tg]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "0.41": "[observations].[value]"
+        },
         "orig_gold_value_links": {
             "200": "[laboratory].[tg]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T3.description from patients AS T1 INNER JOIN observations AS T2 ON T1.patient = T2.patient INNER JOIN allergies AS T3 ON T1.patient = T3.patient WHERE T2.DESCRIPTION = 'DXA [T-score] Bone density' AND T2.VALUE < 0.41 ORDER BY T2.VALUE DESC LIMIT 1",
         "orig_gold_sql": "SELECT T1.Diagnosis FROM Examination AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.TG < 200 ORDER BY T2.TG DESC LIMIT 1",
         "evidence_added": true
     },
     {
         "idx": "bird_1293",
-        "db_id": "<DB_ID>",
+        "db_id": "cars",
         "orig_db_id": "thrombosis_prediction",
-        "question": "<QUESTION>",
+        "question": "What is the highest horsepower of a car with a normal price? highest horsepower refers to MAX(horsepower); normal price refers to price.price < 40000;",
         "orig_question": "What is the highest anti-nucleus antibody concentration level of a patient with a normal creatinine level? highest anti-nucleus antibody concentration level refers to MAX(ANA); normal creatinine level refers to CRE < 1.5;",
         "orig_masked": "What is the highest [C5] of a [T3] with a [C21]? highest [C5] refers to MAX([C5]); [C21] refers to [C21] < [V1];; [V1] is a value of the column [C21]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "highest horsepower refers to MAX(horsepower); normal price refers to price.price < 40000;",
         "orig_evidence": "highest anti-nucleus antibody concentration level refers to MAX(ANA); normal creatinine level refers to CRE < 1.5;",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "horsepower": "COLUMN:[data].[horsepower]",
+            "normal price": "COLUMN:[price].[price]",
+            "car": "TABLE:[data]",
+            "price.price": "COLUMN:[price].[price]",
+            "price": "COLUMN:[price].[price]"
+        },
         "orig_gold_schema_links": {
             "anti-nucleus antibody concentration level": "COLUMN:[examination].[ana]",
             "normal creatinine level": "COLUMN:[laboratory].[cre]",
@@ -263,11 +364,13 @@
             "cre": "COLUMN:[laboratory].[cre]",
             "ANA": "COLUMN:[examination].[ana]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "40000": "[price].[price]"
+        },
         "orig_gold_value_links": {
             "1.5": "[laboratory].[cre]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T1.horsepower FROM data AS T1 INNER JOIN price AS T2 ON T1.ID = T2.ID WHERE T2.price < 40000 ORDER BY T1.horsepower DESC LIMIT 1",
         "orig_gold_sql": "SELECT T2.ANA FROM Patient AS T1 INNER JOIN Examination AS T2 ON T1.ID = T2.ID INNER JOIN Laboratory AS T3 ON T1.ID = T3.ID WHERE T3.CRE < 1.5 ORDER BY T2.ANA DESC LIMIT 1",
         "evidence_added": true
     }

@@ -4295,8 +4295,7 @@
         "query": "SELECT SUM(t2.home_team_goal) FROM Player AS t1 INNER JOIN match AS t2 ON t1.player_api_id = t2.away_player_1 WHERE datetime(CURRENT_TIMESTAMP, 'localtime') - datetime(T1.birthday) < 31",
         "gold_value_links": {
             "31": "[player].[birthday]",
-            "30": "[player].[birthday]",
-            "localtime": "[player].[birthday]"
+            "30": "[player].[birthday]"
         },
         "gold_schema_links": {
             "home team goal": "COLUMN:[match].[home_team_goal]",
@@ -4377,7 +4376,8 @@
             "albumin": "COLUMN:[laboratory].[alb]",
             "in the normal range": "COLUMN:[laboratory].[alb]",
             "patient": "TABLE:[laboratory]",
-            "alb": "COLUMN:[laboratory].[alb]"
+            "alb": "COLUMN:[laboratory].[alb]",
+            "Date": "COLUMN:[laboratory].[date]"
         }
     },
     {
@@ -4392,14 +4392,14 @@
             "human": "[race].[race]"
         },
         "gold_schema_links": {
-            "superhero": "COLUMN:[race].[race]",
+            "superhero": "TABLE:[superhero]",
             "hair_colour_id": "COLUMN:[superhero].[hair_colour_id]",
             "hair colour": "COLUMN:[colour].[colour]",
             "tall": "COLUMN:[superhero].[height_cm]",
             "height_cm": "COLUMN:[superhero].[height_cm]",
             "colour": "COLUMN:[colour].[colour]",
             "race": "TABLE:[race]",
-            "id": "COLUMN:[colour].[id]"
+            "colour.id": "COLUMN:[colour].[id]"
         }
     },
     {
@@ -4606,7 +4606,6 @@
             "id": "COLUMN:[player].[id]",
             "birthday": "COLUMN:[player].[birthday]",
             "year": "COLUMN:[player].[birthday]",
-            "before": "COLUMN:[player].[birthday]",
             "overall_rating": "COLUMN:[player_attributes].[overall_rating]"
         }
     },
@@ -4772,7 +4771,7 @@
             "heroes": "TABLE:[superhero]",
             "eyes": "COLUMN:[superhero].[eye_colour_id]",
             "hair colours": "COLUMN:[superhero].[hair_colour_id]",
-            "colour": "COLUMN:[colour].[colour]",
+            "colour.colour": "COLUMN:[colour].[colour]",
             "superhero_name": "COLUMN:[superhero].[superhero_name]",
             "eye_colour_id": "COLUMN:[superhero].[eye_colour_id]",
             "hair_colour_id": "COLUMN:[superhero].[hair_colour_id]"
@@ -4807,7 +4806,8 @@
         "query": "SELECT T1.account_id FROM loan AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id WHERE STRFTIME('%Y', T2.date) = '1993' AND T1.duration > 12 ORDER BY T1.amount DESC LIMIT 1",
         "gold_value_links": {
             "12 months": "[loan].[duration]",
-            "1993": "[account].[date]"
+            "1993": "[account].[date]",
+            "12": "[loan].[duration]"
         },
         "gold_schema_links": {
             "opening date": "COLUMN:[account].[date]",
@@ -5068,13 +5068,14 @@
             "younger": "COLUMN:[patient].[birthday]",
             "symptoms observed": "COLUMN:[examination].[symptoms]",
             "patient": "TABLE:[patient]",
-            "person": "TABLE:[patient]"
+            "person": "TABLE:[patient]",
+            "symptoms": "COLUMN:[examination].[symptoms]"
         }
     },
     {
         "idx": "bird_1235",
         "db_id": "thrombosis_prediction",
-        "question": "What are the patient's diagnosis for those who has lower red blood blood cell? State their ID and age. patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year(current_timestamp), year(Birthday)); ",
+        "question": "What are the patient's diagnosis for those who has lower red blood blood cell? State their ID and age. patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year(current_timestamp), year(Birthday));",
         "evidence": "patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year(current_timestamp), year(Birthday)); ",
         "evidence_added": true,
         "query": "SELECT DISTINCT T1.Diagnosis, T1.ID , STRFTIME('%Y', CURRENT_TIMESTAMP) -STRFTIME('%Y', T1.Birthday) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.RBC < 3.5",
@@ -5107,7 +5108,6 @@
         "gold_schema_links": {
             "diagnosed": "COLUMN:[patient].[diagnosis]",
             "born": "COLUMN:[patient].[birthday]",
-            "calculation": "COLUMN:[patient].[sex]",
             "patients": "TABLE:[patient]",
             "women": "COLUMN:[patient].[sex]",
             "Diagnosis": "COLUMN:[patient].[diagnosis]",
@@ -5251,8 +5251,8 @@
             "SEX": "COLUMN:[patient].[sex]",
             "patient": "TABLE:[patient]",
             "born": "COLUMN:[patient].[birthday]",
-            "year": "COLUMN:[patient].[birthday]",
-            "birthday": "COLUMN:[patient].[birthday]"
+            "birthday": "COLUMN:[patient].[birthday]",
+            "ID": "COLUMN:[patient].[id]"
         }
     },
     {

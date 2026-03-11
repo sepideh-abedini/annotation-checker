@@ -5994,8 +5994,7 @@
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {
             "31": "[player].[birthday]",
-            "30": "[player].[birthday]",
-            "localtime": "[player].[birthday]"
+            "30": "[player].[birthday]"
         },
         "gold_sql": "<GOLD_SQL>",
         "orig_gold_sql": "SELECT SUM(t2.home_team_goal) FROM Player AS t1 INNER JOIN match AS t2 ON t1.player_api_id = t2.away_player_1 WHERE datetime(CURRENT_TIMESTAMP, 'localtime') - datetime(T1.birthday) < 31",
@@ -6091,7 +6090,8 @@
             "albumin": "COLUMN:[laboratory].[alb]",
             "in the normal range": "COLUMN:[laboratory].[alb]",
             "patient": "TABLE:[laboratory]",
-            "alb": "COLUMN:[laboratory].[alb]"
+            "alb": "COLUMN:[laboratory].[alb]",
+            "Date": "COLUMN:[laboratory].[date]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {
@@ -6113,14 +6113,14 @@
         "orig_evidence": "185 cm tall refers to height_cm = 185; human superhero refers to race = 'human'; hair colour refers to colour where hair_colour_id = colour.id;",
         "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
         "orig_gold_schema_links": {
-            "superhero": "COLUMN:[race].[race]",
+            "superhero": "TABLE:[superhero]",
             "hair_colour_id": "COLUMN:[superhero].[hair_colour_id]",
             "hair colour": "COLUMN:[colour].[colour]",
             "tall": "COLUMN:[superhero].[height_cm]",
             "height_cm": "COLUMN:[superhero].[height_cm]",
             "colour": "COLUMN:[colour].[colour]",
             "race": "TABLE:[race]",
-            "id": "COLUMN:[colour].[id]"
+            "colour.id": "COLUMN:[colour].[id]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {
@@ -6398,7 +6398,6 @@
             "id": "COLUMN:[player].[id]",
             "birthday": "COLUMN:[player].[birthday]",
             "year": "COLUMN:[player].[birthday]",
-            "before": "COLUMN:[player].[birthday]",
             "overall_rating": "COLUMN:[player_attributes].[overall_rating]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
@@ -6620,7 +6619,7 @@
             "heroes": "TABLE:[superhero]",
             "eyes": "COLUMN:[superhero].[eye_colour_id]",
             "hair colours": "COLUMN:[superhero].[hair_colour_id]",
-            "colour": "COLUMN:[colour].[colour]",
+            "colour.colour": "COLUMN:[colour].[colour]",
             "superhero_name": "COLUMN:[superhero].[superhero_name]",
             "eye_colour_id": "COLUMN:[superhero].[eye_colour_id]",
             "hair_colour_id": "COLUMN:[superhero].[hair_colour_id]"
@@ -6681,7 +6680,8 @@
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {
             "12 months": "[loan].[duration]",
-            "1993": "[account].[date]"
+            "1993": "[account].[date]",
+            "12": "[loan].[duration]"
         },
         "gold_sql": "<GOLD_SQL>",
         "orig_gold_sql": "SELECT T1.account_id FROM loan AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id WHERE STRFTIME('%Y', T2.date) = '1993' AND T1.duration > 12 ORDER BY T1.amount DESC LIMIT 1",
@@ -7011,7 +7011,7 @@
         "orig_db_id": "thrombosis_prediction",
         "question": "<QUESTION>",
         "orig_question": "What are the symptoms observed by the youngest patient to ever did a medical examination? Identify their diagnosis. The larger the birthday value, the younger the person is, and vice versa; symptoms observed refers to the symptoms is not NULL",
-        "orig_masked": "What are the [C12] by the [C59] [T3] to ever did a [T1]? Identify their [C61]. The larger the [C59] value, the [C59] the [T3] is, and vice versa; [C12] refers to the symptoms is not NULL",
+        "orig_masked": "What are the [C12] by the [C59] [T3] to ever did a [T1]? Identify their [C61]. The larger the [C59] value, the [C59] the [T3] is, and vice versa; [C12] refers to the [C12] is not NULL",
         "evidence": "<EVIDENCE>",
         "orig_evidence": "The larger the birthday value, the younger the person is, and vice versa; symptoms observed refers to the symptoms is not NULL",
         "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
@@ -7023,7 +7023,8 @@
             "younger": "COLUMN:[patient].[birthday]",
             "symptoms observed": "COLUMN:[examination].[symptoms]",
             "patient": "TABLE:[patient]",
-            "person": "TABLE:[patient]"
+            "person": "TABLE:[patient]",
+            "symptoms": "COLUMN:[examination].[symptoms]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {},
@@ -7036,8 +7037,8 @@
         "db_id": "<DB_ID>",
         "orig_db_id": "thrombosis_prediction",
         "question": "<QUESTION>",
-        "orig_question": "What are the patient's diagnosis for those who has lower red blood blood cell? State their ID and age. patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year(current_timestamp), year(Birthday)); ",
-        "orig_masked": "What are the [T3]'s [C61] for those who has lower [C41]? State their [C63] and [C59]. [T3]'s [C61] refers to [C61]; lower [C41] refers to [C41] < [V1]; [C59] = SUBTRACT(year(current_timestamp), year([C59])); ; [V1] is a value of the column [C41]",
+        "orig_question": "What are the patient's diagnosis for those who has lower red blood blood cell? State their ID and age. patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year(current_timestamp), year(Birthday));",
+        "orig_masked": "What are the [T3]'s [C61] for those who has lower [C41]? State their [C63] and [C59]. [T3]'s [C61] refers to [C61]; lower [C41] refers to [C41] < [V1]; [C59] = SUBTRACT(year(current_timestamp), year([C59]));; [V1] is a value of the column [C41]",
         "evidence": "<EVIDENCE>",
         "orig_evidence": "patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year(current_timestamp), year(Birthday)); ",
         "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
@@ -7065,7 +7066,7 @@
         "orig_db_id": "thrombosis_prediction",
         "question": "<QUESTION>",
         "orig_question": "What percentage of patients who were born in 1980 and were diagnosed with RA are women? born in 1980 refers to YEAR(BIRTHDAY) = '1980'; 'RA' refers to Diagnosis='RA' ; women refers to SEX = 'F'; calculation = DIVIDE(SUM(SEX = 'F'), COUNT(SEX)) * 100",
-        "orig_masked": "What percentage of [T3] who were [C59] in [V1] and were [C61] with [V2] are [C64]? [C59] in [V1] refers to YEAR([C59]) = '[V1]'; '[V2]' refers to [C61]='[V2]' ; [C64] refers to [C64] = '[V3]'; [C64] = DIVIDE(SUM([C64] = '[V3]'), COUNT([C64])) * 100; [V1] is a value of the column [C59]; [V2] is a value of the column [C61]; [V3] is a value of the column [C64]",
+        "orig_masked": "What percentage of [T3] who were [C59] in [V1] and were [C61] with [V2] are [C64]? [C59] in [V1] refers to YEAR([C59]) = '[V1]'; '[V2]' refers to [C61]='[V2]' ; [C64] refers to [C64] = '[V3]'; calculation = DIVIDE(SUM([C64] = '[V3]'), COUNT([C64])) * 100; [V1] is a value of the column [C59]; [V2] is a value of the column [C61]; [V3] is a value of the column [C64]",
         "evidence": "<EVIDENCE>",
         "orig_evidence": "born in 1980 refers to YEAR(BIRTHDAY) = '1980'; 'RA' refers to Diagnosis='RA' ; women refers to SEX = 'F'; calculation = DIVIDE(SUM(SEX = 'F'), COUNT(SEX)) * 100",
         "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
@@ -7257,7 +7258,7 @@
         "orig_db_id": "thrombosis_prediction",
         "question": "<QUESTION>",
         "orig_question": "What is the percentage of female patient were born after 1930? female refers to Sex = 'F'; patient who were born after 1930 refers to year(Birthday) > '1930'; calculation = DIVIDE(COUNT(ID) where year(Birthday) > '1930' and SEX = 'F'), (COUNT(ID) where SEX = 'F')",
-        "orig_masked": "What is the percentage of [C64] [T3] were [C59] after [V1]? [C64] refers to [C64] = '[V2]'; [T3] who were [C59] after [V1] refers to [C59]([C59]) > '[V1]'; calculation = DIVIDE(COUNT(ID) where [C59]([C59]) > '[V1]' and [C64] = '[V2]'), (COUNT(ID) where [C64] = '[V2]'); [V1] is a value of the column [C59]; [V2] is a value of the column [C64]",
+        "orig_masked": "What is the percentage of [C64] [T3] were [C59] after [V1]? [C64] refers to [C64] = '[V2]'; [T3] who were [C59] after [V1] refers to year([C59]) > '[V1]'; calculation = DIVIDE(COUNT(ID) where year([C59]) > '[V1]' and [C64] = '[V2]'), (COUNT(ID) where [C64] = '[V2]'); [V1] is a value of the column [C59]; [V2] is a value of the column [C64]",
         "evidence": "<EVIDENCE>",
         "orig_evidence": "female refers to Sex = 'F'; patient who were born after 1930 refers to year(Birthday) > '1930'; calculation = DIVIDE(COUNT(ID) where year(Birthday) > '1930' and SEX = 'F'), (COUNT(ID) where SEX = 'F')",
         "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
@@ -7266,8 +7267,8 @@
             "SEX": "COLUMN:[patient].[sex]",
             "patient": "TABLE:[patient]",
             "born": "COLUMN:[patient].[birthday]",
-            "year": "COLUMN:[patient].[birthday]",
-            "birthday": "COLUMN:[patient].[birthday]"
+            "birthday": "COLUMN:[patient].[birthday]",
+            "ID": "COLUMN:[patient].[id]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {

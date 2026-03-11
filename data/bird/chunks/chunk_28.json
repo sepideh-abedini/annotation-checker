@@ -1,14 +1,23 @@
 [
     {
         "idx": "bird_1235",
-        "db_id": "<DB_ID>",
+        "db_id": "synthea",
         "orig_db_id": "thrombosis_prediction",
-        "question": "<QUESTION>",
-        "orig_question": "What are the patient's diagnosis for those who has lower red blood blood cell? State their ID and age. patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year(current_timestamp), year(Birthday)); ",
-        "orig_masked": "What are the [T3]'s [C61] for those who has lower [C41]? State their [C63] and [C59]. [T3]'s [C61] refers to [C61]; lower [C41] refers to [C41] < [V1]; [C59] = SUBTRACT(year(current_timestamp), year([C59])); ; [V1] is a value of the column [C41]",
-        "evidence": "<EVIDENCE>",
+        "question": "What are the patient's immunization code for those who has lower observation values? State their ID and age. patient's immunization code refers to immunizations.code; lower observation values refers to observations.VALUE < 10; age = SUBTRACT(year(current_timestamp), year(birthdate));",
+        "orig_question": "What are the patient's diagnosis for those who has lower red blood blood cell? State their ID and age. patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year(current_timestamp), year(Birthday));",
+        "orig_masked": "What are the [T3]'s [C61] for those who has lower [C41]? State their [C63] and [C59]. [T3]'s [C61] refers to [C61]; lower [C41] refers to [C41] < [V1]; [C59] = SUBTRACT(year(current_timestamp), year([C59]));; [V1] is a value of the column [C41]",
+        "evidence": "patient's immunization code refers to immunizations.code; lower observation values refers to observations.VALUE < 10; age = SUBTRACT(year(current_timestamp), year(birthdate));",
         "orig_evidence": "patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year(current_timestamp), year(Birthday)); ",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "patient": "TABLE:[patients]",
+            "immunization code": "COLUMN:[immunizations].[code]",
+            "observation values": "COLUMN:[observations].[value]",
+            "immunizations.code": "COLUMN:[immunizations].[code]",
+            "age": "COLUMN:[patients].[birthdate]",
+            "ID": "COLUMN:[patients].[patient]",
+            "birthdate": "COLUMN:[patients].[birthdate]",
+            "observations.VALUE": "COLUMN:[observations].[value]"
+        },
         "orig_gold_schema_links": {
             "patient": "TABLE:[patient]",
             "diagnosis": "COLUMN:[patient].[diagnosis]",
@@ -19,54 +28,74 @@
             "Birthday": "COLUMN:[patient].[birthday]",
             "RBC": "COLUMN:[laboratory].[rbc]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "10": "[observations].[value]"
+        },
         "orig_gold_value_links": {
             "3.5": "[laboratory].[rbc]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT DISTINCT T2.CODE, T1.patient, STRFTIME('%Y', CURRENT_TIMESTAMP) -STRFTIME('%Y', T1.birthdate) FROM patients as T1 INNER JOIN immunizations as T2 ON T1.patient = T2.patient INNER JOIN observations as T3 ON T1.patient = T3.patient WHERE T3.VALUE < 10",
         "orig_gold_sql": "SELECT DISTINCT T1.Diagnosis, T1.ID , STRFTIME('%Y', CURRENT_TIMESTAMP) -STRFTIME('%Y', T1.Birthday) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.RBC < 3.5",
         "evidence_added": true
     },
     {
         "idx": "bird_1201",
-        "db_id": "<DB_ID>",
+        "db_id": "synthea",
         "orig_db_id": "thrombosis_prediction",
-        "question": "<QUESTION>",
+        "question": "What percentage of patients who were born in 1985 and were diagnosed with Prediabetes are women? born in 1985 refers to YEAR(birthdate) = '1985'; 'Prediabetes' refers to conditions.description='Prediabetes' ; women refers to gender = 'F'; calculation = DIVIDE(SUM(gender = 'F'), COUNT(gender)) * 100",
         "orig_question": "What percentage of patients who were born in 1980 and were diagnosed with RA are women? born in 1980 refers to YEAR(BIRTHDAY) = '1980'; 'RA' refers to Diagnosis='RA' ; women refers to SEX = 'F'; calculation = DIVIDE(SUM(SEX = 'F'), COUNT(SEX)) * 100",
-        "orig_masked": "What percentage of [T3] who were [C59] in [V1] and were [C61] with [V2] are [C64]? [C59] in [V1] refers to YEAR([C59]) = '[V1]'; '[V2]' refers to [C61]='[V2]' ; [C64] refers to [C64] = '[V3]'; [C64] = DIVIDE(SUM([C64] = '[V3]'), COUNT([C64])) * 100; [V1] is a value of the column [C59]; [V2] is a value of the column [C61]; [V3] is a value of the column [C64]",
-        "evidence": "<EVIDENCE>",
+        "orig_masked": "What percentage of [T3] who were [C59] in [V1] and were [C61] with [V2] are [C64]? [C59] in [V1] refers to YEAR([C59]) = '[V1]'; '[V2]' refers to [C61]='[V2]' ; [C64] refers to [C64] = '[V3]'; calculation = DIVIDE(SUM([C64] = '[V3]'), COUNT([C64])) * 100; [V1] is a value of the column [C59]; [V2] is a value of the column [C61]; [V3] is a value of the column [C64]",
+        "evidence": "born in 1985 refers to YEAR(birthdate) = '1985'; 'Prediabetes' refers to conditions.description='Prediabetes' ; women refers to gender = 'F'; calculation = DIVIDE(SUM(gender = 'F'), COUNT(gender)) * 100",
         "orig_evidence": "born in 1980 refers to YEAR(BIRTHDAY) = '1980'; 'RA' refers to Diagnosis='RA' ; women refers to SEX = 'F'; calculation = DIVIDE(SUM(SEX = 'F'), COUNT(SEX)) * 100",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "diagnosed": "COLUMN:[conditions].[description]",
+            "born": "COLUMN:[patients].[birthdate]",
+            "patients": "TABLE:[patients]",
+            "women": "COLUMN:[patients].[gender]",
+            "conditions.description": "COLUMN:[conditions].[description]",
+            "birthdate": "COLUMN:[patients].[birthdate]",
+            "gender": "COLUMN:[patients].[gender]"
+        },
         "orig_gold_schema_links": {
             "diagnosed": "COLUMN:[patient].[diagnosis]",
             "born": "COLUMN:[patient].[birthday]",
-            "calculation": "COLUMN:[patient].[sex]",
             "patients": "TABLE:[patient]",
             "women": "COLUMN:[patient].[sex]",
             "Diagnosis": "COLUMN:[patient].[diagnosis]",
             "BIRTHDAY": "COLUMN:[patient].[birthday]",
             "SEX": "COLUMN:[patient].[sex]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "prediabetes": "[conditions].[description]",
+            "1985": "[patients].[birthdate]",
+            "F": "[patients].[gender]"
+        },
         "orig_gold_value_links": {
             "RA": "[patient].[diagnosis]",
             "1980": "[patient].[birthday]",
             "F": "[patient].[sex]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT CAST(SUM(CASE WHEN T1.gender = 'F' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.patient) FROM patients as T1 INNER JOIN conditions as T2 ON T1.patient = T2.patient WHERE T2.description = 'Prediabetes' AND STRFTIME('%Y', T1.birthdate) = '1985'",
         "orig_gold_sql": "SELECT CAST(SUM(CASE WHEN SEX = 'F' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(ID) FROM Patient WHERE Diagnosis = 'RA' AND STRFTIME('%Y', Birthday) = '1980'",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "I removed the calculation link, as I don't think it makes sense"
     },
     {
         "idx": "bird_845",
-        "db_id": "<DB_ID>",
+        "db_id": "simpson_episodes",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "List the birth place of characters with height greater than 80% of the average height of all characters.  birth place of characters refers to birth_place; height greater than 80% of the average height of all characters = height_meters > MULTIPLY(AVG(height_meters), 0.8);",
         "orig_question": "List the power of superheroes with height greater than 80% of the average height of all superheroes.  power of superheroes refers to power_name; height greater than 80% of the average height of all superheroes = height_cm > MULTIPLY(AVG(height_cm), 0.8);",
         "orig_masked": "List the [T10] of [T9] with [C23] greater than [V1] of the average [C23] of all [T9].  [T10] of [T9] refers to [C31]; [C23] greater than [V1] of the average [C23] of all [T9] = [C23] > MULTIPLY(AVG([C23]), 0.8);; [V1] is a value of the column [C23]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "birth place of characters refers to birth_place; height greater than 80% of the average height of all characters = height_meters > MULTIPLY(AVG(height_meters), 0.8);",
         "orig_evidence": "power of superheroes refers to power_name; height greater than 80% of the average height of all superheroes = height_cm > MULTIPLY(AVG(height_cm), 0.8);",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "birth place": "COLUMN:[person].[birth_place]",
+            "characters": "TABLE:[person]",
+            "height": "COLUMN:[person].[height_meters]",
+            "birth_place": "COLUMN:[person].[birth_place]",
+            "height_meters": "COLUMN:[person].[height_meters]"
+        },
         "orig_gold_schema_links": {
             "power": "TABLE:[superpower]",
             "superheroes": "TABLE:[superhero]",
@@ -74,24 +103,31 @@
             "power_name": "COLUMN:[superpower].[power_name]",
             "height_cm": "COLUMN:[superhero].[height_cm]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "80%": "[person].[height_meters]"
+        },
         "orig_gold_value_links": {
             "80%": "[superhero].[height_cm]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT birth_place FROM person WHERE height_meters * 100 > ( SELECT AVG(height_meters) FROM person ) * 80",
         "orig_gold_sql": "SELECT T3.power_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T2.power_id = T3.id WHERE T1.height_cm * 100 > ( SELECT AVG(height_cm) FROM superhero ) * 80",
         "evidence_added": true
     },
     {
         "idx": "bird_1210",
-        "db_id": "<DB_ID>",
+        "db_id": "movies_4",
         "orig_db_id": "thrombosis_prediction",
-        "question": "<QUESTION>",
+        "question": "What is the average value of the budget for all movies with budget within the normal range. average value of the budget refers to AVG(budget); budget within the normal range refers to budget < 25000000",
         "orig_question": "What is the average index of the lactate dehydrogenase (LDH) for all patients with lactate dehydrogenase (LDH) within the normal range. average index of the lactate dehydrogenase (LDH) refers to AVG(LDH); (LDH) within the normal range refers to LDH < 500",
         "orig_masked": "What is the average [C36] for all [T2] with [C36]. average [C36] refers to AVG([C36]); [C36] refers to [C36] < [V1]; [V1] is a value of the column [C36]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "average value of the budget refers to AVG(budget); budget within the normal range refers to budget < 25000000",
         "orig_evidence": "average index of the lactate dehydrogenase (LDH) refers to AVG(LDH); (LDH) within the normal range refers to LDH < 500",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "value of the budget": "COLUMN:[movie].[budget]",
+            "budget within the normal range": "COLUMN:[movie].[budget]",
+            "movies": "TABLE:[movie]",
+            "budget": "COLUMN:[movie].[budget]"
+        },
         "orig_gold_schema_links": {
             "index of the lactate dehydrogenase (LDH)": "COLUMN:[laboratory].[ldh]",
             "lactate dehydrogenase (LDH) within the normal range": "COLUMN:[laboratory].[ldh]",
@@ -99,49 +135,70 @@
             "(LDH) within the normal range": "COLUMN:[laboratory].[ldh]",
             "LDH": "COLUMN:[laboratory].[ldh]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "25000000": "[movie].[budget]"
+        },
         "orig_gold_value_links": {
             "500": "[laboratory].[ldh]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT AVG(budget) FROM movie WHERE budget < 25000000",
         "orig_gold_sql": "SELECT AVG(LDH) FROM Laboratory WHERE LDH < 500",
         "evidence_added": true
     },
     {
         "idx": "bird_818",
-        "db_id": "<DB_ID>",
+        "db_id": "human_resources",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "Among the manager employees, what is the percentage of female employees?  manager employees refers to position.positionID = 2; percentage = MULTIPLY(DIVIDE(SUM(employee.gender = 'F' WHERE position.positionID = 2), COUNT(position.positionID = 2)), 100.0); female refers to employee.gender = 'F';",
         "orig_question": "Among the bad superheroes, what is the percentage of female superheroes?  bad superheroes refers to alignment.id = 2; percentage = MULTIPLY(DIVIDE(SUM(gender.id = 2 WHERE alignment.id = 2), COUNT(alignment.id = 2)), 100.0); female refers to gender.id = 2;",
         "orig_masked": "Among the [V2] [T9], what is the percentage of [V1] [T9]?  [V2] [T9] refers to [C2] = [V3]; percentage = MULTIPLY(DIVIDE(SUM([C8] = [V3] WHERE [C2] = [V3]), COUNT([C2] = [V3])), 100.0); [V1] refers to [C8] = [V3];; [V1] is a value of the column [C7]; [V2] is a value of the column [C1]; [V3] is a value of the column [C2]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "manager employees refers to position.positionID = 2; percentage = MULTIPLY(DIVIDE(SUM(employee.gender = 'F' WHERE position.positionID = 2), COUNT(position.positionID = 2)), 100.0); female refers to employee.gender = 'F';",
         "orig_evidence": "bad superheroes refers to alignment.id = 2; percentage = MULTIPLY(DIVIDE(SUM(gender.id = 2 WHERE alignment.id = 2), COUNT(alignment.id = 2)), 100.0); female refers to gender.id = 2;",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "employees": "TABLE:[employee]",
+            "position.positionID": "COLUMN:[position].[positionid]",
+            "employee.gender": "COLUMN:[employee].[gender]"
+        },
         "orig_gold_schema_links": {
             "superheroes": "TABLE:[superhero]",
             "alignment.id": "COLUMN:[alignment].[id]",
             "gender.id": "COLUMN:[gender].[id]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "female": "[employee].[gender]",
+            "manager": "[position].[positionid]",
+            "'F'": "[employee].[gender]",
+            "2": "[position].[positionid]"
+        },
         "orig_gold_value_links": {
             "female": "[gender].[gender]",
             "bad": "[alignment].[alignment]",
             "2": "[alignment].[id]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT CAST(COUNT(CASE WHEN T1.gender = 'F' THEN T1.ssn ELSE NULL END) AS REAL) * 100 / COUNT(T1.ssn) FROM employee AS T1 INNER JOIN position AS T2 ON T1.positionID = T2.positionID WHERE T2.positionID = 2",
         "orig_gold_sql": "SELECT CAST(COUNT(CASE WHEN T3.gender = 'Female' THEN T1.id ELSE NULL END) AS REAL) * 100 / COUNT(T1.id) FROM superhero AS T1 INNER JOIN alignment AS T2 ON T1.alignment_id = T2.id INNER JOIN gender AS T3 ON T1.gender_id = T3.id WHERE T2.alignment = 'Bad'",
         "evidence_added": true
     },
     {
         "idx": "bird_152",
-        "db_id": "<DB_ID>",
+        "db_id": "food_inspection",
         "orig_db_id": "financial",
-        "question": "<QUESTION>",
+        "question": "What is the inspection score in inspections where the number exceeds 60 and the business has violations that are dated starting from the date 2014-01-01? score refers to inspections score; dated stands for the violations.date.",
         "orig_question": "What is the average number of crimes committed in 1995 in regions where the number exceeds 4000 and the region has accounts that are opened starting from the year 1997? A3 refers to region names; A15 stands for the average number of crimes committed in 1995.",
         "orig_masked": "What is the [C22] in [T5] where the number exceeds [V1] and the [T5] has [T1] that are [C2] starting from the [C2] [V2]? [C25] refers to [T5] [C25]; [C22] stands for the [C22].; [V1] is a value of the column [C22]; [V2] is a value of the column [C2]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "score refers to inspections score; dated stands for the violations.date.",
         "orig_evidence": "A3 refers to region names; A15 stands for the average number of crimes committed in 1995.",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "inspections.score": "COLUMN:[inspections].[score]",
+            "violations.date": "COLUMN:[violations].[date]",
+            "inspection score": "COLUMN:[inspections].[score]",
+            "inspections": "TABLE:[inspections]",
+            "business": "TABLE:[businesses]",
+            "violations": "TABLE:[violations]",
+            "dated": "COLUMN:[violations].[date]",
+            "date": "COLUMN:[violations].[date]",
+            "score": "COLUMN:[inspections].[score]"
+        },
         "orig_gold_schema_links": {
             "names": "COLUMN:[district].[a3]",
             "accounts": "TABLE:[account]",
@@ -153,25 +210,34 @@
             "A3": "COLUMN:[district].[a3]",
             "average number of crimes committed in 1995": "COLUMN:[district].[a15]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "2014-01-01": "[violations].[date]",
+            "60": "[inspections].[score]"
+        },
         "orig_gold_value_links": {
             "4000": "[district].[a15]",
             "1997": "[account].[date]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT score FROM inspections WHERE business_id IN (SELECT DISTINCT business_id from violations WHERE date >= '2014-01-01') AND score IS NOT NULL AND score > 60",
         "orig_gold_sql": "SELECT AVG(T1.A15) FROM district AS T1 INNER JOIN account AS T2 ON T1.district_id = T2.district_id WHERE STRFTIME('%Y', T2.date) >= '1997' AND T1.A15 > 4000",
         "evidence_added": true
     },
     {
         "idx": "bird_1186",
-        "db_id": "<DB_ID>",
+        "db_id": "synthea",
         "orig_db_id": "thrombosis_prediction",
-        "question": "<QUESTION>",
+        "question": "Lists all patients by ID who were diagnosed with Cystitis and had an encounter between 2014 and 2016. 'Cystitis' refers to conditions; encounter between 2014 and 2016 refers to YEAR(DATE) > = '2014-01-01' AND YEAR(DATE) < '2016-01-01'",
         "orig_question": "Lists all patients by ID who were diagnosed with Behcet's and had their exams between 01/01/1997 and 12/31/1997. 'Behcet' refers to diagnosis; exam between 01/01/1997 and 12/31/1997 refers to YEAR(Description) > = '1997-1-1' AND YEAR(Description) < '1998-1-1'",
         "orig_masked": "Lists all [T1] by [C8] who were [C6] with [V5]'s and had their [T1] between [V1] and [V2]. '[V5]' refers to [C6]; [T1] between [V1] and [V2] refers to YEAR(Description) > = '[V3]' AND YEAR(Description) < '[V4]'; [V1] is a value of the column [C7]; [V2] is a value of the column [C7]; [V3] is a value of the column [C7]; [V4] is a value of the column [C7]; [V5] is a value of the column [C6]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "'Cystitis' refers to conditions; encounter between 2014 and 2016 refers to YEAR(DATE) > = '2014-01-01' AND YEAR(DATE) < '2016-01-01'",
         "orig_evidence": "'Behcet' refers to diagnosis; exam between 01/01/1997 and 12/31/1997 refers to YEAR(Description) > = '1997-1-1' AND YEAR(Description) < '1998-1-1'",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "conditions": "COLUMN:[conditions].[description]",
+            "diagnosed": "COLUMN:[conditions].[description]",
+            "patients": "TABLE:[patients]",
+            "encounter": "TABLE:[encounters]",
+            "ID": "COLUMN:[patients].[patient]"
+        },
         "orig_gold_schema_links": {
             "diagnosis": "COLUMN:[examination].[diagnosis]",
             "diagnosed": "COLUMN:[examination].[diagnosis]",
@@ -180,7 +246,13 @@
             "exam": "TABLE:[examination]",
             "ID": "COLUMN:[examination].[id]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Cystitis": "[conditions].[description]",
+            "2014": "[encounters].[date]",
+            "2016": "[encounters].[date]",
+            "2014-01-01": "[encounters].[date]",
+            "2016-01-01": "[encounters].[date]"
+        },
         "orig_gold_value_links": {
             "Behcet": "[examination].[diagnosis]",
             "1997-1-1": "[examination].[examination date]",
@@ -188,7 +260,7 @@
             "01/01/1997": "[examination].[examination date]",
             "12/31/1997": "[examination].[examination date]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT DISTINCT T1.patient FROM patients as T1 INNER JOIN conditions as T2 ON T1.patient = T2.patient WHERE T2.description = 'Cystitis' AND T1.patient in (SELECT patient FROM encounters WHERE date BETWEEN '2014-01-01' and '2016-01-01')",
         "orig_gold_sql": "SELECT ID FROM Examination WHERE `Examination Date` BETWEEN '1997-01-01' AND '1997-12-31' AND Diagnosis = 'Behcet'",
         "evidence_added": true
     },
@@ -196,7 +268,7 @@
         "idx": "bird_1136",
         "db_id": "<DB_ID>",
         "orig_db_id": "european_football_2",
-        "question": "<QUESTION>",
+        "question": "How many movies had the highest rating that released their [V1] [C159]? highest [C134] refers to MAX([C134]); [C159] their [V1] [C159] refers to [C159] = '[V1]'; [V1] is a value of the column [C159]",
         "orig_question": "How many players had the highest potential score for crossing that preferred to use their left foots while attacking? highest potential score for crossing refers to MAX(crossing); preferred to use their left foots while attacking refers to preferred_foot = 'left'",
         "orig_masked": "How many [T5] had the highest [C134] that [C159] their [V1] [C159]? highest [C134] refers to MAX([C134]); [C159] their [V1] [C159] refers to [C159] = '[V1]'; [V1] is a value of the column [C159]",
         "evidence": "<EVIDENCE>",
@@ -217,45 +289,64 @@
         },
         "gold_sql": "<GOLD_SQL>",
         "orig_gold_sql": "SELECT COUNT(t1.id) FROM Player_Attributes AS t1 WHERE t1.preferred_foot = 'left' AND t1.crossing = ( SELECT MAX(crossing) FROM Player_Attributes)",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "Bad data point to match this way."
     },
     {
         "idx": "bird_1150",
-        "db_id": "<DB_ID>",
+        "db_id": "law_episode",
         "orig_db_id": "thrombosis_prediction",
-        "question": "<QUESTION>",
+        "question": "What is the percentage of American actors were born after 1980? American refers to birth_country = 'USA'; actors who were born after 1980 refers to year(birthdate) > '1980'; calculation = DIVIDE(COUNT(person_id) where year(birthdate) > '1980' and birth_country = 'USA'), (COUNT(person_id) where birth_country = 'USA')",
         "orig_question": "What is the percentage of female patient were born after 1930? female refers to Sex = 'F'; patient who were born after 1930 refers to year(Birthday) > '1930'; calculation = DIVIDE(COUNT(ID) where year(Birthday) > '1930' and SEX = 'F'), (COUNT(ID) where SEX = 'F')",
-        "orig_masked": "What is the percentage of [C64] [T3] were [C59] after [V1]? [C64] refers to [C64] = '[V2]'; [T3] who were [C59] after [V1] refers to [C59]([C59]) > '[V1]'; calculation = DIVIDE(COUNT(ID) where [C59]([C59]) > '[V1]' and [C64] = '[V2]'), (COUNT(ID) where [C64] = '[V2]'); [V1] is a value of the column [C59]; [V2] is a value of the column [C64]",
-        "evidence": "<EVIDENCE>",
+        "orig_masked": "What is the percentage of [C64] [T3] were [C59] after [V1]? [C64] refers to [C64] = '[V2]'; [T3] who were [C59] after [V1] refers to year([C59]) > '[V1]'; calculation = DIVIDE(COUNT(ID) where year([C59]) > '[V1]' and [C64] = '[V2]'), (COUNT(ID) where [C64] = '[V2]'); [V1] is a value of the column [C59]; [V2] is a value of the column [C64]",
+        "evidence": "American refers to birth_country = 'USA'; actors who were born after 1980 refers to year(birthdate) > '1980'; calculation = DIVIDE(COUNT(person_id) where year(birthdate) > '1980' and birth_country = 'USA'), (COUNT(person_id) where birth_country = 'USA')",
         "orig_evidence": "female refers to Sex = 'F'; patient who were born after 1930 refers to year(Birthday) > '1930'; calculation = DIVIDE(COUNT(ID) where year(Birthday) > '1930' and SEX = 'F'), (COUNT(ID) where SEX = 'F')",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "American": "COLUMN:[person].[birth_country]",
+            "birth_country": "COLUMN:[person].[birth_country]",
+            "actors": "TABLE:[person]",
+            "born": "COLUMN:[person].[birthdate]",
+            "birthdate": "COLUMN:[person].[birthdate]",
+            "person_id": "COLUMN:[person].[person_id]"
+        },
         "orig_gold_schema_links": {
             "female": "COLUMN:[patient].[sex]",
             "SEX": "COLUMN:[patient].[sex]",
             "patient": "TABLE:[patient]",
             "born": "COLUMN:[patient].[birthday]",
-            "year": "COLUMN:[patient].[birthday]",
-            "birthday": "COLUMN:[patient].[birthday]"
+            "birthday": "COLUMN:[patient].[birthday]",
+            "ID": "COLUMN:[patient].[id]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "USA": "[person].[birth_country]",
+            "1980": "[person].[birthdate]"
+        },
         "orig_gold_value_links": {
             "F": "[patient].[sex]",
             "1930": "[patient].[birthday]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT CAST(SUM(CASE WHEN STRFTIME('%Y', birthdate) > '1980' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM Person WHERE birth_country = 'USA'",
         "orig_gold_sql": "SELECT CAST(SUM(CASE WHEN STRFTIME('%Y', Birthday) > '1930' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM Patient WHERE SEX = 'F'",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "Corrected schema link for year that I don't think should be there and added ID"
     },
     {
         "idx": "bird_761",
-        "db_id": "<DB_ID>",
+        "db_id": "olympics",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "Among the USA athletes, list the athlete full names of athletes with weight greater than the 79% average weight of all athletes.  athlete full names refers to full_name;USA athletes refers to region_name = 'USA';Calculation = weight > MULTIPLY(AVG(weight), 0.79)",
         "orig_question": "Among the male superheroes, list the super hero names of superheroes with weight greater than the 79% average weight of all superheroes.  super hero names refers to superhero_name;male superheroes refers to gender = 'Male';Calculation = weight_kg > MULTIPLY(AVG(weight_kg), 0.79)",
         "orig_masked": "Among the [V1] [T9], list the [T9] [C28] of [T9] with [C29] greater than the [V3] average [C29] of all [T9].  [T9] [C28] refers to [C28];[V1] [T9] refers to [C7] = '[V1]';Calculation = [C29] > MULTIPLY(AVG([C29]), [V2]); [V1] is a value of the column [C7]; [V2] is a value of the column [C29]; [V3] is a value of the column [C29]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "athlete full names refers to full_name;USA athletes refers to region_name = 'USA';Calculation = weight > MULTIPLY(AVG(weight), 0.79)",
         "orig_evidence": "super hero names refers to superhero_name;male superheroes refers to gender = 'Male';Calculation = weight_kg > MULTIPLY(AVG(weight_kg), 0.79)",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "full names": "COLUMN:[person].[full_name]",
+            "athletes": "TABLE:[person]",
+            "athlete": "TABLE:[person]",
+            "weight": "COLUMN:[person].[weight]",
+            "full_name": "COLUMN:[person].[full_name]",
+            "region_name": "COLUMN:[noc_region].[region_name]"
+        },
         "orig_gold_schema_links": {
             "names": "COLUMN:[superhero].[superhero_name]",
             "superheroes": "TABLE:[superhero]",
@@ -265,13 +356,17 @@
             "superhero_name": "COLUMN:[superhero].[superhero_name]",
             "weight_kg": "COLUMN:[superhero].[weight_kg]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "USA": "[noc_region].[region_name]",
+            "79%": "[person].[weight]",
+            "0.79": "[person].[weight]"
+        },
         "orig_gold_value_links": {
             "Male": "[gender].[gender]",
             "79%": "[superhero].[weight_kg]",
             "0.79": "[superhero].[weight_kg]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T1.full_name from person as T1 INNER JOIN person_region as T2 ON T1.id = T2.person_id INNER JOIN noc_region as T3 ON T2.region_id = T3.id WHERE T3.region_name = 'USA' AND T1.weight * 100 > ( SELECT AVG(weight) FROM person ) * 79",
         "orig_gold_sql": "SELECT T1.superhero_name FROM superhero AS T1 INNER JOIN gender AS T2 ON T1.gender_id = T2.id WHERE T2.gender = 'Male' AND T1.weight_kg * 100 > ( SELECT AVG(weight_kg) FROM superhero ) * 79",
         "evidence_added": true
     }
