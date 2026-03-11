@@ -268,20 +268,18 @@
         "idx": "bird_171",
         "db_id": "shipping",
         "orig_db_id": "financial",
-        "question": "What was the difference in the number of shipments in New Jersey and California in 2016? Difference in no. of shipments between 2 states = Total no. of shipments in 2016 in New Jersey - Total no. of shipments in 2016 in California. state refers to states. Data about no. of shipments 2016 appears in shipment",
+        "question": "What was the difference in the populations in Somerville and Malden in Massachusetts? Difference in populations between 2 cities = population in Somerville - population in Malden. city name refers to city_name. Data about population appears in city.population",
         "orig_question": "What was the difference in the number of crimes committed in East and North Bohemia in 1996? Difference in no. of committed crimes between 2 regions = Total no. of committed crimes in 1996 in north Bohemia - Total no. of committed crimes in 1996 in east Bohemia. A3 refers to region. Data about no. of committed crimes 1996 appears in A16",
         "orig_masked": "What was the difference in the [C23] in [C25] and [V1] in [C23]? Difference in [C23] between 2 [C25] = [C23] in [V1] - [C23] in [V2]. [C25] refers to [C25]. Data about [C23] appears in [C23]; [V1] is a value of the column [C25]; [V2] is a value of the column [C25]",
-        "evidence": "Difference in no. of shipments between 2 states = Total no. of shipments in 2016 in New Jersey - Total no. of shipments in 2016 in California. state refers to states. Data about no. of shipments 2016 appears in shipment",
+        "evidence": "ifference in populations between 2 cities = population in Somerville - population in Malden. city name refers to city_name. Data about population appears in city.population",
         "orig_evidence": "Difference in no. of committed crimes between 2 regions = Total no. of committed crimes in 1996 in north Bohemia - Total no. of committed crimes in 1996 in east Bohemia. A3 refers to region. Data about no. of committed crimes 1996 appears in A16",
         "gold_schema_links": {
-            "Total no. of shipments in 2016": "COLUMN:[shipment].[ship_id]",
-            "number of shipments": "COLUMN:[shipment].[ship_id]",
-            "no. of shipments 2016": "COLUMN:[shipment].[ship_id]",
-            "2016": "COLUMN:[shipment].[ship_date]",
-            "no. of shipments": "COLUMN:[shipment].[ship_id]",
-            "states": "COLUMN:[city].[state]",
-            "state": "COLUMN:[city].[state]",
-            "shipment": "COLUMN:[shipment].[ship_id]"
+            "populations": "COLUMN:[city].[population]",
+            "population": "COLUMN:[city].[population]",
+            "cities": "COLUMN:[city].[city_name]",
+            "city name": "COLUMN:[city].[city_name]",
+            "city_name": "COLUMN:[city].[city_name]",
+            "city.population": "COLUMN:[city].[population]"
         },
         "orig_gold_schema_links": {
             "Total no. of committed crimes in 1996": "COLUMN:[district].[a16]",
@@ -296,14 +294,15 @@
             "A3": "COLUMN:[district].[a3]"
         },
         "gold_value_links": {
-            "New Jersey": "[city].[state]",
-            "California": "[city].[state]"
+            "Somerville": "[city].[population]",
+            "Malden": "[city].[population]",
+            "Massachusetts": "[city].[state]"
         },
         "orig_gold_value_links": {
             "east Bohemia": "[district].[a3]",
             "north Bohemia": "[district].[a3]"
         },
-        "gold_sql": "SELECT COUNT(CASE WHEN T2.state = 'New Jersey' THEN 1 ELSE NULL END) - COUNT(CASE WHEN T2.state = 'California' THEN 1 ELSE NULL END) FROM shipment as T1 INNER JOIN city as T2 ON T1.city_id = T2.city_id",
+        "gold_sql": "SELECT SUM(IIF(city_name = 'Somerville', population, 0)) - SUM(IIF(city_name = 'Malden', population, 0)) FROM city",
         "orig_gold_sql": "SELECT SUM(IIF(A3 = 'east Bohemia', A16, 0)) - SUM(IIF(A3 = 'north Bohemia', A16, 0)) FROM district",
         "evidence_added": true
     },
