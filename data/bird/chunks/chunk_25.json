@@ -134,8 +134,7 @@
         },
         "gold_sql": "<GOLD_SQL>",
         "orig_gold_sql": "SELECT CAST(SUM(T2.gender = 'F') AS REAL) * 100 / COUNT(T2.client_id) FROM district AS T1 INNER JOIN client AS T2 ON T1.district_id = T2.district_id WHERE T1.A11 > 10000",
-        "evidence_added": true,
-        "note": "This is a very difficult question to offer an alternative for."
+        "evidence_added": true
     },
     {
         "idx": "bird_733",
@@ -249,8 +248,7 @@
         },
         "gold_sql": "SELECT SUM(T1.price) / COUNT(T1.line_id) FROM order_line AS T1 INNER JOIN book AS T2 ON T1.book_id = T2.book_id WHERE strftime('%Y', publication_date) < '1950'",
         "orig_gold_sql": "SELECT SUM(t2.overall_rating) / COUNT(t1.id) FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE SUBSTR(t1.birthday, 1, 4) < '1986'",
-        "evidence_added": true,
-        "note": "correcting gold linking in original"
+        "evidence_added": true
     },
     {
         "idx": "bird_827",

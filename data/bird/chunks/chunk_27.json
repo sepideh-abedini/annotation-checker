@@ -91,7 +91,7 @@
             "diagnosis": "COLUMN:[conditions].[description]",
             "patients": "COLUMN:[patients].[patient]",
             "allergies": "TABLE:[allergies]",
-            "sensitivities": "COLUMN:[allergies].[description]"
+            "dairy sensitivities": "COLUMN:[allergies].[description]"
         },
         "orig_gold_schema_links": {
             "superheroes": "COLUMN:[superhero].[superhero_name]",
@@ -104,7 +104,6 @@
             "hair_colour_id": "COLUMN:[superhero].[hair_colour_id]"
         },
         "gold_value_links": {
-            "dairy": "[allergies].[description]",
             "Allergy to dairy product": "[allergies].[description]",
             "prediabetes": "[conditions].[description]"
         },
@@ -234,14 +233,14 @@
         "idx": "bird_1029",
         "db_id": "shipping",
         "orig_db_id": "european_football_2",
-        "question": "What are the addresses of the top 5 drivers with the highest shipment weights? addresses refers to driver.address;highest shipment weights refers to MAX(shipment.weight)",
+        "question": "What are the addresses of the top 4 drivers with the highest weights? addresses refers to driver.address;highest weights refers to MAX(shipment.weight)",
         "orig_question": "What are the speed in which attacks are put together of the top 4 teams with the highest build Up Play Speed? speed in which attacks are put together refers to buildUpPlaySpeed;highest build up play speed refers to MAX(buildUpPlaySpeed)",
         "orig_masked": "What are the [C180] of the top [V1] [T6] with the highest [C180]? [C180] refers to [C180];highest [C180] refers to MAX([C180]); [V1] is a value of the column [C180]",
-        "evidence": "addresses refers to driver.address;highest shipment weights refers to MAX(shipment.weight)",
+        "evidence": "addresses refers to driver.address;highest weights refers to MAX(shipment.weight)",
         "orig_evidence": "speed in which attacks are put together refers to buildUpPlaySpeed;highest build up play speed refers to MAX(buildUpPlaySpeed)",
         "gold_schema_links": {
             "drivers": "TABLE:[driver]",
-            "shipment weights": "COLUMN:[shipment].[weight]",
+            "weights": "COLUMN:[shipment].[weight]",
             "shipment.weight": "COLUMN:[shipment].[weight]",
             "addresses": "COLUMN:[driver].[address]",
             "driver.address": "COLUMN:[driver].[address]"
@@ -253,12 +252,10 @@
             "build up play speed": "COLUMN:[team_attributes].[buildupplayspeed]"
         },
         "gold_value_links": {
-            "5": "[shipment].[weight]"
         },
         "orig_gold_value_links": {
-            "4": "[team_attributes].[buildupplayspeed]"
         },
-        "gold_sql": "SELECT T1.address FROM driver AS T1 INNER JOIN shipment AS T2 ON T1.driver_id = T2.driver_id ORDER BY T2.weight DESC LIMIT 5",
+        "gold_sql": "SELECT T1.address FROM driver AS T1 INNER JOIN shipment AS T2 ON T1.driver_id = T2.driver_id ORDER BY T2.weight DESC LIMIT 4",
         "orig_gold_sql": "SELECT t1.buildUpPlaySpeed FROM Team_Attributes AS t1 INNER JOIN Team AS t2 ON t1.team_api_id = t2.team_api_id ORDER BY t1.buildUpPlaySpeed ASC LIMIT 4",
         "evidence_added": true
     },
@@ -299,13 +296,14 @@
         "idx": "bird_1098",
         "db_id": "law_episode",
         "orig_db_id": "european_football_2",
-        "question": "What is Joe Mulligan's highest episode rating and what is it titled as? Joe Mulligan's refers to name = 'Joe Mulligan'; episode rating refers to MAX(episode.rating); titled refer to episode.title",
+        "question": "What is Joe Mulligan's highest rating and what is it titled as? Joe Mulligan's refers to name = 'Joe Mulligan'; rating refers to MAX(episode.rating); titled refer to episode.title",
         "orig_question": "What is Ajax's highest chance creation passing score and what is it classified as? Ajax's refers to team_long_name = 'Ajax'; chance creation passing score refers to MAX(chanceCreationPassing); classified refer to chanceCreationPassingClass",
         "orig_masked": "What is [V1]'s highest [C184] and what is it [C185] as? [V1]'s refers to [C173] = '[V1]'; [C184] refers to MAX([C184]); [C185] refer to [C185]; [V1] is a value of the column [C173]",
-        "evidence": "Joe Mulligan's refers to name = 'Joe Mulligan'; episode rating refers to MAX(episode.rating); titled refer to episode.title",
+        "evidence": "Joe Mulligan's refers to name = 'Joe Mulligan'; rating refers to MAX(episode.rating); titled refer to episode.title",
         "orig_evidence": "Ajax's refers to team_long_name = 'Ajax'; chance creation passing score refers to MAX(chanceCreationPassing); classified refer to chanceCreationPassingClass",
         "gold_schema_links": {
-            "episode rating": "COLUMN:[episode].[rating]",
+            "rating": "COLUMN:[episode].[rating]",
+            "episode": "TABLE:[episode]",
             "episode.rating": "COLUMN:[episode].[rating]",
             "name": "COLUMN:[person].[name]",
             "titled": "COLUMN:[episode].[title]",
@@ -332,21 +330,20 @@
         "idx": "bird_1166",
         "db_id": "olympics",
         "orig_db_id": "thrombosis_prediction",
-        "question": "What are the event names by the heaviest athlete to ever did a sport? Identify their height. The larger the weight value, the heavier the person is, and vice versa; event names refers to the event_name is not NULL",
+        "question": "What are the event names by the heaviest athlete to ever did an event? Identify their height. The larger the weight value, the heavier the person is, and vice versa; weight refers to the weight is not NULL",
         "orig_question": "What are the symptoms observed by the youngest patient to ever did a medical examination? Identify their diagnosis. The larger the birthday value, the younger the person is, and vice versa; symptoms observed refers to the symptoms is not NULL",
         "orig_masked": "What are the [C12] by the [C59] [T3] to ever did a [T1]? Identify their [C61]. The larger the [C59] value, the [C59] the [T3] is, and vice versa; [C12] refers to the [C12] is not NULL",
-        "evidence": "The larger the weight value, the heavier the person is, and vice versa; event names refers to the event_name is not NULL",
+        "evidence": "The larger the weight value, the heavier the person is, and vice versa; weight refers to the weight is not NULL",
         "orig_evidence": "The larger the birthday value, the younger the person is, and vice versa; symptoms observed refers to the symptoms is not NULL",
         "gold_schema_links": {
-            "sport": "TABLE:[event]",
+            "event": "TABLE:[event]",
             "height": "COLUMN:[person].[height]",
             "weight": "COLUMN:[person].[weight]",
             "heaviest": "COLUMN:[person].[weight]",
             "heavier": "COLUMN:[person].[weight]",
             "event names": "COLUMN:[event].[event_name]",
             "athlete": "TABLE:[person]",
-            "person": "TABLE:[person]",
-            "event_name": "COLUMN:[event].[event_name]"
+            "person": "TABLE:[person]"
         },
         "orig_gold_schema_links": {
             "medical examination": "TABLE:[examination]",
@@ -361,9 +358,8 @@
         },
         "gold_value_links": {},
         "orig_gold_value_links": {},
-        "gold_sql": "SELECT T1.event_name FROM Event as T1 INNER JOIN competitor_event as T2 ON T1.id = T2.event_id WHERE T2.competitor_id in (SELECT id FROM Person WHERE weight IS NOT NULL ORDER BY weight DESC LIMIT 1)",
+        "gold_sql": "SELECT DISTINCT T1.event_name FROM Event as T1 INNER JOIN competitor_event as T2 ON T1.id = T2.event_id WHERE T2.competitor_id in (SELECT id FROM Person WHERE weight IS NOT NULL ORDER BY weight DESC LIMIT 1)",
         "orig_gold_sql": "SELECT T2.Symptoms, T1.Diagnosis FROM Patient AS T1 INNER JOIN Examination AS T2 ON T1.ID = T2.ID WHERE T2.Symptoms IS NOT NULL ORDER BY T1.Birthday DESC LIMIT 1",
-        "evidence_added": true,
-        "note": "Corrected a link to symptoms"
+        "evidence_added": true
     }
 ]

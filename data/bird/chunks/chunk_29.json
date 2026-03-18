@@ -6,7 +6,7 @@
         "question": "From shipments in 2017, what is the average weight that is lower than the normal range. shipments in 2017 refers to ship_date like '2017%'; average weight = AVG(weight); weight that is lower than the normal range refers to weight < 6000;",
         "orig_question": "From laboratory examinations in 1991, what is the average hematoclit level that is lower than the normal range. laboratory examinations in 1991 refers to Date like '1991%'; average hematoclit level = AVG(HCT); hematoclit level that is lower than the normal range refers to HCT < 29;",
         "orig_masked": "From [T2] in [V1], what is the average [C30] that is lower than the [C30]. [T2] in [V1] refers to [C23] like '[V1]%'; average [C30] = AVG([C30]); [C30] that is lower than the [C30] refers to [C30] < [V2];; [V1] is a value of the column [C23]; [V2] is a value of the column [C30]",
-        "evidence": "shipments in 2017 refers to ship_date like '2017%'; average shipment weight = AVG(weight); shipment weight that is lower than the normal range refers to weight < 6000;",
+        "evidence": "shipments in 2017 refers to ship_date like '2017%'; average weight = AVG(weight); weight that is lower than the normal range refers to weight < 6000;",
         "orig_evidence": "laboratory examinations in 1991 refers to Date like '1991%'; average hematoclit level = AVG(HCT); hematoclit level that is lower than the normal range refers to HCT < 29;",
         "gold_schema_links": {
             "shipments": "TABLE:[shipment]",
@@ -40,7 +40,7 @@
         "question": "Which clients have the same day, month and district id? Indicate the ssn of the clients. which clients refers to client_id; the same day, month and district id refers to day = month AND month = district_id; ssn refers to social;",
         "orig_question": "Which superhero has the same eyes, hair and skin colour? Indicate the publisher of the superhero. which superhero refers to superhero_name; the same eyes, hair and skin colour refers to hair_colour_id = skin_colour_id AND hair_colour_id = eye_colour_id; publisher refers to publisher_name;",
         "orig_masked": "Which [T9] has the same [C19], [C22] and [C27]? Indicate the [T7] of the [T9]. which [T9] refers to [C28]; the same [C19], [C22] and [C27] refers to [C22] = [C27] AND [C22] = [C19]; [T7] refers to [C15];",
-        "evidence": "which book refers to title; the same book id, language id and author id refers to book_id = language_id AND book_id = author_id; author refers to author_name;",
+        "evidence": "which clients refers to client_id; the same day, month and district id refers to day = month AND month = district_id; ssn refers to social;",
         "orig_evidence": "which superhero refers to superhero_name; the same eyes, hair and skin colour refers to hair_colour_id = skin_colour_id AND hair_colour_id = eye_colour_id; publisher refers to publisher_name;",
         "gold_schema_links": {
             "clients": "TABLE:[client]",
@@ -134,8 +134,7 @@
         },
         "orig_gold_value_links": {
             "Marvel Comics": "[publisher].[publisher_name]",
-            "DC Comics": "[publisher].[publisher_name]",
-            "DC": "[publisher].[publisher_name]"
+            "DC Comics": "[publisher].[publisher_name]"
         },
         "gold_sql": "SELECT SUM(CASE WHEN T3.country = 'USA' THEN 1 ELSE 0 END) - SUM(CASE WHEN T3.country = 'Japan' THEN 1 ELSE 0 END) FROM data AS T1 INNER JOIN production AS T2 ON T1.ID = T2.country INNER JOIN country as T3 ON T2.country = T3.origin",
         "orig_gold_sql": "SELECT SUM(CASE WHEN T2.publisher_name = 'DC Comics' THEN 1 ELSE 0 END) - SUM(CASE WHEN T2.publisher_name = 'Marvel Comics' THEN 1 ELSE 0 END) FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id",
@@ -144,11 +143,11 @@
     {
         "idx": "bird_772",
         "db_id": "olympics",
-        "question": "List the height, weight and full name of all F athletes sent by China.  height refers to height; weight refers to weight; full name refers to full_name; F athletes refers to gender = 'F'; sent by China refers to region_name = 'China';",
         "orig_db_id": "superhero",
+        "question": "List the height, weight and full name of all F athletes sent by China.  height refers to height; weight refers to weight; full name refers to full_name; F athletes refers to gender = 'F'; sent by China refers to region_name = 'China';",
         "orig_question": "List the eyes, hair and skin colour of all female superheroes published by Dark Horse Comics.  eyes refers to eye_colour_id; hair refers to hair_colour_id; skin colour refers to skin_colour_id; female superheroes refers to gender = 'Female'; published by Dark Horse Comics refers to publisher_name = 'Dark Horse Comics';",
         "orig_masked": "List the [C19], [C22] and [C27] of all [V2] [T9] [T7] by [V1].  [C19] refers to [C19]; [C22] refers to [C22]; [C27] refers to [C27]; [V2] [T9] refers to [C7] = '[V2]'; [T7] by [V1] refers to [C15] = '[V1]';; [V1] is a value of the column [C15]; [V2] is a value of the column [C7]",
-        "evidence": "height refers to height; weight refers to weight; full name refers to full_name; female athletes refers to gender = 'F'; sent by China refers to region_name = 'China';",
+        "evidence": "height refers to height; weight refers to weight; full name refers to full_name; F athletes refers to gender = 'F'; sent by China refers to region_name = 'China';",
         "orig_evidence": "eyes refers to eye_colour_id; hair refers to hair_colour_id; skin colour refers to skin_colour_id; female superheroes refers to gender = 'Female'; published by Dark Horse Comics refers to publisher_name = 'Dark Horse Comics';",
         "gold_schema_links": {
             "height": "COLUMN:[person].[height]",
@@ -227,7 +226,7 @@
         "db_id": "movie",
         "orig_db_id": "superhero",
         "question": "In actors with height between 60 to 80, what is the percentage of actors claimed by Canada?  height between 60 to 80 refers to \"Height (Inches)\" BETWEEN 60 AND 80; actors claimed by Canada refers to \"Birth Country\" = 'Canada'; calculation = MULTIPLY(DIVIDE(SUM(actor.\"Birth Country\" = 'Canada')), COUNT(actor.ActorID), 100)",
-        "orig_question": "In superheroes with height between 150 to 180, what is the percentage of heroes published by Marvel Comics?  height between 150 to 180 refers to BETWEEN 150 AND 180; heroes published by Marvel Comics refers to publisher_name = 'Marvel Comics'; calculation = MULTIPLY(DIVIDE(SUM(publisher.id = 13)), COUNT(publisher.id), 100)",
+        "orig_question": "In superheroes with height between 150 to 180, what is the percentage of heroes published by Marvel Comics?  height between 150 to 180 refers to height_cm BETWEEN 150 AND 180; heroes published by Marvel Comics refers to publisher_name = 'Marvel Comics'; calculation = MULTIPLY(DIVIDE(SUM(publisher.id = 13)), COUNT(publisher.id), 100)",
         "orig_masked": "In [T9] with [C23] between [V2] to [V3], what is the percentage of [T9] [T7] by [V1]?  [C23] between [V2] to [V3] refers to [C23] BETWEEN [V2] AND [V3]; [T9] [T7] by [V1] refers to [C15] = '[V1]'; calculation = MULTIPLY(DIVIDE(SUM([T7].[C14] = 13)), COUNT([T7].[C14]), 100); [V1] is a value of the column [C15]; [V2] is a value of the column [C23]; [V3] is a value of the column [C23]",
         "evidence": "height between 60 to 80 refers to \"Height (Inches)\" BETWEEN 60 AND 80; actors claimed by Canada refers to \"Birth Country\" = 'Canada'; calculation = MULTIPLY(DIVIDE(SUM(actor.\"Birth Country\" = 'Canada')), COUNT(actor.ActorID), 100)",
         "orig_evidence": "height between 150 to 180 refers to height_cm BETWEEN 150 AND 180; heroes published by Marvel Comics refers to publisher_name = 'Marvel Comics'; calculation = MULTIPLY(DIVIDE(SUM(publisher.id = 13)), COUNT(publisher.id), 100)",
@@ -324,7 +323,6 @@
             "CurrencyCode": "COLUMN:[sales orders].[currencycode]",
             "\"Order Quantity\"": "COLUMN:[sales orders].[order quantity]",
             "\"Unit Cost\"": "COLUMN:[sales orders].[unit cost]"
-
         },
         "orig_gold_schema_links": {
             "final score": [

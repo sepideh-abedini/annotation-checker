@@ -71,8 +71,7 @@
         },
         "gold_sql": "SELECT SUM(T3.quantity) FROM Employees AS T1 INNER JOIN orders as T2 ON T1.employeeid = T2.employeeid INNER JOIN orderdetails as T3 ON T3.orderid = T2.orderid WHERE datetime('2026-03-10', 'localtime') - datetime(T1.birthdate) < 61",
         "orig_gold_sql": "SELECT SUM(t2.home_team_goal) FROM Player AS t1 INNER JOIN match AS t2 ON t1.player_api_id = t2.away_player_1 WHERE datetime('2026-03-10', 'localtime') - datetime(T1.birthday) < 31",
-        "evidence_added": true,
-        "note": "fixing value link of localtime. Also fixing the reliance on current time stamp, which moves with time the query is run"
+        "evidence_added": true
     },
     {
         "idx": "bird_1095",
@@ -205,8 +204,7 @@
         },
         "gold_sql": "SELECT date FROM inspections WHERE score = (SELECT score FROM inspections WHERE  score > 70 AND score < 90 ORDER BY score DESC LIMIT 1)",
         "orig_gold_sql": "SELECT Date FROM Laboratory WHERE ALB > 3.5 AND ALB < 5.5 ORDER BY ALB DESC LIMIT 1",
-        "evidence_added": true,
-        "note": "Fixed a missing link to date"
+        "evidence_added": true
     },
     {
         "idx": "bird_758",
@@ -239,16 +237,17 @@
         },
         "gold_value_links": {
             "226": "[person].[height]",
-            "basketball": "[sport].[sport_name]"
+            "226 cm": "[person].[height]",
+            "canoeing": "[sport].[sport_name]"
         },
         "orig_gold_value_links": {
             "185": "[superhero].[height_cm]",
+            "185 cm": "[superhero].[height_cm]",
             "human": "[race].[race]"
         },
         "gold_sql": "SELECT DISTINCT T6.region_name FROM person as T1 INNER JOIN competitor_event as T2 ON T1.id = T2.competitor_id INNER JOIN event as T3 ON T2.event_id = T3.id INNER JOIN sport as T4 ON T3.sport_id = T4.id INNER JOIN person_region as T5 ON T1.id = T5.person_id INNER JOIN noc_region as T6 ON T5.region_id = T6.id WHERE T4.sport_name = 'Canoeing' and T1.height = 226",
         "orig_gold_sql": "SELECT DISTINCT T3.colour FROM superhero AS T1 INNER JOIN race AS T2 ON T1.race_id = T2.id INNER JOIN colour AS T3 ON T1.hair_colour_id = T3.id WHERE T1.height_cm = 185 AND T2.race = 'Human'",
-        "evidence_added": true,
-        "note": "Fixed link of superhero to the table"
+        "evidence_added": true
     },
     {
         "idx": "bird_1188",
@@ -281,7 +280,7 @@
         },
         "gold_value_links": {
             "Comedy": "[movie].[genre]",
-            "1990": "[actor].[date of birth]",
+            "1983": "[actor].[date of birth]",
             "Female": "[actor].[gender]"
         },
         "orig_gold_value_links": {

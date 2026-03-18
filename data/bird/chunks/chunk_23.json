@@ -180,13 +180,14 @@
         "idx": "bird_100",
         "db_id": "shipping",
         "orig_db_id": "financial",
-        "question": "Among the customers, how many wholesale customers who were placing orders in 2016 and stayed in 2017? Customers refer to customer; wholesale refers to cust_type = 'wholesaler'; order dates appear in column ship_date",
+        "question": "Among the customers, how many wholesale customers who were placing orders in 2016 and reordered in 2017? Customers refer to customer; wholesale refers to cust_type = 'wholesaler'; order dates appear in column ship_date",
         "orig_question": "Among the account opened, how many female customers who were born before 1950 and stayed in Sokolov? Customers refer to clients; Female refers to gender = 'F'; Names of districts appear in column A2",
         "orig_masked": "Among the [T1], how many [C12] [T3] who were [C9] before [V2] and stayed in [V1]? [T3] refer to [T3]; [C12] refers to [C12] = '[V3]'; [C24] appear in column [C24]; [V1] is a value of the column [C24]; [V2] is a value of the column [C9]; [V3] is a value of the column [C12]",
         "evidence": "Customers refer to customer; wholesale refers to cust_type = 'wholesaler'; order dates appear in column ship_date",
         "orig_evidence": "Customers refer to clients; Female refers to gender = 'F'; Names of districts appear in column A2",
         "gold_schema_links": {
             "placing orders": "COLUMN:[shipment].[ship_date]",
+            "reordered": "COLUMN:[shipment].[ship_date]",
             "customers": "TABLE:[customer]",
             "ship_date": "COLUMN:[shipment].[ship_date]",
             "customer": "TABLE:[customer]",
@@ -202,7 +203,8 @@
             "account opened": "TABLE:[account]",
             "gender": "COLUMN:[client].[gender]",
             "female": "COLUMN:[client].[gender]",
-            "Names of districts": "COLUMN:[district].[a2]"
+            "Names of districts": "COLUMN:[district].[a2]",
+            "stayed": "COLUMN:[district].[a2]"
         },
         "gold_value_links": {
             "wholesaler": "[customer].[cust_type]",
@@ -216,7 +218,8 @@
         },
         "gold_sql": "SELECT COUNT (DISTINCT cust_id) FROM customer WHERE cust_id IN (SELECT DISTINCT cust_id FROM shipment WHERE STRFTIME('%Y', ship_date) = '2016') AND cust_id IN (SELECT DISTINCT cust_id FROM shipment WHERE STRFTIME('%Y', ship_date) = '2017')",
         "orig_gold_sql": "SELECT COUNT(T2.client_id) FROM district AS T1 INNER JOIN client AS T2 ON T1.district_id = T2.district_id WHERE T2.gender = 'F' AND STRFTIME('%Y', T2.birth_date) < '1950' AND T1.A2 = 'Sokolov'",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "Changed stayed to 'reordered', masked 'stayed' in the original question as well."
     },
     {
         "idx": "bird_1146",
@@ -342,7 +345,8 @@
             ],
             "season": "COLUMN:[match].[season]",
             "home_team_goal": "COLUMN:[match].[home_team_goal]",
-            "away_team_goal": "COLUMN:[match].[away_team_goal]"
+            "away_team_goal": "COLUMN:[match].[away_team_goal]",
+            "2016": "COLUMN:[match].[season]"
         },
         "gold_value_links": {
             "M": "[person].[gender]"

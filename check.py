@@ -1,5 +1,6 @@
 import argparse
 import asyncio
+import difflib
 import os
 import re
 from typing import Dict
@@ -61,6 +62,12 @@ class DebugMaskedQuestion(JsonListTransformer):
         print(f"{'SQL [A]':<12}: {gold_sql}")
         if exec_res is not None:
             print(f"{'Res [A]':<12}: {exec_res[:15]}")
+        if "alt_evidence" not in row:
+            cprin("No evidence", "red")
+        else:
+            evidence = row['alt_evidence']
+            if evidence not in alt_question:
+                cprin("Invalid evidence", "red")
         return row
 
 
@@ -108,6 +115,7 @@ async def add_alt_data(orig_questions_path, alt_questions_path, tables_path):
         orig_row['alt_db_id'] = alt_db_id
         orig_row['alt_question'] = alt_question
         orig_row['alt_sql'] = alt_sql
+        orig_row['alt_evidence'] = alt_row['evidence']
 
         if "symbolic" in alt_row:
             orig_row['alt_masked_question'] = alt_row["symbolic"]["question"]

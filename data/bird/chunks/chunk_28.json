@@ -3,16 +3,16 @@
         "idx": "bird_1235",
         "db_id": "synthea",
         "orig_db_id": "thrombosis_prediction",
-        "question": "What are the patient's immunization code for those who has lower observation values? State their ID and age. patient's immunization code refers to immunizations.code; lower observation values refers to observations.VALUE < 10; age = SUBTRACT(year('2026-03-11'), year(birthdate));",
-        "orig_question": "What are the patient's diagnosis for those who has lower red blood blood cell? State their ID and age. patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year('2026-03-11'), year(Birthday));",
-        "orig_masked": "What are the [T3]'s [C61] for those who has lower [C41]? State their [C63] and [C59]. [T3]'s [C61] refers to [C61]; lower [C41] refers to [C41] < [V1]; [C59] = SUBTRACT(year('2026-03-11'), year([C59]));; [V1] is a value of the column [C41]",
-        "evidence": "patient's immunization code refers to immunizations.code; lower observation values refers to observations.VALUE < 10; age = SUBTRACT(year('2026-03-11'), year(birthdate));",
+        "question": "What are the patient's immunization for those who has lower values? State their ID and age. patient's immunization refers to immunization.code; lower values refers to observations.VALUE < 10; age = SUBTRACT(year('2026-03-11'), year(birthdate));",
+        "orig_question": "What are the patient's diagnosis for those who has lower red blood blood cell? State their ID and age. patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year('2026-03-11'), year(Birthday)); ",
+        "orig_masked": "What are the [T3]'s [C61] for those who has lower [C41]? State their [C63] and [C59]. [T3]'s [C61] refers to [C61]; lower [C41] refers to [C41] < [V1]; [C59] = SUBTRACT(year('2026-03-11'), year([C59])); ; [V1] is a value of the column [C41]",
+        "evidence": "patient's immunization refers to immunization.code; lower values refers to observations.VALUE < 10; age = SUBTRACT(year('2026-03-11'), year(birthdate));",
         "orig_evidence": "patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year('2026-03-11'), year(Birthday)); ",
         "gold_schema_links": {
             "patient": "TABLE:[patients]",
-            "immunization code": "COLUMN:[immunizations].[code]",
-            "observation values": "COLUMN:[observations].[value]",
-            "immunizations.code": "COLUMN:[immunizations].[code]",
+            "immunization": "COLUMN:[immunizations].[code]",
+            "values": "COLUMN:[observations].[value]",
+            "immunization.code": "COLUMN:[immunizations].[code]",
             "age": "COLUMN:[patients].[birthdate]",
             "ID": "COLUMN:[patients].[patient]",
             "birthdate": "COLUMN:[patients].[birthdate]",
@@ -36,8 +36,7 @@
         },
         "gold_sql": "SELECT DISTINCT T2.CODE, T1.patient, STRFTIME('%Y', '2026-03-11') -STRFTIME('%Y', T1.birthdate) FROM patients as T1 INNER JOIN immunizations as T2 ON T1.patient = T2.patient INNER JOIN observations as T3 ON T1.patient = T3.patient WHERE T3.VALUE < 10",
         "orig_gold_sql": "SELECT DISTINCT T1.Diagnosis, T1.ID , STRFTIME('%Y', '2026-03-11') -STRFTIME('%Y', T1.Birthday) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.RBC < 3.5",
-        "evidence_added": true,
-        "note": "Replacing the current time stamps here in the original etc. because that's a moving target."
+        "evidence_added": true
     },
     {
         "idx": "bird_1201",
@@ -78,8 +77,7 @@
         },
         "gold_sql": "SELECT CAST(SUM(CASE WHEN T1.gender = 'F' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.patient) FROM patients as T1 INNER JOIN conditions as T2 ON T1.patient = T2.patient WHERE T2.description = 'Prediabetes' AND STRFTIME('%Y', T1.birthdate) = '1985'",
         "orig_gold_sql": "SELECT CAST(SUM(CASE WHEN SEX = 'F' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(ID) FROM Patient WHERE Diagnosis = 'RA' AND STRFTIME('%Y', Birthday) = '1980'",
-        "evidence_added": true,
-        "note": "I removed the calculation link, as I don't think it makes sense"
+        "evidence_added": true
     },
     {
         "idx": "bird_845",
@@ -105,11 +103,8 @@
             "height_cm": "COLUMN:[superhero].[height_cm]"
         },
         "gold_value_links": {
-            "80%": "[person].[height_meters]"
         },
-        "orig_gold_value_links": {
-            "80%": "[superhero].[height_cm]"
-        },
+        "orig_gold_value_links": {},
         "gold_sql": "SELECT birth_place FROM person WHERE height_meters * 100 > ( SELECT AVG(height_meters) FROM person ) * 80",
         "orig_gold_sql": "SELECT T3.power_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T2.power_id = T3.id WHERE (T1.height_cm * 100) > ((SELECT AVG(height_cm) FROM superhero ) * 80)",
         "evidence_added": true
@@ -158,7 +153,8 @@
         "gold_schema_links": {
             "employees": "TABLE:[employee]",
             "position.positionID": "COLUMN:[position].[positionid]",
-            "employee.gender": "COLUMN:[employee].[gender]"
+            "employee.gender": "COLUMN:[employee].[gender]",
+            "female": "COLUMN:[employee].[gender]"
         },
         "orig_gold_schema_links": {
             "superheroes": "TABLE:[superhero]",
@@ -166,9 +162,8 @@
             "gender.id": "COLUMN:[gender].[id]"
         },
         "gold_value_links": {
-            "female": "[employee].[gender]",
-            "manager": "[position].[positionid]",
-            "'F'": "[employee].[gender]",
+            "F": "[employee].[gender]",
+            "manager": "[position].[positiontitle]",
             "2": "[position].[positionid]"
         },
         "orig_gold_value_links": {
@@ -237,7 +232,8 @@
             "diagnosed": "COLUMN:[conditions].[description]",
             "patients": "TABLE:[patients]",
             "encounter": "TABLE:[encounters]",
-            "ID": "COLUMN:[patients].[patient]"
+            "ID": "COLUMN:[patients].[patient]",
+            "date": "COLUMN:[encounters].[date]"
         },
         "orig_gold_schema_links": {
             "diagnosis": "COLUMN:[examination].[diagnosis]",
@@ -290,8 +286,7 @@
         },
         "gold_sql": "<GOLD_SQL>",
         "orig_gold_sql": "SELECT COUNT(t1.id) FROM Player_Attributes AS t1 WHERE t1.preferred_foot = 'left' AND t1.crossing = ( SELECT MAX(crossing) FROM Player_Attributes)",
-        "evidence_added": true,
-        "note": "Bad data point to match this way."
+        "evidence_added": true
     },
     {
         "idx": "bird_1150",
@@ -328,8 +323,7 @@
         },
         "gold_sql": "SELECT CAST(SUM(CASE WHEN STRFTIME('%Y', birthdate) > '1980' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM Person WHERE birth_country = 'USA'",
         "orig_gold_sql": "SELECT CAST(SUM(CASE WHEN STRFTIME('%Y', Birthday) > '1930' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM Patient WHERE SEX = 'F'",
-        "evidence_added": true,
-        "note": "Corrected schema link for year that I don't think should be there and added ID"
+        "evidence_added": true
     },
     {
         "idx": "bird_761",
@@ -358,9 +352,7 @@
             "weight_kg": "COLUMN:[superhero].[weight_kg]"
         },
         "gold_value_links": {
-            "USA": "[noc_region].[region_name]",
-            "79%": "[person].[weight]",
-            "0.79": "[person].[weight]"
+            "USA": "[noc_region].[region_name]"
         },
         "orig_gold_value_links": {
             "Male": "[gender].[gender]",

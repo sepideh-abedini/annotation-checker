@@ -3337,7 +3337,7 @@
     {
         "idx": "bird_93",
         "db_id": "financial",
-        "question": "How many male customers who are living in North Bohemia have average salary greater than 8000? Male means that gender = 'M'; A3 refers to region; A11 pertains to average salary.",
+        "question": "How  many male customers who are living in North Bohemia have average salary greater than 8000? Male means that gender = 'M'; A3 refers to region; A11 pertains to average salary.",
         "evidence": "Male means that gender = 'M'; A3 refers to region; A11 pertains to average salary.",
         "evidence_added": true,
         "query": "SELECT COUNT(T1.client_id) FROM client AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id WHERE T1.gender = 'M' AND T2.A3 = 'north Bohemia' AND T2.A11 > 8000",
@@ -4188,7 +4188,8 @@
             "account opened": "TABLE:[account]",
             "gender": "COLUMN:[client].[gender]",
             "female": "COLUMN:[client].[gender]",
-            "Names of districts": "COLUMN:[district].[a2]"
+            "Names of districts": "COLUMN:[district].[a2]",
+            "stayed": "COLUMN:[district].[a2]"
         }
     },
     {
@@ -4389,6 +4390,7 @@
         "query": "SELECT DISTINCT T3.colour FROM superhero AS T1 INNER JOIN race AS T2 ON T1.race_id = T2.id INNER JOIN colour AS T3 ON T1.hair_colour_id = T3.id WHERE T1.height_cm = 185 AND T2.race = 'Human'",
         "gold_value_links": {
             "185": "[superhero].[height_cm]",
+            "185 cm": "[superhero].[height_cm]",
             "human": "[race].[race]"
         },
         "gold_schema_links": {
@@ -4806,8 +4808,8 @@
         "query": "SELECT T1.account_id FROM loan AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id WHERE STRFTIME('%Y', T2.date) = '1993' AND T1.duration > 12 ORDER BY T1.amount DESC LIMIT 1",
         "gold_value_links": {
             "12 months": "[loan].[duration]",
-            "1993": "[account].[date]",
-            "12": "[loan].[duration]"
+            "12": "[loan].[duration]",
+            "1993": "[account].[date]"
         },
         "gold_schema_links": {
             "opening date": "COLUMN:[account].[date]",
@@ -5007,7 +5009,6 @@
         "evidence_added": true,
         "query": "SELECT t1.buildUpPlaySpeed FROM Team_Attributes AS t1 INNER JOIN Team AS t2 ON t1.team_api_id = t2.team_api_id ORDER BY t1.buildUpPlaySpeed ASC LIMIT 4",
         "gold_value_links": {
-            "4": "[team_attributes].[buildupplayspeed]"
         },
         "gold_schema_links": {
             "teams": "TABLE:[team]",
@@ -5123,7 +5124,6 @@
         "evidence_added": true,
         "query": "SELECT T3.power_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T2.power_id = T3.id WHERE T1.height_cm * 100 > ( SELECT AVG(height_cm) FROM superhero ) * 80",
         "gold_value_links": {
-            "80%": "[superhero].[height_cm]"
         },
         "gold_schema_links": {
             "power": "TABLE:[superpower]",
@@ -5263,9 +5263,7 @@
         "evidence_added": true,
         "query": "SELECT T1.superhero_name FROM superhero AS T1 INNER JOIN gender AS T2 ON T1.gender_id = T2.id WHERE T2.gender = 'Male' AND T1.weight_kg * 100 > ( SELECT AVG(weight_kg) FROM superhero ) * 79",
         "gold_value_links": {
-            "Male": "[gender].[gender]",
-            "79%": "[superhero].[weight_kg]",
-            "0.79": "[superhero].[weight_kg]"
+            "Male": "[gender].[gender]"
         },
         "gold_schema_links": {
             "names": "COLUMN:[superhero].[superhero_name]",
