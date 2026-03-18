@@ -6,7 +6,7 @@
         "question": "List out the patient numbers of patients who are youngest and have highest observation values?  If the person A's birthdate < B's birthdate, it means that person B is younger than person A; observations.value refers to observation values",
         "orig_question": "List out the account numbers of clients who are youngest and have highest average salary?  If the person A's birthdate < B's birthdate, it means that person B is younger than person A; A11 refers to average salary",
         "orig_masked": "List out the [C1] of [T3] who are [C9] and have highest [C18]?  If the [T3] A's [C9] < B's [C9], it means that [T3] B is [C9] than [T3] A; [C18] refers to [C18]",
-        "evidence": "If the person A's birthdate < B's birthdate, it means that person B is younger than person A;; observations.value refers to observation values",
+        "evidence": "If the person A's birthdate < B's birthdate, it means that person B is younger than person A; observations.value refers to observation values",
         "orig_evidence": "If the person A's birthdate < B's birthdate, it means that person B is younger than person A; A11 refers to average salary",
         "gold_schema_links": {
             "patient numbers": "COLUMN:[patients].[patient]",
@@ -77,13 +77,13 @@
         "idx": "bird_1234",
         "db_id": "restaurant",
         "orig_db_id": "thrombosis_prediction",
-        "question": "List the restaurant name, street name and region who has abnormal reviews. Group them by region and list the restaurant by street number in ascending order.  abnormal reviews refers to review < = 1.5 or review > = 4.0;",
+        "question": "List the label, street name and region who has abnormal reviews. Group them by region and list the restaurant by street number in ascending order.  abnormal reviews refers to review < = 1.5 or review > = 4.0;",
         "orig_question": "List the patient ID, sex and birthday who has abnormal white blood cell count. Group them by sex and list the patient by age in ascending order.  abnormal white blood cell count refers to WBC < = 3.5 or WBC > = 9.0;",
         "orig_masked": "List the [C63], [C64] and [C59] who has [C57]. Group them by [C64] and list the [T3] by [C59] in ascending order.  [C57] refers to [C57] < = [V1] or [C57] > = [V2];; [V1] is a value of the column [C57]; [V2] is a value of the column [C57]",
         "evidence": "abnormal reviews refers to review < = 1.5 or review > = 4.0;",
         "orig_evidence": "abnormal white blood cell count refers to WBC < = 3.5 or WBC > = 9.0;",
         "gold_schema_links": {
-            "restaurant name": "COLUMN:[generalinfo].[label]",
+            "label": "COLUMN:[generalinfo].[label]",
             "region": "COLUMN:[geographic].[region]",
             "street name": "COLUMN:[location].[street_name]",
             "abnormal reviews": "COLUMN:[generalinfo].[review]",
@@ -188,8 +188,7 @@
         },
         "gold_sql": "SELECT T2.expression_corr FROM Genes as T1 INNER JOIN Interactions as T2 On T1.GeneID = T2.GeneID1 WHERE lower(T1.Complex) = lower(T1.Localization) AND T1.Localization = 'cytoskeleton'",
         "orig_gold_sql": "SELECT T1.superhero_name FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id AND T1.hair_colour_id = T2.id WHERE T2.colour = 'Black'",
-        "evidence_added": true,
-        "note": "Fixed lining in original gold"
+        "evidence_added": true
     },
     {
         "idx": "bird_1199",
@@ -214,7 +213,7 @@
             "patients": "TABLE:[laboratory]",
             "testing": "TABLE:[laboratory]"
         },
-        "gold_value_links":{
+        "gold_value_links": {
             "2008": "[procedures].[date]",
             "30": "[observations].[value]",
             "500": "[observations].[value]"
@@ -265,8 +264,7 @@
         },
         "gold_sql": "SELECT T1.title FROM movie AS T1 INNER JOIN characters AS T2 ON T1.movieid = T2.movieid INNER JOIN actor AS T3 ON T3.actorid = T2.actorid WHERE STRFTIME('%Y', T3.\"date of birth\") = '1987' AND T1.runtime > 120 ORDER BY T1.rating DESC LIMIT 1",
         "orig_gold_sql": "SELECT T1.account_id FROM loan AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id WHERE STRFTIME('%Y', T2.date) = '1993' AND T1.duration > 12 ORDER BY T1.amount DESC LIMIT 1",
-        "evidence_added": true,
-        "note": "fixed original as it didn't link 12"
+        "evidence_added": true
     },
     {
         "idx": "bird_726",
@@ -311,19 +309,19 @@
     },
     {
         "idx": "bird_1300",
-        "db_id": "synthea",
+        "db_id": "disney",
         "orig_db_id": "thrombosis_prediction",
-        "question": "What is the allergy description of the patient who has the highest level of bone density within the normal range?  allergy description referse to allergies.description; highest level of bone density within the normal range refers to MAX(observations.value < 0.41);",
+        "question": "What is the music of the character who has the highest deficit earnings?  music referse to song; highest deficit earnings refers to MAX(movies_total_gross.total_gross < $100,000,000);",
         "orig_question": "What is the disease name of the patient who has the highest level of triglyceride within the normal range?  disease name referse to Diagnosis; highest level of triglyceride within the normal range refers to MAX(TG < 200);",
         "orig_masked": "What is the [C6] of the [T3] who has the highest [C52]?  [C6] referse to [C6]; highest [C52] refers to MAX([C52] < [V1]);; [V1] is a value of the column [C52]",
-        "evidence": "allergy description referse to allergies.description; highest level of bone density within the normal range refers to MAX(observations.value < 0.41);",
+        "evidence": "music referse to song; highest deficit earnings refers to MAX(movies_total_gross.total_gross < $100,000,000);",
         "orig_evidence": "disease name referse to Diagnosis; highest level of triglyceride within the normal range refers to MAX(TG < 200);",
         "gold_schema_links": {
-            "allergy description": "COLUMN:[allergies].[description]",
-            "level of bone density within the normal range": "COLUMN:[observations].[value]",
-            "allergies.description": "COLUMN:[allergies].[description]",
-            "patient": "TABLE:[patients]",
-            "observations.value": "COLUMN:[observations].[value]"
+            "music": "COLUMN:[characters].[song]",
+            "song": "COLUMN:[characters].[song]",
+            "character": "TABLE:[characters]",
+            "deficit earnings": "COLUMN:[movies_total_gross].[total_gross]",
+            "movies_total_gross.total_gross": "COLUMN:[movies_total_gross].[total_gross]"
         },
         "orig_gold_schema_links": {
             "disease name": "COLUMN:[examination].[diagnosis]",
@@ -333,14 +331,15 @@
             "TG": "COLUMN:[laboratory].[tg]"
         },
         "gold_value_links": {
-            "0.41": "[observations].[value]"
+            "$100,000,000": "[movies_total_gross].[total_gross]"
         },
         "orig_gold_value_links": {
             "200": "[laboratory].[tg]"
         },
-        "gold_sql": "SELECT T3.description from patients AS T1 INNER JOIN observations AS T2 ON T1.patient = T2.patient INNER JOIN allergies AS T3 ON T1.patient = T3.patient WHERE T2.DESCRIPTION = 'DXA [T-score] Bone density' AND T2.VALUE < 0.41 ORDER BY T2.VALUE DESC LIMIT 1",
+        "gold_sql": "SELECT T1.song FROM characters AS T1 JOIN movies_total_gross AS T2 WHERE T1.movie_title = T2.movie_title AND CAST(REPLACE(REPLACE(T2.total_gross, '$', ''), ',', '') AS numeric) < 100000000 ORDER BY T2.total_gross DESC LIMIT 1",
         "orig_gold_sql": "SELECT T1.Diagnosis FROM Examination AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.TG < 200 ORDER BY T2.TG DESC LIMIT 1",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "No evidence for 'bone density' -> 'DXA [T-score] Bone density'"
     },
     {
         "idx": "bird_1293",
