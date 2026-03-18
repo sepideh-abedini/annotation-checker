@@ -1,14 +1,21 @@
 [
     {
         "idx": "bird_800",
-        "db_id": "<DB_ID>",
+        "db_id": "movie_3",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "Calculate the percentage of films with Action genre.  percentage = MULTIPLY(DIVIDE(SUM(film_id WHERE name = 'Action'), COUNT(film_id)), 100.0); action genre refers to name = 'Action' and category.category_id =  category_id = 1;",
         "orig_question": "Calculate the percentage of superheroes with blue eyes.  percentage = MULTIPLY(DIVIDE(SUM(id WHERE color = 'Blue'), COUNT(id)), 100.0); blue eyes refers to color = 'Blue' and color.id =  eye_colour_id = 7;",
         "orig_masked": "Calculate the percentage of [T9] with [V1] [C19].  percentage = MULTIPLY(DIVIDE(SUM([C6] WHERE [C5] = '[V1]'), COUNT([C6])), 100.0); [V1] [C19] refers to [C5] = '[V1]' and [C6] =  [C19] = [V2];; [V1] is a value of the column [C5]; [V2] is a value of the column [C19]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "percentage = MULTIPLY(DIVIDE(SUM(film_id WHERE name = 'Action'), COUNT(film_id)), 100.0); action genre refers to name = 'Action' and category.category_id =  category_id = 1;",
         "orig_evidence": "percentage = MULTIPLY(DIVIDE(SUM(id WHERE color = 'Blue'), COUNT(id)), 100.0); blue eyes refers to color = 'Blue' and color.id =  eye_colour_id = 7;",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "films": "TABLE:[film]",
+            "genre": "COLUMN:[category].[name]",
+            "name": "COLUMN:[category].[name]",
+            "category.category_id": "COLUMN:[category].[category_id]",
+            "category_id": "COLUMN:[film_category].[category_id]",
+            "film_id": "COLUMN:[film].[film_id]"
+        },
         "orig_gold_schema_links": {
             "superheroes": "TABLE:[superhero]",
             "eyes": "COLUMN:[superhero].[eye_colour_id]",
@@ -17,25 +24,35 @@
             "eye_colour_id": "COLUMN:[superhero].[eye_colour_id]",
             "id": "COLUMN:[colour].[id]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Action": "[category].[name]",
+            "1": "[category].[category_id]"
+        },
         "orig_gold_value_links": {
             "Blue": "[colour].[colour]",
             "7": "[superhero].[eye_colour_id]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT CAST(COUNT(CASE WHEN T3.name = 'Action' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T1.film_id) FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category as T3 ON T2.category_id = T3.category_id",
         "orig_gold_sql": "SELECT CAST(COUNT(CASE WHEN T2.colour = 'Blue' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T1.id) FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id",
         "evidence_added": true
     },
     {
         "idx": "bird_1121",
-        "db_id": "<DB_ID>",
+        "db_id": "retail_world",
         "orig_db_id": "european_football_2",
-        "question": "<QUESTION>",
-        "orig_question": "Calculate the total home team goal scored by players whose age are 30 years old and below. age are 30 years old and below refers to SUBTRACT(datetime(CURRENT_TIMESTAMP,'localtime'), datetime(birthday) < 31)",
-        "orig_masked": "Calculate the total [C94] [C94] by [T4] whose [C121] are [V3] [C121] and below. [C121] are [V3] [C121] and below refers to SUBTRACT(datetime(CURRENT_TIMESTAMP,'[V1]'), datetime([C121]) < [V2]); [V1] is a value of the column [C121]; [V2] is a value of the column [C121]; [V3] is a value of the column [C121]",
-        "evidence": "<EVIDENCE>",
-        "orig_evidence": "age are 30 years old and below refers to SUBTRACT(datetime(CURRENT_TIMESTAMP,'localtime'), datetime(birthday) < 31)",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "question": "Calculate the total items sold by employees whose age are 60 years old and below. age are 60 years old and below refers to SUBTRACT(datetime('2026-03-10','localtime'), datetime(birthdate) < 61)",
+        "orig_question": "Calculate the total home team goal scored by players whose age are 30 years old and below. age are 30 years old and below refers to SUBTRACT(datetime('2026-03-10','localtime'), datetime(birthday) < 31)",
+        "orig_masked": "Calculate the total [C94] [C94] by [T4] whose [C121] are [V3] [C121] and below. [C121] are [V3] [C121] and below refers to SUBTRACT(datetime('2026-03-10','[V1]'), datetime([C121]) < [V2]); [V1] is a value of the column [C121]; [V2] is a value of the column [C121]; [V3] is a value of the column [C121]",
+        "evidence": "age are 60 years old and below refers to SUBTRACT(datetime('2026-03-10','localtime'), datetime(birthdate) < 61)",
+        "orig_evidence": "age are 30 years old and below refers to SUBTRACT(datetime('2026-03-10','localtime'), datetime(birthday) < 31)",
+        "gold_schema_links": {
+            "items": "COLUMN:[orderdetails].[quantity]",
+            "sold": "COLUMN:[orderdetails].[quantity]",
+            "birthdate": "COLUMN:[employees].[birthdate]",
+            "employees": "TABLE:[employees]",
+            "age": "COLUMN:[employees].[birthdate]",
+            "years old": "COLUMN:[employees].[birthdate]"
+        },
         "orig_gold_schema_links": {
             "home team goal": "COLUMN:[match].[home_team_goal]",
             "scored": "COLUMN:[match].[home_team_goal]",
@@ -44,75 +61,97 @@
             "age": "COLUMN:[player].[birthday]",
             "years old": "COLUMN:[player].[birthday]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "60": "[employees].[birthdate]",
+            "61": "[employees].[birthdate]"
+        },
         "orig_gold_value_links": {
             "31": "[player].[birthday]",
-            "30": "[player].[birthday]",
-            "localtime": "[player].[birthday]"
+            "30": "[player].[birthday]"
         },
-        "gold_sql": "<GOLD_SQL>",
-        "orig_gold_sql": "SELECT SUM(t2.home_team_goal) FROM Player AS t1 INNER JOIN match AS t2 ON t1.player_api_id = t2.away_player_1 WHERE datetime(CURRENT_TIMESTAMP, 'localtime') - datetime(T1.birthday) < 31",
+        "gold_sql": "SELECT SUM(T3.quantity) FROM Employees AS T1 INNER JOIN orders as T2 ON T1.employeeid = T2.employeeid INNER JOIN orderdetails as T3 ON T3.orderid = T2.orderid WHERE datetime('2026-03-10', 'localtime') - datetime(T1.birthdate) < 61",
+        "orig_gold_sql": "SELECT SUM(t2.home_team_goal) FROM Player AS t1 INNER JOIN match AS t2 ON t1.player_api_id = t2.away_player_1 WHERE datetime('2026-03-10', 'localtime') - datetime(T1.birthday) < 31",
         "evidence_added": true
     },
     {
         "idx": "bird_1095",
-        "db_id": "<DB_ID>",
+        "db_id": "movielens",
         "orig_db_id": "european_football_2",
-        "question": "<QUESTION>",
+        "question": "How much is the average rating of the USA movies? USA refers to country = 'USA'; average rating refers to\u00a0 AVG(rating)",
         "orig_question": "How much is the average build up play speed of the Heart of Midlothian team? Heart of Midlothian refers to team_long_name = 'Heart of Midlothian'; average build up play speed refers to\u00a0 AVG(buildUpPlaySpeed)",
         "orig_masked": "How much is the average [C180] of the [V1] [T6]? [V1] refers to [C173] = '[V1]'; average [C180] refers to\u00a0 AVG([C180]); [V1] is a value of the column [C173]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "USA refers to country = 'USA'; average rating refers to\u00a0 AVG(rating)",
         "orig_evidence": "Heart of Midlothian refers to team_long_name = 'Heart of Midlothian'; average build up play speed refers to\u00a0 AVG(buildUpPlaySpeed)",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "rating": "COLUMN:[u2base].[rating]",
+            "country": "COLUMN:[movies].[country]",
+            "movies": "TABLE:[movies]"
+        },
         "orig_gold_schema_links": {
             "build up play speed": "COLUMN:[team_attributes].[buildupplayspeed]",
             "team_long_name": "COLUMN:[team].[team_long_name]",
             "team": "TABLE:[team]",
             "buildUpPlaySpeed": "COLUMN:[team_attributes].[buildupplayspeed]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "USA": "[movies].[country]"
+        },
         "orig_gold_value_links": {
             "Heart of Midlothian": "[team].[team_long_name]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT Avg(T1.rating) FROM u2base as T1 INNER JOIN movies as T2 ON T1.movieid = T2.movieid WHERE T2.country = 'USA'",
         "orig_gold_sql": "SELECT CAST(SUM(t2.buildUpPlaySpeed) AS REAL) / COUNT(t2.id) FROM Team AS t1 INNER JOIN Team_Attributes AS t2 ON t1.team_api_id = t2.team_api_id WHERE t1.team_long_name = 'Heart of Midlothian'",
         "evidence_added": true
     },
     {
         "idx": "bird_1035",
-        "db_id": "<DB_ID>",
+        "db_id": "movie",
         "orig_db_id": "european_football_2",
-        "question": "<QUESTION>",
+        "question": "Give the MovieID of movies with more than 5 but less than 7 rating. movies with more than 5 but less than 7 rating refers to rating >5 AND rating <7; ",
         "orig_question": "Give the team_fifa_api_id of teams with more than 50 but less than 60 build-up play speed. teams with more than 50 but less than 60 build-up play speed refers to buildUpPlaySpeed >50 AND buildUpPlaySpeed <60; ",
         "orig_masked": "Give the [C199] of [T7] with more than [V1] but less than [V2] [C180]. [T7] with more than [V1] but less than [V2] [C180] refers to [C180] >[V1] AND [C180] <[V2]; ; [V1] is a value of the column [C180]; [V2] is a value of the column [C180]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "movies with more than 5 but less than 7 rating refers to rating >5 AND rating <7; ",
         "orig_evidence": "teams with more than 50 but less than 60 build-up play speed refers to buildUpPlaySpeed >50 AND buildUpPlaySpeed <60; ",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "MovieID": "COLUMN:[movie].[movieid]",
+            "rating": "COLUMN:[movie].[rating]",
+            "movies": "TABLE:[movie]"
+        },
         "orig_gold_schema_links": {
             "team_fifa_api_id": "COLUMN:[team_attributes].[team_fifa_api_id]",
             "build-up play speed": "COLUMN:[team_attributes].[buildupplayspeed]",
             "teams": "TABLE:[team_attributes]",
             "buildUpPlaySpeed": "COLUMN:[team_attributes].[buildupplayspeed]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "5": "[movie].[rating]",
+            "7": "[movie].[rating]"
+        },
         "orig_gold_value_links": {
             "50": "[team_attributes].[buildupplayspeed]",
             "60": "[team_attributes].[buildupplayspeed]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT DISTINCT movieid FROM movie WHERE rating > 5 AND rating < 7",
         "orig_gold_sql": "SELECT DISTINCT team_fifa_api_id FROM Team_Attributes WHERE buildUpPlaySpeed > 50 AND buildUpPlaySpeed < 60",
         "evidence_added": true
     },
     {
         "idx": "bird_806",
-        "db_id": "<DB_ID>",
+        "db_id": "human_resources",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "Provide the location city of the employee who has Milgrom as their last name.  location city refers to location.locationcity where locationID = employee.locationID; Milgrom is the last name of employee;",
         "orig_question": "Provide the eye colour of the superhero who has Karen Beecher-Duncan as their full name.  eye colour refers to colour.colour where eye_colour_id = colour.id; Karen Beecher-Duncan is the full name of superhero;",
         "orig_masked": "Provide the [C5] of the [T9] who has [V1] as their [C20].  [C5] refers to [C5] where [C19] = [C6]; [V1] is the [C20] of [T9];; [V1] is a value of the column [C20]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "location city refers to location.locationcity where locationID = employee.locationID; Milgrom is the last name of employee;",
         "orig_evidence": "eye colour refers to colour.colour where eye_colour_id = colour.id; Karen Beecher-Duncan is the full name of superhero;",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "location city": "COLUMN:[location].[locationcity]",
+            "employee": "TABLE:[employee]",
+            "last name": "COLUMN:[employee].[lastname]",
+            "location.locationcity": "COLUMN:[location].[locationcity]",
+            "locationID": "COLUMN:[location].[locationid]",
+            "employee.locationID": "COLUMN:[employee].[locationid]"
+        },
         "orig_gold_schema_links": {
             "eye colour": "COLUMN:[colour].[colour]",
             "superhero": "TABLE:[superhero]",
@@ -121,79 +160,114 @@
             "eye_colour_id": "COLUMN:[superhero].[eye_colour_id]",
             "colour.id": "COLUMN:[colour].[id]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Milgrom": "[employee].[lastname]"
+        },
         "orig_gold_value_links": {
             "Karen Beecher-Duncan": "[superhero].[full_name]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T2.locationcity FROM employee as T1 INNER JOIN location AS T2 ON T1.locationid = T2.locationid WHERE T1.lastname = 'Milgrom' ",
         "orig_gold_sql": "SELECT T2.colour FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id WHERE T1.full_name = 'Karen Beecher-Duncan'",
         "evidence_added": true
     },
     {
         "idx": "bird_1290",
-        "db_id": "<DB_ID>",
+        "db_id": "food_inspection",
         "orig_db_id": "thrombosis_prediction",
-        "question": "<QUESTION>",
+        "question": "What is the dates of the inspections whose score is the highest in the normal range? dates refers to inspections.date; score is the highest in the normal range refers to MAX(score > 70 and score < 90);",
         "orig_question": "What is the examination date of the patient whose albumin is the highest in the normal range? examination date refers to Date; albumin is the highest in the normal range refers to MAX(ALB > 3.5 and ALB < 5.5);",
         "orig_masked": "What is the [C23] of the [T2] whose [C14] is the highest [C14]? [C23] refers to Date; [C14] is the highest [C14] refers to MAX([C14] > [V1] and [C14] < [V2]);; [V1] is a value of the column [C14]; [V2] is a value of the column [C14]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "dates refers to inspections.date; score is the highest in the normal range refers to MAX(score > 70 and score < 90);",
         "orig_evidence": "examination date refers to Date; albumin is the highest in the normal range refers to MAX(ALB > 3.5 and ALB < 5.5);",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "dates": "COLUMN:[inspections].[date]",
+            "score": "COLUMN:[inspections].[score]",
+            "in the normal range": "COLUMN:[inspections].[score]",
+            "inspections": "TABLE:[inspections]",
+            "inspections.date": "COLUMN:[inspections].[date]"
+        },
         "orig_gold_schema_links": {
             "examination date": "COLUMN:[laboratory].[date]",
             "albumin": "COLUMN:[laboratory].[alb]",
             "in the normal range": "COLUMN:[laboratory].[alb]",
             "patient": "TABLE:[laboratory]",
-            "alb": "COLUMN:[laboratory].[alb]"
+            "alb": "COLUMN:[laboratory].[alb]",
+            "Date": "COLUMN:[laboratory].[date]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "70": "[inspections].[score]",
+            "90": "[inspections].[score]"
+        },
         "orig_gold_value_links": {
             "3.5": "[laboratory].[alb]",
             "5.5": "[laboratory].[alb]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT date FROM inspections WHERE score = (SELECT score FROM inspections WHERE  score > 70 AND score < 90 ORDER BY score DESC LIMIT 1)",
         "orig_gold_sql": "SELECT Date FROM Laboratory WHERE ALB > 3.5 AND ALB < 5.5 ORDER BY ALB DESC LIMIT 1",
         "evidence_added": true
     },
     {
         "idx": "bird_758",
-        "db_id": "<DB_ID>",
+        "db_id": "olympics",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "Provide the country affiliation of the canoeing athlete who is 226 cm tall. 226 cm tall refers to height = 226; canoeing athlete refers to sport_name = 'Canoeing'; country affiliation refers to region_name where region_id = noc_region.id;",
         "orig_question": "Provide the hair colour of the human superhero who is 185 cm tall. 185 cm tall refers to height_cm = 185; human superhero refers to race = 'human'; hair colour refers to colour where hair_colour_id = colour.id;",
         "orig_masked": "Provide the [C5] of the [V1] [C17] who is [V2] cm [C23]. [V2] cm [C23] refers to [C23] = [V2]; [V1] [C17] refers to [T8] = '[V1]'; [C5] refers to [C5] where [C22] = [C5].[C6];; [V1] is a value of the column [C17]; [V2] is a value of the column [C23]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "226 cm tall refers to height = 226; canoeing athlete refers to sport_name = 'Canoeing'; country affiliation refers to region_name where region_id = noc_region.id;",
         "orig_evidence": "185 cm tall refers to height_cm = 185; human superhero refers to race = 'human'; hair colour refers to colour where hair_colour_id = colour.id;",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "athlete": "TABLE:[person]",
+            "region_id": "COLUMN:[person_region].[region_id]",
+            "noc_region.id": "COLUMN:[noc_region].[id]",
+            "country affiliation": "COLUMN:[noc_region].[region_name]",
+            "tall": "COLUMN:[person].[height]",
+            "region_name": "COLUMN:[noc_region].[region_name]",
+            "sport_name": "COLUMN:[sport].[sport_name]",
+            "height": "COLUMN:[person].[height]"
+        },
         "orig_gold_schema_links": {
-            "superhero": "COLUMN:[race].[race]",
+            "superhero": "TABLE:[superhero]",
             "hair_colour_id": "COLUMN:[superhero].[hair_colour_id]",
             "hair colour": "COLUMN:[colour].[colour]",
             "tall": "COLUMN:[superhero].[height_cm]",
             "height_cm": "COLUMN:[superhero].[height_cm]",
             "colour": "COLUMN:[colour].[colour]",
             "race": "TABLE:[race]",
-            "id": "COLUMN:[colour].[id]"
+            "colour.id": "COLUMN:[colour].[id]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "226": "[person].[height]",
+            "226 cm": "[person].[height]",
+            "canoeing": "[sport].[sport_name]"
+        },
         "orig_gold_value_links": {
             "185": "[superhero].[height_cm]",
+            "185 cm": "[superhero].[height_cm]",
             "human": "[race].[race]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT DISTINCT T6.region_name FROM person as T1 INNER JOIN competitor_event as T2 ON T1.id = T2.competitor_id INNER JOIN event as T3 ON T2.event_id = T3.id INNER JOIN sport as T4 ON T3.sport_id = T4.id INNER JOIN person_region as T5 ON T1.id = T5.person_id INNER JOIN noc_region as T6 ON T5.region_id = T6.id WHERE T4.sport_name = 'Canoeing' and T1.height = 226",
         "orig_gold_sql": "SELECT DISTINCT T3.colour FROM superhero AS T1 INNER JOIN race AS T2 ON T1.race_id = T2.id INNER JOIN colour AS T3 ON T1.hair_colour_id = T3.id WHERE T1.height_cm = 185 AND T2.race = 'Human'",
         "evidence_added": true
     },
     {
         "idx": "bird_1188",
-        "db_id": "<DB_ID>",
+        "db_id": "movie",
         "orig_db_id": "thrombosis_prediction",
-        "question": "<QUESTION>",
+        "question": "How many feminine actors born in 1983 were in a Comedic film? List them by ID. feminine refers to gender = 'Female'; born in 1983 refers to YEAR(Date of Birth) = 1983; in a Comedic film refers to genre = 'Comedy'",
         "orig_question": "How many female patients born in 1964 were admitted to the hospital? List them by ID. female refers to SEX = 'F'; born in 1964 refers to YEAR(Birthday) = 1964; admitted to the hospital refers to Admission = '+'",
         "orig_masked": "How many [C64] [T3] [C59] in [V1] were [C58]? List them by [C63]. [C64] refers to [C64] = '[V3]'; [C59] in [V1] refers to YEAR([C59]) = [V1]; [C58] refers to [C58] = '[V2]'; [V1] is a value of the column [C59]; [V2] is a value of the column [C58]; [V3] is a value of the column [C64]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "feminine refers to gender = 'Female'; born in 1983 refers to YEAR(Date of Birth) = 1983; in a Comedic film refers to genre = 'Comedy'",
         "orig_evidence": "female refers to SEX = 'F'; born in 1964 refers to YEAR(Birthday) = 1964; admitted to the hospital refers to Admission = '+'",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "in a Comedic film": "COLUMN:[movie].[genre]",
+            "actors": "TABLE:[actor]",
+            "born": "COLUMN:[actor].[date of birth]",
+            "Genre": "COLUMN:[movie].[genre]",
+            "Date of Birth": "COLUMN:[actor].[date of birth]",
+            "gender": "COLUMN:[actor].[gender]",
+            "feminine": "COLUMN:[actor].[gender]",
+            "ID": "COLUMN:[actor].[actorid]"
+        },
         "orig_gold_schema_links": {
             "admitted to the hospital": "COLUMN:[patient].[admission]",
             "patients": "TABLE:[patient]",
@@ -204,26 +278,36 @@
             "female": "COLUMN:[patient].[sex]",
             "ID": "COLUMN:[patient].[id]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Comedy": "[movie].[genre]",
+            "1983": "[actor].[date of birth]",
+            "Female": "[actor].[gender]"
+        },
         "orig_gold_value_links": {
             "+": "[patient].[admission]",
             "1964": "[patient].[birthday]",
             "F": "[patient].[sex]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT DISTINCT T1.actorid FROM actor as T1 INNER JOIN characters as T2 ON T1.actorid = T2.actorid INNER JOIN movie as T3 ON T3.movieid = T2.movieid WHERE T3.genre = 'Comedy' AND T1.Gender = 'Female' AND STRFTIME('%Y', \"Date of Birth\") = '1983'",
         "orig_gold_sql": "SELECT ID FROM Patient WHERE STRFTIME('%Y', Birthday) = '1964' AND SEX = 'F' AND Admission = '+'",
         "evidence_added": true
     },
     {
         "idx": "bird_1286",
-        "db_id": "<DB_ID>",
+        "db_id": "movie",
         "orig_db_id": "thrombosis_prediction",
-        "question": "<QUESTION>",
+        "question": "For the actors with an abnormal height, how many of them are in comedic films? abnormal height refers to Height (Inches) > = 65; in comedic films refers to genre = 'Comedy';",
         "orig_question": "For the patient with an abnormal alkaliphophatase level, how many of them are admitted to the hospital? abnormal alkaliphophatase level refers to ALP > = 300; admitted to the hospital refers to Admission = '+';",
         "orig_masked": "For the [T3] with an [C15], how many of them are [C58]? [C15] refers to [C15] > = [V1]; [C58] refers to [C58] = '[V2]';; [V1] is a value of the column [C15]; [V2] is a value of the column [C58]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "abnormal height refers to Height (Inches) > = 65; in comedic films refers to genre = 'Comedy';",
         "orig_evidence": "abnormal alkaliphophatase level refers to ALP > = 300; admitted to the hospital refers to Admission = '+';",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "in comedic films": "COLUMN:[movie].[genre]",
+            "abnormal height": "COLUMN:[actor].[height (inches)]",
+            "actors": "TABLE:[actor]",
+            "genre": "COLUMN:[movie].[genre]",
+            "height (inches)": "COLUMN:[actor].[height (inches)]"
+        },
         "orig_gold_schema_links": {
             "admitted to the hospital": "COLUMN:[patient].[admission]",
             "abnormal alkaliphophatase level": "COLUMN:[laboratory].[alp]",
@@ -231,25 +315,34 @@
             "Admission": "COLUMN:[patient].[admission]",
             "ALP": "COLUMN:[laboratory].[alp]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "65": "[actor].[height (inches)]",
+            "Comedy": "[movie].[genre]"
+        },
         "orig_gold_value_links": {
             "300": "[laboratory].[alp]",
             "+": "[patient].[admission]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT COUNT (DISTINCT T1.actorid) FROM actor as T1 INNER JOIN characters as T2 ON T1.actorid = T2.actorid INNER JOIN movie as T3 ON T2.movieid = T3.movieid WHERE T3.genre = 'Comedy' AND T1.\"Height (Inches)\" >= 65",
         "orig_gold_sql": "SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.ALP >= 300 AND T1.Admission = '+'",
         "evidence_added": true
     },
     {
         "idx": "bird_1301",
-        "db_id": "<DB_ID>",
+        "db_id": "book_publishing_company",
         "orig_db_id": "thrombosis_prediction",
-        "question": "<QUESTION>",
+        "question": "Please list the titles of the books with no royalty and an abnormal number of authors. no royalty refers to royalty = 10 ; abnormal number of authors refers to au_ord > 1;",
         "orig_question": "Please list the IDs of the patients with no thrombosis and an abnormal level of creatinine phosphokinase. no thrombosis refers to Thrombosis = 0 ; abnormal level of creatinine phosphokinase refers to CPK < 250;",
         "orig_masked": "Please list the [C32] of the [T1] with no [C13] and an [C20]. no [C13] refers to [C13] = [V2] ; [C20] refers to [C20] < [V1];; [V1] is a value of the column [C20]; [V2] is a value of the column [C13]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "no royalty refers to royalty = 10 ; abnormal number of authors refers to au_ord > 1;",
         "orig_evidence": "no thrombosis refers to Thrombosis = 0 ; abnormal level of creatinine phosphokinase refers to CPK < 250;",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "abnormal number of authors": "COLUMN:[titleauthor].[au_ord]",
+            "royalty": "COLUMN:[titles].[royalty]",
+            "books": "TABLE:[titles]",
+            "au_ord": "COLUMN:[titleauthor].[au_ord]",
+            "titles": "COLUMN:[titles].[title]"
+        },
         "orig_gold_schema_links": {
             "abnormal level of creatinine phosphokinase": "COLUMN:[laboratory].[cpk]",
             "thrombosis": "COLUMN:[examination].[thrombosis]",
@@ -257,12 +350,15 @@
             "CPK": "COLUMN:[laboratory].[cpk]",
             "IDs": "COLUMN:[laboratory].[id]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "10": "[titles].[royalty]",
+            "1": "[titleauthor].[au_ord]"
+        },
         "orig_gold_value_links": {
             "0": "[examination].[thrombosis]",
             "250": "[laboratory].[cpk]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT DISTINCT T1.title FROM titles as T1 INNER JOIN titleauthor as T2 ON T1.title_id = T2.title_id WHERE T2.au_ord > 1 AND T1.royalty = 10",
         "orig_gold_sql": "SELECT DISTINCT T1.ID FROM Laboratory AS T1 INNER JOIN Examination AS T2 ON T1.ID = T2.ID WHERE T2.Thrombosis = 0 AND T1.CPK < 250",
         "evidence_added": true
     }

@@ -1,14 +1,20 @@
 [
     {
         "idx": "bird_1289",
-        "db_id": "<DB_ID>",
+        "db_id": "synthea",
         "orig_db_id": "thrombosis_prediction",
-        "question": "<QUESTION>",
+        "question": "For the patients who are diagnosed with Acute bronchitis (disorder), how many of them have a normal body mass index? diagnosed with Acute bronchitis (disorder) refers to conditions.description = 'Acute bronchitis (disorder)'; normal body mass index refers to Body Mass Index > 18.5 and Body Mass Index < 24.9;",
         "orig_question": "For the patients who are diagnosed with SJS, how many of them have a normal level of total protein? diagnosed with SJS refers to Diagnosis = 'SJS'; normal level of total protein refers to TP > 6.0 and TP < 8.5;",
         "orig_masked": "For the [T3] who are [C61] with [V1], how many of them have a [C53]? [C61] with [V1] refers to [C61] = '[V1]'; [C53] refers to [C53] > [V2] and [C53] < [V3];; [V1] is a value of the column [C61]; [V2] is a value of the column [C53]; [V3] is a value of the column [C53]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "diagnosed with Acute bronchitis (disorder) refers to conditions.description = 'Acute bronchitis (disorder)'; normal body mass index refers to Body Mass Index > 18.5 and Body Mass Index < 24.9;",
         "orig_evidence": "diagnosed with SJS refers to Diagnosis = 'SJS'; normal level of total protein refers to TP > 6.0 and TP < 8.5;",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "diagnosed": "COLUMN:[conditions].[description]",
+            "normal body mass index": "COLUMN:[observations].[value]",
+            "patients": "TABLE:[patients]",
+            "conditions.description": "COLUMN:[conditions].[description]",
+            "Body Mass Index": "COLUMN:[observations].[value]"
+        },
         "orig_gold_schema_links": {
             "diagnosed": "COLUMN:[patient].[diagnosis]",
             "normal level of total protein": "COLUMN:[laboratory].[tp]",
@@ -16,26 +22,35 @@
             "Diagnosis": "COLUMN:[patient].[diagnosis]",
             "TP": "COLUMN:[laboratory].[tp]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Acute bronchitis (disorder)": "[conditions].[description]",
+            "24.9": "[observations].[value]",
+            "18.5": "[observations].[value]"
+        },
         "orig_gold_value_links": {
             "SJS": "[patient].[diagnosis]",
             "6.0": "[laboratory].[tp]",
             "8.5": "[laboratory].[tp]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT COUNT(DISTINCT T1.patient) FROM patients as T1 INNER JOIN conditions as T2 ON T1.patient = T2.patient INNER JOIN observations as T3 ON T2.patient = T3.patient WHERE T2.description = 'Acute bronchitis (disorder)' AND T3.DESCRIPTION = 'Body Mass Index' AND T3.VALUE > 18.5 AND T3.VALUE < 24.9",
         "orig_gold_sql": "SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T1.Diagnosis = 'SJS' AND T2.TP > 6.0 AND T2.TP < 8.5",
         "evidence_added": true
     },
     {
         "idx": "bird_1124",
-        "db_id": "<DB_ID>",
+        "db_id": "human_resources",
         "orig_db_id": "european_football_2",
-        "question": "<QUESTION>",
+        "question": "Who are the employees that had above average performance? List down their ssn. had above average performance refers to performance = 'Good';",
         "orig_question": "Who are the players that tend to be attacking when their mates were doing attack moves? List down their name. tend to be attacking when their mates were doing attack moves refers to attacking_work_rate = 'high';",
         "orig_masked": "Who are the [T4] that [C131]? List down their [C126]. [C131] refers to [C131] = '[V1]';; [V1] is a value of the column [C131]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "had above average performance refers to performance = 'Good';",
         "orig_evidence": "tend to be attacking when their mates were doing attack moves refers to attacking_work_rate = 'high';",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "performance": "COLUMN:[employee].[performance]",
+            "had above average performance": "COLUMN:[employee].[performance]",
+            "employees": "TABLE:[employee]",
+            "ssn": "COLUMN:[employee].[ssn]"
+        },
         "orig_gold_schema_links": {
             "attacking_work_rate": "COLUMN:[player_attributes].[attacking_work_rate]",
             "attack moves": "COLUMN:[player_attributes].[attacking_work_rate]",
@@ -44,24 +59,33 @@
             "mates": "TABLE:[player]",
             "name": "COLUMN:[player].[player_name]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Good": "[employee].[performance]"
+        },
         "orig_gold_value_links": {
             "high": "[player_attributes].[attacking_work_rate]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT DISTINCT ssn FROM employee WHERE performance = 'Good'",
         "orig_gold_sql": "SELECT DISTINCT t1.player_name FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t2.attacking_work_rate = 'high'",
         "evidence_added": true
     },
     {
         "idx": "bird_1088",
-        "db_id": "<DB_ID>",
+        "db_id": "synthea",
         "orig_db_id": "european_football_2",
-        "question": "<QUESTION>",
+        "question": "Please list the ssn of the patients whose height and weight are over 100. height are over 100 refers to height value > 100; weight refers to weight are over 100 refers to weight value > 100;",
         "orig_question": "Please list the names of the players whose volley score and dribbling score are over 70. volley score are over 70 refers to volleys > 70; dribbling score refers to dribbling are over 70 refers to dribbling > 70;",
         "orig_masked": "Please list the [C126] of the [T4] whose [C169] and [C138] are over [V1]. [C169] are over [V1] refers to [C169] > [V1]; [C138] refers to [C138] are over [V1] refers to [C138] > [V1];; [V1] is a value of the column [C169]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "height are over 100 refers to height value > 100; weight refers to weight are over 100 refers to weight value > 100;",
         "orig_evidence": "volley score are over 70 refers to volleys > 70; dribbling score refers to dribbling are over 70 refers to dribbling > 70;",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "ssn": "COLUMN:[patients].[ssn]",
+            "patients": "TABLE:[patients]",
+            "height": "COLUMN:[observations].[value]",
+            "weight": "COLUMN:[observations].[value]",
+            "height value": "COLUMN:[observations].[value]",
+            "weight value": "COLUMN:[observations].[value]"
+        },
         "orig_gold_schema_links": {
             "names": "COLUMN:[player].[player_name]",
             "players": "TABLE:[player]",
@@ -71,11 +95,13 @@
             "dribbling": "COLUMN:[player_attributes].[dribbling]",
             "volleys": "COLUMN:[player_attributes].[volleys]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "100": "[observations].[value]"
+        },
         "orig_gold_value_links": {
             "70": "[player_attributes].[volleys]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT ssn FROM patients WHERE patient in (SELECT patient from observations WHERE description = 'Body Height' AND value > 100) AND patient in (SELECT patient from observations WHERE description = 'Body Weight' AND value > 100)",
         "orig_gold_sql": "SELECT DISTINCT t1.player_name FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t2.volleys > 70 AND t2.dribbling > 70",
         "evidence_added": true
     },
@@ -112,14 +138,23 @@
     },
     {
         "idx": "bird_733",
-        "db_id": "<DB_ID>",
+        "db_id": "movies_4",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "How many english-language movies did Walt Disney Pictures produce?  english-language refers to language_name = 'English' where language_id = movie_language.language_id; movies that Walt Disney Pictures produced refers to company_name = 'Walt Disney Pictures'",
         "orig_question": "How many gold-eyed superheroes did Marvel Comics publish?  gold-eyed refers to colour = 'Gold' where eye_colour_id = colour.id; superheroes that Marvel Comics published refers to publisher_name = 'Marvel Comics'",
         "orig_masked": "How many [V2]-[C19] [T9] did [V1] [T7]?  [V2]-[C19] refers to [C5] = '[V2]' where [C19] = [C6]; [T9] that [V1] [T7] refers to [C15] = '[V1]'; [V1] is a value of the column [C15]; [V2] is a value of the column [C5]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "english-language refers to language_name = 'English' where language_id = movie_language.language_id; movies that Walt Disney Pictures produced refers to company_name = 'Walt Disney Pictures'",
         "orig_evidence": "gold-eyed refers to colour = 'Gold' where eye_colour_id = colour.id; superheroes that Marvel Comics published refers to publisher_name = 'Marvel Comics'",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "language": "COLUMN:[language].[language_name]",
+            "movies": "TABLE:[movie]",
+            "produce": "TABLE:[production_company]",
+            "language_name": "COLUMN:[language].[language_name]",
+            "language_id": "COLUMN:[language].[language_id]",
+            "movie_language.language_id": "COLUMN:[movie_languages].[language_id]",
+            "produced": "TABLE:[production_company]",
+            "company_name": "COLUMN:[production_company].[company_name]"
+        },
         "orig_gold_schema_links": {
             "eyed": "COLUMN:[superhero].[eye_colour_id]",
             "superheroes": "TABLE:[superhero]",
@@ -130,25 +165,33 @@
             "published": "TABLE:[publisher]",
             "publisher_name": "COLUMN:[publisher].[publisher_name]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Walt Disney Pictures": "[production_company].[company_name]",
+            "English": "[language].[language_name]"
+        },
         "orig_gold_value_links": {
             "Marvel Comics": "[publisher].[publisher_name]",
             "gold": "[colour].[colour]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT COUNT(DISTINCT T1.movie_id) FROM movie as T1 INNER JOIN movie_languages as T2 ON T1.movie_id = T2.movie_id INNER JOIN language as T3 ON T2.language_id=T3.language_id INNER JOIN movie_company as T4 ON T4.movie_id = T1.movie_id INNER JOIN production_company as T5 ON T5.company_id = T4.company_id WHERE T3.language_name = 'English' AND T5.company_name = 'Walt Disney Pictures'",
         "orig_gold_sql": "SELECT COUNT(T1.id) FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id INNER JOIN colour AS T3 ON T1.eye_colour_id = T3.id WHERE T2.publisher_name = 'Marvel Comics' AND T3.colour = 'Gold'",
         "evidence_added": true
     },
     {
         "idx": "bird_753",
-        "db_id": "<DB_ID>",
+        "db_id": "olympics",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "Among the athletes with weight from 50 to 100, list the names of the athletes with no height.  weight from 50 to 100 refers to weight BETWEEN 50 AND 100; no height refers to height = 0",
         "orig_question": "Among the superheroes with height from 170 to 190, list the names of the superheroes with no eye color.  height from 170 to 190 refers to height_cm BETWEEN 170 AND 190; no eye color refers to colour = 'No Colour'",
         "orig_masked": "Among the [T9] with [C23] from [V2] to [V3], list the [C28] of the [T9] with no [C19].  [C23] from [V2] to [V3] refers to [C23] BETWEEN [V2] AND [V3]; no [C19] refers to [C5] = '[V1]'; [V1] is a value of the column [C5]; [V2] is a value of the column [C23]; [V3] is a value of the column [C23]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "weight from 50 to 100 refers to weight BETWEEN 50 AND 100; no height refers to height = 0",
         "orig_evidence": "height from 170 to 190 refers to height_cm BETWEEN 170 AND 190; no eye color refers to colour = 'No Colour'",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "athletes": "TABLE:[person]",
+            "names": "COLUMN:[person].[full_name]",
+            "height": "COLUMN:[person].[height]",
+            "weight": "COLUMN:[person].[weight]"
+        },
         "orig_gold_schema_links": {
             "superheroes": "TABLE:[superhero]",
             "names": "COLUMN:[superhero].[superhero_name]",
@@ -157,26 +200,37 @@
             "height_cm": "COLUMN:[superhero].[height_cm]",
             "colour": "COLUMN:[colour].[colour]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "50": "[person].[weight]",
+            "100": "[person].[weight]",
+            "0": "[person].[height]"
+        },
         "orig_gold_value_links": {
             "170": "[superhero].[height_cm]",
             "190": "[superhero].[height_cm]",
             "No Colour": "[colour].[colour]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT full_name from person WHERE weight BETWEEN 50 AND 100 and height = 0",
         "orig_gold_sql": "SELECT DISTINCT T1.superhero_name FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id WHERE T1.height_cm BETWEEN 170 AND 190 AND T2.colour = 'No Colour'",
         "evidence_added": true
     },
     {
         "idx": "bird_1093",
-        "db_id": "<DB_ID>",
+        "db_id": "books",
         "orig_db_id": "european_football_2",
-        "question": "<QUESTION>",
+        "question": "What is the average price of the books published before the year 1950? average price = DIVIDE(SUM(price), COUNT(line_id)); published before the year 1950 refers to strftime('%Y', publication_date) < '1950';",
         "orig_question": "What is the average overall rating of the players born before the year 1986? average overall rating = DIVIDE(SUM(overall_rating), COUNT(id)); born before the year 1986 refers to strftime('%Y', birthday) < '1986';",
         "orig_masked": "What is the average [C153] of the [T4] [C121] [C121] the [C121] [V1]? average [C153] = DIVIDE(SUM([C153]), COUNT([C123])); [C121] [C121] the [C121] [V1] refers to strftime('%Y', [C121]) < '[V1]';; [V1] is a value of the column [C121]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "average price = DIVIDE(SUM(price), COUNT(line_id)); published before the year 1950 refers to strftime('%Y', publication_date) < '1950';",
         "orig_evidence": "average overall rating = DIVIDE(SUM(overall_rating), COUNT(id)); born before the year 1986 refers to strftime('%Y', birthday) < '1986';",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "price": "COLUMN:[order_line].[price]",
+            "books": "TABLE:[book]",
+            "published": "COLUMN:[book].[publication_date]",
+            "line_id": "COLUMN:[order_line].[line_id]",
+            "publication_date": "COLUMN:[book].[publication_date]",
+            "year": "COLUMN:[book].[publication_date]"
+        },
         "orig_gold_schema_links": {
             "overall rating": "COLUMN:[player_attributes].[overall_rating]",
             "players": "TABLE:[player]",
@@ -184,27 +238,33 @@
             "id": "COLUMN:[player].[id]",
             "birthday": "COLUMN:[player].[birthday]",
             "year": "COLUMN:[player].[birthday]",
-            "before": "COLUMN:[player].[birthday]",
             "overall_rating": "COLUMN:[player_attributes].[overall_rating]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "1950": "[book].[publication_date]"
+        },
         "orig_gold_value_links": {
             "1986": "[player].[birthday]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT SUM(T1.price) / COUNT(T1.line_id) FROM order_line AS T1 INNER JOIN book AS T2 ON T1.book_id = T2.book_id WHERE strftime('%Y', publication_date) < '1950'",
         "orig_gold_sql": "SELECT SUM(t2.overall_rating) / COUNT(t1.id) FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE SUBSTR(t1.birthday, 1, 4) < '1986'",
         "evidence_added": true
     },
     {
         "idx": "bird_827",
-        "db_id": "<DB_ID>",
+        "db_id": "olympics",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "What is the average height of a non-USA athletes in Summer? average = AVG(height); non-USA athletes refers to region_name <> 'USA'; Summer refers to season = 'Summer';",
         "orig_question": "What is the average height of a non-human superhero in Dark Horse Comics? average = AVG(height_cm); non-human superhero refers to race <> 'Human'; Dark Horse Comics refers to publisher_name = 'Dark Horse Comics';",
         "orig_masked": "What is the average [C23] of a non-[V2] [T9] in [V1]? average = AVG([C23]); non-[V2] [T9] refers to [C17] <> '[V2]'; [V1] refers to [C15] = '[V1]';; [V1] is a value of the column [C15]; [V2] is a value of the column [C17]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "non-USA athletes refers to region_name <> 'USA'; Summer refers to season = 'Summer';",
         "orig_evidence": "average = AVG(height_cm); non-human superhero refers to race <> 'Human'; Dark Horse Comics refers to publisher_name = 'Dark Horse Comics';",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "season": "COLUMN:[games].[season]",
+            "height": "COLUMN:[person].[height]",
+            "athletes": "TABLE:[person]",
+            "region_name": "COLUMN:[noc_region].[region_name]"
+        },
         "orig_gold_schema_links": {
             "publisher_name": "COLUMN:[publisher].[publisher_name]",
             "height_cm": "COLUMN:[superhero].[height_cm]",
@@ -212,25 +272,38 @@
             "height": "COLUMN:[superhero].[height_cm]",
             "race": "COLUMN:[race].[race]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Summer": "[games].[season]",
+            "USA": "[noc_region].[region_name]"
+        },
         "orig_gold_value_links": {
             "Dark Horse Comics": "[publisher].[publisher_name]",
             "Human": "[race].[race]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT avg(height) FROM person WHERE id in (SELECT T1.id FROM person as T1 INNER JOIN person_region as T2 ON T1.id = T2.person_id INNER JOIN noc_region as T3 ON T2.region_id = T3.id INNER JOIN games_competitor as T4 ON T1.id = T4.person_id INNER JOIN games as T5 ON T4.games_id = T5.id WHERE T5.season = 'Summer' and T3.region_name != 'USA')",
         "orig_gold_sql": "SELECT AVG(T1.height_cm) FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id INNER JOIN race AS T3 ON T1.race_id = T3.id WHERE T2.publisher_name = 'Dark Horse Comics' AND T3.race != 'Human'",
         "evidence_added": true
     },
     {
         "idx": "bird_1291",
-        "db_id": "<DB_ID>",
+        "db_id": "olympics",
         "orig_db_id": "thrombosis_prediction",
-        "question": "<QUESTION>",
+        "question": "How many American athletes have a normal level of both height and weight? American refers to region_name = 'USA'; normal level of both height and weight refers to height > 100 and height < 200 AND weight between 50 and 95;",
         "orig_question": "How many male patients have a normal level of both albumin and total protein? male refers to Sex = 'M'; normal level of both albumin and total protein refers to ALB > 3.5 and ALB < 5.5 AND TP between 6.0 and 8.5;",
         "orig_masked": "How many [C64] [T3] have a [C53],[C14]? [C64] refers to [C64] = '[V5]'; [C53],[C14] refers to [C14] > [V1] and [C14] < [V2] AND [C53] between [V3] and [V4];; [V1] is a value of the column [C14]; [V2] is a value of the column [C14]; [V3] is a value of the column [C53]; [V4] is a value of the column [C53]; [V5] is a value of the column [C64]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "American refers to region_name = 'USA'; normal level of both height and weight refers to height > 100 and height < 200 AND weight between 50 and 95;",
         "orig_evidence": "male refers to Sex = 'M'; normal level of both albumin and total protein refers to ALB > 3.5 and ALB < 5.5 AND TP between 6.0 and 8.5;",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "normal level of both height and weight": [
+                "COLUMN:[person].[height]",
+                "COLUMN:[person].[weight]"
+            ],
+            "athletes": "TABLE:[person]",
+            "region_name": "COLUMN:[noc_region].[region_name]",
+            "American": "COLUMN:[noc_region].[region_name]",
+            "height": "COLUMN:[person].[height]",
+            "weight": "COLUMN:[person].[weight]"
+        },
         "orig_gold_schema_links": {
             "normal level of both albumin and total protein": [
                 "COLUMN:[laboratory].[tp]",
@@ -242,7 +315,13 @@
             "ALB": "COLUMN:[laboratory].[alb]",
             "TP": "COLUMN:[laboratory].[tp]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "USA": "[noc_region].[region_name]",
+            "100": "[person].[height]",
+            "200": "[person].[height]",
+            "50": "[person].[weight]",
+            "95": "[person].[weight]"
+        },
         "orig_gold_value_links": {
             "M": "[patient].[sex]",
             "3.5": "[laboratory].[alb]",
@@ -250,33 +329,42 @@
             "6.0": "[laboratory].[tp]",
             "8.5": "[laboratory].[tp]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT COUNT(DISTINCT T1.id) FROM person as T1 INNER JOIN person_region as T2 ON T2.person_id = T1.id INNER JOIN noc_region as T3 ON T2.region_id = T3.id WHERE T3.region_name = 'USA' AND T1.height > 100 AND T1.height < 200 AND T1.weight BETWEEN 50 AND 95",
         "orig_gold_sql": "SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T1.SEX = 'M'  AND T2.ALB > 3.5 AND T2.ALB < 5.5 AND T2.TP BETWEEN 6.0 AND 8.5",
         "evidence_added": true
     },
     {
         "idx": "bird_801",
-        "db_id": "<DB_ID>",
+        "db_id": "olympics",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "Find the ratio between USA athletes and France athletes.  ratio = DIVIDE(SUM(noc_region.id = 217) / SUM(noc_region.id = 70)); USA athletes refers to region_name = 'USA'; France athletes refers to region_name = 'France';",
         "orig_question": "Find the ratio between male superheroes and female superheroes.  ratio = DIVIDE(SUM(gender_id = 1) / SUM(gender_id = 2)); male superheroes refers to gender = 'Female'; female superheroes refers to gender = 'Male';",
         "orig_masked": "Find the ratio between [V2] [T9] and [V1] [T9].  ratio = DIVIDE(SUM([C21] = [V3]) / SUM([C21] = [V4])); [V2] [T9] refers to [C7] = '[V1]'; [V1] [T9] refers to [C7] = '[V2]';; [V1] is a value of the column [C7]; [V2] is a value of the column [C7]; [V3] is a value of the column [C21]; [V4] is a value of the column [C21]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "ratio = DIVIDE(SUM(noc_region.id = 217) / SUM(noc_region.id = 70)); USA athletes refers to region_name = 'USA'; France athletes refers to region_name = 'France';",
         "orig_evidence": "ratio = DIVIDE(SUM(gender_id = 1) / SUM(gender_id = 2)); male superheroes refers to gender = 'Female'; female superheroes refers to gender = 'Male';",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "athletes": "TABLE:[person]",
+            "noc_region.id": "COLUMN:[noc_region].[id]",
+            "region_name": "COLUMN:[noc_region].[region_name]"
+        },
         "orig_gold_schema_links": {
             "superheroes": "TABLE:[superhero]",
             "gender_id": "COLUMN:[superhero].[gender_id]",
             "gender": "COLUMN:[gender].[gender]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "USA": "[noc_region].[region_name]",
+            "France": "[noc_region].[region_name]",
+            "217": "[noc_region].[id]",
+            "70": "[noc_region].[id]"
+        },
         "orig_gold_value_links": {
             "Male": "[gender].[gender]",
             "Female": "[gender].[gender]",
             "1": "[superhero].[gender_id]",
             "2": "[superhero].[gender_id]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT CAST(COUNT(CASE WHEN T3.region_name = 'USA' THEN T1.id ELSE NULL END) AS REAL) / COUNT(CASE WHEN T3.region_name = 'France' THEN T1.id ELSE NULL END) FROM person AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.person_id INNER JOIN noc_region as T3 ON T2.region_id = T3.id",
         "orig_gold_sql": "SELECT CAST(COUNT(CASE WHEN T2.gender = 'Male' THEN T1.id ELSE NULL END) AS REAL) / COUNT(CASE WHEN T2.gender = 'Female' THEN T1.id ELSE NULL END) FROM superhero AS T1 INNER JOIN gender AS T2 ON T1.gender_id = T2.id",
         "evidence_added": true
     }

@@ -1,14 +1,19 @@
 [
     {
         "idx": "bird_1240",
-        "db_id": "<DB_ID>",
+        "db_id": "shipping",
         "orig_db_id": "thrombosis_prediction",
-        "question": "<QUESTION>",
+        "question": "From shipments in 2017, what is the average weight that is lower than the normal range. shipments in 2017 refers to ship_date like '2017%'; average weight = AVG(weight); weight that is lower than the normal range refers to weight < 6000;",
         "orig_question": "From laboratory examinations in 1991, what is the average hematoclit level that is lower than the normal range. laboratory examinations in 1991 refers to Date like '1991%'; average hematoclit level = AVG(HCT); hematoclit level that is lower than the normal range refers to HCT < 29;",
         "orig_masked": "From [T2] in [V1], what is the average [C30] that is lower than the [C30]. [T2] in [V1] refers to [C23] like '[V1]%'; average [C30] = AVG([C30]); [C30] that is lower than the [C30] refers to [C30] < [V2];; [V1] is a value of the column [C23]; [V2] is a value of the column [C30]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "shipments in 2017 refers to ship_date like '2017%'; average weight = AVG(weight); weight that is lower than the normal range refers to weight < 6000;",
         "orig_evidence": "laboratory examinations in 1991 refers to Date like '1991%'; average hematoclit level = AVG(HCT); hematoclit level that is lower than the normal range refers to HCT < 29;",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "shipments": "TABLE:[shipment]",
+            "weight": "COLUMN:[shipment].[weight]",
+            "ship_date": "COLUMN:[shipment].[ship_date]",
+            "normal range": "COLUMN:[shipment].[weight]"
+        },
         "orig_gold_schema_links": {
             "laboratory examinations": "TABLE:[laboratory]",
             "hematoclit level": "COLUMN:[laboratory].[hct]",
@@ -16,25 +21,37 @@
             "HCT": "COLUMN:[laboratory].[hct]",
             "normal range": "COLUMN:[laboratory].[hct]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "2017": "[shipment].[ship_date]",
+            "6000": "[shipment].[weight]"
+        },
         "orig_gold_value_links": {
             "1991": "[laboratory].[date]",
             "29": "[laboratory].[hct]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT AVG(weight) FROM SHIPMENT WHERE weight < 6000 AND STRFTIME('%Y', ship_date) == '2017'",
         "orig_gold_sql": "SELECT AVG(T2.HCT) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.HCT < 29 AND STRFTIME('%Y', T2.Date) = '1991'",
         "evidence_added": true
     },
     {
         "idx": "bird_773",
-        "db_id": "<DB_ID>",
+        "db_id": "retail_complains",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "Which clients have the same day, month and district id? Indicate the ssn of the clients. which clients refers to client_id; the same day, month and district id refers to day = month AND month = district_id; ssn refers to social;",
         "orig_question": "Which superhero has the same eyes, hair and skin colour? Indicate the publisher of the superhero. which superhero refers to superhero_name; the same eyes, hair and skin colour refers to hair_colour_id = skin_colour_id AND hair_colour_id = eye_colour_id; publisher refers to publisher_name;",
         "orig_masked": "Which [T9] has the same [C19], [C22] and [C27]? Indicate the [T7] of the [T9]. which [T9] refers to [C28]; the same [C19], [C22] and [C27] refers to [C22] = [C27] AND [C22] = [C19]; [T7] refers to [C15];",
-        "evidence": "<EVIDENCE>",
+        "evidence": "which clients refers to client_id; the same day, month and district id refers to day = month AND month = district_id; ssn refers to social;",
         "orig_evidence": "which superhero refers to superhero_name; the same eyes, hair and skin colour refers to hair_colour_id = skin_colour_id AND hair_colour_id = eye_colour_id; publisher refers to publisher_name;",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "clients": "TABLE:[client]",
+            "day": "COLUMN:[client].[day]",
+            "month": "COLUMN:[client].[month]",
+            "district id": "COLUMN:[client].[district_id]",
+            "district_id": "COLUMN:[client].[district_id]",
+            "ssn": "COLUMN:[client].[social]",
+            "social": "COLUMN:[client].[social]",
+            "client_id": "COLUMN:[client].[client_id]"
+        },
         "orig_gold_schema_links": {
             "publisher": "TABLE:[publisher]",
             "superhero_name": "COLUMN:[superhero].[superhero_name]",
@@ -47,22 +64,28 @@
             "eyes": "COLUMN:[superhero].[eye_colour_id]",
             "hair": "COLUMN:[superhero].[hair_colour_id]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {},
         "orig_gold_value_links": {},
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT DISTINCT social FROM client WHERE day = month AND month = district_id",
         "orig_gold_sql": "SELECT T1.superhero_name, T2.publisher_name FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id WHERE T1.eye_colour_id = T1.hair_colour_id AND T1.eye_colour_id = T1.skin_colour_id",
         "evidence_added": true
     },
     {
         "idx": "bird_1023",
-        "db_id": "<DB_ID>",
+        "db_id": "cars",
         "orig_db_id": "european_football_2",
-        "question": "<QUESTION>",
+        "question": "Among the cars with an overall horsepower between 100 to 200, how many cars whose going to be using an eight cylinder engine? horsepower > = 100 AND horsepower < 200; cars whose going to be using an eight cylinder engine refers to cylinders = '8';",
         "orig_question": "Among the players with an overall rating between 60 to 65, how many players whose going to be in all of your attack moves instead of defensing? overall_rating > = 60 AND overall_rating < 65; players whose going to be in all of your attack moves instead of defensing refers to defensive_work_rate = 'low';",
         "orig_masked": "Among the [T5] with an [C153] between [V2] to [V3], how many [T5] whose going to be [C137]? [C153] > = [V2] AND [C153] < [V3]; [T5] whose going to be [C137] refers to [C137] = '[V1]';; [V1] is a value of the column [C137]; [V2] is a value of the column [C153]; [V3] is a value of the column [C153]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "horsepower > = 100 AND horsepower < 200; cars whose going to be using an eight cylinder engine refers to cylinders = '8';",
         "orig_evidence": "overall_rating > = 60 AND overall_rating < 65; players whose going to be in all of your attack moves instead of defensing refers to defensive_work_rate = 'low';",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "overall horsepower": "COLUMN:[data].[horsepower]",
+            "using an eight cylinder engine": "COLUMN:[data].[cylinders]",
+            "cars": "TABLE:[data]",
+            "horsepower": "COLUMN:[data].[horsepower]",
+            "cylinders": "COLUMN:[data].[cylinders]"
+        },
         "orig_gold_schema_links": {
             "overall rating": "COLUMN:[player_attributes].[overall_rating]",
             "in all of your attack moves instead of defensing": "COLUMN:[player_attributes].[defensive_work_rate]",
@@ -70,51 +93,72 @@
             "overall_rating": "COLUMN:[player_attributes].[overall_rating]",
             "defensive_work_rate": "COLUMN:[player_attributes].[defensive_work_rate]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "100": "[data].[horsepower]",
+            "200": "[data].[horsepower]",
+            "8": "[data].[cylinders]"
+        },
         "orig_gold_value_links": {
             "60": "[player_attributes].[overall_rating]",
             "65": "[player_attributes].[overall_rating]",
             "low": "[player_attributes].[defensive_work_rate]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT COUNT(*) FROM data WHERE horsepower BETWEEN 100 AND 200 AND cylinders = 8",
         "orig_gold_sql": "SELECT COUNT(id) FROM Player_Attributes WHERE overall_rating BETWEEN 60 AND 65 AND defensive_work_rate = 'low'",
         "evidence_added": true
     },
     {
         "idx": "bird_829",
-        "db_id": "<DB_ID>",
+        "db_id": "cars",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "Which origin created more cars: US or Japan? Find the difference in the number of cars.  US refers to country = 'USA'; Japan refers to country = 'Japan'; difference = SUBTRACT(SUM(country = 'USA'), SUM(country = 'Japan'));",
         "orig_question": "Which publisher created more superheroes: DC or Marvel Comics? Find the difference in the number of superheroes.  DC refers to publisher_name = 'DC Comics'; Marvel Comics refers to publisher_name = 'Marvel Comics'; difference = SUBTRACT(SUM(publisher_name = 'DC Comics'), SUM(publisher_name = 'Marvel Comics'));",
         "orig_masked": "Which [T7] created more [T9]: [C15] or [V1]? Find the difference in the number of [T9].  [C15] refers to [C15] = '[V2]'; [V1] refers to [C15] = '[V1]'; difference = SUBTRACT(SUM([C15] = '[V2]'), SUM([C15] = '[V1]'));; [V1] is a value of the column [C15]; [V2] is a value of the column [C15]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "US refers to country = 'USA'; Japan refers to country = 'Japan'; difference = SUBTRACT(SUM(country = 'USA'), SUM(country = 'Japan'));",
         "orig_evidence": "DC refers to publisher_name = 'DC Comics'; Marvel Comics refers to publisher_name = 'Marvel Comics'; difference = SUBTRACT(SUM(publisher_name = 'DC Comics'), SUM(publisher_name = 'Marvel Comics'));",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "origin": "TABLE:[country]",
+            "cars": "TABLE:[data]",
+            "country": "COLUMN:[country].[country]",
+            "US": "COLUMN:[country].[country]"
+        },
         "orig_gold_schema_links": {
             "publisher": "TABLE:[publisher]",
             "superheroes": "TABLE:[superhero]",
             "publisher_name": "COLUMN:[publisher].[publisher_name]",
             "DC": "COLUMN:[publisher].[publisher_name]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "USA": "[country].[country]",
+            "Japan": "[country].[country]"
+        },
         "orig_gold_value_links": {
             "Marvel Comics": "[publisher].[publisher_name]",
             "DC Comics": "[publisher].[publisher_name]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT SUM(CASE WHEN T3.country = 'USA' THEN 1 ELSE 0 END) - SUM(CASE WHEN T3.country = 'Japan' THEN 1 ELSE 0 END) FROM data AS T1 INNER JOIN production AS T2 ON T1.ID = T2.country INNER JOIN country as T3 ON T2.country = T3.origin",
         "orig_gold_sql": "SELECT SUM(CASE WHEN T2.publisher_name = 'DC Comics' THEN 1 ELSE 0 END) - SUM(CASE WHEN T2.publisher_name = 'Marvel Comics' THEN 1 ELSE 0 END) FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id",
         "evidence_added": true
     },
     {
         "idx": "bird_772",
-        "db_id": "<DB_ID>",
+        "db_id": "olympics",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "List the height, weight and full name of all F athletes sent by China.  height refers to height; weight refers to weight; full name refers to full_name; F athletes refers to gender = 'F'; sent by China refers to region_name = 'China';",
         "orig_question": "List the eyes, hair and skin colour of all female superheroes published by Dark Horse Comics.  eyes refers to eye_colour_id; hair refers to hair_colour_id; skin colour refers to skin_colour_id; female superheroes refers to gender = 'Female'; published by Dark Horse Comics refers to publisher_name = 'Dark Horse Comics';",
         "orig_masked": "List the [C19], [C22] and [C27] of all [V2] [T9] [T7] by [V1].  [C19] refers to [C19]; [C22] refers to [C22]; [C27] refers to [C27]; [V2] [T9] refers to [C7] = '[V2]'; [T7] by [V1] refers to [C15] = '[V1]';; [V1] is a value of the column [C15]; [V2] is a value of the column [C7]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "height refers to height; weight refers to weight; full name refers to full_name; F athletes refers to gender = 'F'; sent by China refers to region_name = 'China';",
         "orig_evidence": "eyes refers to eye_colour_id; hair refers to hair_colour_id; skin colour refers to skin_colour_id; female superheroes refers to gender = 'Female'; published by Dark Horse Comics refers to publisher_name = 'Dark Horse Comics';",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "height": "COLUMN:[person].[height]",
+            "weight": "COLUMN:[person].[weight]",
+            "full name": "COLUMN:[person].[full_name]",
+            "athletes": "TABLE:[person]",
+            "sent": "TABLE:[noc_region]",
+            "gender": "COLUMN:[person].[gender]",
+            "full_name": "COLUMN:[person].[full_name]",
+            "region_name": "COLUMN:[noc_region].[region_name]"
+        },
         "orig_gold_schema_links": {
             "eyes": "COLUMN:[superhero].[eye_colour_id]",
             "hair": "COLUMN:[superhero].[hair_colour_id]",
@@ -127,25 +171,35 @@
             "skin_colour_id": "COLUMN:[superhero].[skin_colour_id]",
             "publisher_name": "COLUMN:[publisher].[publisher_name]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "China": "[noc_region].[region_name]",
+            "F": "[person].[gender]"
+        },
         "orig_gold_value_links": {
             "Dark Horse Comics": "[publisher].[publisher_name]",
             "Female": "[gender].[gender]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T1.weight, T1.height, T1.full_name from person as T1 INNER JOIN person_region as T2 ON T1.id = T2.person_id INNER JOIN noc_region as T3 ON T2.region_id = T3.id WHERE T3.region_name = 'China' AND T1.gender = 'F'",
         "orig_gold_sql": "SELECT T1.eye_colour_id, T1.hair_colour_id, T1.skin_colour_id FROM superhero AS T1 INNER JOIN publisher AS T2 ON T2.id = T1.publisher_id INNER JOIN gender AS T3 ON T3.id = T1.gender_id WHERE T2.publisher_name = 'Dark Horse Comics' AND T3.gender = 'Female'",
         "evidence_added": true
     },
     {
         "idx": "bird_1080",
-        "db_id": "<DB_ID>",
+        "db_id": "synthea",
         "orig_db_id": "european_football_2",
-        "question": "<QUESTION>",
+        "question": "Among the patients whose prefix was the Mrs. prefix when immunized, how many of them would receive Penicillin 250 MG when immunized? prefix when immunized was the Mrs. refers to prefix = 'Mrs.'; patients who would receive Penicillin 250 MG refers to description = 'Penicillin V Potassium 250 MG';",
         "orig_question": "Among the players whose preferred foot was the left foot when attacking, how many of them would remain in his position when the team attacked? preferred foot when attacking was the left refers to preferred_foot = 'left'; players who would remain in his position when the team attacked refers to attacking_work_rate = 'low';",
         "orig_masked": "Among the [T5] whose [C159] was the [V1] [C159] when [C131], how many of them would [C131]? [C159] when [C131] was the [V1] refers to [C159] = '[V1]'; [T5] who would [C131] refers to [C131] = '[V2]';; [V1] is a value of the column [C159]; [V2] is a value of the column [C131]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "prefix when immunized was the Mrs. refers to prefix = 'Mrs.'; patients who would receive Penicillin 250 MG refers to description = 'Penicillin V Potassium 250 MG';",
         "orig_evidence": "preferred foot when attacking was the left refers to preferred_foot = 'left'; players who would remain in his position when the team attacked refers to attacking_work_rate = 'low';",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "patients": "TABLE:[patients]",
+            "prefix": "COLUMN:[patients].[prefix]",
+            "immunized": "COLUMN:[immunizations].[date]",
+            "receive Penicillin 250 MG when immunized": "COLUMN:[medications].[description]",
+            "receive Penicillin 250 MG": "COLUMN:[medications].[description]",
+            "description": "COLUMN:[medications].[description]"
+        },
         "orig_gold_schema_links": {
             "players": "TABLE:[player_attributes]",
             "preferred foot": "COLUMN:[player_attributes].[preferred_foot]",
@@ -155,25 +209,36 @@
             "preferred_foot": "COLUMN:[player_attributes].[preferred_foot]",
             "attacking_work_rate": "COLUMN:[player_attributes].[attacking_work_rate]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Mrs.": "[patients].[prefix]",
+            "Penicillin V Potassium 250 MG": "[medications].[description]"
+        },
         "orig_gold_value_links": {
             "left": "[player_attributes].[preferred_foot]",
             "low": "[player_attributes].[attacking_work_rate]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT COUNT(*) from patients as T1 INNER JOIN immunizations as T2 ON T1.patient = T2.patient INNER JOIN medications as T3 ON T2.patient = T3.patient WHERE T3.description = 'Penicillin V Potassium 250 MG' AND T1.prefix = 'Mrs.'",
         "orig_gold_sql": "SELECT COUNT(player_api_id) FROM Player_Attributes WHERE preferred_foot = 'left' AND attacking_work_rate = 'low'",
         "evidence_added": true
     },
     {
         "idx": "bird_760",
-        "db_id": "<DB_ID>",
+        "db_id": "movie",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "In actors with height between 60 to 80, what is the percentage of actors claimed by Canada?  height between 60 to 80 refers to \"Height (Inches)\" BETWEEN 60 AND 80; actors claimed by Canada refers to \"Birth Country\" = 'Canada'; calculation = MULTIPLY(DIVIDE(SUM(actor.\"Birth Country\" = 'Canada')), COUNT(actor.ActorID), 100)",
         "orig_question": "In superheroes with height between 150 to 180, what is the percentage of heroes published by Marvel Comics?  height between 150 to 180 refers to height_cm BETWEEN 150 AND 180; heroes published by Marvel Comics refers to publisher_name = 'Marvel Comics'; calculation = MULTIPLY(DIVIDE(SUM(publisher.id = 13)), COUNT(publisher.id), 100)",
         "orig_masked": "In [T9] with [C23] between [V2] to [V3], what is the percentage of [T9] [T7] by [V1]?  [C23] between [V2] to [V3] refers to [C23] BETWEEN [V2] AND [V3]; [T9] [T7] by [V1] refers to [C15] = '[V1]'; calculation = MULTIPLY(DIVIDE(SUM([T7].[C14] = 13)), COUNT([T7].[C14]), 100); [V1] is a value of the column [C15]; [V2] is a value of the column [C23]; [V3] is a value of the column [C23]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "height between 60 to 80 refers to \"Height (Inches)\" BETWEEN 60 AND 80; actors claimed by Canada refers to \"Birth Country\" = 'Canada'; calculation = MULTIPLY(DIVIDE(SUM(actor.\"Birth Country\" = 'Canada')), COUNT(actor.ActorID), 100)",
         "orig_evidence": "height between 150 to 180 refers to height_cm BETWEEN 150 AND 180; heroes published by Marvel Comics refers to publisher_name = 'Marvel Comics'; calculation = MULTIPLY(DIVIDE(SUM(publisher.id = 13)), COUNT(publisher.id), 100)",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "actors": "TABLE:[actor]",
+            "height": "COLUMN:[actor].[height (inches)]",
+            "claimed": "COLUMN:[actor].[birth country]",
+            "\"Birth Country\"": "COLUMN:[actor].[birth country]",
+            "ActorID": "COLUMN:[actor].[actorid]",
+            "\"Height (Inches)\"": "COLUMN:[actor].[height (inches)]",
+            "actor": "TABLE:[actor]"
+        },
         "orig_gold_schema_links": {
             "superheroes": "TABLE:[superhero]",
             "height": "COLUMN:[superhero].[height_cm]",
@@ -184,26 +249,37 @@
             "id": "COLUMN:[publisher].[id]",
             "height_cm": "COLUMN:[superhero].[height_cm]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "60": "[actor].[height (inches)]",
+            "80": "[actor].[height (inches)]",
+            "Canada": "[actor].[birth country]"
+        },
         "orig_gold_value_links": {
             "150": "[superhero].[height_cm]",
             "180": "[superhero].[height_cm]",
             "Marvel Comics": "[publisher].[publisher_name]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT CAST(COUNT(CASE WHEN T1.\"Birth Country\" = 'Canada' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T1.ActorID) FROM actor as T1 WHERE T1.\"Height (Inches)\" BETWEEN 60 AND 80",
         "orig_gold_sql": "SELECT CAST(COUNT(CASE WHEN T2.publisher_name = 'Marvel Comics' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T1.id) FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id WHERE T1.height_cm BETWEEN 150 AND 180",
         "evidence_added": true
     },
     {
         "idx": "bird_171",
-        "db_id": "<DB_ID>",
+        "db_id": "shipping",
         "orig_db_id": "financial",
-        "question": "<QUESTION>",
+        "question": "What was the difference in the populations in Somerville and Malden in Massachusetts? Difference in populations between 2 cities = population in Somerville - population in Malden. city name refers to city_name. Data about population appears in city.population",
         "orig_question": "What was the difference in the number of crimes committed in East and North Bohemia in 1996? Difference in no. of committed crimes between 2 regions = Total no. of committed crimes in 1996 in north Bohemia - Total no. of committed crimes in 1996 in east Bohemia. A3 refers to region. Data about no. of committed crimes 1996 appears in A16",
         "orig_masked": "What was the difference in the [C23] in [C25] and [V1] in [C23]? Difference in [C23] between 2 [C25] = [C23] in [V1] - [C23] in [V2]. [C25] refers to [C25]. Data about [C23] appears in [C23]; [V1] is a value of the column [C25]; [V2] is a value of the column [C25]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "ifference in populations between 2 cities = population in Somerville - population in Malden. city name refers to city_name. Data about population appears in city.population",
         "orig_evidence": "Difference in no. of committed crimes between 2 regions = Total no. of committed crimes in 1996 in north Bohemia - Total no. of committed crimes in 1996 in east Bohemia. A3 refers to region. Data about no. of committed crimes 1996 appears in A16",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "populations": "COLUMN:[city].[population]",
+            "population": "COLUMN:[city].[population]",
+            "cities": "COLUMN:[city].[city_name]",
+            "city name": "COLUMN:[city].[city_name]",
+            "city_name": "COLUMN:[city].[city_name]",
+            "city.population": "COLUMN:[city].[population]"
+        },
         "orig_gold_schema_links": {
             "Total no. of committed crimes in 1996": "COLUMN:[district].[a16]",
             "number of crimes committed": "COLUMN:[district].[a16]",
@@ -216,25 +292,38 @@
             "A16": "COLUMN:[district].[a16]",
             "A3": "COLUMN:[district].[a3]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Somerville": "[city].[population]",
+            "Malden": "[city].[population]",
+            "Massachusetts": "[city].[state]"
+        },
         "orig_gold_value_links": {
             "east Bohemia": "[district].[a3]",
             "north Bohemia": "[district].[a3]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT SUM(IIF(city_name = 'Somerville', population, 0)) - SUM(IIF(city_name = 'Malden', population, 0)) FROM city",
         "orig_gold_sql": "SELECT SUM(IIF(A3 = 'east Bohemia', A16, 0)) - SUM(IIF(A3 = 'north Bohemia', A16, 0)) FROM district",
         "evidence_added": true
     },
     {
         "idx": "bird_1139",
-        "db_id": "<DB_ID>",
+        "db_id": "regional_sales",
         "orig_db_id": "european_football_2",
-        "question": "<QUESTION>",
+        "question": "What was the quantity,unit cost for the orders on May 31, 2018, in the $USD between the quantity and the unit cost? May 31, 2018 refers to date like '5/31/18%'; in the $USD refers to \"Sales Orders\".CurrencyCode = 'USD'; quantity refers to \"Order Quantity\"; unit cost refers to \"Unit Cost\"",
         "orig_question": "What was the final score for the match on September 24, 2008, in the Belgian Jupiler League between the home team and the away team? September 24, 2008 refers to date like '2008-09-24%'; in the Belgian Jupiler League refers to League.name = 'Belgium Jupiler League'; final score for home team refers to home_team_goal; final score for away team refers to away_team_goal",
         "orig_masked": "What was the [C94],[C40] for the [T3] on [V3], in the [V1] between the [C94] and the [C40]? [V3] refers to [C54] like '[V4]'; in the [V1] refers to [T2].[C5] = '[V2]'; [C94] refers to [C94]; [C40] refers to [C40]; [V1] is a value of the column [C5]; [V2] is a value of the column [C5]; [V3] is a value of the column [C54]; [V4] is a value of the column [C54]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "May 31, 2018 refers to date like '5/31/18%'; in the $USD refers to \"Sales Orders\".CurrencyCode = 'USD'; quantity refers to \"Order Quantity\"; unit cost refers to \"Unit Cost\"",
         "orig_evidence": "September 24, 2008 refers to date like '2008-09-24%'; in the Belgian Jupiler League refers to League.name = 'Belgium Jupiler League'; final score for home team refers to home_team_goal; final score for away team refers to away_team_goal",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "quantity": "COLUMN:[sales orders].[order quantity]",
+            "unit cost": "COLUMN:[sales orders].[unit cost]",
+            "date": "COLUMN:[sales orders].[orderdate]",
+            "orders": "TABLE:[sales orders]",
+            "\"Sales Orders\"": "TABLE:[sales orders]",
+            "CurrencyCode": "COLUMN:[sales orders].[currencycode]",
+            "\"Order Quantity\"": "COLUMN:[sales orders].[order quantity]",
+            "\"Unit Cost\"": "COLUMN:[sales orders].[unit cost]"
+        },
         "orig_gold_schema_links": {
             "final score": [
                 "COLUMN:[match].[home_team_goal]",
@@ -251,27 +340,42 @@
             "name": "COLUMN:[league].[name]",
             "League": "TABLE:[league]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "May 31, 2018": "[sales orders].[orderdate]",
+            "$USD": "[sales orders].[currencycode]",
+            "USD": "[sales orders].[currencycode]",
+            "5/31/18%": "[sales orders].[orderdate]"
+        },
         "orig_gold_value_links": {
             "September 24, 2008": "[match].[date]",
             "Belgian Jupiler League": "[league].[name]",
             "Belgium Jupiler League": "[league].[name]",
             "2008-09-24%": "[match].[date]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT \"Order Quantity\", \"Unit Price\" FROM \"Sales Orders\" WHERE CurrencyCode = 'USD' AND OrderDate LIKE '5/31/18%'",
         "orig_gold_sql": "SELECT t2.home_team_goal, t2.away_team_goal FROM League AS t1 INNER JOIN Match AS t2 ON t1.id = t2.league_id WHERE t1.name = 'Belgium Jupiler League' AND t2.`date` LIKE '2008-09-24%'",
         "evidence_added": true
     },
     {
         "idx": "bird_94",
-        "db_id": "<DB_ID>",
+        "db_id": "movie",
         "orig_db_id": "financial",
-        "question": "<QUESTION>",
+        "question": "List out the actor ID of woman actors who are oldest and has lowest height, calculate the gap between this lowest height with the highest height?  woman means gender = 'Female'; \"Height (Inches)\" refers to height; Gap = highest height - lowest height; If the person A's birthdate > B's birthdate, it means that person B is order than person A.",
         "orig_question": "List out the account numbers of female clients who are oldest and has lowest average salary, calculate the gap between this lowest average salary with the highest average salary?  Female means gender = 'F'; A11 refers to average salary; Gap = highest average salary - lowest average salary; If the person A's birthdate > B's birthdate, it means that person B is order than person A.",
         "orig_masked": "List out the [C1] of [C12] [T3] who are [C9] and has lowest [C18], calculate the gap between this lowest [C18] with the highest [C18]?  [C12] means [C12] = '[V1]'; [C18] refers to [C18]; Gap = highest [C18] - lowest [C18]; If the [T3] A's [C9] > B's [C9], it means that [T3] B is order than [T3] A.; [V1] is a value of the column [C12]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "woman means gender = 'Female'; \"Height (Inches)\" refers to height; Gap = highest height - lowest height; If the person A's birthdate > B's birthdate, it means that person B is order than person A.",
         "orig_evidence": "Female means gender = 'F'; A11 refers to average salary; Gap = highest average salary - lowest average salary; If the person A's birthdate > B's birthdate, it means that person B is order than person A.",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "actor ID": "COLUMN:[actor].[actorid]",
+            "woman": "COLUMN:[actor].[gender]",
+            "actors": "TABLE:[actor]",
+            "oldest": "COLUMN:[actor].[date of birth]",
+            "height": "COLUMN:[actor].[height (inches)]",
+            "gender": "COLUMN:[actor].[gender]",
+            "birthdate": "COLUMN:[actor].[date of birth]",
+            "person": "TABLE:[actor]",
+            "\"Height (Inches)\"": "COLUMN:[actor].[height (inches)]"
+        },
         "orig_gold_schema_links": {
             "account numbers": "COLUMN:[account].[account_id]",
             "female": "COLUMN:[client].[gender]",
@@ -283,11 +387,13 @@
             "birthdate": "COLUMN:[client].[birth_date]",
             "person": "TABLE:[client]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Female": "[actor].[gender]"
+        },
         "orig_gold_value_links": {
             "F": "[client].[gender]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT ActorID, (SELECT MAX(\"Height (Inches)\") FROM actor) - \"Height (Inches)\" FROM (SELECT ActorID, \"Height (Inches)\" from actor WHERE Gender = 'Female' AND \"Date of Birth\" IS NOT NULL AND \"Height (Inches)\" IS NOT NULL  ORDER BY \"Date of Birth\" ASC LIMIT 1) ORDER BY \"Height (Inches)\" DESC",
         "orig_gold_sql": "SELECT T1.account_id , ( SELECT MAX(A11) - MIN(A11) FROM district ) FROM account AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id INNER JOIN disp AS T3 ON T1.account_id = T3.account_id INNER JOIN client AS T4 ON T3.client_id = T4.client_id WHERE T2.district_id = ( SELECT district_id FROM client WHERE gender = 'F' ORDER BY birth_date ASC LIMIT 1 ) ORDER BY T2.A11 DESC LIMIT 1",
         "evidence_added": true
     }
