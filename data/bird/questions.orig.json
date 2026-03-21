@@ -231,7 +231,6 @@
             "type": "COLUMN:[card].[type]",
             "client": "TABLE:[client]",
             "credit card": "TABLE:[card]",
-            "own": "TABLE:[card]",
             "id": "COLUMN:[client].[client_id]"
         }
     },
@@ -277,7 +276,6 @@
         },
         "gold_schema_links": {
             "transactions": "TABLE:[trans]",
-            "made": "TABLE:[trans]",
             "accounts": "TABLE:[account]",
             "district": "TABLE:[district]"
         }
