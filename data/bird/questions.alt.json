@@ -320,7 +320,7 @@
         "orig_db_id": "financial",
         "question": "<QUESTION>",
         "orig_question": "What type of credit card does the client with the id 13539 own?  ",
-        "orig_masked": "What [C8] of [T2] does the [T3] with the [C10] [V1] [T2]?  ; [V1] is a value of the column [C10]",
+        "orig_masked": "What [C8] of [T2] does the [T3] with the [C10] [V1] own?  ; [V1] is a value of the column [C10]",
         "evidence": "<EVIDENCE>",
         "orig_evidence": "",
         "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
@@ -328,7 +328,6 @@
             "type": "COLUMN:[card].[type]",
             "client": "TABLE:[client]",
             "credit card": "TABLE:[card]",
-            "own": "TABLE:[card]",
             "id": "COLUMN:[client].[client_id]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
@@ -389,13 +388,12 @@
         "orig_db_id": "financial",
         "question": "<QUESTION>",
         "orig_question": "Please list all the transactions made by accounts from district 5. ",
-        "orig_masked": "Please list all the [T8] [T8] by [T1] from [T5] [V1]. ; [V1] is a value of the column [C32]",
+        "orig_masked": "Please list all the [T8] made by [T1] from [T5] [V1]. ; [V1] is a value of the column [C32]",
         "evidence": "<EVIDENCE>",
         "orig_evidence": "",
         "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
         "orig_gold_schema_links": {
             "transactions": "TABLE:[trans]",
-            "made": "TABLE:[trans]",
             "accounts": "TABLE:[account]",
             "district": "TABLE:[district]"
         },
