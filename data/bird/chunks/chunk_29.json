@@ -74,10 +74,10 @@
         "idx": "bird_1023",
         "db_id": "cars",
         "orig_db_id": "european_football_2",
-        "question": "Among the cars with an overall horsepower between 100 to 200, how many cars whose going to be using an eight cylinder engine? horsepower > = 100 AND horsepower < 200; cars whose going to be using an eight cylinder engine refers to cylinders = '8';",
+        "question": "Among the cars with an overall horsepower between 100 to 200, how many cars whose using an eight cylinder engine? horsepower > = 100 AND horsepower < 200; cars whose using an eight cylinder engine refers to cylinders = '8';",
         "orig_question": "Among the players with an overall rating between 60 to 65, how many players whose going to be in all of your attack moves instead of defensing? overall_rating > = 60 AND overall_rating < 65; players whose going to be in all of your attack moves instead of defensing refers to defensive_work_rate = 'low';",
         "orig_masked": "Among the [T5] with an [C153] between [V2] to [V3], how many [T5] whose going to be [C137]? [C153] > = [V2] AND [C153] < [V3]; [T5] whose going to be [C137] refers to [C137] = '[V1]';; [V1] is a value of the column [C137]; [V2] is a value of the column [C153]; [V3] is a value of the column [C153]",
-        "evidence": "horsepower > = 100 AND horsepower < 200; cars whose going to be using an eight cylinder engine refers to cylinders = '8';",
+        "evidence": "horsepower > = 100 AND horsepower < 200; cars whose using an eight cylinder engine refers to cylinders = '8';",
         "orig_evidence": "overall_rating > = 60 AND overall_rating < 65; players whose going to be in all of your attack moves instead of defensing refers to defensive_work_rate = 'low';",
         "gold_schema_links": {
             "overall horsepower": "COLUMN:[data].[horsepower]",
@@ -234,8 +234,9 @@
             "actors": "TABLE:[actor]",
             "height": "COLUMN:[actor].[height (inches)]",
             "claimed": "COLUMN:[actor].[birth country]",
+            "actor.\"Birth Country\"": "COLUMN:[actor].[birth country]",
             "\"Birth Country\"": "COLUMN:[actor].[birth country]",
-            "ActorID": "COLUMN:[actor].[actorid]",
+            "actor.ActorID": "COLUMN:[actor].[actorid]",
             "\"Height (Inches)\"": "COLUMN:[actor].[height (inches)]",
             "actor": "TABLE:[actor]"
         },
@@ -267,14 +268,16 @@
         "idx": "bird_171",
         "db_id": "shipping",
         "orig_db_id": "financial",
-        "question": "What was the difference in the populations in Somerville and Malden in Massachusetts? Difference in populations between 2 cities = population in Somerville - population in Malden. city name refers to city_name. Data about population appears in city.population",
+        "question": "What was the difference in the populations in Somerville and Malden in 2026? Difference in populations between 2 cities = population in 2026 in Somerville - population in 2026 in Malden. city name refers to city_name. Data about population in 2026 appears in city.population",
         "orig_question": "What was the difference in the number of crimes committed in East and North Bohemia in 1996? Difference in no. of committed crimes between 2 regions = Total no. of committed crimes in 1996 in north Bohemia - Total no. of committed crimes in 1996 in east Bohemia. A3 refers to region. Data about no. of committed crimes 1996 appears in A16",
         "orig_masked": "What was the difference in the [C23] in [C25] and [V1] in [C23]? Difference in [C23] between 2 [C25] = [C23] in [V1] - [C23] in [V2]. [C25] refers to [C25]. Data about [C23] appears in [C23]; [V1] is a value of the column [C25]; [V2] is a value of the column [C25]",
-        "evidence": "ifference in populations between 2 cities = population in Somerville - population in Malden. city name refers to city_name. Data about population appears in city.population",
+        "evidence": "Difference in populations between 2 cities = population in 2026 in Somerville - population in 2026 in Malden. city name refers to city_name. Data about population in 2026 appears in city.population",
         "orig_evidence": "Difference in no. of committed crimes between 2 regions = Total no. of committed crimes in 1996 in north Bohemia - Total no. of committed crimes in 1996 in east Bohemia. A3 refers to region. Data about no. of committed crimes 1996 appears in A16",
         "gold_schema_links": {
             "populations": "COLUMN:[city].[population]",
             "population": "COLUMN:[city].[population]",
+            "2026": "COLUMN:[city].[population]",
+            "population in 2026": "COLUMN:[city].[population]",
             "cities": "COLUMN:[city].[city_name]",
             "city name": "COLUMN:[city].[city_name]",
             "city_name": "COLUMN:[city].[city_name]",
@@ -293,9 +296,8 @@
             "A3": "COLUMN:[district].[a3]"
         },
         "gold_value_links": {
-            "Somerville": "[city].[population]",
-            "Malden": "[city].[population]",
-            "Massachusetts": "[city].[state]"
+            "Somerville": "[city].[city_name]",
+            "Malden": "[city].[city_name]"
         },
         "orig_gold_value_links": {
             "east Bohemia": "[district].[a3]",
@@ -309,10 +311,10 @@
         "idx": "bird_1139",
         "db_id": "regional_sales",
         "orig_db_id": "european_football_2",
-        "question": "What was the quantity,unit cost for the orders on May 31, 2018, in the $USD between the quantity and the unit cost? May 31, 2018 refers to date like '5/31/18%'; in the $USD refers to \"Sales Orders\".CurrencyCode = 'USD'; quantity refers to \"Order Quantity\"; unit cost refers to \"Unit Cost\"",
+        "question": "What was the quantity,unit cost for the orders on May 31, 2018, in the $USD between the quantity and the unit cost? May 31, 2018 refers to date like '5/31/18%'; in the $USD refers to CurrencyCode = 'USD'; quantity refers to \"Order Quantity\"; unit cost refers to \"Unit Cost\"",
         "orig_question": "What was the final score for the match on September 24, 2008, in the Belgian Jupiler League between the home team and the away team? September 24, 2008 refers to date like '2008-09-24%'; in the Belgian Jupiler League refers to League.name = 'Belgium Jupiler League'; final score for home team refers to home_team_goal; final score for away team refers to away_team_goal",
         "orig_masked": "What was the [C94],[C40] for the [T3] on [V3], in the [V1] between the [C94] and the [C40]? [V3] refers to [C54] like '[V4]'; in the [V1] refers to [T2].[C5] = '[V2]'; [C94] refers to [C94]; [C40] refers to [C40]; [V1] is a value of the column [C5]; [V2] is a value of the column [C5]; [V3] is a value of the column [C54]; [V4] is a value of the column [C54]",
-        "evidence": "May 31, 2018 refers to date like '5/31/18%'; in the $USD refers to \"Sales Orders\".CurrencyCode = 'USD'; quantity refers to \"Order Quantity\"; unit cost refers to \"Unit Cost\"",
+        "evidence": "May 31, 2018 refers to date like '5/31/18%'; in the $USD refers to CurrencyCode = 'USD'; quantity refers to \"Order Quantity\"; unit cost refers to \"Unit Cost\"",
         "orig_evidence": "September 24, 2008 refers to date like '2008-09-24%'; in the Belgian Jupiler League refers to League.name = 'Belgium Jupiler League'; final score for home team refers to home_team_goal; final score for away team refers to away_team_goal",
         "gold_schema_links": {
             "quantity": "COLUMN:[sales orders].[order quantity]",

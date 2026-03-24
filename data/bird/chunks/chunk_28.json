@@ -179,21 +179,21 @@
         "idx": "bird_152",
         "db_id": "food_inspection",
         "orig_db_id": "financial",
-        "question": "What is the inspection score in inspections where the number exceeds 60 and the business has violations that are dated starting from the date 2014-01-01? score refers to inspections score; dated stands for the violations.date.",
+        "question": "What is the score in inspections where the number exceeds 60 and the business has violations that are dated starting from the date 2014-01-01? score refers to inspection.score; dated stands for the violations.date.",
         "orig_question": "What is the average number of crimes committed in 1995 in regions where the number exceeds 4000 and the region has accounts that are opened starting from the year 1997? A3 refers to region names; A15 stands for the average number of crimes committed in 1995.",
         "orig_masked": "What is the [C22] in [T5] where the number exceeds [V1] and the [T5] has [T1] that are [C2] starting from the [C2] [V2]? [C25] refers to [T5] [C25]; [C22] stands for the [C22].; [V1] is a value of the column [C22]; [V2] is a value of the column [C2]",
-        "evidence": "score refers to inspections score; dated stands for the violations.date.",
+        "evidence": "score refers to inspection.score; dated stands for the violations.date.",
         "orig_evidence": "A3 refers to region names; A15 stands for the average number of crimes committed in 1995.",
         "gold_schema_links": {
-            "inspections.score": "COLUMN:[inspections].[score]",
             "violations.date": "COLUMN:[violations].[date]",
-            "inspection score": "COLUMN:[inspections].[score]",
+            "inspection": "TABLE:[inspections]",
             "inspections": "TABLE:[inspections]",
             "business": "TABLE:[businesses]",
             "violations": "TABLE:[violations]",
             "dated": "COLUMN:[violations].[date]",
             "date": "COLUMN:[violations].[date]",
-            "score": "COLUMN:[inspections].[score]"
+            "score": "COLUMN:[inspections].[score]",
+            "inspection.score": "COLUMN:[inspections].[score]"
         },
         "orig_gold_schema_links": {
             "names": "COLUMN:[district].[a3]",
@@ -222,16 +222,16 @@
         "idx": "bird_1186",
         "db_id": "synthea",
         "orig_db_id": "thrombosis_prediction",
-        "question": "Lists all patients by ID who were diagnosed with Cystitis and had an encounter between 2014 and 2016. 'Cystitis' refers to conditions; encounter between 2014 and 2016 refers to YEAR(DATE) > = '2014-01-01' AND YEAR(DATE) < '2016-01-01'",
+        "question": "Lists all patients by ID who were diagnosed with Cystitis and had their encounters between 2014 and 2016. 'Cystitis' refers to conditions; encounters between 2014 and 2016 refers to YEAR(DATE) > = '2014-01-01' AND YEAR(DATE) < '2016-01-01'",
         "orig_question": "Lists all patients by ID who were diagnosed with Behcet's and had their exams between 01/01/1997 and 12/31/1997. 'Behcet' refers to diagnosis; exam between 01/01/1997 and 12/31/1997 refers to YEAR(Description) > = '1997-1-1' AND YEAR(Description) < '1998-1-1'",
         "orig_masked": "Lists all [T1] by [C8] who were [C6] with [V5]'s and had their [T1] between [V1] and [V2]. '[V5]' refers to [C6]; [T1] between [V1] and [V2] refers to YEAR(Description) > = '[V3]' AND YEAR(Description) < '[V4]'; [V1] is a value of the column [C7]; [V2] is a value of the column [C7]; [V3] is a value of the column [C7]; [V4] is a value of the column [C7]; [V5] is a value of the column [C6]",
-        "evidence": "'Cystitis' refers to conditions; encounter between 2014 and 2016 refers to YEAR(DATE) > = '2014-01-01' AND YEAR(DATE) < '2016-01-01'",
+        "evidence": "'Cystitis' refers to conditions; encounters between 2014 and 2016 refers to YEAR(DATE) > = '2014-01-01' AND YEAR(DATE) < '2016-01-01'",
         "orig_evidence": "'Behcet' refers to diagnosis; exam between 01/01/1997 and 12/31/1997 refers to YEAR(Description) > = '1997-1-1' AND YEAR(Description) < '1998-1-1'",
         "gold_schema_links": {
             "conditions": "COLUMN:[conditions].[description]",
             "diagnosed": "COLUMN:[conditions].[description]",
             "patients": "TABLE:[patients]",
-            "encounter": "TABLE:[encounters]",
+            "encounters": "TABLE:[encounters]",
             "ID": "COLUMN:[patients].[patient]",
             "date": "COLUMN:[encounters].[date]"
         },
@@ -355,9 +355,7 @@
             "USA": "[noc_region].[region_name]"
         },
         "orig_gold_value_links": {
-            "Male": "[gender].[gender]",
-            "79%": "[superhero].[weight_kg]",
-            "0.79": "[superhero].[weight_kg]"
+            "Male": "[gender].[gender]"
         },
         "gold_sql": "SELECT T1.full_name from person as T1 INNER JOIN person_region as T2 ON T1.id = T2.person_id INNER JOIN noc_region as T3 ON T2.region_id = T3.id WHERE T3.region_name = 'USA' AND (T1.weight * 100) > ((SELECT AVG(weight) FROM person) * 79)",
         "orig_gold_sql": "SELECT T1.superhero_name FROM superhero AS T1 INNER JOIN gender AS T2 ON T1.gender_id = T2.id WHERE T2.gender = 'Male' AND T1.weight_kg * 100 > ( SELECT AVG(weight_kg) FROM superhero ) * 79",

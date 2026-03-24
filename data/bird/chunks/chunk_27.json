@@ -77,7 +77,7 @@
         "idx": "bird_797",
         "db_id": "synthea",
         "orig_db_id": "superhero",
-        "question": "Which patients have dairy sensitivities with prediabetes diagnosis?  which patients refers to patients.patient; dairy sensitivities refers to allergies.description = 'Allergy to dairy product' and allergies.patient = patients.patient; prediabetes diagnosis refers to conditions.description = 'Prediabetes' and conditions.patient = patients.patient;",
+        "question": "Which patients have dairy allergy with prediabetes diagnosis?  which patients refers to patients.patient; dairy allergy refers to allergies.description = 'Allergy to dairy product' and allergies.patient = patients.patient; prediabetes diagnosis refers to conditions.description = 'Prediabetes' and conditions.patient = patients.patient;",
         "orig_question": "Which superheroes have blue eyes with brown hair?  which superheroes refers to superhero_name; blue eyes refers to color = 'Blue' and color.id = eye_colour_id; brown hair refers to color = 'Brown' and color.id = hair_colour_id;",
         "orig_masked": "Which [C28] have [V2] [C19] with [V1] [C22]?  which [C28] refers to [C28]; [V2] [C19] refers to [C5] = '[V2]' and [C6] = [C19]; [V1] [C22] refers to [C5] = '[V1]' and [C6] = [C22];; [V1] is a value of the column [C5]; [V2] is a value of the column [C5]",
         "evidence": "which patients refers to patients.patient; dairy sensitivities refers to allergies.description = 'Allergy to dairy product' and allergies.patient = patients.patient; prediabetes diagnosis refers to conditions.description = 'Prediabetes' and conditions.patient = patients.patient;",
@@ -91,7 +91,8 @@
             "diagnosis": "COLUMN:[conditions].[description]",
             "patients": "COLUMN:[patients].[patient]",
             "allergies": "TABLE:[allergies]",
-            "dairy sensitivities": "COLUMN:[allergies].[description]"
+            "dairy": "COLUMN:[allergies].[description]",
+            "allergy": "TABLE:[allergies]"
         },
         "orig_gold_schema_links": {
             "superheroes": "COLUMN:[superhero].[superhero_name]",
@@ -170,7 +171,6 @@
             "normal horsepower": "COLUMN:[data].[horsepower]",
             "horsepower": "COLUMN:[data].[horsepower]",
             "cars": "TABLE:[data]",
-            "number": "COLUMN:[data].[id]",
             "model_year": "COLUMN:[production].[model_year]"
         },
         "orig_gold_schema_links": {

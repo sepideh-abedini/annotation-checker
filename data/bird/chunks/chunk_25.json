@@ -34,7 +34,8 @@
         },
         "gold_sql": "SELECT COUNT(DISTINCT T1.patient) FROM patients as T1 INNER JOIN conditions as T2 ON T1.patient = T2.patient INNER JOIN observations as T3 ON T2.patient = T3.patient WHERE T2.description = 'Acute bronchitis (disorder)' AND T3.DESCRIPTION = 'Body Mass Index' AND T3.VALUE > 18.5 AND T3.VALUE < 24.9",
         "orig_gold_sql": "SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T1.Diagnosis = 'SJS' AND T2.TP > 6.0 AND T2.TP < 8.5",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "No evidence provided for Body Mass Index -> description"
     },
     {
         "idx": "bird_1124",
@@ -103,7 +104,8 @@
         },
         "gold_sql": "SELECT ssn FROM patients WHERE patient in (SELECT patient from observations WHERE description = 'Body Height' AND value > 100) AND patient in (SELECT patient from observations WHERE description = 'Body Weight' AND value > 100)",
         "orig_gold_sql": "SELECT DISTINCT t1.player_name FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t2.volleys > 70 AND t2.dribbling > 70",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "We should have an evidence that explains height refers to 'observations.description' = 'Body Height'. Similar evidence needed for weight where value > 100."
     },
     {
         "idx": "bird_168",
