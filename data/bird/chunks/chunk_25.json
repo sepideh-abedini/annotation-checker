@@ -72,20 +72,20 @@
     },
     {
         "idx": "bird_1088",
-        "db_id": "synthea",
+        "db_id": "olympics",
         "orig_db_id": "european_football_2",
-        "question": "Please list the ssn of the patients whose height and weight are over 100. height are over 100 refers to height value > 100; weight refers to weight are over 100 refers to weight value > 100;",
+        "question": "Please list the region name of the athletes whose height and weight are over 100. height are over 100 refers to height value > 100; weight refers to weight are over 100 refers to weight value > 100;",
         "orig_question": "Please list the names of the players whose volley score and dribbling score are over 70. volley score are over 70 refers to volleys > 70; dribbling score refers to dribbling are over 70 refers to dribbling > 70;",
         "orig_masked": "Please list the [C126] of the [T4] whose [C169] and [C138] are over [V1]. [C169] are over [V1] refers to [C169] > [V1]; [C138] refers to [C138] are over [V1] refers to [C138] > [V1];; [V1] is a value of the column [C169]",
         "evidence": "height are over 100 refers to height value > 100; weight refers to weight are over 100 refers to weight value > 100;",
         "orig_evidence": "volley score are over 70 refers to volleys > 70; dribbling score refers to dribbling are over 70 refers to dribbling > 70;",
         "gold_schema_links": {
-            "ssn": "COLUMN:[patients].[ssn]",
-            "patients": "TABLE:[patients]",
-            "height": "COLUMN:[observations].[value]",
-            "weight": "COLUMN:[observations].[value]",
-            "height value": "COLUMN:[observations].[value]",
-            "weight value": "COLUMN:[observations].[value]"
+            "region name": "COLUMN:[noc_region].[region_name]",
+            "athletes": "TABLE:[person]",
+            "height": "COLUMN:[person].[height]",
+            "weight": "COLUMN:[person].[weight]",
+            "height value": "COLUMN:[person].[height]",
+            "weight value": "COLUMN:[person].[weight]"
         },
         "orig_gold_schema_links": {
             "names": "COLUMN:[player].[player_name]",
@@ -97,15 +97,14 @@
             "volleys": "COLUMN:[player_attributes].[volleys]"
         },
         "gold_value_links": {
-            "100": "[observations].[value]"
+            "100": "[person].[height]"
         },
         "orig_gold_value_links": {
             "70": "[player_attributes].[volleys]"
         },
-        "gold_sql": "SELECT ssn FROM patients WHERE patient in (SELECT patient from observations WHERE description = 'Body Height' AND value > 100) AND patient in (SELECT patient from observations WHERE description = 'Body Weight' AND value > 100)",
+        "gold_sql": "SELECT T3.region_name FROM person as T1 INNER JOIN person_region as T2 ON T1.id=T2.person_id INNER JOIN noc_region as T3 ON T2.region_id = T3.id WHERE T1.height > 100 and T1.weight > 100",
         "orig_gold_sql": "SELECT DISTINCT t1.player_name FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t2.volleys > 70 AND t2.dribbling > 70",
-        "evidence_added": true,
-        "note": "We should have an evidence that explains height refers to 'observations.description' = 'Body Height'. Similar evidence needed for weight where value > 100."
+        "evidence_added": true
     },
     {
         "idx": "bird_168",
