@@ -1099,8 +1099,7 @@
             "Prachatice": "[district].[a2]"
         },
         "gold_schema_links": {
-            "date": "COLUMN:[account].[date]",
-            "opening": "COLUMN:[account].[date]",
+            "opening date": "COLUMN:[account].[date]",
             "accounts": "TABLE:[account]",
             "A2": "COLUMN:[district].[a2]",
             "districts": "TABLE:[district]",

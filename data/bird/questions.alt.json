@@ -1408,7 +1408,7 @@
         "orig_gold_schema_links": {
             "country": "COLUMN:[country].[name]",
             "league": "TABLE:[league]",
-            "name": "COLUMN:[league].[name]"
+            "league.name": "COLUMN:[league].[name]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {
@@ -1568,8 +1568,7 @@
         "orig_evidence": "A2 refers to the names of districts.",
         "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
         "orig_gold_schema_links": {
-            "date": "COLUMN:[account].[date]",
-            "opening": "COLUMN:[account].[date]",
+            "opening date": "COLUMN:[account].[date]",
             "accounts": "TABLE:[account]",
             "A2": "COLUMN:[district].[a2]",
             "districts": "TABLE:[district]",
