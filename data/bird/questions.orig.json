@@ -666,9 +666,9 @@
         },
         "gold_schema_links": {
             "publisher name": "COLUMN:[publisher].[publisher_name]",
-            "ID": "COLUMN:[superhero].[id]",
+            "superhero ID": "COLUMN:[superhero].[id]",
             "superhero": "TABLE:[superhero]",
-            "superhero.id": "COLUMN:[superhero].[id]"
+            "id": "COLUMN:[superhero].[id]"
         }
     },
     {
