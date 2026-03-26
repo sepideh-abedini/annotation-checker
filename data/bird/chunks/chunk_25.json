@@ -1,19 +1,19 @@
 [
     {
         "idx": "bird_1289",
-        "db_id": "synthea",
+        "db_id": "human_resources",
         "orig_db_id": "thrombosis_prediction",
-        "question": "For the patients who are diagnosed with Acute bronchitis (disorder), how many of them have a normal body mass index? diagnosed with Acute bronchitis (disorder) refers to conditions.description = 'Acute bronchitis (disorder)'; normal body mass index refers to Body Mass Index > 18.5 and Body Mass Index < 24.9;",
+        "question": "For the employees who are assessed with Average, how many of them have a normal salary? assessed with Average refers to employee.performance = 'Average'; normal salary refers to salary > US$30,000.00 and salary < US$60,000.00;",
         "orig_question": "For the patients who are diagnosed with SJS, how many of them have a normal level of total protein? diagnosed with SJS refers to Diagnosis = 'SJS'; normal level of total protein refers to TP > 6.0 and TP < 8.5;",
         "orig_masked": "For the [T3] who are [C61] with [V1], how many of them have a [C53]? [C61] with [V1] refers to [C61] = '[V1]'; [C53] refers to [C53] > [V2] and [C53] < [V3];; [V1] is a value of the column [C61]; [V2] is a value of the column [C53]; [V3] is a value of the column [C53]",
-        "evidence": "diagnosed with Acute bronchitis (disorder) refers to conditions.description = 'Acute bronchitis (disorder)'; normal body mass index refers to Body Mass Index > 18.5 and Body Mass Index < 24.9;",
+        "evidence": "assessed with Average refers to employee.performance = 'Average'; normal salary refers to salary > US$30,000.00 and salary < US$60,000.00;",
         "orig_evidence": "diagnosed with SJS refers to Diagnosis = 'SJS'; normal level of total protein refers to TP > 6.0 and TP < 8.5;",
         "gold_schema_links": {
-            "diagnosed": "COLUMN:[conditions].[description]",
-            "normal body mass index": "COLUMN:[observations].[value]",
-            "patients": "TABLE:[patients]",
-            "conditions.description": "COLUMN:[conditions].[description]",
-            "Body Mass Index": "COLUMN:[observations].[value]"
+            "assessed": "COLUMN:[employee].[performance]",
+            "normal salary": "COLUMN:[employee].[salary]",
+            "employees": "TABLE:[employee]",
+            "employee.performance": "COLUMN:[employee].[performance]",
+            "salary": "COLUMN:[employee].[salary]"
         },
         "orig_gold_schema_links": {
             "diagnosed": "COLUMN:[patient].[diagnosis]",
@@ -23,19 +23,18 @@
             "TP": "COLUMN:[laboratory].[tp]"
         },
         "gold_value_links": {
-            "Acute bronchitis (disorder)": "[conditions].[description]",
-            "24.9": "[observations].[value]",
-            "18.5": "[observations].[value]"
+            "Average": "[employee].[performance]",
+            "US$30,000.00": "[employee].[salary]",
+            "US$60,000.00": "[employee].[salary]"
         },
         "orig_gold_value_links": {
             "SJS": "[patient].[diagnosis]",
             "6.0": "[laboratory].[tp]",
             "8.5": "[laboratory].[tp]"
         },
-        "gold_sql": "SELECT COUNT(DISTINCT T1.patient) FROM patients as T1 INNER JOIN conditions as T2 ON T1.patient = T2.patient INNER JOIN observations as T3 ON T2.patient = T3.patient WHERE T2.description = 'Acute bronchitis (disorder)' AND T3.DESCRIPTION = 'Body Mass Index' AND T3.VALUE > 18.5 AND T3.VALUE < 24.9",
+        "gold_sql": "SELECT COUNT(DISTINCT ssn) FROM employee WHERE performance = 'Average' AND CAST(REPLACE(REPLACE(SALARY, 'US$', ''), ',', '') AS FLOAT) > 30000 AND CAST(REPLACE(REPLACE(SALARY, 'US$', ''), ',', '') AS FLOAT) < 60000",
         "orig_gold_sql": "SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T1.Diagnosis = 'SJS' AND T2.TP > 6.0 AND T2.TP < 8.5",
         "evidence_added": true,
-        "note": "No evidence provided for Body Mass Index -> description"
     },
     {
         "idx": "bird_1124",
