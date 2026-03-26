@@ -1174,7 +1174,6 @@
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {
-            "3": "[client].[client_id]",
             "F": "[client].[gender]"
         },
         "gold_sql": "<GOLD_SQL>",
@@ -1384,8 +1383,7 @@
         "orig_gold_schema_links": {
             "matches": "TABLE:[match]",
             "season": "COLUMN:[match].[season]",
-            "name": "COLUMN:[country].[name]",
-            "Country": "TABLE:[country]",
+            "Country.name": "COLUMN:[country].[name]",
             "held": "TABLE:[country]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",

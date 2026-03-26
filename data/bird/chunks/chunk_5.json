@@ -1,14 +1,20 @@
 [
     {
         "idx": "bird_181",
-        "db_id": "<DB_ID>",
+        "db_id": "olympics",
         "orig_db_id": "financial",
-        "question": "<QUESTION>",
+        "question": "Please provide the region names of the 3 female competitors with the largest heights. Female refers to gender = 'F'",
         "orig_question": "Please provide the IDs of the 3 female clients with the largest loans. Female refers to gender = 'F'",
         "orig_masked": "Please provide the [C10] of the [V1] [C12] [T3] with the largest [C34]. [C12] refers to [C12] = '[V2]'; [V1] is a value of the column [C10]; [V2] is a value of the column [C12]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "Female refers to gender = 'F'",
         "orig_evidence": "Female refers to gender = 'F'",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "heights": "COLUMN:[person].[height]",
+            "competitors": "TABLE:[person]",
+            "gender": "COLUMN:[person].[gender]",
+            "female": "COLUMN:[person].[gender]",
+            "region names": "COLUMN:[noc_region].[region_name]"
+        },
         "orig_gold_schema_links": {
             "loans": "COLUMN:[loan].[amount]",
             "clients": "TABLE:[client]",
@@ -16,25 +22,33 @@
             "female": "COLUMN:[client].[gender]",
             "IDs": "COLUMN:[client].[client_id]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "F": "[person].[gender]"
+        },
         "orig_gold_value_links": {
-            "3": "[client].[client_id]",
             "F": "[client].[gender]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T3.region_name FROM person AS T1 INNER JOIN person_region as T2 ON T1.id = T2.person_id INNER JOIN noc_region as T3 ON T2.region_id = T3.id WHERE T1.gender = 'F' ORDER BY T1.height DESC LIMIT 3",
         "orig_gold_sql": "SELECT T1.client_id FROM client AS T1 INNER JOIN disp AS T4 on T1.client_id= T4.client_id INNER JOIN account AS T2 ON T4.account_id = T2.account_id  INNER JOIN loan AS T3 ON T2.account_id = T3.account_id and T4.account_id = T3.account_id WHERE T1.gender = 'F' ORDER BY T3.amount DESC LIMIT 3",
         "evidence_added": true
     },
     {
         "idx": "bird_106",
-        "db_id": "<DB_ID>",
+        "db_id": "shipping",
         "orig_db_id": "financial",
-        "question": "<QUESTION>",
+        "question": "What is the biggest weight of shipment that the drivers whose truck was made in 2010 delivered?  ",
         "orig_question": "What is the biggest amount of transaction that the client whose card was opened in 1996/10/21 made?  ",
         "orig_masked": "What is the biggest [C48] of [T8] that the [T1] whose [T2] was [C7] in [V1] [T8]?  ; [V1] is a value of the column [C7]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "",
         "orig_evidence": "",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "weight": "COLUMN:[shipment].[weight]",
+            "shipment": "TABLE:[shipment]",
+            "delivered": "TABLE:[shipment]",
+            "truck": "TABLE:[truck]",
+            "drivers": "TABLE:[driver]",
+            "made": "COLUMN:[truck].[model_year]"
+        },
         "orig_gold_schema_links": {
             "amount": "COLUMN:[trans].[amount]",
             "transaction": "TABLE:[trans]",
@@ -43,68 +57,86 @@
             "client": "TABLE:[account]",
             "opened": "COLUMN:[card].[issued]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "2010": "[truck].[model_year]"
+        },
         "orig_gold_value_links": {
             "1996/10/21": "[card].[issued]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T1.weight FROM shipment as T1 INNER JOIN truck as T2 ON T1.truck_id = T2.truck_id WHERE model_year = 2010 ORDER BY T1.weight DESC LIMIT 1",
         "orig_gold_sql": "SELECT T4.amount FROM card AS T1 JOIN disp AS T2 ON T1.disp_id = T2.disp_id JOIN account AS T3 on T2.account_id = T3.account_id JOIN trans AS T4 on T3.account_id = T4.account_id WHERE T1.issued = '1996-10-21' ORDER BY T4.amount DESC LIMIT 1",
         "evidence_added": true
     },
     {
         "idx": "bird_799",
-        "db_id": "<DB_ID>",
+        "db_id": "books",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "How many books didn't have any author?  didn't have any author refers to author.author_name = Unknown;",
         "orig_question": "How many superheroes didn't have any publisher?  didn't have any publisher refers to publisher.id = 1;",
         "orig_masked": "How many [T9] didn't have any [T7]?  didn't have any [T7] refers to [C14] = [V1];; [V1] is a value of the column [C14]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "didn't have any author refers to author.author_name = Unknown;",
         "orig_evidence": "didn't have any publisher refers to publisher.id = 1;",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "books": "TABLE:[book]",
+            "author": "TABLE:[author]",
+            "author.author_name": "COLUMN:[author].[author_name]"
+        },
         "orig_gold_schema_links": {
             "superheroes": "TABLE:[superhero]",
             "publisher": "TABLE:[publisher]",
             "publisher.id": "COLUMN:[publisher].[id]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Unknown": "[author].[author_name]"
+        },
         "orig_gold_value_links": {
             "1": "[publisher].[id]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT COUNT(DISTINCT T1.book_id) FROM book as T1 INNER JOIN book_author as T2 ON T1.book_id = T2.book_id INNER JOIN author as T3 ON T2.author_id = T3.author_id WHERE T3.author_name = 'Unknown'",
         "orig_gold_sql": "SELECT COUNT(T1.id) FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id WHERE T2.id = 1",
         "evidence_added": true
     },
     {
         "idx": "bird_802",
-        "db_id": "<DB_ID>",
+        "db_id": "movie",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "Who is the tallest actor? who refers to name; tallest actor refers to MAX(Height (Inches));",
         "orig_question": "Who is the tallest superhero? who refers to superhero_name; tallest superhero refers to MAX(height_cm);",
         "orig_masked": "Who is the [C23]? who refers to [C28]; [C23] refers to MAX([C23]);",
-        "evidence": "<EVIDENCE>",
+        "evidence": "tallest actor refers to MAX(Height (Inches));",
         "orig_evidence": "who refers to superhero_name; tallest superhero refers to MAX(height_cm);",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "tallest actor": "COLUMN:[actor].[height (inches)]",
+            "name": "COLUMN:[actor].[name]",
+            "Height (Inches)": "COLUMN:[actor].[height (inches)]"
+        },
         "orig_gold_schema_links": {
             "tallest superhero": "COLUMN:[superhero].[height_cm]",
             "superhero_name": "COLUMN:[superhero].[superhero_name]",
             "height_cm": "COLUMN:[superhero].[height_cm]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {},
         "orig_gold_value_links": {},
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT name from actor ORDER BY \"Height (Inches)\" DESC LIMIT 1",
         "orig_gold_sql": "SELECT superhero_name FROM superhero ORDER BY height_cm DESC LIMIT 1",
         "evidence_added": true
     },
     {
         "idx": "bird_1122",
-        "db_id": "<DB_ID>",
+        "db_id": "movie",
         "orig_db_id": "european_football_2",
-        "question": "<QUESTION>",
+        "question": "State the character names of the most rated movie. rated movies refers to movie has MAX(Rating Count)",
         "orig_question": "State the name of the most strongest player. strongest players refers to player has MAX(overall_rating)",
         "orig_masked": "State the [C126] of the most [C153] [T4]. [C153] [T4] refers to [T4] has MAX([C153])",
-        "evidence": "<EVIDENCE>",
+        "evidence": "rated movies refers to movie has MAX(Rating Count)",
         "orig_evidence": "strongest players refers to player has MAX(overall_rating)",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "rating count": "COLUMN:[movie].[rating count]",
+            "rated": "COLUMN:[movie].[rating count]",
+            "movies": "TABLE:[movie]",
+            "movie": "TABLE:[movie]",
+            "character names": "COLUMN:[characters].[character name]"
+        },
         "orig_gold_schema_links": {
             "overall_rating": "COLUMN:[player_attributes].[overall_rating]",
             "strongest": "COLUMN:[player_attributes].[overall_rating]",
@@ -112,47 +144,61 @@
             "player": "TABLE:[player]",
             "name": "COLUMN:[player].[player_name]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {},
         "orig_gold_value_links": {},
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T2.\"Character Name\" FROM movie as T1 INNER JOIN characters as T2 ON T1.MovieID = T2.MovieID WHERE T1.MovieID in (SELECT MovieID FROM movie ORDER BY \"Rating Count\" DESC LIMIT 1)",
         "orig_gold_sql": "SELECT DISTINCT t1.player_name FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t2.overall_rating = (SELECT MAX(overall_rating) FROM Player_Attributes)",
         "evidence_added": true
     },
     {
         "idx": "bird_828",
-        "db_id": "<DB_ID>",
+        "db_id": "synthea",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "Count the overweight patients.  overweight refers to observations.value >= 25 WHERE observations.description = 'Body Mass Index';",
         "orig_question": "Count the fastest superheroes.  fastest refers to attribute_value = 100 WHERE attribute_name = 'Speed';",
         "orig_masked": "Count the [C3] [T9].  [C3] refers to [C10] = [V2] WHERE [C3] = '[V1]';; [V1] is a value of the column [C3]; [V2] is a value of the column [C10]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "overweight refers to observations.value >= 25 WHERE observations.description = 'Body Mass Index';",
         "orig_evidence": "fastest refers to attribute_value = 100 WHERE attribute_name = 'Speed';",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "overweight": "COLUMN:[observations].[description]",
+            "patients": "TABLE:[patients]",
+            "observations.value": "COLUMN:[observations].[value]",
+            "observations.description": "COLUMN:[observations].[description]"
+        },
         "orig_gold_schema_links": {
-            "fastest": "COLUMN:[attribute].[attribute_name]",
+            "overweight": "COLUMN:[observations].[description]",
             "superheroes": "TABLE:[superhero]",
             "attribute_value": "COLUMN:[hero_attribute].[attribute_value]",
             "attribute_name": "COLUMN:[attribute].[attribute_name]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Body Mass Index": "[observations].[description]",
+            "25": "[observations].[value]"
+        },
         "orig_gold_value_links": {
             "Speed": "[attribute].[attribute_name]",
             "100": "[hero_attribute].[attribute_value]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT COUNT(DISTINCT T2.patient) FROM observations as T1 INNER JOIN patients as T2 ON T1.patient = T2.patient WHERE T1.description = 'Body Mass Index' AND T1.value >= 25.0",
         "orig_gold_sql": "SELECT COUNT(T3.superhero_name) FROM hero_attribute AS T1 INNER JOIN attribute AS T2 ON T1.attribute_id = T2.id INNER JOIN superhero AS T3 ON T1.hero_id = T3.id WHERE T2.attribute_name = 'Speed' AND T1.attribute_value = 100",
         "evidence_added": true
     },
     {
         "idx": "bird_721",
-        "db_id": "<DB_ID>",
+        "db_id": "movie_3",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "How many movies have Animation genre?  animation genre refers to name = 'Animation' and film_category.category_id = category.category_id;",
         "orig_question": "How many superheroes have blue eyes?  blue eyes refers to colour = 'Blue' and eye_colour_id = colour.id;",
         "orig_masked": "How many [T9] have [V1] [C19]?  [V1] [C19] refers to [C5] = '[V1]' and [C19] = [C6];; [V1] is a value of the column [C5]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "animation genre refers to name = 'Animation' and film_category.category_id = category.category_id;",
         "orig_evidence": "blue eyes refers to colour = 'Blue' and eye_colour_id = colour.id;",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "movies": "TABLE:[film]",
+            "name": "COLUMN:[category].[name]",
+            "genre": "COLUMN:[category].[name]",
+            "film_category.category_id": "COLUMN:[film_category].[category_id]",
+            "category.category_id": "COLUMN:[category].[category_id]"
+        },
         "orig_gold_schema_links": {
             "superheroes": "TABLE:[superhero]",
             "eyes": "COLUMN:[superhero].[eye_colour_id]",
@@ -160,84 +206,106 @@
             "eye_colour_id": "COLUMN:[superhero].[eye_colour_id]",
             "colour.id": "COLUMN:[colour].[id]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Animation": "[category].[name]"
+        },
         "orig_gold_value_links": {
             "Blue": "[colour].[colour]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT COUNT(DISTINCT T1.film_id) FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T3.name = 'Animation'",
         "orig_gold_sql": "SELECT COUNT(T1.id) FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id WHERE T2.colour = 'Blue'",
         "evidence_added": true
     },
     {
         "idx": "bird_153",
-        "db_id": "<DB_ID>",
+        "db_id": "food_inspection",
         "orig_db_id": "financial",
-        "question": "<QUESTION>",
+        "question": "How many 'High Risk' violations are hot water related?  when the description = 'No hot water or running water', it's hot water related",
         "orig_question": "How many 'classic' cards are eligible for loan?  when the account type = 'OWNER', it's eligible for loan",
         "orig_masked": "How many '[V1]' [T2] are [C16]?  when the [C16] = '[V2]', it's [C16]; [V1] is a value of the column [C8]; [V2] is a value of the column [C16]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "when the description = 'No hot water or running water', it's hot water related",
         "orig_evidence": "when the account type = 'OWNER', it's eligible for loan",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "violations": "TABLE:[violations]",
+            "description": "COLUMN:[violations].[description]",
+            "hot water related": "COLUMN:[violations].[description]"
+        },
         "orig_gold_schema_links": {
             "cards": "TABLE:[card]",
             "account type": "COLUMN:[disp].[type]",
             "eligible for loan": "COLUMN:[disp].[type]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "High Risk": "[violations].[risk_category]",
+            "No hot water or running water": "[violations].[description]"
+        },
         "orig_gold_value_links": {
             "classic": "[card].[type]",
             "OWNER": "[disp].[type]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT COUNT(*) FROM violations WHERE risk_category = 'High Risk' AND description = 'No hot water or running water'",
         "orig_gold_sql": "SELECT COUNT(T1.card_id) FROM card AS T1 INNER JOIN disp AS T2 ON T1.disp_id = T2.disp_id WHERE T1.type = 'classic' AND T2.type = 'OWNER'",
         "evidence_added": true
     },
     {
         "idx": "bird_821",
-        "db_id": "<DB_ID>",
+        "db_id": "olympics",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "List down LeBron Raymone James's event names.  LeBron Raymone James refers to full_name = 'LeBron Raymone James'; event names refers to event_name;",
         "orig_question": "List down Ajax's superpowers.  Ajax refers to superhero_name = 'Ajax'; superpowers refers to power_name;",
         "orig_masked": "List down [V1]'s [C31].  [V1] refers to [C28] = '[V1]'; [C31] refers to [C31];; [V1] is a value of the column [C28]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "LeBron Raymone James refers to full_name = 'LeBron Raymone James'; event names refers to event_name;",
         "orig_evidence": "Ajax refers to superhero_name = 'Ajax'; superpowers refers to power_name;",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "event names": "COLUMN:[event].[event_name]",
+            "event_name": "COLUMN:[event].[event_name]",
+            "full_name": "COLUMN:[person].[full_name]"
+        },
         "orig_gold_schema_links": {
             "superpowers": "COLUMN:[superpower].[power_name]",
             "superhero_name": "COLUMN:[superhero].[superhero_name]",
             "power_name": "COLUMN:[superpower].[power_name]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Lebron Raymone James": "[person].[full_name]"
+        },
         "orig_gold_value_links": {
             "Ajax": "[superhero].[superhero_name]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT DISTINCT T3.event_name FROM person as T1 INNER JOIN competitor_event as T2 ON T1.id = T2.competitor_id INNER JOIN event as T3 ON T2.event_id = T3.id WHERE T1.full_name = 'LeBron Raymone James'",
         "orig_gold_sql": "SELECT T3.power_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T2.power_id = T3.id WHERE T1.superhero_name = 'Ajax'",
         "evidence_added": true
     },
     {
         "idx": "bird_1089",
-        "db_id": "<DB_ID>",
+        "db_id": "european_football_1",
         "orig_db_id": "european_football_2",
-        "question": "<QUESTION>",
+        "question": "How many matches in the 2021 season were held in Belgium? Belgium refers to divisions.country = 'Belgium';",
         "orig_question": "How many matches in the 2008/2009 season were held in Belgium? Belgium refers to Country.name = 'Belgium';",
         "orig_masked": "How many [T3] in the [V1] [C108] were [T1] in [V2]? [V2] refers to [T1].[C2] = '[V2]';; [V1] is a value of the column [C108]; [V2] is a value of the column [C2]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "Belgium refers to divisions.country = 'Belgium';",
         "orig_evidence": "Belgium refers to Country.name = 'Belgium';",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "matches": "TABLE:[matchs]",
+            "season": "COLUMN:[matchs].[season]",
+            "divisions.country": "COLUMN:[divisions].[country]",
+            "held": "TABLE:[divisions]"
+        },
         "orig_gold_schema_links": {
             "matches": "TABLE:[match]",
             "season": "COLUMN:[match].[season]",
-            "name": "COLUMN:[country].[name]",
-            "Country": "TABLE:[country]",
+            "Country.name": "COLUMN:[country].[name]",
             "held": "TABLE:[country]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Belgium": "[divisions].[country]",
+            "2021": "[matchs].[season]"
+        },
         "orig_gold_value_links": {
             "Belgium": "[country].[name]",
             "2008/2009": "[match].[season]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT COUNT(*) FROM matchs AS T1 INNER JOIN divisions as T2 ON T1.div = T2.division WHERE T2.country = 'Belgium' AND T1.season = 2021",
         "orig_gold_sql": "SELECT COUNT(t2.id) FROM Country AS t1 INNER JOIN Match AS t2 ON t1.id = t2.country_id WHERE t1.name = 'Belgium' AND t2.season = '2008/2009'",
         "evidence_added": true
     }
