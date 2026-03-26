@@ -489,7 +489,7 @@
             "accounts": "TABLE:[account]",
             "district": "TABLE:[district]",
             "A2": "COLUMN:[district].[a2]",
-            "name": "COLUMN:[district].[a2]"
+            "district name": "COLUMN:[district].[a2]"
         }
     },
     {
@@ -504,7 +504,7 @@
         },
         "gold_schema_links": {
             "power_name": "COLUMN:[superpower].[power_name]",
-            "heroes": "TABLE:[superhero]",
+            "heroes": "COLUMN:[hero_power].[hero_id]",
             "power": "COLUMN:[superpower].[power_name]"
         }
     },
