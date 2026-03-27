@@ -1772,7 +1772,7 @@
             "region names": "COLUMN:[district].[a3]",
             "account ID": "COLUMN:[account].[account_id]",
             "account": "TABLE:[account]",
-            "opened": "TABLE:[account]",
+            "opened": "COLUMN:[account].[date]",
             "client": "TABLE:[account]",
             "A3": "COLUMN:[district].[a3]"
         },
