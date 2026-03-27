@@ -88,7 +88,7 @@
             "169": "[superhero].[weight_kg]",
             "169 kg": "[superhero].[weight_kg]"
         },
-        "gold_sql": "SELECT T1.full_name FROM person as T1 INNER JOIN person_region as T2 ON T1.id = T2.person_id INNER JOIN noc_region as T3 ON T2.region_id = T3.id WHERE T1.weight = 214",
+        "gold_sql": "SELECT T3.region_name FROM person as T1 INNER JOIN person_region as T2 ON T1.id = T2.person_id INNER JOIN noc_region as T3 ON T2.region_id = T3.id WHERE T1.weight = 214",
         "orig_gold_sql": "SELECT T2.race FROM superhero AS T1 INNER JOIN race AS T2 ON T1.race_id = T2.id WHERE T1.weight_kg = 169",
         "evidence_added": true
     },
@@ -177,7 +177,7 @@
         "idx": "bird_90",
         "db_id": "food_inspection_2",
         "orig_db_id": "financial",
-        "question": "How many establishments who have inspections in Chicago are eligible for fines?  violation.fine contains the data of fines",
+        "question": "How many establishments who have inspections in CHICAGO are eligible for fines?  violation.fine contains the data of fines",
         "orig_question": "How many accounts who have region in Prague are eligible for loans?  A3 contains the data of region",
         "orig_masked": "How many [T1] who have [T5] in [V1] are eligible for [T6]?  [C25] contains the data of [T5]; [V1] is a value of the column [C25]",
         "evidence": "violation.fine contains the data of fines",
@@ -195,12 +195,12 @@
             "A3": "COLUMN:[district].[a3]"
         },
         "gold_value_links": {
-            "Chicago": "[establishment].[city]"
+            "CHICAGO": "[establishment].[city]"
         },
         "orig_gold_value_links": {
             "Prague": "[district].[a3]"
         },
-        "gold_sql": "SELECT COUNT(DISTINCT T1.license_no) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no INNER JOIN violation AS T3 ON T2.inspection_id = T3.inspection_id WHERE T3.fine > 0",
+        "gold_sql": "SELECT COUNT(DISTINCT T1.license_no) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no INNER JOIN violation AS T3 ON T2.inspection_id = T3.inspection_id WHERE T3.fine > 0 AND T1.city = 'CHICAGO'",
         "orig_gold_sql": "SELECT COUNT(T1.account_id) FROM account AS T1 INNER JOIN loan AS T2 ON T1.account_id = T2.account_id INNER JOIN district AS T3 ON T1.district_id = T3.district_id WHERE T3.A3 = 'Prague'",
         "evidence_added": true,
         "note": "This one was very tricky because of the 'eligible' token. This was the best I could come up with"

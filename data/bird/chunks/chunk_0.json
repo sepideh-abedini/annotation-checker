@@ -169,7 +169,7 @@
         "idx": "bird_183",
         "db_id": "movie",
         "orig_db_id": "financial",
-        "question": "How many actors in Driving Miss Daisy were born after 1960? ",
+        "question": "How many actors in Driving Miss Daisy were born after 1940? ",
         "orig_question": "How many accounts in Beroun were opened after 1996? ",
         "orig_masked": "How many [T1] in [V1] were [C2] [C2] [V2]? ; [V1] is a value of the column [C24]; [V2] is a value of the column [C2]",
         "evidence": "",
@@ -183,7 +183,7 @@
             "opened after": "COLUMN:[account].[date]"
         },
         "gold_value_links": {
-            "1960": "[actor].[date of birth]",
+            "1940F": "[actor].[date of birth]",
             "Driving Miss Daisy": "[movie].[title]"
         },
         "orig_gold_value_links": {
