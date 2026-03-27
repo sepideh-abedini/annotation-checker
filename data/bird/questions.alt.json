@@ -2234,6 +2234,7 @@
             "football league": "TABLE:[league]",
             "country": "TABLE:[country]",
             "name": "COLUMN:[league].[name]",
+            "league.name": "COLUMN:[league].[name]",
             "league": "TABLE:[league]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",

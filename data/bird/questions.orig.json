@@ -1503,9 +1503,8 @@
         "gold_schema_links": {
             "superpower": "TABLE:[superpower]",
             "power_name": "COLUMN:[superpower].[power_name]",
-            "power": "TABLE:[superpower]",
-            "ID": "COLUMN:[superpower].[id]",
-            "superpower.id": "COLUMN:[superpower].[id]"
+            "power ID": "COLUMN:[superpower].[id]",
+            "id": "COLUMN:[superpower].[id]"
         }
     },
     {
@@ -1626,7 +1625,7 @@
             "Belgium Jupiler League": "[league].[name]"
         },
         "gold_schema_links": {
-            "country": "TABLE:[country]",
+            "country": "COLUMN:[country].[name]",
             "League.name": "COLUMN:[league].[name]"
         }
     },
