@@ -1420,7 +1420,7 @@
             "name": "COLUMN:[district].[a2]",
             "district": "TABLE:[district]",
             "accounts": "TABLE:[account]",
-            "opened": "TABLE:[district]",
+            "opened": "COLUMN:[account].[date]",
             "A2": "COLUMN:[district].[a2]"
         }
     },
@@ -1452,7 +1452,7 @@
         "gold_schema_links": {
             "eye colour": "COLUMN:[superhero].[eye_colour_id]",
             "superhero": "TABLE:[superhero]",
-            "ID": "COLUMN:[superhero].[id]",
+            "superhero ID": "COLUMN:[superhero].[id]",
             "eye_colour_id": "COLUMN:[superhero].[eye_colour_id]",
             "colour.id": "COLUMN:[colour].[id]",
             "colour": "COLUMN:[colour].[colour]"

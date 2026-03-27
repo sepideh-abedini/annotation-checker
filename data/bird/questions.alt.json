@@ -2014,7 +2014,7 @@
             "name": "COLUMN:[district].[a2]",
             "district": "TABLE:[district]",
             "accounts": "TABLE:[account]",
-            "opened": "TABLE:[district]",
+            "opened": "COLUMN:[account].[date]",
             "A2": "COLUMN:[district].[a2]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
