@@ -247,13 +247,11 @@
         "orig_evidence": "Germany refers to Country.name = 'Germany';",
         "gold_schema_links": {
             "employees": "TABLE:[employee]",
-            "locationcity": "COLUMN:[location].[locationcity]",
-            "location": "TABLE:[location]"
+            "location.locationcity": "COLUMN:[location].[locationcity]"
         },
         "orig_gold_schema_links": {
             "leagues": "TABLE:[league]",
-            "name": "COLUMN:[country].[name]",
-            "Country": "TABLE:[country]"
+            "Country.name": "COLUMN:[country].[name]"
         },
         "gold_value_links": {
             "Salt Lake City": "[location].[locationcity]"

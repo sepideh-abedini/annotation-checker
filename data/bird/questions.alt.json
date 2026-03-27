@@ -145,8 +145,7 @@
         "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
         "orig_gold_schema_links": {
             "accounts": "TABLE:[account]",
-            "opened": "COLUMN:[account].[date]",
-            "after": "COLUMN:[account].[date]"
+            "opened after": "COLUMN:[account].[date]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {
@@ -650,8 +649,7 @@
         "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
         "orig_gold_schema_links": {
             "leagues": "TABLE:[league]",
-            "name": "COLUMN:[country].[name]",
-            "Country": "TABLE:[country]"
+            "Country.name": "COLUMN:[country].[name]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {

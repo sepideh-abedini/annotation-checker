@@ -26,8 +26,7 @@
             "130": "[account].[account_id]"
         },
         "gold_schema_links": {
-            "account": "TABLE:[account]",
-            "owner number": "COLUMN:[account].[account_id]",
+            "account owner number": "COLUMN:[account].[account_id]",
             "year": "COLUMN:[client].[birth_date]",
             "born": "COLUMN:[client].[birth_date]"
         }
@@ -213,8 +212,7 @@
         },
         "gold_schema_links": {
             "account": "TABLE:[account]",
-            "loan": "TABLE:[loan]",
-            "amount": "COLUMN:[loan].[amount]"
+            "loan amount": "COLUMN:[loan].[amount]"
         }
     },
     {
@@ -601,7 +599,7 @@
             "Amazo": "[superhero].[superhero_name]"
         },
         "gold_schema_links": {
-            "powers": "TABLE:[hero_power]",
+            "powers": "COLUMN:[hero_power].[power_id]",
             "hero": "TABLE:[superhero]",
             "superhero_name": "COLUMN:[superhero].[superhero_name]"
         }

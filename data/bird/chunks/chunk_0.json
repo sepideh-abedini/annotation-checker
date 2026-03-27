@@ -176,13 +176,11 @@
         "orig_evidence": "",
         "gold_schema_links": {
             "actors": "TABLE:[actor]",
-            "born": "COLUMN:[actor].[date of birth]",
-            "after": "COLUMN:[actor].[date of birth]"
+            "born after": "COLUMN:[actor].[date of birth]"
         },
         "orig_gold_schema_links": {
             "accounts": "TABLE:[account]",
-            "opened": "COLUMN:[account].[date]",
-            "after": "COLUMN:[account].[date]"
+            "opened after": "COLUMN:[account].[date]"
         },
         "gold_value_links": {
             "1960": "[actor].[date of birth]",
