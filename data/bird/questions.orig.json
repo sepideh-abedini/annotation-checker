@@ -3533,7 +3533,7 @@
             "symptom": "COLUMN:[examination].[symptoms]",
             "patient": "TABLE:[patient]",
             "Examination Date": "COLUMN:[examination].[examination date]",
-            "ID": "COLUMN:[patient].[id]"
+            "patient ID": "COLUMN:[patient].[id]"
         }
     },
     {
@@ -3604,7 +3604,8 @@
             "IDs": "COLUMN:[patient].[id]",
             "sex": "COLUMN:[patient].[sex]",
             "Admission": "COLUMN:[patient].[admission]",
-            "outpatients": "COLUMN:[patient].[admission]"
+            "outpatients": "COLUMN:[patient].[admission]",
+            "HBG": "COLUMN:[laboratory].[hgb]"
         }
     },
     {
@@ -3634,16 +3635,14 @@
         "evidence_added": true,
         "query": "SELECT DISTINCT t1.buildUpPlaySpeedClass FROM Team_Attributes AS t1 INNER JOIN Team AS t2 ON t1.team_api_id = t2.team_api_id WHERE t2.team_long_name = 'KSV Cercle Brugge'",
         "gold_value_links": {
-            "KSV Cercle Brugge": "[team].[team_long_name]",
-            "slow": "[team_attributes].[buildupplayspeedclass]",
-            "balanced": "[team_attributes].[buildupplayspeedclass]",
-            "fast": "[team_attributes].[buildupplayspeedclass]"
+            "KSV Cercle Brugge": "[team].[team_long_name]"
         },
         "gold_schema_links": {
             "buildUpPlaySpeedClass": "COLUMN:[team_attributes].[buildupplayspeedclass]",
             "team_long_name": "COLUMN:[team].[team_long_name]",
-            "speed class": "COLUMN:[team_attributes].[buildupplayspeedclass]",
-            "team": "TABLE:[team]"
+            "slow, balanced or fast speed class": "COLUMN:[team_attributes].[buildupplayspeedclass]",
+            "team": "TABLE:[team]",
+            "speed class": "COLUMN:[team_attributes].[buildupplayspeedclass]"
         }
     },
     {

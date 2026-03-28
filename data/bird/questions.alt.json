@@ -5035,7 +5035,8 @@
             "IDs": "COLUMN:[patient].[id]",
             "sex": "COLUMN:[patient].[sex]",
             "Admission": "COLUMN:[patient].[admission]",
-            "outpatients": "COLUMN:[patient].[admission]"
+            "outpatients": "COLUMN:[patient].[admission]",
+            "HBG": "COLUMN:[laboratory].[hgb]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {
@@ -5086,7 +5087,8 @@
             "buildUpPlaySpeedClass": "COLUMN:[team_attributes].[buildupplayspeedclass]",
             "team_long_name": "COLUMN:[team].[team_long_name]",
             "slow, balanced or fast speed class": "COLUMN:[team_attributes].[buildupplayspeedclass]",
-            "team": "TABLE:[team]"
+            "team": "TABLE:[team]",
+            "speed class": "COLUMN:[team_attributes].[buildupplayspeedclass]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {

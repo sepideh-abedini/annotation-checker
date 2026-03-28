@@ -167,20 +167,20 @@
     },
     {
         "idx": "bird_114",
-        "db_id": "human_resources",
+        "db_id": "book_publishing_company",
         "orig_db_id": "financial",
-        "question": "For the first employee who started his/her position in Boston, what is his/her SSN? locationcity stands for location city",
+        "question": "For the first employee who lists his/her employer in Boston, what is his/her employee ID? publishers.city stands for employee city",
         "orig_question": "For the first client who opened his/her account in Prague, what is his/her account ID? A3 stands for region names",
         "orig_masked": "For the first [T1] who [T1] his/her [T1] in [V1], what is his/her [C1]? [C25] stands for [C25]; [V1] is a value of the column [C25]",
-        "evidence": "locationcity stands for location city",
+        "evidence": "publishers.city stands for employee city",
         "orig_evidence": "A3 stands for region names",
         "gold_schema_links": {
-            "location city": "COLUMN:[location].[locationcity]",
-            "SSN": "COLUMN:[employee].[ssn]",
-            "position": "TABLE:[position]",
-            "started": "COLUMN:[employee].[hiredate]",
+            "employee city": "COLUMN:[publishers].[city]",
+            "employee ID": "COLUMN:[employee].[emp_id]",
+            "employer": "TABLE:[publishers]",
+            "lists": "COLUMN:[publishers].[city]",
             "employee": "TABLE:[employee]",
-            "locationcity": "COLUMN:[location].[locationcity]"
+            "publishers.city": "COLUMN:[publishers].[city]"
         },
         "orig_gold_schema_links": {
             "region names": "COLUMN:[district].[a3]",
@@ -191,12 +191,12 @@
             "A3": "COLUMN:[district].[a3]"
         },
         "gold_value_links": {
-            "Boston": "[location].[locationcity]"
+            "Boston": "[publishers].[city]"
         },
         "orig_gold_value_links": {
             "Prague": "[district].[a3]"
         },
-        "gold_sql": "SELECT T1.ssn FROM employee AS T1 INNER JOIN location as T2 ON T1.locationID = T2.locationID WHERE T2.locationcity = 'Boston' ORDER BY T1.hiredate DESC LIMIT 1",
+        "gold_sql": "SELECT T1.emp_id FROM employee AS T1 INNER JOIN publishers as T2 ON T1.pub_id = T2.pub_id WHERE T2.city = 'Boston' ORDER BY T1.hire_date ASC LIMIT 1",
         "orig_gold_sql": "SELECT T1.account_id FROM account AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id WHERE T2.A3 = 'Prague' ORDER BY T1.date ASC LIMIT 1",
         "evidence_added": true,
         "note": "Changed the link for opened to be more specific to a column. If you disagree we can change it back"
