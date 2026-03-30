@@ -3736,7 +3736,7 @@
             "names": "COLUMN:[superhero].[superhero_name]",
             "superheroes": "TABLE:[superhero]",
             "power": "COLUMN:[superpower].[power_name]",
-            "name": "COLUMN:[superhero].[superhero_name]",
+            "name of superheroes": "COLUMN:[superhero].[superhero_name]",
             "superhero_name": "COLUMN:[superhero].[superhero_name]",
             "power_name": "COLUMN:[superpower].[power_name]"
         }
@@ -3751,7 +3751,7 @@
         "gold_value_links": {
             "SLE": "[patient].[diagnosis]",
             "3.5": "[laboratory].[wbc]",
-            "9": "[laboratory].[wbc]"
+            "9.0": "[laboratory].[wbc]"
         },
         "gold_schema_links": {
             "normal white blood cell level": "COLUMN:[laboratory].[wbc]",
@@ -3777,7 +3777,8 @@
             "Admission": "COLUMN:[patient].[admission]",
             "admitted to the hospital": "COLUMN:[patient].[admission]",
             "patients": "TABLE:[patient]",
-            "normal level of IGG": "COLUMN:[laboratory].[igg]"
+            "normal level of IGG": "COLUMN:[laboratory].[igg]",
+            "IGG": "COLUMN:[laboratory].[igg]"
         }
     },
     {
@@ -3794,8 +3795,7 @@
         },
         "gold_schema_links": {
             "players": "TABLE:[player]",
-            "player": "TABLE:[player]",
-            "names": "COLUMN:[player].[player_name]",
+            "player names": "COLUMN:[player].[player_name]",
             "overall rating": "COLUMN:[player_attributes].[overall_rating]",
             "overall_rating": "COLUMN:[player_attributes].[overall_rating]",
             "date": "COLUMN:[player_attributes].[date]"

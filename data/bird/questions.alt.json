@@ -5190,10 +5190,10 @@
             "eye_colour_id": "COLUMN:[superhero].[eye_colour_id]",
             "superheroes": "TABLE:[superhero]",
             "full names": "COLUMN:[superhero].[superhero_name]",
-            "colour": "COLUMN:[colour].[colour]",
+            "colour.colour": "COLUMN:[colour].[colour]",
             "eyes": "COLUMN:[superhero].[eye_colour_id]",
             "name": "COLUMN:[superhero].[superhero_name]",
-            "id": "COLUMN:[colour].[id]"
+            "colour.id": "COLUMN:[colour].[id]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {
@@ -5250,7 +5250,7 @@
         "orig_gold_value_links": {
             "SLE": "[patient].[diagnosis]",
             "3.5": "[laboratory].[wbc]",
-            "9": "[laboratory].[wbc]"
+            "9.0": "[laboratory].[wbc]"
         },
         "gold_sql": "<GOLD_SQL>",
         "orig_gold_sql": "SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T1.Diagnosis = 'SLE' AND T2.WBC BETWEEN 3.5 AND 9",
@@ -5270,7 +5270,8 @@
             "Admission": "COLUMN:[patient].[admission]",
             "admitted to the hospital": "COLUMN:[patient].[admission]",
             "patients": "TABLE:[patient]",
-            "normal level of IGG": "COLUMN:[laboratory].[igg]"
+            "normal level of IGG": "COLUMN:[laboratory].[igg]",
+            "IGG": "COLUMN:[laboratory].[igg]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {
@@ -5294,8 +5295,7 @@
         "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
         "orig_gold_schema_links": {
             "players": "TABLE:[player]",
-            "player": "TABLE:[player]",
-            "names": "COLUMN:[player].[player_name]",
+            "player names": "COLUMN:[player].[player_name]",
             "overall rating": "COLUMN:[player_attributes].[overall_rating]",
             "overall_rating": "COLUMN:[player_attributes].[overall_rating]",
             "date": "COLUMN:[player_attributes].[date]"
