@@ -5494,7 +5494,6 @@
         "orig_gold_value_links": {
             "Francois Affolter": "[player].[player_name]",
             "18/09/2014": "[player_attributes].[date]",
-            "2014-09-18": "[player_attributes].[date]",
             "2014-09-18 00:00:00": "[player_attributes].[date]"
         },
         "gold_sql": "<GOLD_SQL>",
@@ -5565,9 +5564,8 @@
         "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
         "orig_gold_schema_links": {
             "matches": "TABLE:[match]",
-            "name": "COLUMN:[league].[name]",
-            "date": "COLUMN:[match].[date]",
-            "League": "TABLE:[league]"
+            "League.name": "COLUMN:[league].[name]",
+            "date": "COLUMN:[match].[date]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {
