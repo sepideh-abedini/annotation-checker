@@ -1,37 +1,51 @@
 [
     {
         "idx": "bird_727",
-        "db_id": "<DB_ID>",
+        "db_id": "book_publishing_company",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "Who is the author of You Can Combat Computer Stress!?  the author refers to au_lname; You Can Combat Computer Stress! refers to title = 'You Can Combat Computer Stress!'",
         "orig_question": "Who is the publisher of Sauron?  the publisher refers to publisher_name; Sauron refers to superhero_name = 'Sauron'",
         "orig_masked": "Who is the [T7] of [V1]?  the [T7] refers to [C15]; [V1] refers to [C28] = '[V1]'; [V1] is a value of the column [C28]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "the author refers to au_lname; You Can Combat Computer Stress! refers to title = 'You Can Combat Computer Stress!'",
         "orig_evidence": "the publisher refers to publisher_name; Sauron refers to superhero_name = 'Sauron'",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "author": "TABLE:[authors]",
+            "au_lname": "COLUMN:[authors].[au_lname]",
+            "title": "COLUMN:[titles].[title]"
+        },
         "orig_gold_schema_links": {
             "publisher": "TABLE:[publisher]",
             "publisher_name": "COLUMN:[publisher].[publisher_name]",
             "superhero_name": "COLUMN:[superhero].[superhero_name]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "You Can Combat Computer Stress!": "[titles].[title]"
+        },
         "orig_gold_value_links": {
             "Sauron": "[superhero].[superhero_name]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T1.au_lname FROM authors AS T1 INNER JOIN titleauthor as T2 ON T2.au_id = T1.au_id INNER JOIN titles AS T3 ON T2.title_id = T3.title_id WHERE T3.title = 'You Can Combat Computer Stress!'",
         "orig_gold_sql": "SELECT T2.publisher_name FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id WHERE T1.superhero_name = 'Sauron'",
         "evidence_added": true
     },
     {
         "idx": "bird_102",
-        "db_id": "<DB_ID>",
+        "db_id": "movie",
         "orig_db_id": "financial",
-        "question": "<QUESTION>",
+        "question": "State different movies who have movie release date before 1997 and received an amount of ratings greater than 100000  ",
         "orig_question": "State different accounts who have account opening date before 1997 and own an amount of money greater than 3000USD  ",
         "orig_masked": "State different [T1] who have [T1] [C2] [C2] [V2] and [C48] an [C48] of [C48] greater than [V1]  ; [V1] is a value of the column [C48]; [V2] is a value of the column [C2]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "",
         "orig_evidence": "",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "movies": "TABLE:[movie]",
+            "movie": "TABLE:[movie]",
+            "release date": "COLUMN:[movie].[release date]",
+            "before": "COLUMN:[movie].[release date]",
+            "amount": "COLUMN:[movie].[rating count]",
+            "ratings": "COLUMN:[movie].[rating count]",
+            "received": "COLUMN:[movie].[rating count]"
+        },
         "orig_gold_schema_links": {
             "accounts": "TABLE:[account]",
             "account": "TABLE:[account]",
@@ -41,48 +55,65 @@
             "money": "COLUMN:[trans].[amount]",
             "own": "COLUMN:[trans].[amount]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "1997": "[movie].[release date]",
+            "100000": "[movie].[rating count]"
+        },
         "orig_gold_value_links": {
             "1997": "[account].[date]",
             "3000USD": "[trans].[amount]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT DISTINCT title FROM movie WHERE STRFTIME('%Y', \"Release Date\") < '1997' AND \"Rating Count\" > 100000",
         "orig_gold_sql": "SELECT DISTINCT T2.account_id FROM trans AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id WHERE STRFTIME('%Y', T2.date) < '1997' AND T1.amount > 3000",
         "evidence_added": true
     },
     {
         "idx": "bird_1072",
-        "db_id": "<DB_ID>",
+        "db_id": "european_football_1",
         "orig_db_id": "european_football_2",
-        "question": "<QUESTION>",
+        "question": "What is the average home goals scored of the matches of Club Brugge? average home goals scored = AVG(FTHG);",
         "orig_question": "What is the average overall rating of the football player Aaron Doran? average overall rating = AVG(overall_rating);",
         "orig_masked": "What is the average [C153] of the [T4] [V1]? average [C153] = AVG([C153]);; [V1] is a value of the column [C126]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "average home goals scored = AVG(FTHG);",
         "orig_evidence": "average overall rating = AVG(overall_rating);",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "home goals scored": "COLUMN:[matchs].[fthg]",
+            "matches": "TABLE:[matchs]",
+            "FTHG": "COLUMN:[matchs].[fthg]"
+        },
         "orig_gold_schema_links": {
             "overall rating": "COLUMN:[player_attributes].[overall_rating]",
             "football player": "TABLE:[player]",
             "overall_rating": "COLUMN:[player_attributes].[overall_rating]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Club Brugge": "[matchs].[hometeam]"
+        },
         "orig_gold_value_links": {
             "Aaron Doran": "[player].[player_name]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT AVG(FTHG) FROM matchs WHERE HomeTeam = 'Club Brugge'",
         "orig_gold_sql": "SELECT CAST(SUM(t2.overall_rating) AS REAL) / COUNT(t2.id) FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t1.player_name = 'Aaron Doran'",
         "evidence_added": true
     },
     {
         "idx": "bird_108",
-        "db_id": "<DB_ID>",
+        "db_id": "shipping",
         "orig_db_id": "financial",
-        "question": "<QUESTION>",
+        "question": "For the driver who shipped the biggest single weight, what was his/her first weight of shipment after starting the job? ",
         "orig_question": "For the client who applied the biggest loan, what was his/her first amount of transaction after opened the account? ",
         "orig_masked": "For the [T1] who [T6] the biggest [C34], what was his/her first [C48] of [T8] after [T1] the [T1]? ",
-        "evidence": "<EVIDENCE>",
+        "evidence": "",
         "orig_evidence": "",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "single weight": "COLUMN:[shipment].[weight]",
+            "weight": "COLUMN:[shipment].[weight]",
+            "shipped": "TABLE:[shipment]",
+            "shipment": "TABLE:[shipment]",
+            "driver": "TABLE:[driver]",
+            "starting": "TABLE:[shipment]",
+            "job": "TABLE:[shipment]"
+        },
         "orig_gold_schema_links": {
             "loan": "COLUMN:[loan].[amount]",
             "applied": "TABLE:[loan]",
@@ -92,151 +123,192 @@
             "opened": "TABLE:[account]",
             "account": "TABLE:[account]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {},
         "orig_gold_value_links": {},
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT weight FROM shipment WHERE driver_id in (SELECT driver_id FROM shipment ORDER BY weight DESC LIMIT 1) ORDER BY ship_date ASC LIMIT 1",
         "orig_gold_sql": "SELECT T3.amount FROM loan AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id INNER JOIN trans AS T3 ON T2.account_id = T3.account_id ORDER BY T1.amount DESC, T3.date ASC LIMIT 1",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "I found this one hard to fit, this is my best effort but if you can think of something better I'm open to it."
     },
     {
         "idx": "bird_747",
-        "db_id": "<DB_ID>",
+        "db_id": "movie",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "What is the total number of actors without full name?  actors without full name refers to Name IS NULL",
         "orig_question": "What is the total number of superheroes without full name?  superheroes without full name refers to full_name IS NULL",
         "orig_masked": "What is the total number of [T9] without [C20]?  [T9] without [C20] refers to [C20] IS NULL",
-        "evidence": "<EVIDENCE>",
+        "evidence": "actors without full name refers to Name IS NULL",
         "orig_evidence": "superheroes without full name refers to full_name IS NULL",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "actors": "TABLE:[actor]",
+            "full name": "COLUMN:[actor].[name]",
+            "Name": "COLUMN:[actor].[name]"
+        },
         "orig_gold_schema_links": {
             "superheroes": "TABLE:[superhero]",
             "full name": "COLUMN:[superhero].[full_name]",
             "full_name": "COLUMN:[superhero].[full_name]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {},
         "orig_gold_value_links": {},
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT COUNT(ActorID) FROM actor WHERE Name IS NULL",
         "orig_gold_sql": "SELECT COUNT(id) FROM superhero WHERE full_name IS NULL",
         "evidence_added": true
     },
     {
         "idx": "bird_111",
-        "db_id": "<DB_ID>",
+        "db_id": "movie",
         "orig_db_id": "financial",
-        "question": "<QUESTION>",
+        "question": "How many movies were released in Action in 1996? Genre refers to movie genre; Action is one of movie genres.",
         "orig_question": "How many accounts were opened in Litomerice in 1996? A2 refers to district name; Litomerice is one of district names.",
         "orig_masked": "How many [T1] were [T5] in [V1] in [V2]? [C24] refers to [T5] [C24]; [V1] is one of [T5] [C24].; [V1] is a value of the column [C24]; [V2] is a value of the column [C2]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "Genre refers to movie genre; Action is one of movie genres.",
         "orig_evidence": "A2 refers to district name; Litomerice is one of district names.",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "genres": "COLUMN:[movie].[genre]",
+            "genre": "COLUMN:[movie].[genre]",
+            "movie": "TABLE:[movie]",
+            "movies": "TABLE:[movie]",
+            "released": "COLUMN:[movie].[release date]"
+        },
         "orig_gold_schema_links": {
             "names": "COLUMN:[district].[a2]",
             "name": "COLUMN:[district].[a2]",
             "district": "TABLE:[district]",
             "accounts": "TABLE:[account]",
-            "opened": "TABLE:[district]",
+            "opened": "COLUMN:[account].[date]",
             "A2": "COLUMN:[district].[a2]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Action": "[movie].[genre]",
+            "1996": "[movie].[release date]"
+        },
         "orig_gold_value_links": {
             "Litomerice": "[district].[a2]",
             "1996": "[account].[date]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT COUNT(DISTINCT MovieID) FROM movie WHERE STRFTIME('%Y', \"Release Date\") = '1996' AND Genre = 'Action'",
         "orig_gold_sql": "SELECT COUNT(T2.account_id) FROM district AS T1 INNER JOIN account AS T2 ON T1.district_id = T2.district_id WHERE STRFTIME('%Y', T2.date) = '1996' AND T1.A2 = 'Litomerice'",
         "evidence_added": true
     },
     {
         "idx": "bird_837",
-        "db_id": "<DB_ID>",
+        "db_id": "cars",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "Give the car name of car with the lowest cylinders.  lowest cylinders refers to MIN(cylinders);",
         "orig_question": "Give the hero ID of superhero with the lowest attribute value.  lowest attribute value refers to MIN(attribute_value);",
         "orig_masked": "Give the [C11] of [T9] with the lowest [C10].  lowest [C10] refers to MIN([C10]);",
-        "evidence": "<EVIDENCE>",
+        "evidence": "lowest cylinders refers to MIN(cylinders);",
         "orig_evidence": "lowest attribute value refers to MIN(attribute_value);",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "car name": "COLUMN:[data].[car_name]",
+            "car": "TABLE:[data]",
+            "cylinders": "COLUMN:[data].[cylinders]"
+        },
         "orig_gold_schema_links": {
             "hero ID": "COLUMN:[hero_attribute].[hero_id]",
             "superhero": "TABLE:[superhero]",
             "attribute value": "COLUMN:[hero_attribute].[attribute_value]",
             "attribute_value": "COLUMN:[hero_attribute].[attribute_value]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {},
         "orig_gold_value_links": {},
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT car_name FROM data WHERE cylinders = ( SELECT MIN(cylinders) FROM data )",
         "orig_gold_sql": "SELECT hero_id FROM hero_attribute WHERE attribute_value = ( SELECT MIN(attribute_value) FROM hero_attribute )",
         "evidence_added": true
     },
     {
         "idx": "bird_748",
-        "db_id": "<DB_ID>",
+        "db_id": "movie_3",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "What is the genre of film with film id 18?  genre refers to category.name where film_category.category_id = category.category_id;",
         "orig_question": "What is the eye colour of superhero with superhero ID 75?  eye colour refers to colour where eye_colour_id = colour.id;",
         "orig_masked": "What is the [C19] of [T9] with [C24] [V1]?  [C19] refers to [C5] where [C19] = [C6];; [V1] is a value of the column [C24]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "genre refers to category.name where film_category.category_id = category.category_id;",
         "orig_evidence": "eye colour refers to colour where eye_colour_id = colour.id;",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "genre": "COLUMN:[category].[name]",
+            "film": "TABLE:[film]",
+            "film id": "COLUMN:[film].[film_id]",
+            "film_category.category_id": "COLUMN:[film_category].[category_id]",
+            "category.category_id": "COLUMN:[category].[category_id]",
+            "category.name": "COLUMN:[category].[name]"
+        },
         "orig_gold_schema_links": {
             "eye colour": "COLUMN:[superhero].[eye_colour_id]",
             "superhero": "TABLE:[superhero]",
-            "superhero ID": "COLUMN:[superhero].[id]",
+            "ID": "COLUMN:[superhero].[id]",
             "eye_colour_id": "COLUMN:[superhero].[eye_colour_id]",
             "colour.id": "COLUMN:[colour].[id]",
             "colour": "COLUMN:[colour].[colour]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "18": "[film].[film_id]"
+        },
         "orig_gold_value_links": {
             "75": "[superhero].[id]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T3.name FROM film as T1 INNER JOIN film_category as T2 ON T1.film_id = T2.film_id INNER JOIN category as T3 ON T2.category_id = T3.category_id WHERE T1.film_id = 18",
         "orig_gold_sql": "SELECT T2.colour FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id WHERE T1.id = 75",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "FIXED: should break genre name"
     },
     {
         "idx": "bird_810",
-        "db_id": "<DB_ID>",
+        "db_id": "synthea",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "What is the ethnicity of the patient with maximum value? maximum value refers to MAX(observation.value);",
         "orig_question": "What is the race of the superhero with maximum attribute value? maximum attribute value refers to MAX(attribute_value);",
         "orig_masked": "What is the [C17] of the [T9] with maximum [C10]? maximum [C10] refers to MAX([C10]);",
-        "evidence": "<EVIDENCE>",
+        "evidence": "maximum value refers to MAX(observation.value);",
         "orig_evidence": "maximum attribute value refers to MAX(attribute_value);",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "value": "COLUMN:[observations].[value]",
+            "observation.value": "COLUMN:[observations].[value]",
+            "patient": "TABLE:[patients]",
+            "ethnicity": "COLUMN:[patients].[ethnicity]"
+        },
         "orig_gold_schema_links": {
             "attribute value": "COLUMN:[hero_attribute].[attribute_value]",
             "attribute_value": "COLUMN:[hero_attribute].[attribute_value]",
             "superhero": "TABLE:[superhero]",
             "race": "COLUMN:[race].[race]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {},
         "orig_gold_value_links": {},
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T1.ethnicity FROM patients AS T1 INNER JOIN observations AS T2 ON T1.patient = T2.patient WHERE T2.value = (SELECT value FROM observations ORDER BY value DESC LIMIT 1)",
         "orig_gold_sql": "SELECT T3.race FROM superhero AS T1 INNER JOIN hero_attribute AS T2 ON T1.id = T2.hero_id INNER JOIN race AS T3 ON T1.race_id = T3.id ORDER BY T2.attribute_value DESC LIMIT 1",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "FIXED: Should break observation value"
     },
     {
         "idx": "bird_780",
-        "db_id": "<DB_ID>",
+        "db_id": "books",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "List the titles of Abraham Lincoln.  Abraham Lincoln is the name of author; list the titles refers to book.title;",
         "orig_question": "List the powers of Hunter Zolomon.  Hunter Zolomon is the full name of superhero; list the powers refers to power_name;",
         "orig_masked": "List the [C31] of [V1].  [V1] is the [C20] of [T9]; list the [C31] refers to [C31];; [V1] is a value of the column [C20]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "Abraham Lincoln is the name of author; list the titles refers to book.title;",
         "orig_evidence": "Hunter Zolomon is the full name of superhero; list the powers refers to power_name;",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "titles": "COLUMN:[book].[title]",
+            "name": "COLUMN:[author].[author_name]",
+            "author": "TABLE:[author]",
+            "book.title": "COLUMN:[book].[title]"
+        },
         "orig_gold_schema_links": {
             "powers": "COLUMN:[superpower].[power_name]",
             "full name": "COLUMN:[superhero].[full_name]",
             "superhero": "TABLE:[superhero]",
             "power_name": "COLUMN:[superpower].[power_name]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Abraham Lincoln": "[author].[author_name]"
+        },
         "orig_gold_value_links": {
             "Hunter Zolomon": "[superhero].[full_name]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T3.title FROM author as T1 INNER JOIN book_author as T2 ON T1.author_id = T2.author_id INNER JOIN book AS T3 ON T2.book_id = T3.book_id WHERE T1.author_name = 'Abraham Lincoln'",
         "orig_gold_sql": "SELECT T3.power_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T2.power_id = T3.id WHERE T1.full_name = 'Hunter Zolomon'",
         "evidence_added": true
     }

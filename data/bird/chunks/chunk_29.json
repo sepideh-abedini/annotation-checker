@@ -305,7 +305,8 @@
         },
         "gold_sql": "SELECT SUM(IIF(city_name = 'Somerville', population, 0)) - SUM(IIF(city_name = 'Malden', population, 0)) FROM city",
         "orig_gold_sql": "SELECT SUM(IIF(A3 = 'east Bohemia', A16, 0)) - SUM(IIF(A3 = 'north Bohemia', A16, 0)) FROM district",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "To be consistent with the original question, I changed 'Massachusetts' to '2026'. The reason is that if we inspect the original question, the whole 'number of crimes committed in 1996' refers to the column 'a16'. However, in the original question we have different variations of this phrase and we link all of them to the 'a16'. Therefore, we also link '1996' (just before the ?) in to 'a16'. To follow similar pattern, we also need the word just before '?' to be a part of phrase that is linked to 'population'. I used '2026', becuase we can hypothetically assume population refers to the population calculated in 2026. 'Massachusetts' was not a good choice because we already have a 'state' column in the 'city' table that also includes the 'Massachusetts' value. So, I think using 'Massachusetts' might cause ambiguity in the question and doesn't properly match the original question's pattern."
     },
     {
         "idx": "bird_1139",

@@ -145,8 +145,7 @@
         "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
         "orig_gold_schema_links": {
             "accounts": "TABLE:[account]",
-            "opened": "COLUMN:[account].[date]",
-            "after": "COLUMN:[account].[date]"
+            "opened after": "COLUMN:[account].[date]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {
@@ -320,7 +319,7 @@
         "orig_db_id": "financial",
         "question": "<QUESTION>",
         "orig_question": "What type of credit card does the client with the id 13539 own?  ",
-        "orig_masked": "What [C8] of [T2] does the [T3] with the [C10] [V1] [T2]?  ; [V1] is a value of the column [C10]",
+        "orig_masked": "What [C8] of [T2] does the [T3] with the [C10] [V1] own?  ; [V1] is a value of the column [C10]",
         "evidence": "<EVIDENCE>",
         "orig_evidence": "",
         "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
@@ -328,7 +327,6 @@
             "type": "COLUMN:[card].[type]",
             "client": "TABLE:[client]",
             "credit card": "TABLE:[card]",
-            "own": "TABLE:[card]",
             "id": "COLUMN:[client].[client_id]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
@@ -389,13 +387,12 @@
         "orig_db_id": "financial",
         "question": "<QUESTION>",
         "orig_question": "Please list all the transactions made by accounts from district 5. ",
-        "orig_masked": "Please list all the [T8] [T8] by [T1] from [T5] [V1]. ; [V1] is a value of the column [C32]",
+        "orig_masked": "Please list all the [T8] made by [T1] from [T5] [V1]. ; [V1] is a value of the column [C32]",
         "evidence": "<EVIDENCE>",
         "orig_evidence": "",
         "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
         "orig_gold_schema_links": {
             "transactions": "TABLE:[trans]",
-            "made": "TABLE:[trans]",
             "accounts": "TABLE:[account]",
             "district": "TABLE:[district]"
         },
@@ -652,8 +649,7 @@
         "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
         "orig_gold_schema_links": {
             "leagues": "TABLE:[league]",
-            "name": "COLUMN:[country].[name]",
-            "Country": "TABLE:[country]"
+            "Country.name": "COLUMN:[country].[name]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {
@@ -1176,7 +1172,6 @@
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {
-            "3": "[client].[client_id]",
             "F": "[client].[gender]"
         },
         "gold_sql": "<GOLD_SQL>",
@@ -1386,8 +1381,7 @@
         "orig_gold_schema_links": {
             "matches": "TABLE:[match]",
             "season": "COLUMN:[match].[season]",
-            "name": "COLUMN:[country].[name]",
-            "Country": "TABLE:[country]",
+            "Country.name": "COLUMN:[country].[name]",
             "held": "TABLE:[country]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
@@ -1412,7 +1406,7 @@
         "orig_gold_schema_links": {
             "country": "COLUMN:[country].[name]",
             "league": "TABLE:[league]",
-            "name": "COLUMN:[league].[name]"
+            "league.name": "COLUMN:[league].[name]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {
@@ -1572,8 +1566,7 @@
         "orig_evidence": "A2 refers to the names of districts.",
         "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
         "orig_gold_schema_links": {
-            "date": "COLUMN:[account].[date]",
-            "opening": "COLUMN:[account].[date]",
+            "opening date": "COLUMN:[account].[date]",
             "accounts": "TABLE:[account]",
             "A2": "COLUMN:[district].[a2]",
             "districts": "TABLE:[district]",
@@ -1777,7 +1770,7 @@
             "region names": "COLUMN:[district].[a3]",
             "account ID": "COLUMN:[account].[account_id]",
             "account": "TABLE:[account]",
-            "opened": "TABLE:[account]",
+            "opened": "COLUMN:[account].[date]",
             "client": "TABLE:[account]",
             "A3": "COLUMN:[district].[a3]"
         },
@@ -2019,7 +2012,7 @@
             "name": "COLUMN:[district].[a2]",
             "district": "TABLE:[district]",
             "accounts": "TABLE:[account]",
-            "opened": "TABLE:[district]",
+            "opened": "COLUMN:[account].[date]",
             "A2": "COLUMN:[district].[a2]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
@@ -2239,6 +2232,7 @@
             "football league": "TABLE:[league]",
             "country": "TABLE:[country]",
             "name": "COLUMN:[league].[name]",
+            "league.name": "COLUMN:[league].[name]",
             "league": "TABLE:[league]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
@@ -5041,7 +5035,8 @@
             "IDs": "COLUMN:[patient].[id]",
             "sex": "COLUMN:[patient].[sex]",
             "Admission": "COLUMN:[patient].[admission]",
-            "outpatients": "COLUMN:[patient].[admission]"
+            "outpatients": "COLUMN:[patient].[admission]",
+            "HBG": "COLUMN:[laboratory].[hgb]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {
@@ -5092,7 +5087,8 @@
             "buildUpPlaySpeedClass": "COLUMN:[team_attributes].[buildupplayspeedclass]",
             "team_long_name": "COLUMN:[team].[team_long_name]",
             "slow, balanced or fast speed class": "COLUMN:[team_attributes].[buildupplayspeedclass]",
-            "team": "TABLE:[team]"
+            "team": "TABLE:[team]",
+            "speed class": "COLUMN:[team_attributes].[buildupplayspeedclass]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {
@@ -5194,10 +5190,10 @@
             "eye_colour_id": "COLUMN:[superhero].[eye_colour_id]",
             "superheroes": "TABLE:[superhero]",
             "full names": "COLUMN:[superhero].[superhero_name]",
-            "colour": "COLUMN:[colour].[colour]",
+            "colour.colour": "COLUMN:[colour].[colour]",
             "eyes": "COLUMN:[superhero].[eye_colour_id]",
             "name": "COLUMN:[superhero].[superhero_name]",
-            "id": "COLUMN:[colour].[id]"
+            "colour.id": "COLUMN:[colour].[id]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {
@@ -5254,7 +5250,7 @@
         "orig_gold_value_links": {
             "SLE": "[patient].[diagnosis]",
             "3.5": "[laboratory].[wbc]",
-            "9": "[laboratory].[wbc]"
+            "9.0": "[laboratory].[wbc]"
         },
         "gold_sql": "<GOLD_SQL>",
         "orig_gold_sql": "SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T1.Diagnosis = 'SLE' AND T2.WBC BETWEEN 3.5 AND 9",
@@ -5274,7 +5270,8 @@
             "Admission": "COLUMN:[patient].[admission]",
             "admitted to the hospital": "COLUMN:[patient].[admission]",
             "patients": "TABLE:[patient]",
-            "normal level of IGG": "COLUMN:[laboratory].[igg]"
+            "normal level of IGG": "COLUMN:[laboratory].[igg]",
+            "IGG": "COLUMN:[laboratory].[igg]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {
@@ -5298,8 +5295,7 @@
         "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
         "orig_gold_schema_links": {
             "players": "TABLE:[player]",
-            "player": "TABLE:[player]",
-            "names": "COLUMN:[player].[player_name]",
+            "player names": "COLUMN:[player].[player_name]",
             "overall rating": "COLUMN:[player_attributes].[overall_rating]",
             "overall_rating": "COLUMN:[player_attributes].[overall_rating]",
             "date": "COLUMN:[player_attributes].[date]"
@@ -5498,7 +5494,6 @@
         "orig_gold_value_links": {
             "Francois Affolter": "[player].[player_name]",
             "18/09/2014": "[player_attributes].[date]",
-            "2014-09-18": "[player_attributes].[date]",
             "2014-09-18 00:00:00": "[player_attributes].[date]"
         },
         "gold_sql": "<GOLD_SQL>",
@@ -5569,9 +5564,8 @@
         "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
         "orig_gold_schema_links": {
             "matches": "TABLE:[match]",
-            "name": "COLUMN:[league].[name]",
-            "date": "COLUMN:[match].[date]",
-            "League": "TABLE:[league]"
+            "League.name": "COLUMN:[league].[name]",
+            "date": "COLUMN:[match].[date]"
         },
         "gold_value_links": "<GOLD_VALUE_LINKS>",
         "orig_gold_value_links": {

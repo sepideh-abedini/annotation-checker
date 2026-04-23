@@ -1,14 +1,22 @@
 [
     {
         "idx": "bird_1214",
-        "db_id": "<DB_ID>",
+        "db_id": "cars",
         "orig_db_id": "thrombosis_prediction",
-        "question": "<QUESTION>",
+        "question": "List ID, model year and country of vehicles whose acceleration (acc) below the lower range of the normal index. acceleration (acc) below the lower range of the normal index refers to acceleration < 11",
         "orig_question": "List ID, sex and date of birth of patient whose total protein (TP) below the lower range of the normal index. total protein (TP) below the lower range of the normal index refers to TP < 6.0",
         "orig_masked": "List [C63], [C64] and [C59] of [T3] whose [C53] ([C53]) below the [C53]. [C53] ([C53]) below the [C53] refers to [C53] < [V1]; [V1] is a value of the column [C53]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "acceleration (acc) below the lower range of the normal index refers to acceleration < 11",
         "orig_evidence": "total protein (TP) below the lower range of the normal index refers to TP < 6.0",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "acceleration": "COLUMN:[data].[acceleration]",
+            "country": "TABLE:[country]",
+            "model year": "COLUMN:[production].[model_year]",
+            "acc": "COLUMN:[data].[acceleration]",
+            "lower range of the normal index": "COLUMN:[data].[acceleration]",
+            "ID": "COLUMN:[data].[id]",
+            "vehicles": "TABLE:[data]"
+        },
         "orig_gold_schema_links": {
             "total protein": "COLUMN:[laboratory].[tp]",
             "date of birth": "COLUMN:[patient].[birthday]",
@@ -18,24 +26,35 @@
             "ID": "COLUMN:[patient].[id]",
             "patient": "TABLE:[patient]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "11": "[data].[acceleration]"
+        },
         "orig_gold_value_links": {
             "6.0": "[laboratory].[tp]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT DISTINCT T1.ID, T2.model_year, T3.country FROM data AS T1 INNER JOIN production as T2 ON T1.ID = T2.ID INNER JOIN country AS T3 ON T3.origin = T2.country WHERE T1.acceleration < 11",
         "orig_gold_sql": "SELECT DISTINCT T1.ID, T1.SEX, T1.Birthday FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.TP < 6.0",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "FIXED: should break country name"
     },
     {
         "idx": "bird_120",
-        "db_id": "<DB_ID>",
+        "db_id": "book_publishing_company",
         "orig_db_id": "financial",
-        "question": "<QUESTION>",
+        "question": "From Year 1990 to 1993, who are the employees from 'Binnet & Hardley'. State the employee ID the last names. employee refers to the person who works for this publisher.",
         "orig_question": "From Year 1995 to 2000, who are the accounts holders from 'east Bohemia'. State the account ID the frequency of statement issuance. Accounts holder refers to the person who own this account.",
         "orig_masked": "From [C2] [V2] to [V3], who are the [T1] from '[V1]'. State the [T1] [C1] the [C4]. [T1] refers to the [T1] this [T1].; [V1] is a value of the column [C25]; [V2] is a value of the column [C2]; [V3] is a value of the column [C2]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "State the employee ID the last names. employee refers to the person who works for this publisher.",
         "orig_evidence": "Accounts holder refers to the person who own this account.",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "last names": "COLUMN:[employee].[lname]",
+            "employees": "TABLE:[employee]",
+            "employee": "TABLE:[employee]",
+            "person who works for": "TABLE:[employee]",
+            "ID": "COLUMN:[employee].[emp_id]",
+            "publisher": "TABLE:[publishers]",
+            "Year": "COLUMN:[employee].[hire_date]"
+        },
         "orig_gold_schema_links": {
             "frequency of statement issuance": "COLUMN:[account].[frequency]",
             "accounts holders": "TABLE:[account]",
@@ -45,53 +64,75 @@
             "account": "TABLE:[account]",
             "Year": "COLUMN:[account].[date]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Binnet & Hardley": "[publishers].[pub_name]",
+            "1990": "[employee].[hire_date]",
+            "1993": "[employee].[hire_date]"
+        },
         "orig_gold_value_links": {
             "east Bohemia": "[district].[a3]",
             "1995": "[account].[date]",
             "2000": "[account].[date]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T1.emp_id, T1.lname FROM employee AS T1 INNER JOIN publishers as T2 ON T1.pub_id = T2.pub_id WHERE T2.pub_name = 'Binnet & Hardley' AND STRFTIME('%Y', T1.hire_date) BETWEEN '1990' AND '1993'  ",
         "orig_gold_sql": "SELECT T1.account_id, T1.frequency FROM account AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id WHERE T2.A3 = 'east Bohemia' AND STRFTIME('%Y', T1.date) BETWEEN '1995' AND '2000'",
         "evidence_added": true
     },
     {
         "idx": "bird_1047",
-        "db_id": "<DB_ID>",
+        "db_id": "shipping",
         "orig_db_id": "european_football_2",
-        "question": "<QUESTION>",
+        "question": "What is the driver 20 shipping weight on 19/05/2016? shipping weight refers to shipment.weight; on 19/05/2016 refers to date = '2016-05-19 00:00:00';",
         "orig_question": "What is the football player Francois Affolter header's finishing rate on 18/09/2014? header's finishing rate refers to heading_accuracy; on 18/09/2014 refers to date = '2014-09-18 00:00:00';",
         "orig_masked": "What is the [T4] [V2] [C146] on [V3]? [C146] refers to [C146]; on [V3] refers to [C136] = '[V1]';; [V1] is a value of the column [C136]; [V2] is a value of the column [C126]; [V3] is a value of the column [C136]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "shipping weight refers to shipment.weight; on 19/05/2016 refers to date = '2016-05-19 00:00:00';",
         "orig_evidence": "header's finishing rate refers to heading_accuracy; on 18/09/2014 refers to date = '2014-09-18 00:00:00';",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "shipping weight": "COLUMN:[shipment].[weight]",
+            "driver": "TABLE:[driver]",
+            "shipment.weight": "COLUMN:[shipment].[weight]",
+            "date": "COLUMN:[shipment].[ship_date]"
+        },
         "orig_gold_schema_links": {
             "header's finishing rate": "COLUMN:[player_attributes].[heading_accuracy]",
             "football player": "TABLE:[player]",
             "heading_accuracy": "COLUMN:[player_attributes].[heading_accuracy]",
             "date": "COLUMN:[player_attributes].[date]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "20": "[driver].[driver_id]",
+            "19/05/2016": "[shipment].[ship_date]",
+            "2016-05-19 00:00:00": "[shipment].[ship_date]"
+        },
         "orig_gold_value_links": {
             "Francois Affolter": "[player].[player_name]",
             "18/09/2014": "[player_attributes].[date]",
-            "2014-09-18": "[player_attributes].[date]",
             "2014-09-18 00:00:00": "[player_attributes].[date]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T1.weight FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id WHERE T2.last_name = 'Newell' AND T1.ship_date = '2016-05-19'",
         "orig_gold_sql": "SELECT t2.heading_accuracy FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t1.player_name = 'Francois Affolter' AND SUBSTR(t2.`date`, 1, 10) = '2014-09-18'",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "FIXED: Removed unnecessary value link; Mapping Newell to lastname is not obvious"
     },
     {
         "idx": "bird_1172",
-        "db_id": "<DB_ID>",
+        "db_id": "movie_3",
         "orig_db_id": "thrombosis_prediction",
-        "question": "<QUESTION>",
+        "question": "How many scary movies have elevated runtime? scary refers to category.name = 'Horror'; elevated means above the normal range; runtime above the normal range refers to `length` >= '150'",
         "orig_question": "How many male patients have elevated total bilirubin count? male refers to SEX = 'M'; elevated means above the normal range; total bilirubin above the normal range refers to `T-BIL` >= '2.0'",
         "orig_masked": "How many [C64] [T3] have [C48]? [C64] refers to [C64] = '[V2]'; [C48] means [C48]; [C48] refers to `[C48]` >= '[V1]'; [V1] is a value of the column [C48]; [V2] is a value of the column [C64]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "refers to category.name = 'Horror'; elevated means above the normal range; runtime above the normal range refers to `length` >= '150'",
         "orig_evidence": "male refers to SEX = 'M'; elevated means above the normal range; total bilirubin above the normal range refers to `T-BIL` >= '2.0'",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "elevated runtime": "COLUMN:[film].[length]",
+            "runtime above the normal range": "COLUMN:[film].[length]",
+            "movies": "TABLE:[film]",
+            "length": "COLUMN:[film].[length]",
+            "elevated": "COLUMN:[film].[length]",
+            "above the normal range": "COLUMN:[film].[length]",
+            "category.name": "COLUMN:[category].[name]",
+            "scary": "COLUMN:[category].[name]"
+        },
         "orig_gold_schema_links": {
             "elevated total bilirubin count": "COLUMN:[laboratory].[t-bil]",
             "total bilirubin above the normal range": "COLUMN:[laboratory].[t-bil]",
@@ -102,25 +143,34 @@
             "SEX": "COLUMN:[patient].[sex]",
             "male": "COLUMN:[patient].[sex]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "150": "[film].[length]",
+            "Horror": "[category].[name]"
+        },
         "orig_gold_value_links": {
             "2.0": "[laboratory].[t-bil]",
             "M": "[patient].[sex]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT COUNT(DISTINCT T1.film_id) FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T3.name = 'Horror' AND T1.length >= 150",
         "orig_gold_sql": "SELECT COUNT(DISTINCT T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.`T-BIL` >= 2.0 AND T1.SEX = 'M'",
         "evidence_added": true
     },
     {
         "idx": "bird_1032",
-        "db_id": "<DB_ID>",
+        "db_id": "european_football_1",
         "orig_db_id": "european_football_2",
-        "question": "<QUESTION>",
+        "question": "Give the name of the division with the highest matches of all time and how many matches were played in the said division.  division with highest matches of all time refers to MAX(COUNT(div));",
         "orig_question": "Give the name of the league with the highest matches of all time and how many matches were played in the said league.  league with highest matches of all time refers to MAX(COUNT(league_id));",
         "orig_masked": "Give the [C5] of the [T2] with the highest [T3] of all time and how many [T3] were [T3] in the said [T2].  [T2] with highest [T3] of all time refers to MAX(COUNT([C102]));",
-        "evidence": "<EVIDENCE>",
+        "evidence": "division with highest matches of all time refers to MAX(COUNT(div));",
         "orig_evidence": " league with highest matches of all time refers to MAX(COUNT(league_id));",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "name": "COLUMN:[divisions].[name]",
+            "division": "TABLE:[divisions]",
+            "matches": "TABLE:[matchs]",
+            "played": "TABLE:[matchs]",
+            "div": "COLUMN:[matchs].[div]"
+        },
         "orig_gold_schema_links": {
             "name": "COLUMN:[league].[name]",
             "league": "TABLE:[league]",
@@ -128,71 +178,92 @@
             "played": "TABLE:[match]",
             "league_id": "COLUMN:[match].[league_id]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {},
         "orig_gold_value_links": {},
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T2.name, T1.max_count FROM divisions AS T2 JOIN (SELECT Div, MAX(cnt) AS max_count FROM (SELECT Div, COUNT(Div) AS cnt FROM matchs GROUP BY Div) AS subquery) AS T1 ON T1.div = T2.division",
         "orig_gold_sql": "SELECT t2.name, t1.max_count FROM League AS t2 JOIN (SELECT league_id, MAX(cnt) AS max_count FROM (SELECT league_id, COUNT(id) AS cnt FROM Match GROUP BY league_id) AS subquery) AS t1 ON t1.league_id = t2.id",
         "evidence_added": true
     },
     {
         "idx": "bird_1091",
-        "db_id": "<DB_ID>",
+        "db_id": "european_football_1",
         "orig_db_id": "european_football_2",
-        "question": "<QUESTION>",
+        "question": "How many matches were held in the EFL Championship in October, 2020? EFL Championship refers to division.name = 'EFL Championship'; in October, 2020 refers to SUBSTR(`Date`, 1, 7);",
         "orig_question": "How many matches were held in the Belgium Jupiler League in April, 2009? Belgium Jupiler League refers to League.name = 'Belgium Jupiler League'; in April, 2009 refers to SUBSTR(`date`, 1, 7);",
         "orig_masked": "How many [T3] were held in the [V1] in [V2]? [V1] refers to [T2].[C5] = '[V1]'; in [V2] refers to SUBSTR(`[C54]`, 1, 7);; [V1] is a value of the column [C5]; [V2] is a value of the column [C54]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "EFL Championship refers to division.name = 'EFL Championship'; in October, 2020 refers to SUBSTR(`Date`, 1, 7);",
         "orig_evidence": "Belgium Jupiler League refers to League.name = 'Belgium Jupiler League'; in April, 2009 refers to SUBSTR(`date`, 1, 7);",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "matches": "TABLE:[matchs]",
+            "division.name": "COLUMN:[divisions].[name]",
+            "date": "COLUMN:[matchs].[date]"
+        },
         "orig_gold_schema_links": {
             "matches": "TABLE:[match]",
-            "name": "COLUMN:[league].[name]",
-            "date": "COLUMN:[match].[date]",
-            "League": "TABLE:[league]"
+            "League.name": "COLUMN:[league].[name]",
+            "date": "COLUMN:[match].[date]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "EFL Championship": "[divisions].[name]",
+            "October, 2020": "[matchs].[date]"
+        },
         "orig_gold_value_links": {
             "Belgium Jupiler League": "[league].[name]",
             "April, 2009": "[match].[date]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT COUNT(*) FROM matchs AS T1 INNER JOIN divisions AS T2 ON T1.div = T2.division WHERE SUBSTR(T1.Date, 1, 7) = '2020-10' AND T2.name = 'EFL Championship'",
         "orig_gold_sql": "SELECT COUNT(t2.id) FROM League AS t1 INNER JOIN Match AS t2 ON t1.id = t2.league_id WHERE t1.name = 'Belgium Jupiler League' AND SUBSTR(t2.`date`, 1, 7) = '2009-04'",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "REVIEWED: Corrected gold link for league.name"
     },
     {
         "idx": "bird_1043",
-        "db_id": "<DB_ID>",
+        "db_id": "movie_3",
         "orig_db_id": "european_football_2",
-        "question": "<QUESTION>",
+        "question": "What is the genre name of the film ACE GOLDFINGER? genre name of the film refers to category.name; ACE GOLDFINGER refers to title = 'ACE GOLDFINGER';",
         "orig_question": "What is the short name of the football team Queens Park Rangers? short name of the football team refers to team_short_name; Queens Park Rangers refers to team_long_name = 'Queens Park Rangers';",
         "orig_masked": "What is the [C174] of the [T6] [V1]? [C174] of the [T6] refers to [C174]; [V1] refers to [C173] = '[V1]';; [V1] is a value of the column [C173]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "genre name of the film refers to category.name; ACE GOLDFINGER refers to title = 'ACE GOLDFINGER';",
         "orig_evidence": "short name of the football team refers to team_short_name; Queens Park Rangers refers to team_long_name = 'Queens Park Rangers';",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "genre name": "COLUMN:[category].[name]",
+            "film": "TABLE:[film]",
+            "category.name": "COLUMN:[category].[name]",
+            "title": "COLUMN:[film].[title]"
+        },
         "orig_gold_schema_links": {
             "short name": "COLUMN:[team].[team_short_name]",
             "football team": "TABLE:[team]",
             "team_short_name": "COLUMN:[team].[team_short_name]",
             "team_long_name": "COLUMN:[team].[team_long_name]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "ACE GOLDFINGER": "[film].[title]"
+        },
         "orig_gold_value_links": {
             "Queens Park Rangers": "[team].[team_long_name]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T3.name FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T1.title = 'ACE GOLDFINGER'",
         "orig_gold_sql": "SELECT team_short_name FROM Team WHERE team_long_name = 'Queens Park Rangers'",
         "evidence_added": true
     },
     {
         "idx": "bird_138",
-        "db_id": "<DB_ID>",
+        "db_id": "chicago_crime",
         "orig_db_id": "financial",
-        "question": "<QUESTION>",
+        "question": "In the district where the second-highest number of crimes were committed in 2018 occurred, how many domestic crimes are there? domestic refers to domestic = 'TRUE'; Crime.date stands for date of crime",
         "orig_question": "In the branch where the second-highest number of crimes were committed in 1995 occurred, how many male clients are there? Male refers to gender = 'M'; A15 stands for no. of commited crimes 1995",
         "orig_masked": "In the [T5] where the second-highest [C22] occurred, how many [C12] [T3] are there? [C12] refers to [C12] = '[V1]'; [C22] stands for [C22]; [V1] is a value of the column [C12]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "domestic refers to domestic = 'TRUE'; Crime.date stands for date of crime",
         "orig_evidence": "Male refers to gender = 'M'; A15 stands for no. of commited crimes 1995",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "date of crime": "COLUMN:[crime].[date]",
+            "number of crimes were committed in 2018": "COLUMN:[crime].[district_no]",
+            "crimes": "TABLE:[crime]",
+            "domestic": "COLUMN:[crime].[domestic]",
+            "district": "TABLE:[district]",
+            "Crime.date": "COLUMN:[crime].[date]"
+        },
         "orig_gold_schema_links": {
             "no. of commited crimes 1995": "COLUMN:[district].[a15]",
             "number of crimes were committed in 1995": "COLUMN:[district].[a15]",
@@ -202,24 +273,31 @@
             "branch": "TABLE:[district]",
             "A15": "COLUMN:[district].[a15]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "TRUE": "[crime].[domestic]"
+        },
         "orig_gold_value_links": {
             "M": "[client].[gender]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT COUNT(DISTINCT report_no) FROM Crime WHERE district_no = (SELECT district_no FROM (SELECT district_no, count(report_no) AS c FROM Crime WHERE date LIKE '%2018%' GROUP BY district_no ORDER BY count(report_no) DESC LIMIT 2) ORDER BY c ASC LIMIT 1) AND domestic = 'TRUE';",
         "orig_gold_sql": "SELECT COUNT(T1.client_id) FROM client AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id WHERE T1.gender = 'M' AND T2.A15 = (SELECT T3.A15 FROM district AS T3 ORDER BY T3.A15 DESC LIMIT 1, 1)",
         "evidence_added": true
     },
     {
         "idx": "bird_1228",
-        "db_id": "<DB_ID>",
+        "db_id": "cars",
         "orig_db_id": "thrombosis_prediction",
-        "question": "<QUESTION>",
+        "question": "Provide list of vehicles and their price tag with horsepower greater than 50 of the normal range?  horsepower greater than 50 of the normal range refers to horsepower > 200;",
         "orig_question": "Provide list of patients and their diagnosis with triglyceride (TG) index greater than 100 of the normal range?  triglyceride (TG) index greater than 100 of the normal range refers to TG > 300;",
         "orig_masked": "Provide list of [T3] and their [C61] with [C52] greater than [C52]?  [C52] greater than [C52] refers to [C52] > [V1];; [V1] is a value of the column [C52]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "horsepower greater than 50 of the normal range refers to horsepower > 200;",
         "orig_evidence": "triglyceride (TG) index greater than 100 of the normal range refers to TG > 300;",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "vehicles": "TABLE:[data]",
+            "price tag": "COLUMN:[price].[price]",
+            "horsepower": "COLUMN:[data].[horsepower]",
+            "50 of the normal range": "COLUMN:[data].[horsepower]"
+        },
         "orig_gold_schema_links": {
             "patients": "TABLE:[patient]",
             "diagnosis": "COLUMN:[patient].[diagnosis]",
@@ -227,35 +305,45 @@
             "100 of the normal range": "COLUMN:[laboratory].[tg]",
             "triglyceride (TG) index": "COLUMN:[laboratory].[tg]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "200": "[data].[horsepower]"
+        },
         "orig_gold_value_links": {
             "300": "[laboratory].[tg]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T1.ID, T2.price FROM data AS T1 INNER JOIN price AS T2 ON T1.ID = T2.ID WHERE T1.horsepower > 200",
         "orig_gold_sql": "SELECT T1.ID, T1.Diagnosis FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.TG > 300",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "FIXED: Missing price column from SQL"
     },
     {
         "idx": "bird_1107",
-        "db_id": "<DB_ID>",
+        "db_id": "european_football_1",
         "orig_db_id": "european_football_2",
-        "question": "<QUESTION>",
+        "question": "When was the first time did Waasland-Beveren have his highest home score? Give the date. Waasland-Beveren refers to HomeTeam = 'Waasland-Beveren'; highest home score refers to MAX(FTHG)",
         "orig_question": "When was the first time did Kevin Constant have his highest crossing score? Give the date. Kevin Constant refers to player_name = 'Kevin Constant'; highest crossing score refers to MAX(crossing)",
         "orig_masked": "When was the first time did [V1] have his highest [C134]? Give the [C136]. [V1] refers to [C126] = '[V1]'; highest [C134] refers to MAX([C134]); [V1] is a value of the column [C126]",
-        "evidence": "<EVIDENCE>",
+        "evidence": " Waasland-Beveren refers to HomeTeam = 'Waasland-Beveren'; highest home score refers to MAX(FTHG)",
         "orig_evidence": "Kevin Constant refers to player_name = 'Kevin Constant'; highest crossing score refers to MAX(crossing)",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "home score": "COLUMN:[matchs].[fthg]",
+            "HomeTeam": "COLUMN:[matchs].[hometeam]",
+            "FTHG": "COLUMN:[matchs].[fthg]",
+            "date": "COLUMN:[matchs].[date]"
+        },
         "orig_gold_schema_links": {
             "crossing score": "COLUMN:[player_attributes].[crossing]",
             "player_name": "COLUMN:[player].[player_name]",
             "crossing": "COLUMN:[player_attributes].[crossing]",
             "date": "COLUMN:[player_attributes].[date]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Waasland-Beveren": "[matchs].[hometeam]"
+        },
         "orig_gold_value_links": {
             "Kevin Constant": "[player].[player_name]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT date FROM matchs WHERE HomeTeam = 'Waasland-Beveren' ORDER BY FTHG DESC LIMIT 1",
         "orig_gold_sql": "SELECT `date` FROM ( SELECT t2.crossing, t2.`date` FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_fifa_api_id = t2.player_fifa_api_id WHERE t1.player_name = 'Kevin Constant' ORDER BY t2.crossing DESC) ORDER BY date DESC LIMIT 1",
         "evidence_added": true
     }

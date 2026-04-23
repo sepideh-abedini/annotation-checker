@@ -1,74 +1,97 @@
 [
     {
         "idx": "bird_803",
-        "db_id": "<DB_ID>",
+        "db_id": "movie",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "What is the movie title of Big George? movie title refers to movie.title; Big George refers to 'Character Name' = 'Big George';",
         "orig_question": "What is the power ID of cryokinesis? power ID refers to superpower.id; cryokinesis refers to power_name = 'cryokinesis';",
         "orig_masked": "What is the [C30] of [V1]? [C30] refers to [T10].[C30]; [V1] refers to [C31] = '[V1]';; [V1] is a value of the column [C31]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "movie title refers to movie.title; Big George refers to 'Character Name' = 'Big George';",
         "orig_evidence": "power ID refers to superpower.id; cryokinesis refers to power_name = 'cryokinesis';",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "movie": "TABLE:[movie]",
+            "title": "COLUMN:[movie].[title]",
+            "movie.title": "COLUMN:[movie].[title]",
+            "Character Name": "COLUMN:[characters].[character name]"
+        },
         "orig_gold_schema_links": {
             "superpower": "TABLE:[superpower]",
             "power_name": "COLUMN:[superpower].[power_name]",
-            "power ID": "COLUMN:[superpower].[id]",
-            "id": "COLUMN:[superpower].[id]"
+            "power": "TABLE:[superpower]",
+            "ID": "COLUMN:[superpower].[id]",
+            "superpower.id": "COLUMN:[superpower].[id]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Big George": "[characters].[character name]"
+        },
         "orig_gold_value_links": {
             "cryokinesis": "[superpower].[power_name]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT movie.title FROM movie JOIN characters WHERE movie.movieid = characters.movieid AND characters.[character name] = 'Big George'",
         "orig_gold_sql": "SELECT id FROM superpower WHERE power_name = 'Cryokinesis'",
         "evidence_added": true
     },
     {
         "idx": "bird_764",
-        "db_id": "<DB_ID>",
+        "db_id": "movie_3",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "What are the movies of actors with ID 1?  movies refers to title; actors with ID 1 refers to actor_id = 1;",
         "orig_question": "What are the superpowers of heroes with ID 1?  superpowers refers to power_name; heroes with ID 1 refers to hero_id = 1;",
         "orig_masked": "What are the [T10] of [C12] with [C30] [V1]?  [T10] refers to [C31]; [C12] with [C30] [V1] refers to [C12] = [V1];; [V1] is a value of the column [C12]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "movies refers to title; actors with ID 1 refers to actor_id = 1;",
         "orig_evidence": "superpowers refers to power_name; heroes with ID 1 refers to hero_id = 1;",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "movies": "TABLE:[film]",
+            "actors": "TABLE:[actor]",
+            "title": "COLUMN:[film].[title]",
+            "actor_id": "COLUMN:[actor].[actor_id]",
+            "id": "COLUMN:[actor].[actor_id]"
+        },
         "orig_gold_schema_links": {
             "superpowers": "TABLE:[superpower]",
-            "heroes": "COLUMN:[hero_power].[hero_id]",
+            "heroes": "TABLE:[superhero]",
             "power_name": "COLUMN:[superpower].[power_name]",
             "hero_id": "COLUMN:[hero_power].[hero_id]",
             "id": "COLUMN:[superpower].[id]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "1": "[actor].[actor_id]"
+        },
         "orig_gold_value_links": {
             "1": "[hero_power].[hero_id]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T3.title FROM actor as T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film as T3 ON T2.film_id = T3.film_id WHERE T1.actor_id = 1",
         "orig_gold_sql": "SELECT DISTINCT T2.power_name FROM hero_power AS T1 INNER JOIN superpower AS T2 ON T1.power_id = T2.id WHERE T1.hero_id = 1",
         "evidence_added": true
     },
     {
         "idx": "bird_731",
-        "db_id": "<DB_ID>",
+        "db_id": "book_publishing_company",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "How many titles did New Moon Books publish?  titles that New Moon Books published refers to pub_name = 'New Moon Books'",
         "orig_question": "How many superheroes did DC Comics publish?  superheroes that DC Comics published refers to publisher_name = 'DC Comics'",
         "orig_masked": "How many [T9] did [V1] [T7]?  [T9] that [V1] [T7] refers to [C15] = '[V1]'; [V1] is a value of the column [C15]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "titles that New Moon Books published refers to pub_name = 'New Moon Books'",
         "orig_evidence": "superheroes that DC Comics published refers to publisher_name = 'DC Comics'",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "titles": "TABLE:[titles]",
+            "publish": "TABLE:[publishers]",
+            "published": "TABLE:[publishers]",
+            "pub_name": "COLUMN:[publishers].[pub_name]"
+        },
         "orig_gold_schema_links": {
             "superheroes": "TABLE:[superhero]",
             "publish": "TABLE:[publisher]",
             "published": "TABLE:[publisher]",
             "publisher_name": "COLUMN:[publisher].[publisher_name]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "New Moon Books": "[publishers].[pub_name]"
+        },
         "orig_gold_value_links": {
             "DC Comics": "[publisher].[publisher_name]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT COUNT(T1.title_id) FROM titles AS T1 INNER JOIN publishers AS T2 ON T1.pub_id = T2.pub_id WHERE T2.pub_name = 'New Moon Books'",
         "orig_gold_sql": "SELECT COUNT(T1.id) FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id WHERE T2.publisher_name = 'DC Comics'",
         "evidence_added": true
     },
@@ -97,112 +120,147 @@
         },
         "gold_sql": "<GOLD_SQL>",
         "orig_gold_sql": "SELECT T4.balance, T1.gender FROM client AS T1 INNER JOIN disp AS T2 ON T1.client_id = T2.client_id INNER JOIN account AS T3 ON T2.account_id =T3.account_id INNER JOIN trans AS T4 ON T3.account_id = T4.account_id WHERE T1.client_id = 4 AND T4.trans_id = 851",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "This is a difficult example to match..."
     },
     {
         "idx": "bird_1056",
-        "db_id": "<DB_ID>",
+        "db_id": "european_football_1",
         "orig_db_id": "european_football_2",
-        "question": "<QUESTION>",
+        "question": "What is the name of the football league in the country of Netherlands? name of the football league refers to divisions.name;",
         "orig_question": "What is the name of the football league in the country of Netherlands? name of the football league refers to League.name;",
         "orig_masked": "What is the [C5] of the [T2] in the [T1] of [V1]? [C5] of the [T2] refers to [T2].[C5];; [V1] is a value of the column [C2]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "name of the football league refers to divisions.name;",
         "orig_evidence": "name of the football league refers to League.name;",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "football league": "TABLE:[divisions]",
+            "country": "COLUMN:[divisions].[country]",
+            "name": "COLUMN:[divisions].[name]",
+            "divisions.name": "COLUMN:[divisions].[name]",
+            "divisions": "TABLE:[divisions]"
+        },
         "orig_gold_schema_links": {
             "football league": "TABLE:[league]",
             "country": "TABLE:[country]",
             "name": "COLUMN:[league].[name]",
+            "league.name": "COLUMN:[league].[name]",
             "league": "TABLE:[league]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Netherlands": "[divisions].[country]"
+        },
         "orig_gold_value_links": {
             "Netherlands": "[country].[name]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT name FROM divisions WHERE country = 'Netherlands'",
         "orig_gold_sql": "SELECT t2.name FROM Country AS t1 INNER JOIN League AS t2 ON t1.id = t2.country_id WHERE t1.name = 'Netherlands'",
         "evidence_added": true
     },
     {
         "idx": "bird_792",
-        "db_id": "<DB_ID>",
+        "db_id": "movie_3",
         "orig_db_id": "superhero",
-        "question": "<QUESTION>",
+        "question": "What is ALAMO VIDEOTAPE's category?  ALAMO VIDEOTAPE refers to title = 'ALAMO VIDEOTAPE'; category refers to category.name;",
         "orig_question": "What is Abomination's superpower?  Abomination refers to superhero_name = 'Abomination'; superpower refers to power_name;",
         "orig_masked": "What is [V1]'s [T10]?  [V1] refers to [C28] = '[V1]'; [T10] refers to [C31];; [V1] is a value of the column [C28]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "ALAMO VIDEOTAPE refers to title = 'ALAMO VIDEOTAPE'; category refers to category.name;",
         "orig_evidence": "Abomination refers to superhero_name = 'Abomination'; superpower refers to power_name;",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "category": "TABLE:[category]",
+            "title": "COLUMN:[film].[title]",
+            "category.name": "COLUMN:[category].[name]"
+        },
         "orig_gold_schema_links": {
             "superpower": "TABLE:[superpower]",
             "superhero_name": "COLUMN:[superhero].[superhero_name]",
             "power_name": "COLUMN:[superpower].[power_name]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "ALAMO VIDEOTAPE": "[film].[title]"
+        },
         "orig_gold_value_links": {
             "Abomination": "[superhero].[superhero_name]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T3.name FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T1.title = 'ALAMO VIDEOTAPE'",
         "orig_gold_sql": "SELECT T3.power_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T2.power_id = T3.id WHERE T1.superhero_name = 'Abomination'",
         "evidence_added": true
     },
     {
         "idx": "bird_1198",
-        "db_id": "<DB_ID>",
+        "db_id": "food_inspection_2",
         "orig_db_id": "thrombosis_prediction",
-        "question": "<QUESTION>",
+        "question": "How many dining establishments were given an Fail result? dining refers to facility_type = 'Restaurant'; Fail result refers to results='Fail'",
         "orig_question": "How many female patients were given an APS diagnosis? female refers to SEX = 'F'; APS diagnosis refers to Diagnosis='APS'",
         "orig_masked": "How many [C64] [T3] were given an [V1] [C61]? [C64] refers to [C64] = '[V2]'; [V1] [C61] refers to [C61]='[V1]'; [V1] is a value of the column [C61]; [V2] is a value of the column [C64]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "dining refers to facility_type = 'Restaurant'; Fail result refers to results='Fail'",
         "orig_evidence": "female refers to SEX = 'F'; APS diagnosis refers to Diagnosis='APS'",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "result": "COLUMN:[inspection].[results]",
+            "results": "COLUMN:[inspection].[results]",
+            "establishments": "TABLE:[establishment]",
+            "facility_type": "COLUMN:[establishment].[facility_type]",
+            "dining": "COLUMN:[establishment].[facility_type]"
+        },
         "orig_gold_schema_links": {
             "diagnosis": "COLUMN:[patient].[diagnosis]",
             "patients": "TABLE:[patient]",
             "SEX": "COLUMN:[patient].[sex]",
             "female": "COLUMN:[patient].[sex]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Restaurant": "[establishment].[facility_type]",
+            "Fail": "[inspection].[results]"
+        },
         "orig_gold_value_links": {
             "F": "[patient].[sex]",
             "APS": "[patient].[diagnosis]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT COUNT(DISTINCT T1.license_no) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T2.results = 'Fail' AND T1.facility_type = 'Restaurant'",
         "orig_gold_sql": "SELECT COUNT(ID) FROM Patient WHERE SEX = 'F' AND Diagnosis = 'APS'",
         "evidence_added": true
     },
     {
         "idx": "bird_1081",
-        "db_id": "<DB_ID>",
+        "db_id": "european_football_1",
         "orig_db_id": "european_football_2",
-        "question": "<QUESTION>",
+        "question": "Which country is the EFL League One from? EFL League One refers to divisions.name = 'EFL League One';",
         "orig_question": "Which country is the Belgium Jupiler League from? Belgium Jupiler League refers to League.name = 'Belgium Jupiler League';",
         "orig_masked": "Which [C2] is the [V1] from? [V1] refers to [C5] = '[V1]';; [V1] is a value of the column [C5]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "EFL League One refers to divisions.name = 'EFL League One';",
         "orig_evidence": "Belgium Jupiler League refers to League.name = 'Belgium Jupiler League';",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "country": "COLUMN:[divisions].[country]",
+            "divisions.name": "COLUMN:[divisions].[name]"
+        },
         "orig_gold_schema_links": {
-            "country": "COLUMN:[country].[name]",
+            "country": "TABLE:[country]",
             "League.name": "COLUMN:[league].[name]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "EFL League One": "[divisions].[name]"
+        },
         "orig_gold_value_links": {
             "Belgium Jupiler League": "[league].[name]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT country FROM divisions WHERE name = 'EFL League One'",
         "orig_gold_sql": "SELECT t1.name FROM Country AS t1 INNER JOIN League AS t2 ON t1.id = t2.country_id WHERE t2.name = 'Belgium Jupiler League'",
         "evidence_added": true
     },
     {
         "idx": "bird_1140",
-        "db_id": "<DB_ID>",
+        "db_id": "olympics",
         "orig_db_id": "european_football_2",
-        "question": "<QUESTION>",
+        "question": "What are Minna Maarit Aalto's height, weight, and region? Minna Maarit Aalto's refers to full_name = 'Minna Maarit Aalto'",
         "orig_question": "What are Alexis Blin's sprint speed, agility, and acceleration scores? Alexis Blin's refers to player_name = 'Alexis Blin'",
         "orig_masked": "What are [V1]'s [C164], [C130], and [C128] [T5]? [V1]'s refers to [C126] = '[V1]'; [V1] is a value of the column [C126]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "Minna Maarit Aalto's refers to full_name = 'Minna Maarit Aalto'",
         "orig_evidence": "Alexis Blin's refers to player_name = 'Alexis Blin'",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "height": "COLUMN:[person].[height]",
+            "weight": "COLUMN:[person].[weight]",
+            "region": "COLUMN:[noc_region].[region_name]",
+            "full_name": "COLUMN:[person].[full_name]"
+        },
         "orig_gold_schema_links": {
             "sprint speed": "COLUMN:[player_attributes].[sprint_speed]",
             "acceleration": "COLUMN:[player_attributes].[acceleration]",
@@ -210,24 +268,32 @@
             "agility": "COLUMN:[player_attributes].[agility]",
             "scores": "TABLE:[player_attributes]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "Minna Maarit Aalto": "[person].[full_name]"
+        },
         "orig_gold_value_links": {
             "Alexis Blin": "[player].[player_name]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T1.height, T1.weight, T3.region_name FROM person as T1 INNER JOIN person_region as T2 ON T1.id = T2.person_id INNER JOIN noc_region AS T3 ON T2.region_id = T3.id WHERE T1.full_name = 'Minna Maarit Aalto'",
         "orig_gold_sql": "SELECT sprint_speed, agility, acceleration FROM Player_Attributes WHERE player_api_id IN ( SELECT player_api_id FROM Player WHERE player_name = 'Alexis Blin' )",
         "evidence_added": true
     },
     {
         "idx": "bird_122",
-        "db_id": "<DB_ID>",
+        "db_id": "chicago_crime",
         "orig_db_id": "financial",
-        "question": "<QUESTION>",
+        "question": "State the district name and community area name for crime report number '23757'.  district_name, community_area_name contains the information about district name and community area name respectively.",
         "orig_question": "State the district and region for loan ID '4990'.  A2, A3 contains the information about district and region respectively.",
         "orig_masked": "State the [C24] and [C25] for [C37] '[V1]'.  [C24], [C25] contains the information about [C24] and [C25] respectively.; [V1] is a value of the column [C37]",
-        "evidence": "<EVIDENCE>",
+        "evidence": "district_name, community_area_name contains the information about district name and community area name respectively.",
         "orig_evidence": "A2, A3 contains the information about district and region respectively.",
-        "gold_schema_links": "<GOLD_SCHEMA_LINKS>",
+        "gold_schema_links": {
+            "district name": "COLUMN:[district].[district_name]",
+            "community area name": "COLUMN:[community_area].[community_area_name]",
+            "crime report number": "COLUMN:[crime].[report_no]",
+            "district_name": "COLUMN:[district].[district_no]",
+            "community_area_name": "COLUMN:[community_area].[community_area_no]"
+        },
         "orig_gold_schema_links": {
             "district": "COLUMN:[district].[a2]",
             "region": "COLUMN:[district].[a3]",
@@ -235,11 +301,13 @@
             "A2": "COLUMN:[district].[a2]",
             "A3": "COLUMN:[district].[a3]"
         },
-        "gold_value_links": "<GOLD_VALUE_LINKS>",
+        "gold_value_links": {
+            "23757": "[crime].[report_no]"
+        },
         "orig_gold_value_links": {
             "4990": "[loan].[loan_id]"
         },
-        "gold_sql": "<GOLD_SQL>",
+        "gold_sql": "SELECT T2.district_name, T3.community_area_name FROM Crime as T1 INNER JOIN District AS T2 ON T1.district_no = T2.district_no INNER JOIN Community_Area AS T3 ON T1.community_area_no = T3.community_area_no WHERE T1.report_no = 23757",
         "orig_gold_sql": "SELECT T2.A2, T2.A3 FROM account AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id INNER JOIN loan AS T3 ON T1.account_id = T3.account_id WHERE T3.loan_id = 4990",
         "evidence_added": true
     }
