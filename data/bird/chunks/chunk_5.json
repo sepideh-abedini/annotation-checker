@@ -166,7 +166,7 @@
             "observations.description": "COLUMN:[observations].[description]"
         },
         "orig_gold_schema_links": {
-            "overweight": "COLUMN:[observations].[description]",
+            "fastest": "COLUMN:[attribute].[attribute_name]",
             "superheroes": "TABLE:[superhero]",
             "attribute_value": "COLUMN:[hero_attribute].[attribute_value]",
             "attribute_name": "COLUMN:[attribute].[attribute_name]"
@@ -288,14 +288,12 @@
         "gold_schema_links": {
             "matches": "TABLE:[matchs]",
             "season": "COLUMN:[matchs].[season]",
-            "divisions.country": "COLUMN:[divisions].[country]",
-            "held": "TABLE:[divisions]"
+            "divisions.country": "COLUMN:[divisions].[country]"
         },
         "orig_gold_schema_links": {
             "matches": "TABLE:[match]",
             "season": "COLUMN:[match].[season]",
-            "Country.name": "COLUMN:[country].[name]",
-            "held": "TABLE:[country]"
+            "Country.name": "COLUMN:[country].[name]"
         },
         "gold_value_links": {
             "Belgium": "[divisions].[country]",

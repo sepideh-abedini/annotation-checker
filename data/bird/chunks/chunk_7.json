@@ -169,16 +169,16 @@
         "idx": "bird_114",
         "db_id": "book_publishing_company",
         "orig_db_id": "financial",
-        "question": "For the first employee who lists his/her employer in Boston, what is his/her employee ID? publishers.city stands for employee city",
+        "question": "For the first employee who located his/her employer in Boston, what is his/her employee ID? publishers.city stands for city",
         "orig_question": "For the first client who opened his/her account in Prague, what is his/her account ID? A3 stands for region names",
         "orig_masked": "For the first [T1] who [T1] his/her [T1] in [V1], what is his/her [C1]? [C25] stands for [C25]; [V1] is a value of the column [C25]",
-        "evidence": "publishers.city stands for employee city",
+        "evidence": "publishers.city stands for city",
         "orig_evidence": "A3 stands for region names",
         "gold_schema_links": {
-            "employee city": "COLUMN:[publishers].[city]",
+            "city": "COLUMN:[publishers].[city]",
             "employee ID": "COLUMN:[employee].[emp_id]",
             "employer": "TABLE:[publishers]",
-            "lists": "COLUMN:[publishers].[city]",
+            "located": "COLUMN:[publishers].[city]",
             "employee": "TABLE:[employee]",
             "publishers.city": "COLUMN:[publishers].[city]"
         },
@@ -186,7 +186,7 @@
             "region names": "COLUMN:[district].[a3]",
             "account ID": "COLUMN:[account].[account_id]",
             "account": "TABLE:[account]",
-            "opened": "COLUMN:[account].[date]",
+            "opened": "TABLE:[account]",
             "client": "TABLE:[account]",
             "A3": "COLUMN:[district].[a3]"
         },
@@ -199,7 +199,7 @@
         "gold_sql": "SELECT T1.emp_id FROM employee AS T1 INNER JOIN publishers as T2 ON T1.pub_id = T2.pub_id WHERE T2.city = 'Boston' ORDER BY T1.hire_date ASC LIMIT 1",
         "orig_gold_sql": "SELECT T1.account_id FROM account AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id WHERE T2.A3 = 'Prague' ORDER BY T1.date ASC LIMIT 1",
         "evidence_added": true,
-        "note": "Changed the link for opened to be more specific to a column. If you disagree we can change it back"
+        "note": "Changed the link for opened to be more specific to a column. If you disagree we can change it back;"
     },
     {
         "idx": "bird_96",
@@ -243,13 +243,13 @@
         "gold_schema_links": {
             "name of athletes": "COLUMN:[person].[full_name]",
             "name of region": "COLUMN:[noc_region].[region_name]",
-            "come from": "TABLE:[noc_region]",
+            "came from": "TABLE:[noc_region]",
             "full_name": "COLUMN:[person].[full_name]"
         },
         "orig_gold_schema_links": {
             "name of players": "COLUMN:[player].[player_name]",
             "name of country": "COLUMN:[country].[name]",
-            "come from": "TABLE:[country]",
+            "came from": "TABLE:[country]",
             "player_name": "COLUMN:[player].[player_name]"
         },
         "gold_value_links": {
@@ -260,7 +260,8 @@
         },
         "gold_sql": "SELECT T1.full_name FROM person as T1 INNER JOIN person_region AS T2 ON T1.id = T2.person_id INNER JOIN noc_region as T3 ON T2.region_id = T3.id WHERE T3.region_name = 'Belgium'",
         "orig_gold_sql": "SELECT t3.player_name FROM Country AS t1 INNER JOIN Match AS t2 ON t1.id = t2.country_id INNER JOIN Player AS t3 ON t2.home_player_1 = t3.player_api_id WHERE t1.name = 'Belgium'",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "FIXED: here, since we have two names, we use 'name of' phrases."
     },
     {
         "idx": "bird_170",

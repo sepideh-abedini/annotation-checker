@@ -3,7 +3,7 @@
         "idx": "bird_1061",
         "db_id": "movie",
         "orig_db_id": "european_football_2",
-        "question": "How many actors whose birth country are USA and measure more than 75? ",
+        "question": "How many actors whose birth country are USA and height more than 75? ",
         "orig_question": "How many players whose first names are Adam and weigh more than 170? ",
         "orig_masked": "How many [T4] whose [C126] are [V1] and [C127] more than [V2]? ; [V1] is a value of the column [C126]; [V2] is a value of the column [C127]",
         "evidence": "",
@@ -11,7 +11,7 @@
         "gold_schema_links": {
             "actors": "TABLE:[actor]",
             "birth country": "COLUMN:[actor].[birth country]",
-            "measure": "COLUMN:[actor].[height (inches)]"
+            "height": "COLUMN:[actor].[height (inches)]"
         },
         "orig_gold_schema_links": {
             "players": "TABLE:[player]",
@@ -28,7 +28,8 @@
         },
         "gold_sql": "SELECT COUNT(*) FROM actor WHERE \"Height (Inches)\" > 75 and \"Birth Country\" = 'USA'",
         "orig_gold_sql": "SELECT COUNT(id) FROM Player WHERE weight > 170 AND player_name LIKE 'Adam%'",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "FIXED: It is not obvious that Measures maps to height."
     },
     {
         "idx": "bird_103",
@@ -90,7 +91,7 @@
         "idx": "bird_1063",
         "db_id": "disney",
         "orig_db_id": "european_football_2",
-        "question":"What is Cinderella's song? song refers to characters.song;",
+        "question": "What is Cinderella's song? song refers to characters.song;",
         "orig_question": "What is Aaron Doran's potential score? potential score refers to potential;",
         "orig_masked": "What is [V1]'s [C158]? [C158] refers to [C158];; [V1] is a value of the column [C126]",
         "evidence": "song refers to characters.song;",
@@ -148,13 +149,14 @@
         "idx": "bird_132",
         "db_id": "cars",
         "orig_db_id": "financial",
-        "question": "What is the average horsepower output by Japanese cars?  Japanese refers to country = 'Japan'",
+        "question": "What is the average car horsepower by Japanese cars?  Japanese refers to country = 'Japan'",
         "orig_question": "What is the average loan amount by male borrowers?  Male refers to gender = 'M'",
         "orig_masked": "What is the average [T6] [C34] by [C12] [T3]?  [C12] refers to [C12] = '[V1]'; [V1] is a value of the column [C12]",
         "evidence": "Japanese refers to country = 'Japan'",
         "orig_evidence": "Male refers to gender = 'M'",
         "gold_schema_links": {
-            "horsepower output": "COLUMN:[data].[horsepower]",
+            "horsepower": "COLUMN:[data].[horsepower]",
+            "car": "TABLE:[data]",
             "cars": "TABLE:[data]",
             "country": "COLUMN:[country].[country]",
             "Japanese": "COLUMN:[country].[country]"
@@ -206,20 +208,20 @@
             "33333": "[order].[order_id]"
         },
         "gold_sql": "SELECT T1.author_id FROM author as T1 INNER JOIN book_author as T2 ON T1.author_id = T2.author_id INNER JOIN book as T3 ON T2.book_id = T3.book_id WHERE T3.book_id = 3",
-        "orig_gold_sql": "SELECT T3.district_id FROM order AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id INNER JOIN district AS T3 ON T2.district_id = T3.district_id WHERE T1.order_id = 33333",
+        "orig_gold_sql": "SELECT T3.district_id FROM `order` AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id INNER JOIN district AS T3 ON T2.district_id = T3.district_id WHERE T1.order_id = 33333",
         "evidence_added": true
     },
     {
         "idx": "bird_1117",
         "db_id": "olympics",
         "orig_db_id": "european_football_2",
-        "question": "What are the countries of 10 heaviest athletes? heaviest refers to MAX(weight)",
+        "question": "What are the regions of 10 heaviest athletes? heaviest refers to MAX(weight)",
         "orig_question": "What are the player api id of 10 heaviest players? heaviest refers to MAX(weight)",
         "orig_masked": "What are the [C124] of 10 [C127] [T4]? [C127] refers to MAX([C127])",
         "evidence": "heaviest refers to MAX(weight)",
         "orig_evidence": "heaviest refers to MAX(weight)",
         "gold_schema_links": {
-            "countries": "COLUMN:[noc_region].[region_name]",
+            "regions": "COLUMN:[noc_region].[region_name]",
             "athletes": "TABLE:[person]",
             "weight": "COLUMN:[person].[weight]",
             "heaviest": "COLUMN:[person].[weight]"

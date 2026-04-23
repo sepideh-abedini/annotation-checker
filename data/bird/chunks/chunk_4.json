@@ -39,15 +39,15 @@
         "orig_evidence": "superhero ID 38 refers to superhero.id = 38;",
         "gold_schema_links": {
             "publisher name": "COLUMN:[publisher].[publisher_name]",
-            "game ID": "COLUMN:[game].[id]",
             "game": "TABLE:[game]",
-            "id": "COLUMN:[game].[id]"
+            "id": "COLUMN:[game].[id]",
+            "game.id": "COLUMN:[game].[id]"
         },
         "orig_gold_schema_links": {
             "publisher name": "COLUMN:[publisher].[publisher_name]",
-            "superhero ID": "COLUMN:[superhero].[id]",
+            "ID": "COLUMN:[superhero].[id]",
             "superhero": "TABLE:[superhero]",
-            "id": "COLUMN:[superhero].[id]"
+            "superhero.id": "COLUMN:[superhero].[id]"
         },
         "gold_value_links": {
             "58": "[game].[id]"
@@ -123,13 +123,12 @@
         "idx": "bird_1123",
         "db_id": "food_inspection",
         "orig_db_id": "european_football_2",
-        "question": "What is the name of businesses with the highest inspection score? highest inspection score refers to MAX(score)",
+        "question": "What is the name of businesses with the highest score? highest score refers to MAX(score)",
         "orig_question": "What is the name of players with the highest potential? highest potential refers to MAX(potential)",
         "orig_masked": "What is the name of [T4] with the highest [C158]? highest [C158] refers to MAX([C158])",
-        "evidence": "highest inspection score refers to MAX(score)",
+        "evidence": "highest score refers to MAX(score)",
         "orig_evidence": "highest potential refers to MAX(potential)",
         "gold_schema_links": {
-            "inspection score": "COLUMN:[inspections].[score]",
             "businesses": "TABLE:[businesses]",
             "score": "COLUMN:[inspections].[score]"
         },
@@ -171,7 +170,7 @@
         "gold_sql": "SELECT COUNT(DISTINCT ActorID) FROM actor WHERE STRFTIME('%Y', \"Date of Birth\") > '1980'",
         "orig_gold_sql": "SELECT COUNT(id) FROM Player WHERE STRFTIME('%Y', birthday) > '1990'",
         "evidence_added": true,
-        "note": "Evidence for the original question is pretty misleading."
+        "note": "REVIEWED: Evidence for the original question is pretty misleading."
     },
     {
         "idx": "bird_90",
@@ -203,7 +202,7 @@
         "gold_sql": "SELECT COUNT(DISTINCT T1.license_no) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no INNER JOIN violation AS T3 ON T2.inspection_id = T3.inspection_id WHERE T3.fine > 0 AND T1.city = 'CHICAGO'",
         "orig_gold_sql": "SELECT COUNT(T1.account_id) FROM account AS T1 INNER JOIN loan AS T2 ON T1.account_id = T2.account_id INNER JOIN district AS T3 ON T1.district_id = T3.district_id WHERE T3.A3 = 'Prague'",
         "evidence_added": true,
-        "note": "This one was very tricky because of the 'eligible' token. This was the best I could come up with"
+        "note": "REVIEWED: This one was very tricky because of the 'eligible' token. This was the best I could come up with"
     },
     {
         "idx": "bird_815",
@@ -244,14 +243,14 @@
         "idx": "bird_176",
         "db_id": "human_resources",
         "orig_db_id": "financial",
-        "question": "What is the minimum salary of position that employee ssn 109-87-6544 has, and how is this employee doing with performance?  ",
+        "question": "What is the minimum salary of position that ssn 109-87-6544 has, and how is this employee doing with performance?  ",
         "orig_question": "What is the amount of debt that client number 992 has, and how is this client doing with payments?  ",
         "orig_masked": "What is the [C34] of [T6] that [C10] [V1] has, and how is this [T3] doing with [C39]?  ; [V1] is a value of the column [C10]",
         "evidence": "",
         "orig_evidence": "",
         "gold_schema_links": {
             "minimum salary": "COLUMN:[position].[minsalary]",
-            "employee ssn": "COLUMN:[employee].[ssn]",
+            "ssn": "COLUMN:[employee].[ssn]",
             "performance": "COLUMN:[employee].[performance]",
             "position": "TABLE:[position]",
             "employee": "TABLE:[employee]"

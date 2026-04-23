@@ -18,7 +18,7 @@
             "accounts": "TABLE:[account]",
             "district": "TABLE:[district]",
             "A2": "COLUMN:[district].[a2]",
-            "district name": "COLUMN:[district].[a2]"
+            "name": "COLUMN:[district].[a2]"
         },
         "gold_value_links": {
             "Passaic": "[city].[city_name]"
@@ -34,19 +34,19 @@
         "idx": "bird_765",
         "db_id": "movie",
         "orig_db_id": "superhero",
-        "question": "How many titles have comedy genre? comedy genre refers to movie.genre = 'Comedy';",
+        "question": "How many movies have comedy genre? comedy genre refers to movie.genre = 'Comedy';",
         "orig_question": "How many heroes have stealth power? stealth power refers to power_name = 'stealth';",
         "orig_masked": "How many [C12] have [V1] [C31]? [V1] [C31] refers to [C31] = '[V1]';; [V1] is a value of the column [C31]",
         "evidence": "comedy genre refers to movie.genre = 'Comedy';",
         "orig_evidence": "stealth power refers to power_name = 'stealth';",
         "gold_schema_links": {
-            "titles": "COLUMN:[movie].[title]",
+            "movies": "TABLE:[movie]",
             "genre": "COLUMN:[movie].[genre]",
             "movie.genre": "COLUMN:[movie].[genre]"
         },
         "orig_gold_schema_links": {
             "power_name": "COLUMN:[superpower].[power_name]",
-            "heroes": "COLUMN:[hero_power].[hero_id]",
+            "heroes": "TABLE:[superhero]",
             "power": "COLUMN:[superpower].[power_name]"
         },
         "gold_value_links": {
@@ -115,7 +115,7 @@
         "gold_sql": "<GOLD_SQL>",
         "orig_gold_sql": "SELECT T4.birth_date FROM loan AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id INNER JOIN disp AS T3 ON T2.account_id = T3.account_id INNER JOIN client AS T4 ON T3.client_id = T4.client_id WHERE T1.date = '1996-01-03' AND T1.amount = 98832",
         "evidence_added": true,
-        "note": "The applied part here makes this a difficult example to find a good alternative for." 
+        "note": "The applied part here makes this a difficult example to find a good alternative for."
     },
     {
         "idx": "bird_179",
@@ -218,7 +218,7 @@
             "author_name": "COLUMN:[author].[author_name]"
         },
         "orig_gold_schema_links": {
-            "powers": "COLUMN:[hero_power].[power_id]",
+            "powers": "TABLE:[hero_power]",
             "hero": "TABLE:[superhero]",
             "superhero_name": "COLUMN:[superhero].[superhero_name]"
         },

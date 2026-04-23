@@ -3,14 +3,14 @@
         "idx": "bird_1214",
         "db_id": "cars",
         "orig_db_id": "thrombosis_prediction",
-        "question": "List ID, model year and country name of vehicles whose acceleration (acc) below the lower range of the normal index. acceleration (acc) below the lower range of the normal index refers to acceleration < 11",
+        "question": "List ID, model year and country of vehicles whose acceleration (acc) below the lower range of the normal index. acceleration (acc) below the lower range of the normal index refers to acceleration < 11",
         "orig_question": "List ID, sex and date of birth of patient whose total protein (TP) below the lower range of the normal index. total protein (TP) below the lower range of the normal index refers to TP < 6.0",
         "orig_masked": "List [C63], [C64] and [C59] of [T3] whose [C53] ([C53]) below the [C53]. [C53] ([C53]) below the [C53] refers to [C53] < [V1]; [V1] is a value of the column [C53]",
         "evidence": "acceleration (acc) below the lower range of the normal index refers to acceleration < 11",
         "orig_evidence": "total protein (TP) below the lower range of the normal index refers to TP < 6.0",
         "gold_schema_links": {
             "acceleration": "COLUMN:[data].[acceleration]",
-            "country name": "COLUMN:[country].[country]",
+            "country": "TABLE:[country]",
             "model year": "COLUMN:[production].[model_year]",
             "acc": "COLUMN:[data].[acceleration]",
             "lower range of the normal index": "COLUMN:[data].[acceleration]",
@@ -34,7 +34,8 @@
         },
         "gold_sql": "SELECT DISTINCT T1.ID, T2.model_year, T3.country FROM data AS T1 INNER JOIN production as T2 ON T1.ID = T2.ID INNER JOIN country AS T3 ON T3.origin = T2.country WHERE T1.acceleration < 11",
         "orig_gold_sql": "SELECT DISTINCT T1.ID, T1.SEX, T1.Birthday FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.TP < 6.0",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "FIXED: should break country name"
     },
     {
         "idx": "bird_120",
@@ -81,7 +82,7 @@
         "idx": "bird_1047",
         "db_id": "shipping",
         "orig_db_id": "european_football_2",
-        "question": "What is the driver Newell shipping weight on 19/05/2016? shipping weight refers to shipment.weight; on 19/05/2016 refers to date = '2016-05-19 00:00:00';",
+        "question": "What is the driver 20 shipping weight on 19/05/2016? shipping weight refers to shipment.weight; on 19/05/2016 refers to date = '2016-05-19 00:00:00';",
         "orig_question": "What is the football player Francois Affolter header's finishing rate on 18/09/2014? header's finishing rate refers to heading_accuracy; on 18/09/2014 refers to date = '2014-09-18 00:00:00';",
         "orig_masked": "What is the [T4] [V2] [C146] on [V3]? [C146] refers to [C146]; on [V3] refers to [C136] = '[V1]';; [V1] is a value of the column [C136]; [V2] is a value of the column [C126]; [V3] is a value of the column [C136]",
         "evidence": "shipping weight refers to shipment.weight; on 19/05/2016 refers to date = '2016-05-19 00:00:00';",
@@ -99,7 +100,7 @@
             "date": "COLUMN:[player_attributes].[date]"
         },
         "gold_value_links": {
-            "Newell": "[driver].[last_name]",
+            "20": "[driver].[driver_id]",
             "19/05/2016": "[shipment].[ship_date]",
             "2016-05-19 00:00:00": "[shipment].[ship_date]"
         },
@@ -111,7 +112,7 @@
         "gold_sql": "SELECT T1.weight FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id WHERE T2.last_name = 'Newell' AND T1.ship_date = '2016-05-19'",
         "orig_gold_sql": "SELECT t2.heading_accuracy FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t1.player_name = 'Francois Affolter' AND SUBSTR(t2.`date`, 1, 10) = '2014-09-18'",
         "evidence_added": true,
-        "note": "Removed unnecessary value link"
+        "note": "FIXED: Removed unnecessary value link; Mapping Newell to lastname is not obvious"
     },
     {
         "idx": "bird_1172",
@@ -150,7 +151,7 @@
             "2.0": "[laboratory].[t-bil]",
             "M": "[patient].[sex]"
         },
-        "gold_sql": "SELECT COUNT(DISTINCT T1.film_id) FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T3.name = 'Horror' AND T1.length > 150",
+        "gold_sql": "SELECT COUNT(DISTINCT T1.film_id) FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T3.name = 'Horror' AND T1.length >= 150",
         "orig_gold_sql": "SELECT COUNT(DISTINCT T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.`T-BIL` >= 2.0 AND T1.SEX = 'M'",
         "evidence_added": true
     },
@@ -179,7 +180,7 @@
         },
         "gold_value_links": {},
         "orig_gold_value_links": {},
-        "gold_sql": "SELECT T2.name, T1.max_count FROM divisions AS T2 JOIN (SELECT Div, MAX(cnt) AS max_count FROM (SELECT Div, COUNT(Div) AS cnt FROM matchs GROUP BY Div) AS subquery) AS T1 ON T1.div = T2.division", 
+        "gold_sql": "SELECT T2.name, T1.max_count FROM divisions AS T2 JOIN (SELECT Div, MAX(cnt) AS max_count FROM (SELECT Div, COUNT(Div) AS cnt FROM matchs GROUP BY Div) AS subquery) AS T1 ON T1.div = T2.division",
         "orig_gold_sql": "SELECT t2.name, t1.max_count FROM League AS t2 JOIN (SELECT league_id, MAX(cnt) AS max_count FROM (SELECT league_id, COUNT(id) AS cnt FROM Match GROUP BY league_id) AS subquery) AS t1 ON t1.league_id = t2.id",
         "evidence_added": true
     },
@@ -213,7 +214,7 @@
         "gold_sql": "SELECT COUNT(*) FROM matchs AS T1 INNER JOIN divisions AS T2 ON T1.div = T2.division WHERE SUBSTR(T1.Date, 1, 7) = '2020-10' AND T2.name = 'EFL Championship'",
         "orig_gold_sql": "SELECT COUNT(t2.id) FROM League AS t1 INNER JOIN Match AS t2 ON t1.id = t2.league_id WHERE t1.name = 'Belgium Jupiler League' AND SUBSTR(t2.`date`, 1, 7) = '2009-04'",
         "evidence_added": true,
-        "note": "Corrected gold link for league.name"
+        "note": "REVIEWED: Corrected gold link for league.name"
     },
     {
         "idx": "bird_1043",
@@ -278,7 +279,7 @@
         "orig_gold_value_links": {
             "M": "[client].[gender]"
         },
-        "gold_sql": "SELECT COUNT(DISTINCT report_no) FROM Crime WHERE district_no = (SELECT district_no FROM (SELECT district_no, count(report_no) AS c  FROM Crime GROUP BY district_no ORDER BY count(report_no) DESC LIMIT 15) ORDER BY c ASC LIMIT 1) AND domestic = 'TRUE' AND date LIKE '%2018%'",
+        "gold_sql": "SELECT COUNT(DISTINCT report_no) FROM Crime WHERE district_no = (SELECT district_no FROM (SELECT district_no, count(report_no) AS c FROM Crime WHERE date LIKE '%2018%' GROUP BY district_no ORDER BY count(report_no) DESC LIMIT 2) ORDER BY c ASC LIMIT 1) AND domestic = 'TRUE';",
         "orig_gold_sql": "SELECT COUNT(T1.client_id) FROM client AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id WHERE T1.gender = 'M' AND T2.A15 = (SELECT T3.A15 FROM district AS T3 ORDER BY T3.A15 DESC LIMIT 1, 1)",
         "evidence_added": true
     },
@@ -310,9 +311,10 @@
         "orig_gold_value_links": {
             "300": "[laboratory].[tg]"
         },
-        "gold_sql": "SELECT T1.ID FROM data AS T1 INNER JOIN price AS T2 ON T1.ID = T2.ID WHERE T1.horsepower > 200",
+        "gold_sql": "SELECT T1.ID, T2.price FROM data AS T1 INNER JOIN price AS T2 ON T1.ID = T2.ID WHERE T1.horsepower > 200",
         "orig_gold_sql": "SELECT T1.ID, T1.Diagnosis FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.TG > 300",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "FIXED: Missing price column from SQL"
     },
     {
         "idx": "bird_1107",

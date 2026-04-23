@@ -1,32 +1,33 @@
 [
     {
         "idx": "bird_803",
-        "db_id": "books",
+        "db_id": "movie",
         "orig_db_id": "superhero",
-        "question": "What is the publisher name of Manhunt Official Strategy Guide? publisher name refers to publisher.publisher_name; Manhunt Official Strategy Guide refers to title = 'Manhunt Official Strategy Guide';",
+        "question": "What is the movie title of Big George? movie title refers to movie.title; Big George refers to 'Character Name' = 'Big George';",
         "orig_question": "What is the power ID of cryokinesis? power ID refers to superpower.id; cryokinesis refers to power_name = 'cryokinesis';",
         "orig_masked": "What is the [C30] of [V1]? [C30] refers to [T10].[C30]; [V1] refers to [C31] = '[V1]';; [V1] is a value of the column [C31]",
-        "evidence": "publisher name refers to publisher.publisher_name; Manhunt Official Strategy Guide refers to title = 'Manhunt Official Strategy Guide';",
+        "evidence": "movie title refers to movie.title; Big George refers to 'Character Name' = 'Big George';",
         "orig_evidence": "power ID refers to superpower.id; cryokinesis refers to power_name = 'cryokinesis';",
         "gold_schema_links": {
-            "publisher": "TABLE:[publisher]",
-            "title": "COLUMN:[book].[title]",
-            "publisher name": "COLUMN:[publisher].[publisher_name]",
-            "publisher_name": "COLUMN:[publisher].[publisher_name]"
+            "movie": "TABLE:[movie]",
+            "title": "COLUMN:[movie].[title]",
+            "movie.title": "COLUMN:[movie].[title]",
+            "Character Name": "COLUMN:[characters].[character name]"
         },
         "orig_gold_schema_links": {
             "superpower": "TABLE:[superpower]",
             "power_name": "COLUMN:[superpower].[power_name]",
-            "power ID": "COLUMN:[superpower].[id]",
-            "id": "COLUMN:[superpower].[id]"
+            "power": "TABLE:[superpower]",
+            "ID": "COLUMN:[superpower].[id]",
+            "superpower.id": "COLUMN:[superpower].[id]"
         },
         "gold_value_links": {
-            "Manhunt Official Strategy Guide": "[book].[title]"
+            "Big George": "[characters].[character name]"
         },
         "orig_gold_value_links": {
             "cryokinesis": "[superpower].[power_name]"
         },
-        "gold_sql": "SELECT T2.publisher_name FROM book as T1 INNER JOIN publisher as T2 ON T1.publisher_id = T2.publisher_id WHERE T1.title = 'Manhunt Official Strategy Guide'",
+        "gold_sql": "SELECT movie.title FROM movie JOIN characters WHERE movie.movieid = characters.movieid AND characters.[character name] = 'Big George'",
         "orig_gold_sql": "SELECT id FROM superpower WHERE power_name = 'Cryokinesis'",
         "evidence_added": true
     },
@@ -41,14 +42,14 @@
         "orig_evidence": "superpowers refers to power_name; heroes with ID 1 refers to hero_id = 1;",
         "gold_schema_links": {
             "movies": "TABLE:[film]",
-            "actors": "COLUMN:[actor].[actor_id]",
+            "actors": "TABLE:[actor]",
             "title": "COLUMN:[film].[title]",
             "actor_id": "COLUMN:[actor].[actor_id]",
             "id": "COLUMN:[actor].[actor_id]"
         },
         "orig_gold_schema_links": {
             "superpowers": "TABLE:[superpower]",
-            "heroes": "COLUMN:[hero_power].[hero_id]",
+            "heroes": "TABLE:[superhero]",
             "power_name": "COLUMN:[superpower].[power_name]",
             "hero_id": "COLUMN:[hero_power].[hero_id]",
             "id": "COLUMN:[superpower].[id]"
@@ -174,7 +175,7 @@
             "superhero_name": "COLUMN:[superhero].[superhero_name]",
             "power_name": "COLUMN:[superpower].[power_name]"
         },
-        "gold_value_links":{
+        "gold_value_links": {
             "ALAMO VIDEOTAPE": "[film].[title]"
         },
         "orig_gold_value_links": {
@@ -232,7 +233,7 @@
             "divisions.name": "COLUMN:[divisions].[name]"
         },
         "orig_gold_schema_links": {
-            "country": "COLUMN:[country].[name]",
+            "country": "TABLE:[country]",
             "League.name": "COLUMN:[league].[name]"
         },
         "gold_value_links": {
@@ -249,7 +250,7 @@
         "idx": "bird_1140",
         "db_id": "olympics",
         "orig_db_id": "european_football_2",
-        "question": "What are Minna Maarit Aalto's height, weight, and country? Minna Maarit Aalto's refers to full_name = 'Minna Maarit Aalto'",
+        "question": "What are Minna Maarit Aalto's height, weight, and region? Minna Maarit Aalto's refers to full_name = 'Minna Maarit Aalto'",
         "orig_question": "What are Alexis Blin's sprint speed, agility, and acceleration scores? Alexis Blin's refers to player_name = 'Alexis Blin'",
         "orig_masked": "What are [V1]'s [C164], [C130], and [C128] [T5]? [V1]'s refers to [C126] = '[V1]'; [V1] is a value of the column [C126]",
         "evidence": "Minna Maarit Aalto's refers to full_name = 'Minna Maarit Aalto'",
@@ -257,7 +258,7 @@
         "gold_schema_links": {
             "height": "COLUMN:[person].[height]",
             "weight": "COLUMN:[person].[weight]",
-            "country": "COLUMN:[noc_region].[region_name]",
+            "region": "COLUMN:[noc_region].[region_name]",
             "full_name": "COLUMN:[person].[full_name]"
         },
         "orig_gold_schema_links": {

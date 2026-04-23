@@ -88,7 +88,7 @@
         "idx": "bird_156",
         "db_id": "law_episode",
         "orig_db_id": "financial",
-        "question": "Who is the technical advisor of the episode with the largest votes?  ",
+        "question": "Who is the technical advisor of the episode with the largest episode votes?  ",
         "orig_question": "Who is the owner of the account with the largest loan amount?  ",
         "orig_masked": "Who is the [V1] of the [T1] with the largest [C34]?  ; [V1] is a value of the column [C16]",
         "evidence": "",
@@ -99,7 +99,8 @@
         },
         "orig_gold_schema_links": {
             "account": "TABLE:[account]",
-            "loan amount": "COLUMN:[loan].[amount]"
+            "loan": "TABLE:[loan]",
+            "amount": "COLUMN:[loan].[amount]"
         },
         "gold_value_links": {
             "technical advisor": "[credit].[role]"
@@ -141,7 +142,7 @@
         "gold_sql": "SELECT DISTINCT T1.violation_type_id FROM violations as T1 INNER JOIN businesses as T2 ON T1.business_id = T2.business_id WHERE T2.business_id = 10",
         "orig_gold_sql": "SELECT T3.type FROM disp AS T1 INNER JOIN client AS T2 ON T1.client_id = T2.client_id INNER JOIN card AS T3 ON T1.disp_id = T3.disp_id WHERE T2.client_id = 13539",
         "evidence_added": true,
-        "note": "I removed the own link. I don't think it makes sense?"
+        "note": "FIXED:I removed the own link. I don't think it makes sense?"
     },
     {
         "idx": "bird_1079",
@@ -225,7 +226,7 @@
         "gold_sql": "SELECT DISTINCT T1.OrderNumber FROM \"Sales Orders\" AS T1 INNER JOIN \"Store Locations\" as T2 ON T1._StoreID = T2.StoreID INNER JOIN Regions as T3 ON T2.StateCode = T3.StateCode WHERE T3.Region = 'South'",
         "orig_gold_sql": "SELECT T3.trans_id FROM district AS T1 INNER JOIN account AS T2 ON T1.district_id = T2.district_id INNER JOIN trans AS T3 ON T2.account_id = T3.account_id WHERE T1.district_id = 5",
         "evidence_added": true,
-        "note": "Removed the made link as I don't think it makes sense?"
+        "note": "FIXED: Removed the made link as I don't think it makes sense?"
     },
     {
         "idx": "bird_141",
@@ -260,7 +261,7 @@
         "idx": "bird_745",
         "db_id": "books",
         "orig_db_id": "superhero",
-        "question": "Give the publisher ID of What Life Was Like in the Jewel in the Crown: British India  AD 1600-1905.  What Life Was Like in the Jewel in the Crown: British India  AD 1600-1905 is the publisher_name;",
+        "question": "Give the publisher ID of What Life Was Like in the Jewel in the Crown: British India  AD 1600-1905.  What Life Was Like in the Jewel in the Crown: British India  AD 1600-1905 is the book.title;",
         "orig_question": "Give the publisher ID of Star Trek.  Star Trek is the publisher_name;",
         "orig_masked": "Give the [T7] [C14] of [V1].  [V1] is the [C15];; [V1] is a value of the column [C15]",
         "evidence": "What Life Was Like in the Jewel in the Crown: British India  AD 1600-1905 is the publisher_name;",
@@ -268,7 +269,7 @@
         "gold_schema_links": {
             "ID": "COLUMN:[publisher].[publisher_id]",
             "publisher": "TABLE:[publisher]",
-            "publisher_name": "COLUMN:[publisher].[publisher_name]"
+            "book.title": "COLUMN:[book].[title]"
         },
         "orig_gold_schema_links": {
             "ID": "COLUMN:[publisher].[id]",
@@ -284,6 +285,6 @@
         "gold_sql": "SELECT T1.publisher_id FROM publisher as T1 INNER JOIN book as T2 ON T1.publisher_id = T2.publisher_id WHERE T2.title = 'What Life Was Like in the Jewel in the Crown: British India  AD 1600-1905'",
         "orig_gold_sql": "SELECT id FROM publisher WHERE publisher_name = 'Star Trek'",
         "evidence_added": true,
-        "note": "I don't have the original database, but I don't think the value link for Star Trek is correct here? That's a title/series not a publisher?"
+        "note": "FIXED: I don't have the original database, but I don't think the value link for Star Trek is correct here? That's a title/series not a publisher?"
     }
 ]

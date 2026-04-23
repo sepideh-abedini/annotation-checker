@@ -22,7 +22,7 @@
             "12": "[book].[book_id]"
         },
         "orig_gold_value_links": {
-            "32423": "[order].[book_id]"
+            "32423": "[order].[order_id]"
         },
         "gold_sql": "SELECT T3.author_name FROM book as T1 INNER JOIN book_author as T2 ON T1.book_id = T2.book_id INNER JOIN author as T3 ON T2.author_id = T3.author_id WHERE T1.book_id = 12",
         "orig_gold_sql": "SELECT T3.client_id FROM `order` AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id INNER JOIN disp AS T4 ON T4.account_id = T2.account_id  INNER JOIN client AS T3 ON T4.client_id = T3.client_id WHERE T1.order_id = 32423",
@@ -32,18 +32,20 @@
         "idx": "bird_174",
         "db_id": "books",
         "orig_db_id": "financial",
-        "question": "What year was title Sam And The Firefly (Beginner Books) published? ",
+        "question": "What year was book titled Sam And The Firefly (Beginner Books) published? ",
         "orig_question": "What year was account owner number 130 born? ",
         "orig_masked": "What [C9] was [C1] [V1] [C9]? ; [V1] is a value of the column [C1]",
         "evidence": "",
         "orig_evidence": "",
         "gold_schema_links": {
-            "title": "COLUMN:[book].[title]",
+            "book": "TABLE:[book]",
+            "titled": "COLUMN:[book].[title]",
             "year": "COLUMN:[book].[publication_date]",
             "published": "COLUMN:[book].[publication_date]"
         },
         "orig_gold_schema_links": {
-            "account owner number": "COLUMN:[account].[account_id]",
+            "account": "TABLE:[account]",
+            "owner number": "COLUMN:[account].[account_id]",
             "year": "COLUMN:[client].[birth_date]",
             "born": "COLUMN:[client].[birth_date]"
         },
@@ -142,12 +144,13 @@
         "idx": "bird_143",
         "db_id": "food_inspection",
         "orig_db_id": "financial",
-        "question": "What are the names that have High Risk violations?  ",
+        "question": "What are the business names that have High Risk violations?  ",
         "orig_question": "What are the accounts that have gold credit cards?  ",
         "orig_masked": "What are the [C13] that have [V1] [T2]?  ; [V1] is a value of the column [C8]",
         "evidence": "",
         "orig_evidence": "",
         "gold_schema_links": {
+            "business": "TABLE:[businesses]",
             "names": "COLUMN:[businesses].[name]",
             "violations": "TABLE:[violations]"
         },
@@ -161,7 +164,7 @@
         "orig_gold_value_links": {
             "gold": "[card].[type]"
         },
-        "gold_sql": "SELECT T1.name FROM businesses as T1 INNER JOIN violations as T2 ON T1.business_id = T2.business_id WHERE T2.risk_category = 'High Risk'",
+        "gold_sql": "SELECT DISTINCT T1.name FROM businesses as T1 INNER JOIN violations as T2 ON T1.business_id = T2.business_id WHERE T2.risk_category = 'High Risk'",
         "orig_gold_sql": "SELECT T2.account_id FROM disp AS T2  INNER JOIN card AS T1 ON T1.disp_id = T2.disp_id  WHERE T1.type = 'gold'",
         "evidence_added": true
     },
@@ -183,7 +186,7 @@
             "opened after": "COLUMN:[account].[date]"
         },
         "gold_value_links": {
-            "1940F": "[actor].[date of birth]",
+            "1940": "[actor].[date of birth]",
             "Driving Miss Daisy": "[movie].[title]"
         },
         "orig_gold_value_links": {
@@ -258,7 +261,8 @@
         "evidence": "",
         "orig_evidence": "",
         "gold_schema_links": {
-            "business named": "COLUMN:[businesses].[name]",
+            "business": "TABLE:[businesses]",
+            "named": "COLUMN:[businesses].[name]",
             "violations": "TABLE:[violations]",
             "types": "COLUMN:[violations].[violation_type_id]"
         },

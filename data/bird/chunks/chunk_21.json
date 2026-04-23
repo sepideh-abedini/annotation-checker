@@ -3,14 +3,14 @@
         "idx": "bird_1104",
         "db_id": "food_inspection",
         "orig_db_id": "european_football_2",
-        "question": "What was the inspection score for Norman's Ice Cream and Freezes on 2014-09-08? Norman's Ice Cream and Freezes refers to name = 'Norman's Ice Cream and Freezes'; on 2014-09-08 refers to date = '2014-09-08 00:00:00'",
+        "question": "What was the score for Norman's Ice Cream and Freezes on 2014-09-08? Norman's Ice Cream and Freezes refers to name = 'Norman's Ice Cream and Freezes'; on 2014-09-08 refers to date = '2014-09-08 00:00:00'",
         "orig_question": "What was the potiential for Francesco Parravicini on 2010/8/30? Francesco Parravicini refers to player_name = 'Francesco Parravicini'; on 2010/8/30 refers to date = '2010-08-30 00:00:00'",
         "orig_masked": "What was the [C158] for [V1] on [V3]? [V1] refers to [C126] = '[V1]'; on [V3] refers to [C136] = '[V2]'; [V1] is a value of the column [C126]; [V2] is a value of the column [C136]; [V3] is a value of the column [C136]",
         "evidence": "Norman's Ice Cream and Freezes refers to name = 'Norman's Ice Cream and Freezes'; on 2014-09-08 refers to date = '2014-09-08 00:00:00'",
         "orig_evidence": "Francesco Parravicini refers to player_name = 'Francesco Parravicini'; on 2010/8/30 refers to date = '2010-08-30 00:00:00'",
         "gold_schema_links": {
             "name": "COLUMN:[businesses].[name]",
-            "inspection score": "COLUMN:[inspections].[score]",
+            "score": "COLUMN:[inspections].[score]",
             "date": "COLUMN:[inspections].[date]"
         },
         "orig_gold_schema_links": {
@@ -25,7 +25,7 @@
         },
         "orig_gold_value_links": {
             "Francesco Parravicini": "[player].[player_name]",
-            "2010-08-30": "[player_attributes].[date]",
+            "2010/8/30": "[player_attributes].[date]",
             "2010-08-30 00:00:00": "[player_attributes].[date]"
         },
         "gold_sql": "SELECT T1.score FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T2.name = 'Norman''s Ice Cream and Freezes' AND T1.date = '2014-09-08'",
@@ -67,10 +67,10 @@
         "orig_gold_value_links": {
             "Blue": "[colour].[colour]"
         },
-        "gold_sql": "SELECT T1.full_name FROM person AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.person_id INNER JOIN noc_region AS T3 ON T2.region_id = T3.id WHERE T3.region_name = 'Canada'",
+        "gold_sql": "SELECT full_name FROM person AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.person_id INNER JOIN noc_region AS T3 ON T2.region_id = T3.id WHERE T3.region_name = 'Canada' LIMIT 5",
         "orig_gold_sql": "SELECT T1.superhero_name FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id WHERE T2.colour = 'Blue' LIMIT 5",
         "evidence_added": true,
-        "note": "Fixed colour.colour and colour.id link"
+        "note": "REVIEWED: Fixed colour.colour and colour.id link"
     },
     {
         "idx": "bird_739",
@@ -85,7 +85,7 @@
             "names": "COLUMN:[game].[game_name]",
             "games": "TABLE:[game]",
             "genre name": "COLUMN:[genre].[genre_name]",
-            "name of games": "COLUMN:[game].[game_name]",
+            "name": "COLUMN:[game].[game_name]",
             "game_name": "COLUMN:[game].[game_name]",
             "genre_name": "COLUMN:[genre].[genre_name]"
         },
@@ -93,7 +93,7 @@
             "names": "COLUMN:[superhero].[superhero_name]",
             "superheroes": "TABLE:[superhero]",
             "power": "COLUMN:[superpower].[power_name]",
-            "name of superheroes": "COLUMN:[superhero].[superhero_name]",
+            "name": "COLUMN:[superhero].[superhero_name]",
             "superhero_name": "COLUMN:[superhero].[superhero_name]",
             "power_name": "COLUMN:[superpower].[power_name]"
         },
@@ -143,7 +143,7 @@
         "gold_sql": "SELECT COUNT(DISTINCT T1.patient) FROM patients AS T1 INNER JOIN procedures AS T2 ON T1.patient = T2.patient WHERE T2.description = 'Cesarean section' AND STRFTIME('%Y', T1.birthdate) BETWEEN '1980' AND '2000'",
         "orig_gold_sql": "SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T1.Diagnosis = 'SLE' AND T2.WBC BETWEEN 3.5 AND 9",
         "evidence_added": true,
-        "note": "Fixed the value like to grab the full string rep"
+        "note": "REVIEWED: Fixed the value like to grab the full string rep"
     },
     {
         "idx": "bird_1278",
@@ -181,7 +181,7 @@
         "gold_sql": "SELECT COUNT(DISTINCT T1.ID) FROM data as T1 INNER JOIN production AS T2 ON T1.ID = T2.ID INNER JOIN country AS T3 ON T2.country = T3.origin WHERE T3.country = 'Japan' AND T1.horsepower > 100 AND T1.horsepower < 200",
         "orig_gold_sql": "SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.IGG > 900 AND T2.IGG <2000 AND  T1.Admission = '+'",
         "evidence_added": true,
-        "note": "Fixed missing link to IGG"
+        "note": "REVIEWED: Fixed missing link to IGG"
     },
     {
         "idx": "bird_1062",
@@ -219,7 +219,7 @@
         "gold_sql": "SELECT title FROM movie WHERE runtime > 150 AND strftime('%Y', \"Release Date\") BETWEEN '2008' AND '2010';",
         "orig_gold_sql": "SELECT DISTINCT t1.player_name FROM Player AS t1 INNER JOIN Player_Attributes AS t2 ON t1.player_api_id = t2.player_api_id WHERE t2.overall_rating > 80 AND SUBSTR(t2.`date`, 1, 4) BETWEEN '2008' AND '2010'",
         "evidence_added": true,
-        "note": "Fixed with a more specific link"
+        "note": "REVIEWED: Fixed with a more specific link"
     },
     {
         "idx": "bird_1280",

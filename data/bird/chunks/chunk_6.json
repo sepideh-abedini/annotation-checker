@@ -16,7 +16,7 @@
         "orig_gold_schema_links": {
             "country": "COLUMN:[country].[name]",
             "league": "TABLE:[league]",
-            "name": "COLUMN:[league].[name]"
+            "league.name": "COLUMN:[league].[name]"
         },
         "gold_value_links": {
             "Eredivisie": "[divisions].[name]"
@@ -42,7 +42,7 @@
             "titles.title": "COLUMN:[titles].[title]"
         },
         "orig_gold_schema_links": {
-            "publisher's name": "COLUMN:[publishers].[publisher_name]",
+            "publisher's name": "COLUMN:[publisher].[publisher_name]",
             "superhero_name": "COLUMN:[superhero].[superhero_name]"
         },
         "gold_value_links": {
@@ -88,13 +88,13 @@
         "idx": "bird_755",
         "db_id": "movie_3",
         "orig_db_id": "superhero",
-        "question": "List down at least five movie titles of Horror category.  Horror category refers to name = 'Horror'",
+        "question": "List down at least five titles of Horror category.  Horror category refers to name = 'Horror'",
         "orig_question": "List down at least five full name of Demi-God superheroes.  Demi-God superheroes refers to race = 'Demi-God'",
         "orig_masked": "List down at least five [C20] of [V1] [T9].  [V1] [T9] refers to [C17] = '[V1]'; [V1] is a value of the column [C17]",
         "evidence": "Horror category refers to name = 'Horror'",
         "orig_evidence": "Demi-God superheroes refers to race = 'Demi-God'",
         "gold_schema_links": {
-            "movie titles": "COLUMN:[film].[title]",
+            "titles": "COLUMN:[film].[title]",
             "category": "TABLE:[category]",
             "name": "COLUMN:[category].[name]"
         },
@@ -117,13 +117,13 @@
         "idx": "bird_763",
         "db_id": "movie_3",
         "orig_db_id": "superhero",
-        "question": "Indicate the genre name of film AFRICAN EGG.  AFRICAN EGG refers to title = 'AFRICAN EGG';",
+        "question": "Indicate the genre of film AFRICAN EGG.  AFRICAN EGG refers to title = 'AFRICAN EGG';",
         "orig_question": "Indicate the attribute value of superhero Abomination.  Abomination refers to superhero_name = 'Abomination';",
         "orig_masked": "Indicate the [C10] of [T9] [V1].  [V1] refers to [C28] = '[V1]';; [V1] is a value of the column [C28]",
         "evidence": "AFRICAN EGG refers to title = 'AFRICAN EGG';",
         "orig_evidence": "Abomination refers to superhero_name = 'Abomination';",
         "gold_schema_links": {
-            "genre name": "COLUMN:[category].[name]",
+            "genre": "TABLE:[category]",
             "film": "TABLE:[film]",
             "title": "COLUMN:[film].[title]"
         },
@@ -238,7 +238,7 @@
         "gold_sql": "SELECT T1.lastname, T1.salary FROM employee as T1 INNER JOIN location as T2 ON T1.locationID = T2.locationID WHERE T2.locationcity = 'Atlanta'",
         "orig_gold_sql": "SELECT T1.account_id, T1.date FROM account AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id WHERE T2.A2 = 'Prachatice'",
         "evidence_added": true,
-        "note": "Grouped opening date into a link, as the combination is what signals the column link I think"
+        "note": "REVIEWED: Grouped opening date into a link, as the combination is what signals the column link I think"
     },
     {
         "idx": "bird_1178",

@@ -189,8 +189,7 @@
         },
         "gold_sql": "SELECT COUNT(DISTINCT MovieID) FROM movie WHERE STRFTIME('%Y', \"Release Date\") = '1996' AND Genre = 'Action'",
         "orig_gold_sql": "SELECT COUNT(T2.account_id) FROM district AS T1 INNER JOIN account AS T2 ON T1.district_id = T2.district_id WHERE STRFTIME('%Y', T2.date) = '1996' AND T1.A2 = 'Litomerice'",
-        "evidence_added": true,
-        "note": "Fixed link to opened as I think it more specifically refers to a column."
+        "evidence_added": true
     },
     {
         "idx": "bird_837",
@@ -222,13 +221,13 @@
         "idx": "bird_748",
         "db_id": "movie_3",
         "orig_db_id": "superhero",
-        "question": "What is the genre name of film with film id 18?  genre name refers to category.name where film_category.category_id = category.category_id;",
+        "question": "What is the genre of film with film id 18?  genre refers to category.name where film_category.category_id = category.category_id;",
         "orig_question": "What is the eye colour of superhero with superhero ID 75?  eye colour refers to colour where eye_colour_id = colour.id;",
         "orig_masked": "What is the [C19] of [T9] with [C24] [V1]?  [C19] refers to [C5] where [C19] = [C6];; [V1] is a value of the column [C24]",
-        "evidence": "genre name refers to category.name where film_category.category_id = category.category_id;",
+        "evidence": "genre refers to category.name where film_category.category_id = category.category_id;",
         "orig_evidence": "eye colour refers to colour where eye_colour_id = colour.id;",
         "gold_schema_links": {
-            "genre name": "COLUMN:[category].[name]",
+            "genre": "COLUMN:[category].[name]",
             "film": "TABLE:[film]",
             "film id": "COLUMN:[film].[film_id]",
             "film_category.category_id": "COLUMN:[film_category].[category_id]",
@@ -238,7 +237,7 @@
         "orig_gold_schema_links": {
             "eye colour": "COLUMN:[superhero].[eye_colour_id]",
             "superhero": "TABLE:[superhero]",
-            "superhero ID": "COLUMN:[superhero].[id]",
+            "ID": "COLUMN:[superhero].[id]",
             "eye_colour_id": "COLUMN:[superhero].[eye_colour_id]",
             "colour.id": "COLUMN:[colour].[id]",
             "colour": "COLUMN:[colour].[colour]"
@@ -251,19 +250,20 @@
         },
         "gold_sql": "SELECT T3.name FROM film as T1 INNER JOIN film_category as T2 ON T1.film_id = T2.film_id INNER JOIN category as T3 ON T2.category_id = T3.category_id WHERE T1.film_id = 18",
         "orig_gold_sql": "SELECT T2.colour FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id WHERE T1.id = 75",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "FIXED: should break genre name"
     },
     {
         "idx": "bird_810",
         "db_id": "synthea",
         "orig_db_id": "superhero",
-        "question": "What is the ethnicity of the patient with maximum observation value? maximum observation value refers to MAX(observation.value);",
+        "question": "What is the ethnicity of the patient with maximum value? maximum value refers to MAX(observation.value);",
         "orig_question": "What is the race of the superhero with maximum attribute value? maximum attribute value refers to MAX(attribute_value);",
         "orig_masked": "What is the [C17] of the [T9] with maximum [C10]? maximum [C10] refers to MAX([C10]);",
-        "evidence": "maximum observation value refers to MAX(observation.value);",
+        "evidence": "maximum value refers to MAX(observation.value);",
         "orig_evidence": "maximum attribute value refers to MAX(attribute_value);",
         "gold_schema_links": {
-            "observation value": "COLUMN:[observations].[value]",
+            "value": "COLUMN:[observations].[value]",
             "observation.value": "COLUMN:[observations].[value]",
             "patient": "TABLE:[patients]",
             "ethnicity": "COLUMN:[patients].[ethnicity]"
@@ -278,7 +278,8 @@
         "orig_gold_value_links": {},
         "gold_sql": "SELECT T1.ethnicity FROM patients AS T1 INNER JOIN observations AS T2 ON T1.patient = T2.patient WHERE T2.value = (SELECT value FROM observations ORDER BY value DESC LIMIT 1)",
         "orig_gold_sql": "SELECT T3.race FROM superhero AS T1 INNER JOIN hero_attribute AS T2 ON T1.id = T2.hero_id INNER JOIN race AS T3 ON T1.race_id = T3.id ORDER BY T2.attribute_value DESC LIMIT 1",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "FIXED: Should break observation value"
     },
     {
         "idx": "bird_780",

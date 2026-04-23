@@ -20,7 +20,7 @@
             "superhero": "TABLE:[superhero]",
             "skin_colour_id": "COLUMN:[superhero].[skin_colour_id]",
             "colour.id": "COLUMN:[colour].[id]",
-            "id": "COLUMN:[colour].[id]"
+            "superhero.id": "COLUMN:[superhero].[id]"
         },
         "gold_value_links": {
             "0": "[person].[weight]"
@@ -58,7 +58,7 @@
             "symptom": "COLUMN:[examination].[symptoms]",
             "patient": "TABLE:[patient]",
             "Examination Date": "COLUMN:[examination].[examination date]",
-            "patient ID": "COLUMN:[patient].[id]"
+            "ID": "COLUMN:[patient].[id]"
         },
         "gold_value_links": {
             "16": "[book].[book_id]"
@@ -134,13 +134,13 @@
         "idx": "bird_1113",
         "db_id": "food_inspection",
         "orig_db_id": "european_football_2",
-        "question": "For the business \"Cable Car Corner\", what was its inspection score on 2014-09-02? \"Cable Car Corner\" refers to business.name = 'Cable Car Corner'; on 2014-09-02 refers to inspection.date LIKE '2014-09-02%';",
+        "question": "For the business \"Cable Car Corner\", what was its score on 2014-09-02? \"Cable Car Corner\" refers to business.name = 'Cable Car Corner'; on 2014-09-02 refers to inspection.date LIKE '2014-09-02%';",
         "orig_question": "For the team \"Hannover 96\", what was its defence aggression class on 2015/9/10? \"Hannover 96\" refers to team_long_name = 'Hannover 96'; on 2015/9/10 refers to date LIKE '2015-09-10%';",
         "orig_masked": "For the [T6] \"[V1]\", what was its [C188] on [V3]? \"[V1]\" refers to [C173] = '[V1]'; on [V3] refers to [C189] LIKE '[V2]';; [V1] is a value of the column [C173]; [V2] is a value of the column [C189]; [V3] is a value of the column [C189]",
         "evidence": "\"Cable Car Corner\" refers to business.name = 'Cable Car Corner'; on 2014-09-02 refers to inspection.date LIKE '2014-09-02%';",
         "orig_evidence": "\"Hannover 96\" refers to team_long_name = 'Hannover 96'; on 2015/9/10 refers to date LIKE '2015-09-10%';",
         "gold_schema_links": {
-            "inspection score": "COLUMN:[inspections].[score]",
+            "score": "COLUMN:[inspections].[score]",
             "business.name": "COLUMN:[businesses].[name]",
             "business": "TABLE:[businesses]",
             "inspection.date": "COLUMN:[inspections].[date]"
@@ -184,11 +184,11 @@
         },
         "orig_gold_schema_links": {
             "low hemoglobin level": "COLUMN:[laboratory].[hgb]",
+            "HBG": "COLUMN:[laboratory].[hgb]",
             "IDs": "COLUMN:[patient].[id]",
             "sex": "COLUMN:[patient].[sex]",
             "Admission": "COLUMN:[patient].[admission]",
-            "outpatients": "COLUMN:[patient].[admission]",
-            "HBG": "COLUMN:[laboratory].[hgb]"
+            "outpatients": "COLUMN:[patient].[admission]"
         },
         "gold_value_links": {
             "35": "[person].[weight]",
@@ -201,7 +201,7 @@
         "gold_sql": "SELECT id, height FROM person WHERE weight < 35 AND gender = 'F'",
         "orig_gold_sql": "SELECT DISTINCT T1.ID, T1.SEX FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.HGB < 10 AND T1.Admission = '-'",
         "evidence_added": true,
-        "note": "Missing link to HBG filled in"
+        "note": "REVIEWED: Missing link to HBG filled in"
     },
     {
         "idx": "bird_1283",
@@ -242,35 +242,39 @@
         "idx": "bird_1141",
         "db_id": "food_inspection",
         "orig_db_id": "european_football_2",
-        "question": "Does the AFC SUSHI @ MOLLIE STONE'S 2 business have a low, moderate or high risk category? AFC SUSHI @ MOLLIE STONE'S 2 refers to businesses.name = 'AFC SUSHI @ MOLLIE STONE'S 2'; risk category refers to risk_category",
+        "question": "Does the AFC SUSHI @ MOLLIE STONE'S 2 business have a low risk, moderate risk or high risk category? AFC SUSHI @ MOLLIE STONE'S 2 refers to businesses.name = 'AFC SUSHI @ MOLLIE STONE'S 2'; category refers to risk_category",
         "orig_question": "Does the KSV Cercle Brugge team have a slow, balanced or fast speed class? KSV Cercle Brugge refers to team_long_name = 'KSV Cercle Brugge'; speed class refers to buildUpPlaySpeedClass",
         "orig_masked": "Does the [V1] [T6] have a [C181]? [V1] refers to [C173] = '[V1]'; speed class refers to [C181]; [V1] is a value of the column [C173]",
-        "evidence": "AFC SUSHI @ MOLLIE STONE'S 2 refers to businesses.name = 'AFC SUSHI @ MOLLIE STONE'S 2'; risk category refers to risk_category",
+        "evidence": "AFC SUSHI @ MOLLIE STONE'S 2 refers to businesses.name = 'AFC SUSHI @ MOLLIE STONE'S 2'; category refers to risk_category",
         "orig_evidence": "KSV Cercle Brugge refers to team_long_name = 'KSV Cercle Brugge'; speed class refers to buildUpPlaySpeedClass",
         "gold_schema_links": {
             "risk_category": "COLUMN:[violations].[risk_category]",
             "businesses.name": "COLUMN:[businesses].[name]",
-            "low, moderate or high risk category": "COLUMN:[violations].[risk_category]",
             "business": "TABLE:[businesses]",
-            "risk category": "COLUMN:[violations].[risk_category]"
+            "category": "COLUMN:[violations].[risk_category]"
         },
         "orig_gold_schema_links": {
             "buildUpPlaySpeedClass": "COLUMN:[team_attributes].[buildupplayspeedclass]",
             "team_long_name": "COLUMN:[team].[team_long_name]",
-            "slow, balanced or fast speed class": "COLUMN:[team_attributes].[buildupplayspeedclass]",
-            "team": "TABLE:[team]",
-            "speed class": "COLUMN:[team_attributes].[buildupplayspeedclass]"
+            "speed class": "COLUMN:[team_attributes].[buildupplayspeedclass]",
+            "team": "TABLE:[team]"
         },
         "gold_value_links": {
-            "AFC SUSHI @ MOLLIE STONE'S 2": "[businesses].[name]"
+            "AFC SUSHI @ MOLLIE STONE'S 2": "[businesses].[name]",
+            "low risk": "[violations].[risk_category]",
+            "moderate risk": "[violations].[risk_category]",
+            "high risk": "[violations].[risk_category]"
         },
         "orig_gold_value_links": {
-            "KSV Cercle Brugge": "[team].[team_long_name]"
+            "KSV Cercle Brugge": "[team].[team_long_name]",
+            "slow": "[team_attributes].[buildupplayspeedclass]",
+            "balanced": "[team_attributes].[buildupplayspeedclass]",
+            "fast": "[team_attributes].[buildupplayspeedclass]"
         },
         "gold_sql": "SELECT DISTINCT T2.risk_category FROM businesses as T1 INNER JOIN violations as T2 ON T1.business_id = T2.business_id WHERE T1.name = 'AFC SUSHI @ MOLLIE STONE''S 2'",
         "orig_gold_sql": "SELECT DISTINCT t1.buildUpPlaySpeedClass FROM Team_Attributes AS t1 INNER JOIN Team AS t2 ON t1.team_api_id = t2.team_api_id WHERE t2.team_long_name = 'KSV Cercle Brugge'",
         "evidence_added": true,
-        "note": "Added in link to speed class"
+        "note": "REVIEWED: Added in link to speed class"
     },
     {
         "idx": "bird_1092",
@@ -309,7 +313,7 @@
         "idx": "bird_1220",
         "db_id": "cars",
         "orig_db_id": "thrombosis_prediction",
-        "question": "Provide all model year, country name and mpg of vehicles whose displacement just within the borderline of passing? displacement just within the borderline of passing refers to displacement = 70; ",
+        "question": "Provide all model year, country and mpg of vehicles whose displacement just within the borderline of passing? displacement just within the borderline of passing refers to displacement = 70; ",
         "orig_question": "Provide all ID, sex and birthday of patients whose urea nitrogen (UN) just within the borderline of passing? urea nitrogen (UN) just within the borderline of passing refers to UN = 29; ",
         "orig_masked": "Provide all [C63], [C64] and [C59] of [T3] whose [C56] [C56]? [C56] [C56] refers to [C56] = [V1]; ; [V1] is a value of the column [C56]",
         "evidence": "displacement just within the borderline of passing refers to displacement = 70; ",
@@ -319,7 +323,7 @@
             "just within the borderline of passing": "COLUMN:[data].[displacement]",
             "mpg": "COLUMN:[data].[mpg]",
             "vehicles": "TABLE:[data]",
-            "country name": "COLUMN:[country].[country]",
+            "country": "TABLE:[country]",
             "model year": "COLUMN:[production].[model_year]"
         },
         "orig_gold_schema_links": {
@@ -339,6 +343,7 @@
         },
         "gold_sql": "SELECT T2.model_year, T3.origin, T1.mpg FROM data as T1 INNER JOIN production AS T2 ON T1.ID = T2.ID INNER JOIN country AS T3 ON T2.country = T3.origin WHERE T1.displacement = 70",
         "orig_gold_sql": "SELECT DISTINCT T1.ID, T1.SEX, T1.Birthday FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.UN = 29",
-        "evidence_added": true
+        "evidence_added": true,
+        "note": "FIXED: should break country name"
     }
 ]
