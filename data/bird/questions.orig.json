@@ -26,7 +26,8 @@
             "130": "[account].[account_id]"
         },
         "gold_schema_links": {
-            "account owner number": "COLUMN:[account].[account_id]",
+            "account": "TABLE:[account]",
+            "owner number": "COLUMN:[account].[account_id]",
             "year": "COLUMN:[client].[birth_date]",
             "born": "COLUMN:[client].[birth_date]"
         }
@@ -104,8 +105,7 @@
         },
         "gold_schema_links": {
             "accounts": "TABLE:[account]",
-            "opened": "COLUMN:[account].[date]",
-            "after": "COLUMN:[account].[date]"
+            "opened after": "COLUMN:[account].[date]"
         }
     },
     {
@@ -213,7 +213,8 @@
         },
         "gold_schema_links": {
             "account": "TABLE:[account]",
-            "loan amount": "COLUMN:[loan].[amount]"
+            "loan": "TABLE:[loan]",
+            "amount": "COLUMN:[loan].[amount]"
         }
     },
     {
@@ -456,8 +457,7 @@
         },
         "gold_schema_links": {
             "leagues": "TABLE:[league]",
-            "name": "COLUMN:[country].[name]",
-            "Country": "TABLE:[country]"
+            "Country.name": "COLUMN:[country].[name]"
         }
     },
     {
@@ -491,7 +491,7 @@
             "accounts": "TABLE:[account]",
             "district": "TABLE:[district]",
             "A2": "COLUMN:[district].[a2]",
-            "district name": "COLUMN:[district].[a2]"
+            "name": "COLUMN:[district].[a2]"
         }
     },
     {
@@ -506,7 +506,7 @@
         },
         "gold_schema_links": {
             "power_name": "COLUMN:[superpower].[power_name]",
-            "heroes": "COLUMN:[hero_power].[hero_id]",
+            "heroes": "TABLE:[superhero]",
             "power": "COLUMN:[superpower].[power_name]"
         }
     },
@@ -603,7 +603,7 @@
             "Amazo": "[superhero].[superhero_name]"
         },
         "gold_schema_links": {
-            "powers": "COLUMN:[hero_power].[power_id]",
+            "powers": "TABLE:[hero_power]",
             "hero": "TABLE:[superhero]",
             "superhero_name": "COLUMN:[superhero].[superhero_name]"
         }
@@ -668,9 +668,9 @@
         },
         "gold_schema_links": {
             "publisher name": "COLUMN:[publisher].[publisher_name]",
-            "superhero ID": "COLUMN:[superhero].[id]",
+            "ID": "COLUMN:[superhero].[id]",
             "superhero": "TABLE:[superhero]",
-            "id": "COLUMN:[superhero].[id]"
+            "superhero.id": "COLUMN:[superhero].[id]"
         }
     },
     {
@@ -815,7 +815,6 @@
         "evidence_added": true,
         "query": "SELECT T1.client_id FROM client AS T1 INNER JOIN disp AS T4 on T1.client_id= T4.client_id INNER JOIN account AS T2 ON T4.account_id = T2.account_id  INNER JOIN loan AS T3 ON T2.account_id = T3.account_id and T4.account_id = T3.account_id WHERE T1.gender = 'F' ORDER BY T3.amount DESC LIMIT 3",
         "gold_value_links": {
-            "3": "[client].[client_id]",
             "F": "[client].[gender]"
         },
         "gold_schema_links": {
@@ -974,8 +973,7 @@
         "gold_schema_links": {
             "matches": "TABLE:[match]",
             "season": "COLUMN:[match].[season]",
-            "name": "COLUMN:[country].[name]",
-            "Country": "TABLE:[country]",
+            "Country.name": "COLUMN:[country].[name]",
             "held": "TABLE:[country]"
         }
     },
@@ -992,7 +990,7 @@
         "gold_schema_links": {
             "country": "COLUMN:[country].[name]",
             "league": "TABLE:[league]",
-            "name": "COLUMN:[league].[name]"
+            "league.name": "COLUMN:[league].[name]"
         }
     },
     {
@@ -1457,7 +1455,7 @@
         "gold_schema_links": {
             "eye colour": "COLUMN:[superhero].[eye_colour_id]",
             "superhero": "TABLE:[superhero]",
-            "superhero ID": "COLUMN:[superhero].[id]",
+            "ID": "COLUMN:[superhero].[id]",
             "eye_colour_id": "COLUMN:[superhero].[eye_colour_id]",
             "colour.id": "COLUMN:[colour].[id]",
             "colour": "COLUMN:[colour].[colour]"
@@ -1508,8 +1506,9 @@
         "gold_schema_links": {
             "superpower": "TABLE:[superpower]",
             "power_name": "COLUMN:[superpower].[power_name]",
-            "power ID": "COLUMN:[superpower].[id]",
-            "id": "COLUMN:[superpower].[id]"
+            "power": "TABLE:[superpower]",
+            "ID": "COLUMN:[superpower].[id]",
+            "superpower.id": "COLUMN:[superpower].[id]"
         }
     },
     {
@@ -1581,6 +1580,7 @@
             "football league": "TABLE:[league]",
             "country": "TABLE:[country]",
             "name": "COLUMN:[league].[name]",
+            "league.name": "COLUMN:[league].[name]",
             "league": "TABLE:[league]"
         }
     },
@@ -1629,7 +1629,7 @@
             "Belgium Jupiler League": "[league].[name]"
         },
         "gold_schema_links": {
-            "country": "COLUMN:[country].[name]",
+            "country": "TABLE:[country]",
             "League.name": "COLUMN:[league].[name]"
         }
     },
@@ -1730,7 +1730,7 @@
             "Male": "[gender].[gender]"
         },
         "gold_schema_links": {
-            "superpowers": "COLUMN:[superpower].[power_name]",
+            "superpowers": "TABLE:[superpower]",
             "superheroes": "TABLE:[superhero]",
             "gender": "COLUMN:[gender].[gender]",
             "power_name": "COLUMN:[superpower].[power_name]"
@@ -1749,7 +1749,7 @@
         "gold_schema_links": {
             "full names": "COLUMN:[superhero].[full_name]",
             "superheroes": "TABLE:[superhero]",
-            "super powers": "COLUMN:[hero_power].[power_id]",
+            "super powers": "TABLE:[superpower]",
             "full_name": "COLUMN:[superhero].[full_name]"
         }
     },
@@ -1778,7 +1778,7 @@
             "500": "[laboratory].[ldh]"
         },
         "gold_schema_links": {
-            "patient ID": "COLUMN:[patient].[id]",
+            "ID": "COLUMN:[patient].[id]",
             "birthday": "COLUMN:[patient].[birthday]",
             "LDH": "COLUMN:[laboratory].[ldh]",
             "normal range": "COLUMN:[laboratory].[ldh]",
@@ -1887,7 +1887,7 @@
         "gold_schema_links": {
             "diagnosis": "COLUMN:[examination].[diagnosis]",
             "symptoms": "COLUMN:[examination].[symptoms]",
-            "patients": "TABLE:[examination]",
+            "patients": "TABLE:[patient]",
             "disease": "COLUMN:[examination].[diagnosis]",
             "sign": "COLUMN:[examination].[symptoms]"
         }
@@ -2107,7 +2107,7 @@
         },
         "gold_schema_links": {
             "thrombosis": "COLUMN:[examination].[thrombosis]",
-            "patients": "TABLE:[examination]",
+            "patients": "TABLE:[patient]",
             "RF": "COLUMN:[laboratory].[rf]",
             "normal": "COLUMN:[laboratory].[rf]"
         }
@@ -2253,7 +2253,7 @@
         "gold_schema_links": {
             "weight": "COLUMN:[superhero].[weight_kg]",
             "race": "COLUMN:[race].[race]",
-            "superhero ID": "COLUMN:[superhero].[id]",
+            "ID": "COLUMN:[superhero].[id]",
             "superhero": "TABLE:[superhero]",
             "weight_kg": "COLUMN:[superhero].[weight_kg]",
             "superhero.id": "COLUMN:[superhero].[id]"
@@ -2274,7 +2274,8 @@
         "gold_schema_links": {
             "total cholesterol": "COLUMN:[laboratory].[t-cho]",
             "normal level": "COLUMN:[laboratory].[t-cho]",
-            "patient id": "COLUMN:[laboratory].[id]"
+            "patient": "TABLE:[patient].[id]",
+            "id": "COLUMN:[patient].[id]"
         }
     },
     {
@@ -2324,7 +2325,8 @@
             "account ID": "COLUMN:[account].[account_id]",
             "district": "TABLE:[district]",
             "region": "COLUMN:[district].[a3]",
-            "loan amount": "COLUMN:[loan].[amount]",
+            "loan": "TABLE:[loan]",
+            "amount": "COLUMN:[loan].[amount]",
             "district names": "COLUMN:[district].[a2]",
             "region names": "COLUMN:[district].[a3]",
             "A2": "COLUMN:[district].[a2]",
@@ -2399,7 +2401,8 @@
             "name": "COLUMN:[superhero].[superhero_name]",
             "superhero": "TABLE:[superhero]",
             "superhero_name": "COLUMN:[superhero].[superhero_name]",
-            "id": "COLUMN:[superhero].[id]"
+            "id": "COLUMN:[superhero].[id]",
+            "superhero.id": "COLUMN:[superhero].[id]"
         }
     },
     {
@@ -2507,7 +2510,7 @@
             "region names": "COLUMN:[district].[a3]",
             "transaction": "TABLE:[trans]",
             "accounts": "TABLE:[account]",
-            "region": "TABLE:[district]",
+            "region": "COLUMN:[district].[a3]",
             "A3": "COLUMN:[district].[a3]"
         }
     },
@@ -2594,6 +2597,7 @@
             "born": "COLUMN:[client].[birth_date]",
             "female": "COLUMN:[client].[gender]",
             "A2": "COLUMN:[district].[a2]",
+            "names": "COLUMN:[district].[a2]",
             "gender": "COLUMN:[client].[gender]"
         }
     },
@@ -2629,8 +2633,7 @@
         "gold_schema_links": {
             "matches": "TABLE:[match]",
             "season": "COLUMN:[match].[season]",
-            "name": "COLUMN:[league].[name]",
-            "League": "TABLE:[league]"
+            "league.name": "COLUMN:[league].[name]"
         }
     },
     {
@@ -2663,7 +2666,7 @@
             "eye colour": "COLUMN:[superhero].[eye_colour_id]",
             "colour": "COLUMN:[colour].[colour]",
             "eye_colour_id": "COLUMN:[superhero].[eye_colour_id]",
-            "id": "COLUMN:[colour].[id]",
+            "colour.id": "COLUMN:[colour].[id]",
             "superhero_name": "COLUMN:[superhero].[superhero_name]"
         }
     },
@@ -2714,13 +2717,13 @@
             "Abraham Sapien": "[superhero].[full_name]"
         },
         "gold_schema_links": {
-            "eyes": "COLUMN:[superhero].[eye_colour_id]",
+            "eyes colour": "COLUMN:[superhero].[eye_colour_id]",
             "colour.colour": "COLUMN:[colour].[colour]",
             "eye_colour_id": "COLUMN:[superhero].[eye_colour_id]",
             "colour.id": "COLUMN:[colour].[id]",
             "full name": "COLUMN:[superhero].[full_name]",
             "superhero": "TABLE:[superhero]",
-            "eye": "COLUMN:[superhero].[eye_colour_id]",
+            "eye colour": "COLUMN:[superhero].[eye_colour_id]",
             "colour": "COLUMN:[colour].[colour]"
         }
     },
@@ -2755,7 +2758,7 @@
         },
         "gold_schema_links": {
             "id number": "COLUMN:[disp].[client_id]",
-            "client": "COLUMN:[disp].[client_id]",
+            "client": "TABLE:[client]",
             "statement of issuance": "COLUMN:[account].[frequency]",
             "transaction": "COLUMN:[account].[frequency]",
             "issuance": "COLUMN:[disp].[type]"
@@ -2813,7 +2816,7 @@
             "female": "COLUMN:[client].[gender]",
             "branch": "COLUMN:[district].[a2]",
             "region names": "COLUMN:[district].[a2]",
-            "accounts": "COLUMN:[client].[client_id]",
+            "accounts": "TABLE:[client]",
             "clients": "TABLE:[client]",
             "gender": "COLUMN:[client].[gender]",
             "opened": "TABLE:[client]",
@@ -2913,7 +2916,7 @@
         "gold_schema_links": {
             "strength": "COLUMN:[player_attributes].[strength]",
             "stamina": "COLUMN:[player_attributes].[stamina]",
-            "players": "TABLE:[player_attributes]",
+            "players": "TABLE:[player]",
             "score": "COLUMN:[player_attributes].[id]"
         }
     },
@@ -3209,7 +3212,7 @@
         "query": "SELECT T2.gender FROM district AS T1 INNER JOIN client AS T2 ON T1.district_id = T2.district_id ORDER BY T1.A11 DESC, T2.birth_date ASC LIMIT 1",
         "gold_value_links": {},
         "gold_schema_links": {
-            "salary": "COLUMN:[district].[a11]",
+            "average salary": "COLUMN:[district].[a11]",
             "client": "TABLE:[client]",
             "birthdate": "COLUMN:[client].[birth_date]",
             "oldest": "COLUMN:[client].[birth_date]",
@@ -3306,7 +3309,7 @@
         "gold_value_links": {},
         "gold_schema_links": {
             "districts": "TABLE:[district]",
-            "district name": "COLUMN:[district].[district_id]",
+            "name": "COLUMN:[district].[a2]",
             "branch location": "COLUMN:[district].[a2]",
             "unemployment rate": "COLUMN:[district].[a13]",
             "unemploymant rate in 1996": "COLUMN:[district].[a13]",
@@ -3347,7 +3350,7 @@
             "North Bohemia": "[district].[a3]"
         },
         "gold_schema_links": {
-            "salary": "COLUMN:[district].[a11]",
+            "average salary": "COLUMN:[district].[a11]",
             "customers": "TABLE:[client]",
             "gender": "COLUMN:[client].[gender]",
             "living": "COLUMN:[district].[a3]",
@@ -3427,7 +3430,7 @@
         "gold_schema_links": {
             "superhero_name": "COLUMN:[superhero].[superhero_name]",
             "superhero": "TABLE:[superhero]",
-            "powers": "TABLE:[hero_power]",
+            "powers": "TABLE:[superpower]",
             "name": "COLUMN:[superhero].[superhero_name]"
         }
     },
@@ -3495,7 +3498,7 @@
         "gold_schema_links": {
             "preferred foot when attacking": "COLUMN:[player_attributes].[preferred_foot]",
             "potential": "COLUMN:[player_attributes].[potential]",
-            "player": "TABLE:[player_attributes]",
+            "player": "TABLE:[player]",
             "preferred_foot": "COLUMN:[player_attributes].[preferred_foot]"
         }
     },
@@ -3515,7 +3518,7 @@
             "superhero": "TABLE:[superhero]",
             "skin_colour_id": "COLUMN:[superhero].[skin_colour_id]",
             "colour.id": "COLUMN:[colour].[id]",
-            "id": "COLUMN:[colour].[id]"
+            "superhero.id": "COLUMN:[superhero].[id]"
         }
     },
     {
@@ -3536,7 +3539,7 @@
             "symptom": "COLUMN:[examination].[symptoms]",
             "patient": "TABLE:[patient]",
             "Examination Date": "COLUMN:[examination].[examination date]",
-            "patient ID": "COLUMN:[patient].[id]"
+            "ID": "COLUMN:[patient].[id]"
         }
     },
     {
@@ -3637,12 +3640,15 @@
         "evidence_added": true,
         "query": "SELECT DISTINCT t1.buildUpPlaySpeedClass FROM Team_Attributes AS t1 INNER JOIN Team AS t2 ON t1.team_api_id = t2.team_api_id WHERE t2.team_long_name = 'KSV Cercle Brugge'",
         "gold_value_links": {
-            "KSV Cercle Brugge": "[team].[team_long_name]"
+            "KSV Cercle Brugge": "[team].[team_long_name]",
+            "slow": "[team_attributes].[buildupplayspeedclass]",
+            "balanced": "[team_attributes].[buildupplayspeedclass]",
+            "fast": "[team_attributes].[buildupplayspeedclass]"
         },
         "gold_schema_links": {
             "buildUpPlaySpeedClass": "COLUMN:[team_attributes].[buildupplayspeedclass]",
             "team_long_name": "COLUMN:[team].[team_long_name]",
-            "slow, balanced or fast speed class": "COLUMN:[team_attributes].[buildupplayspeedclass]",
+            "speed class": "COLUMN:[team_attributes].[buildupplayspeedclass]",
             "team": "TABLE:[team]"
         }
     },
@@ -3717,10 +3723,10 @@
             "eye_colour_id": "COLUMN:[superhero].[eye_colour_id]",
             "superheroes": "TABLE:[superhero]",
             "full names": "COLUMN:[superhero].[superhero_name]",
-            "colour": "COLUMN:[colour].[colour]",
+            "colour.colour": "COLUMN:[colour].[colour]",
             "eyes": "COLUMN:[superhero].[eye_colour_id]",
             "name": "COLUMN:[superhero].[superhero_name]",
-            "id": "COLUMN:[colour].[id]"
+            "colour.id": "COLUMN:[colour].[id]"
         }
     },
     {
@@ -3737,7 +3743,7 @@
             "names": "COLUMN:[superhero].[superhero_name]",
             "superheroes": "TABLE:[superhero]",
             "power": "COLUMN:[superpower].[power_name]",
-            "name of superheroes": "COLUMN:[superhero].[superhero_name]",
+            "name": "COLUMN:[superhero].[superhero_name]",
             "superhero_name": "COLUMN:[superhero].[superhero_name]",
             "power_name": "COLUMN:[superpower].[power_name]"
         }
@@ -4188,7 +4194,9 @@
             "account opened": "TABLE:[account]",
             "gender": "COLUMN:[client].[gender]",
             "female": "COLUMN:[client].[gender]",
-            "Names of districts": "COLUMN:[district].[a2]"
+            "Names": "COLUMN:[district].[a2]",
+            "districts": "TABLE:[district]",
+            "stayed": "COLUMN:[district].[a2]"
         }
     },
     {
@@ -4283,20 +4291,19 @@
             "color": "COLUMN:[colour].[colour]",
             "color.id": "COLUMN:[colour].[id]",
             "eye_colour_id": "COLUMN:[superhero].[eye_colour_id]",
-            "id": "COLUMN:[colour].[id]"
+            "id": "COLUMN:[superhero].[id]"
         }
     },
     {
         "idx": "bird_1121",
         "db_id": "european_football_2",
-        "question": "Calculate the total home team goal scored by players whose age are 30 years old and below. age are 30 years old and below refers to SUBTRACT(datetime(CURRENT_TIMESTAMP,'localtime'), datetime(birthday) < 31)",
-        "evidence": "age are 30 years old and below refers to SUBTRACT(datetime(CURRENT_TIMESTAMP,'localtime'), datetime(birthday) < 31)",
+        "question": "Calculate the total home team goal scored by players whose age are 30 years old and below. age are 30 years old and below refers to SUBTRACT(datetime('2026-03-10','localtime'), datetime(birthday) < 31)",
+        "evidence": "age are 30 years old and below refers to SUBTRACT(datetime('2026-03-10','localtime'), datetime(birthday) < 31)",
         "evidence_added": true,
-        "query": "SELECT SUM(t2.home_team_goal) FROM Player AS t1 INNER JOIN match AS t2 ON t1.player_api_id = t2.away_player_1 WHERE datetime(CURRENT_TIMESTAMP, 'localtime') - datetime(T1.birthday) < 31",
+        "query": "SELECT SUM(t2.home_team_goal) FROM Player AS t1 INNER JOIN match AS t2 ON t1.player_api_id = t2.away_player_1 WHERE datetime('2026-03-10', 'localtime') - datetime(T1.birthday) < 31",
         "gold_value_links": {
             "31": "[player].[birthday]",
-            "30": "[player].[birthday]",
-            "localtime": "[player].[birthday]"
+            "30": "[player].[birthday]"
         },
         "gold_schema_links": {
             "home team goal": "COLUMN:[match].[home_team_goal]",
@@ -4376,8 +4383,9 @@
             "examination date": "COLUMN:[laboratory].[date]",
             "albumin": "COLUMN:[laboratory].[alb]",
             "in the normal range": "COLUMN:[laboratory].[alb]",
-            "patient": "TABLE:[laboratory]",
-            "alb": "COLUMN:[laboratory].[alb]"
+            "patient": "TABLE:[patient]",
+            "alb": "COLUMN:[laboratory].[alb]",
+            "Date": "COLUMN:[laboratory].[date]"
         }
     },
     {
@@ -4389,17 +4397,18 @@
         "query": "SELECT DISTINCT T3.colour FROM superhero AS T1 INNER JOIN race AS T2 ON T1.race_id = T2.id INNER JOIN colour AS T3 ON T1.hair_colour_id = T3.id WHERE T1.height_cm = 185 AND T2.race = 'Human'",
         "gold_value_links": {
             "185": "[superhero].[height_cm]",
+            "185 cm": "[superhero].[height_cm]",
             "human": "[race].[race]"
         },
         "gold_schema_links": {
-            "superhero": "COLUMN:[race].[race]",
+            "superhero": "TABLE:[superhero]",
             "hair_colour_id": "COLUMN:[superhero].[hair_colour_id]",
             "hair colour": "COLUMN:[colour].[colour]",
             "tall": "COLUMN:[superhero].[height_cm]",
             "height_cm": "COLUMN:[superhero].[height_cm]",
             "colour": "COLUMN:[colour].[colour]",
-            "race": "TABLE:[race]",
-            "id": "COLUMN:[colour].[id]"
+            "race": "COLUMN:[race].[race]",
+            "colour.id": "COLUMN:[colour].[id]"
         }
     },
     {
@@ -4498,7 +4507,6 @@
             "attack moves": "COLUMN:[player_attributes].[attacking_work_rate]",
             "tend to be attacking when their mates were doing attack moves": "COLUMN:[player_attributes].[attacking_work_rate]",
             "players": "TABLE:[player]",
-            "mates": "TABLE:[player]",
             "name": "COLUMN:[player].[player_name]"
         }
     },
@@ -4534,7 +4542,7 @@
             "F": "[client].[gender]"
         },
         "gold_schema_links": {
-            "salary": "COLUMN:[district].[a11]",
+            "average salary": "COLUMN:[district].[a11]",
             "district": "TABLE:[district]",
             "accounts": "COLUMN:[client].[client_id]",
             "clients": "TABLE:[client]",
@@ -4606,7 +4614,6 @@
             "id": "COLUMN:[player].[id]",
             "birthday": "COLUMN:[player].[birthday]",
             "year": "COLUMN:[player].[birthday]",
-            "before": "COLUMN:[player].[birthday]",
             "overall_rating": "COLUMN:[player_attributes].[overall_rating]"
         }
     },
@@ -4726,7 +4733,7 @@
             "9.0": "[laboratory].[wbc]"
         },
         "gold_schema_links": {
-            "patient ID": "COLUMN:[patient].[id]",
+            "ID": "COLUMN:[patient].[id]",
             "sex": "COLUMN:[patient].[sex]",
             "birthday": "COLUMN:[patient].[birthday]",
             "abnormal white blood cell count": "COLUMN:[laboratory].[wbc]",
@@ -4772,7 +4779,7 @@
             "heroes": "TABLE:[superhero]",
             "eyes": "COLUMN:[superhero].[eye_colour_id]",
             "hair colours": "COLUMN:[superhero].[hair_colour_id]",
-            "colour": "COLUMN:[colour].[colour]",
+            "colour.colour": "COLUMN:[colour].[colour]",
             "superhero_name": "COLUMN:[superhero].[superhero_name]",
             "eye_colour_id": "COLUMN:[superhero].[eye_colour_id]",
             "hair_colour_id": "COLUMN:[superhero].[hair_colour_id]"
@@ -4807,6 +4814,7 @@
         "query": "SELECT T1.account_id FROM loan AS T1 INNER JOIN account AS T2 ON T1.account_id = T2.account_id WHERE STRFTIME('%Y', T2.date) = '1993' AND T1.duration > 12 ORDER BY T1.amount DESC LIMIT 1",
         "gold_value_links": {
             "12 months": "[loan].[duration]",
+            "12": "[loan].[duration]",
             "1993": "[account].[date]"
         },
         "gold_schema_links": {
@@ -4832,7 +4840,7 @@
             "superhero_name": "COLUMN:[superhero].[superhero_name]",
             "publisher_name": "COLUMN:[publisher].[publisher_name]",
             "hero": "TABLE:[superhero]",
-            "published": "COLUMN:[publisher].[publisher_name]",
+            "published": "TABLE:[publisher]",
             "height_cm": "COLUMN:[superhero].[height_cm]",
             "heroes": "TABLE:[superhero]",
             "height": "COLUMN:[superhero].[height_cm]",
@@ -4977,7 +4985,6 @@
             "abnormal fibrinogen level": "COLUMN:[laboratory].[fg]",
             "normal fibrinogen level": "COLUMN:[laboratory].[fg]",
             "patients": "TABLE:[patient]",
-            "number": "COLUMN:[patient].[id]",
             "Birthday": "COLUMN:[patient].[birthday]",
             "FG": "COLUMN:[laboratory].[fg]"
         }
@@ -5007,7 +5014,6 @@
         "evidence_added": true,
         "query": "SELECT t1.buildUpPlaySpeed FROM Team_Attributes AS t1 INNER JOIN Team AS t2 ON t1.team_api_id = t2.team_api_id ORDER BY t1.buildUpPlaySpeed ASC LIMIT 4",
         "gold_value_links": {
-            "4": "[team_attributes].[buildupplayspeed]"
         },
         "gold_schema_links": {
             "teams": "TABLE:[team]",
@@ -5068,16 +5074,17 @@
             "younger": "COLUMN:[patient].[birthday]",
             "symptoms observed": "COLUMN:[examination].[symptoms]",
             "patient": "TABLE:[patient]",
-            "person": "TABLE:[patient]"
+            "person": "TABLE:[patient]",
+            "symptoms": "COLUMN:[examination].[symptoms]"
         }
     },
     {
         "idx": "bird_1235",
         "db_id": "thrombosis_prediction",
-        "question": "What are the patient's diagnosis for those who has lower red blood blood cell? State their ID and age. patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year(current_timestamp), year(Birthday)); ",
-        "evidence": "patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year(current_timestamp), year(Birthday)); ",
+        "question": "What are the patient's diagnosis for those who has lower red blood blood cell? State their ID and age. patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year('2026-03-11'), year(Birthday));",
+        "evidence": "patient's diagnosis refers to Diagnosis; lower red blood cell refers to RBC < 3.5; age = SUBTRACT(year('2026-03-11'), year(Birthday)); ",
         "evidence_added": true,
-        "query": "SELECT DISTINCT T1.Diagnosis, T1.ID , STRFTIME('%Y', CURRENT_TIMESTAMP) -STRFTIME('%Y', T1.Birthday) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.RBC < 3.5",
+        "query": "SELECT DISTINCT T1.Diagnosis, T1.ID , STRFTIME('%Y', '2026-03-11') -STRFTIME('%Y', T1.Birthday) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.RBC < 3.5",
         "gold_value_links": {
             "3.5": "[laboratory].[rbc]"
         },
@@ -5107,7 +5114,6 @@
         "gold_schema_links": {
             "diagnosed": "COLUMN:[patient].[diagnosis]",
             "born": "COLUMN:[patient].[birthday]",
-            "calculation": "COLUMN:[patient].[sex]",
             "patients": "TABLE:[patient]",
             "women": "COLUMN:[patient].[sex]",
             "Diagnosis": "COLUMN:[patient].[diagnosis]",
@@ -5123,7 +5129,6 @@
         "evidence_added": true,
         "query": "SELECT T3.power_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T2.power_id = T3.id WHERE T1.height_cm * 100 > ( SELECT AVG(height_cm) FROM superhero ) * 80",
         "gold_value_links": {
-            "80%": "[superhero].[height_cm]"
         },
         "gold_schema_links": {
             "power": "TABLE:[superpower]",
@@ -5146,7 +5151,7 @@
         "gold_schema_links": {
             "index of the lactate dehydrogenase (LDH)": "COLUMN:[laboratory].[ldh]",
             "lactate dehydrogenase (LDH) within the normal range": "COLUMN:[laboratory].[ldh]",
-            "patients": "TABLE:[laboratory]",
+            "patients": "TABLE:[patient]",
             "(LDH) within the normal range": "COLUMN:[laboratory].[ldh]",
             "LDH": "COLUMN:[laboratory].[ldh]"
         }
@@ -5184,11 +5189,12 @@
             "names": "COLUMN:[district].[a3]",
             "accounts": "TABLE:[account]",
             "regions": "TABLE:[district]",
+            "region": "TABLE:[district]",
             "opened": "COLUMN:[account].[date]",
             "year": "COLUMN:[account].[date]",
-            "region": "TABLE:[district]",
             "A15": "COLUMN:[district].[a15]",
             "A3": "COLUMN:[district].[a3]",
+            "region names": "COLUMN:[district].[a3]",
             "average number of crimes committed in 1995": "COLUMN:[district].[a15]"
         }
     },
@@ -5209,10 +5215,10 @@
         "gold_schema_links": {
             "diagnosis": "COLUMN:[examination].[diagnosis]",
             "diagnosed": "COLUMN:[examination].[diagnosis]",
-            "patients": "TABLE:[examination]",
+            "patients": "TABLE:[patient]",
             "exams": "TABLE:[examination]",
             "exam": "TABLE:[examination]",
-            "ID": "COLUMN:[examination].[id]"
+            "ID": "COLUMN:[patient].[id]"
         }
     },
     {
@@ -5232,7 +5238,7 @@
             "preferred_foot": "COLUMN:[player_attributes].[preferred_foot]",
             "preferred to use their left foot while attacking": "COLUMN:[player_attributes].[preferred_foot]",
             "crossing": "COLUMN:[player_attributes].[crossing]",
-            "players": "TABLE:[player_attributes]"
+            "players": "TABLE:[player]"
         }
     },
     {
@@ -5251,8 +5257,8 @@
             "SEX": "COLUMN:[patient].[sex]",
             "patient": "TABLE:[patient]",
             "born": "COLUMN:[patient].[birthday]",
-            "year": "COLUMN:[patient].[birthday]",
-            "birthday": "COLUMN:[patient].[birthday]"
+            "birthday": "COLUMN:[patient].[birthday]",
+            "ID": "COLUMN:[patient].[id]"
         }
     },
     {
@@ -5263,9 +5269,7 @@
         "evidence_added": true,
         "query": "SELECT T1.superhero_name FROM superhero AS T1 INNER JOIN gender AS T2 ON T1.gender_id = T2.id WHERE T2.gender = 'Male' AND T1.weight_kg * 100 > ( SELECT AVG(weight_kg) FROM superhero ) * 79",
         "gold_value_links": {
-            "Male": "[gender].[gender]",
-            "79%": "[superhero].[weight_kg]",
-            "0.79": "[superhero].[weight_kg]"
+            "Male": "[gender].[gender]"
         },
         "gold_schema_links": {
             "names": "COLUMN:[superhero].[superhero_name]",
@@ -5331,7 +5335,7 @@
         },
         "gold_schema_links": {
             "overall rating": "COLUMN:[player_attributes].[overall_rating]",
-            "in all of your attack moves instead of defensing": "COLUMN:[player_attributes].[defensive_work_rate]",
+            "going to be in all of your attack moves instead of defensing": "COLUMN:[player_attributes].[defensive_work_rate]",
             "players": "TABLE:[player_attributes]",
             "overall_rating": "COLUMN:[player_attributes].[overall_rating]",
             "defensive_work_rate": "COLUMN:[player_attributes].[defensive_work_rate]"
@@ -5391,7 +5395,7 @@
             "low": "[player_attributes].[attacking_work_rate]"
         },
         "gold_schema_links": {
-            "players": "TABLE:[player_attributes]",
+            "players": "TABLE:[player]",
             "preferred foot": "COLUMN:[player_attributes].[preferred_foot]",
             "foot": "COLUMN:[player_attributes].[preferred_foot]",
             "attacking": "COLUMN:[player_attributes].[attacking_work_rate]",
@@ -5419,7 +5423,7 @@
             "published": "TABLE:[publisher]",
             "publisher": "TABLE:[publisher]",
             "publisher_name": "COLUMN:[publisher].[publisher_name]",
-            "id": "COLUMN:[publisher].[id]",
+            "publisher.id": "COLUMN:[publisher].[id]",
             "height_cm": "COLUMN:[superhero].[height_cm]"
         }
     },
@@ -5473,8 +5477,7 @@
             "away_team_goal": "COLUMN:[match].[away_team_goal]",
             "match": "TABLE:[match]",
             "date": "COLUMN:[match].[date]",
-            "name": "COLUMN:[league].[name]",
-            "League": "TABLE:[league]"
+            "League.name": "COLUMN:[league].[name]"
         }
     },
     {
